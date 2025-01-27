@@ -1,0 +1,41 @@
+% Første linje er dokumentklassen. Brug *altid* memoir!
+\documentclass[a4paper,oneside,article]{memoir}
+
+% Herunder indlæses forskellige pakker
+\usepackage[utf8]{inputenc}  % Korrekt håndtering af æ, ø og å
+\usepackage[T1]{fontenc}  % Korrekt håndtering af æ, ø og å
+\usepackage{microtype}  % Typografisk magi! Giver bl.a. pænere orddeling
+\usepackage{graphicx}  % Gør det muligt at indsætte billeder
+\usepackage{amsmath}  % Giver adgang til uundværlige matematikting
+\usepackage{mathtools}  % Retter ting i ams og giver ekstra muligheder
+\usepackage[danish]{babel}  % Danske betegnelser og orddeling
+\renewcommand{\danishhyphenmins}{22}  % Bedre dansk orddeling
+\usepackage[exponent-product=\ensuremath{\cdot}]{siunitx} % Sientific notation for forskellige ting, med en regel om at den skal bruge cdot istedet for times. 
+\usepackage{derivative} % Til at skrive differentialligninger 
+\usepackage{xcolor} % For at få flere tekst farver 
+\usepackage[colorlinks=true, urlcolor=blue]{hyperref} % For at få refrences man kan trykke på, slet [] hvis man vil have kasser i stedet for farvet tekst. 
+
+
+% Indholdet i dit dokument starter her!
+\begin{document}
+\author{Mikkel Moth Billing \\ AU737195}
+\title{Title}
+\date{\today}
+\maketitle   % Indsætter overskriften
+\hypersetup{linkcolor=black} % Laver tableofcontents sort.  
+\tableofcontents*
+\hypersetup{linkcolor=red} % og så alle andre hyperrefs røde. 
+
+% Lav ny pagestyle (kun odd fordi enkeltsidet)
+\makepagestyle{Title}
+\pagestyle{Title}
+\makeoddhead{Title}{\color{lightgray}{\theauthor}}{}{\textcolor{lightgray}{\thedate}}
+\makeoddfoot{Title}{}{\color{lightgray}{\thepage{} / \thelastpage}}{}
+% Også fod på siden med \maketitle
+\makeoddfoot{plain}{}{\color{lightgray}{\thepage{} / \thelastpage}}{}
+\newpage
+
+%Skriv
+
+
+\end{document} % ----------Dokumentet er nu slut! ------------

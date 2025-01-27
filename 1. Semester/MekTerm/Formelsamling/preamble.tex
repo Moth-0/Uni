@@ -1,0 +1,1032 @@
+% Første linje er dokumentklassen. Brug *altid* memoir!
+\documentclass[a4paper,oneside,article]{memoir}
+
+% Herunder indlæses forskellige pakker
+\usepackage[utf8]{inputenc}  % Korrekt håndtering af æ, ø og å
+\usepackage[T1]{fontenc}  % Korrekt håndtering af æ, ø og å
+\usepackage{microtype}  % Typografisk magi! Giver bl.a. pænere orddeling
+\usepackage{graphicx}  % Gør det muligt at indsætte billeder
+\usepackage{amsmath}  % Giver adgang til uundværlige matematikting
+\usepackage{mathtools}  % Retter ting i ams og giver ekstra muligheder
+\usepackage[danish]{babel}  % Danske betegnelser og orddeling
+\usepackage{float} %Mere kontrol over billede-placering
+\renewcommand{\danishhyphenmins}{22}  % Bedre dansk orddeling
+\usepackage[exponent-product=\ensuremath{\cdot}]{siunitx} % Sientific notation for forskellige ting, med en regel om at den skal bruge cdot istedet for times. 
+\usepackage{derivative} % Til at skrive differentialligninger 
+\usepackage{xcolor} % For at få flere tekst farver 
+\usepackage[colorlinks=true,pdftex]{hyperref} % For at få refrences man kan trykke på, slet [] hvis man vil have kasser i stedet for farvet tekst.
+\usepackage{pdfpages} % Til at indsætte andre pdf'er
+\usepackage{lmodern} % Så man kan compile i TeXworks
+
+% Pænere toc indents 
+\usepackage{tocloft}
+\cftsetindents{section}{1em}{2em}
+\cftsetindents{subsection}{4em}{0em}
+
+
+% Indholdet i dit dokument starter her!
+\begin{document}
+\author{Mikkel Moth Billing \\ 202307989}
+\title{Mekanik og Termodynamik}
+\date{\today}
+\maketitle   % Indsætter overskriften
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{1}
+\hypersetup{linkcolor=black} % Laver tableofcontents sort.  
+\tableofcontents
+\hypersetup{linkcolor=red} % og så alle andre hyperrefs røde. 
+
+%Custom Commands
+\newcommand{\opg}[1]{\textcolor{gray}{\emph{#1}}\plainbreak{1}} %Til opgavebeskrivelser
+\newcommand{\ti}[1]{\cdot 10^{#1}} % Let: gange 10^x
+\newcommand{\e}[1]{\emph{e}^{#1}} % Pænere e^x
+% Lette paranteser 
+\newcommand{\br}[2][1]{%
+    \ifcase#1
+    \or \left( #2 \right) %1 eller ingenting
+    \or \left[ #2 \right] %2
+    \or \left\langle #2 \right\rangle %3
+    \or \left\{ #2 \right\} %4
+    \or \left| #2 \right| %5
+    \fi
+}
+\newcommand{\bil}[1]{
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Billeder/#1.png}
+    \label{fig:#1}
+\end{figure}
+}
+
+\newcommand{\pdf}[3]{
+\includepdf[pages=1,scale=.75,pagecommand={\subsection{#2} \ref{#3} \label{asc:#2}}]{Eksamensopgaver/#1.pdf}
+\includepdf[pages=2-, scale=.75]{Eksamensopgaver/#1.pdf}
+}
+
+% Lav ny pagestyle (kun odd fordi enkeltsidet)
+\makepagestyle{Title}
+\pagestyle{Title}
+\makeoddhead{Title}{}{}{\color{gray}{\theauthor}}
+\makeoddfoot{Title}{}{\color{gray}{\thepage{} / \thelastpage}}{}
+% Også fod på siden med \maketitle
+\makeoddfoot{plain}{}{\color{gray}{\thepage{} / \thelastpage}}{}
+\newpage
+
+%Skriv
+\chapter{Mekanik} \label{ch:mekanik}
+\section{Bevægelse 1D}
+Bevægelse langs en linje har vi bevægelses ligningerne: 
+\begin{align*}
+    x &= x_0+v_{0x}t+\frac{1}{2}a_xt^2 \\
+    v_x &=\frac{dx}{dt}=v_{0x}+a_x \\
+    a_x &= \frac{dv}{dt}
+\end{align*}
+Andre regneregler for konstant hastighed: 
+\begin{align*}
+    v_{av-x}=\frac{x_2-x_1}{t_2-t_1}
+\end{align*}
+Andre regneregler for konstant acceleration: 
+\begin{align*}
+    v_x^2 &= v_{0x}^2+2a\br{x-x_0} \\
+    x-x_0 &= \frac{1}{2}\br{v_{0x}+vx}t
+\end{align*}
+Bevægelse i en linje med varierende acceleration: 
+\begin{align*}
+    v_x &= v_{0x}+\int_0^ta_xdt \\
+    x &= x_0 + \int_0^tv_xdt
+\end{align*}
+\hyperref[asc:Maj 2020 opg 2]{Maj 2020 opg 2}
+
+\section{Bevægelse i 2D}
+Det samme gælder som i 1D, hvor alt så kan betegnes af vektorer hvor komposanterne regnes som de gøres i 1D
+\begin{align*}
+    \Vec{r} &= x\Vec{i}+y\Vec{j}+z\Vec{k} \\
+    \Vec{v} &= \frac{d\Vec{r}}{dt} \\
+    \Vec{a} &= \frac{d\Vec{v}}{dt}
+\end{align*}
+
+\subsection{Cirkelbevægelse}
+Når en partikel bevæger sig i en jævn cirkelbevægelse med radius R, det vil sige med konstant fart. Så vil $\Vec{a}$ være indadrettet, vinkelret på $\Vec{v}$. Størrelsen regnes som: 
+\begin{align*}
+    a_{rad} &= \frac{v^2}{R} \\
+    &= \frac{4\pi^2R}{T^2}
+\end{align*}
+\hyperref[asc:Jan 2018 opg 2]{Jan 2018 opg 2}, \hyperref[asc:Jan 2019 opg 1]{Jan 2019 opg 1}
+
+\subsection{Skråt kast} \label{ssc:skråtkast}
+\begin{align*}
+    y_{max}: \frac{dy}{dx}=0 \\
+    \Rightarrow y_{max} = \frac{\sin^2\alpha_0v_0^2}{2g}
+\end{align*}
+\hyperref[fig:Skråtkast1]{Forlæsning noter}
+
+\subsection{Mekanik 3D} \label{ssc:mekanik3d}
+\hyperref[fig:Mekanik3D1]{Forlæsning noter}
+
+\section{Kræfter}
+\subsection{Newton's love}
+1. Hvis $\sum\Vec{F_i}=\Vec{0}$ sår er hastigheden $\Vec{v}$ konstant. 
+
+(Hvis både $\Vec{F}=0$ og $\Vec{\tau}=0$ så er systemet statisk eller i "Equilibrium")
+\plainbreak{1}
+2. Summen af alle kræfter på et objekt er afhængig af objektets masse og acceleration. 
+\begin{align*}
+    \sum\Vec{F_i}=m\Vec{a}
+\end{align*}
+Den totale kraft, er altså summen af alle kræfterne, og ikke en kraft i sig selv, så den skal ikke tegnes på et kraftdiagram. 
+\plainbreak{1}
+3. Aktion og reaktion: Et legeme A der påvirker B med den kraft $\Vec{F}_{AB}$, så vil B påvirke A med kraften $\Vec{F}_{BA}$. Hvor $F_{BA}=F_{AB}$
+
+\subsection{Vægt og Normalkraft} \label{scc:vægt} \label{scc:normalkraft}
+Vægt er den kraft som tyngdekraften påvirker et objekt med: \[w=mg,\] hvor $g$ er tyngdeaccelreationen $9,82 \frac{m}{s^2}$
+\plainbreak{1}
+Hvis et objekt står på en overflade med en konstant hastighed, ved vi at den resulterende kraft skal være 0. Det er fladen der skubber igen på objektets vægt. Denne kraft kaldes normalkraften. Den er i de fleste tilfælde lig y-komposanten af vægten. 
+\bil{normalkraft}
+
+\subsection{Tyngdekraft}
+\[F = G\frac{m_1m_2}{r^2},\]
+$G=6,674\ti{-11}\text{N}\frac{\text{m}^2}{\text{kg}^2}$
+
+\subsection{Snorkraft}
+En snor der er i hvile og vægtløs, er snorspændingen den samme over hele snoren. 
+\bil{Snorkraft1}
+\bil{LodPåSnor}
+\plainbreak{1}
+Hvis man har en snor med masse der hænger lodret ned fra loftet, så stiger snorspændingen op ad snoren. 
+\plainbreak{1}
+\hyperref[asc:Jan 2020 opg 2]{Jan 2020 opg 2}
+
+\subsection{Fjederkraft} \label{ssc:fjederkraft}
+Funktionen af kraften fra en fjeder beskrives ved: \[F=-kx.\] 
+Mere om fjedres bevægelse i \hyperref[sc:SHB]{Simpel harmonisk bevægelse}
+
+\hyperref[asc:Maj 2021 opg 3]{Maj 2021 opg 3}, \hyperref[asc:Jan 2022 opg 4]{Jan 2022 opg 4}
+
+\subsection{Gnidningskraft} \label{scc:gnidning}
+Gnidningskraften, er en kraft der altid er vinkelret på et objekts \hyperref[scc:normalkraft]{normalkraft}. Den virker hvor objektet rører fladen. Gnidningskraften regnes som en gnidningskonstant gange normalkraften. Denne gnidningskonstant er mindre når objektet er i bevægelse. 
+\begin{align*}
+    \mu_k < \mu_s
+    f_k = \mu_kn
+    f_s = \mu_sn
+\end{align*}
+Hvis man påvirker et objekt med en kraft, vil man på et tidspunkt påvirke den med \[F=f_s^{max}=\mu_sn,\] og så vil objektet begynde at bevæge sig, hvorefter gnidningskraften falder til $f_k$. 
+\bil{gnidningskraft1}
+\hyperref[asc:Maj 2023 opg 3]{Maj 2023 opg 3}
+
+\newpage
+\section{Arbejde og Kinetisk energi}
+\subsection{Arbejde} \label{scc:Arbejde}
+Arbejde er krafts påvirkning over en strækning: \[W = \Vec{F}\cdot \Vec{s},\] det er prikproduktet mellem de to vektorer. 
+\[W = Fs\cos{\phi}\]
+
+\subsubsection{Arbejde med varierende kraft}
+1D:
+\begin{align*}
+    W = \int_{x_1}^{x_2}F_xdx
+\end{align*}
+2D
+\begin{align*}
+    W &= \int_{p_1}^{p_2}\Vec{F}\cdot d\Vec{l} \\
+    &= \int_{p_1}^{p_2}F\cos{\phi} dl
+\end{align*}
+
+\subsection{Kinetisk energi} \label{scc:kinetiskenergi}
+Kinetisk energi er af en partikel er, er det arbejde det tager at accelerere partiklen fra hvile til hastighed $v$. 
+\begin{align*}
+    K = \frac{1}{2} mv^2
+\end{align*}
+\plainbreak{1}
+
+\subsubsection{Work energy theorem} \label{workenergy}
+Når en partikel ændre sin kinetiske energi, er ændringen lig det totale arbejde: \[W_\text{tot}=K_2-K_1=\Delta K.\]
+\plainbreak{1}
+
+\subsection{Effekt} \label{krafteffekt}
+\begin{align*}
+    P &= \frac{dW}{dt} \\
+    &= \Vec{F}\cdot \Vec{v}
+\end{align*}
+
+\newpage
+\section{Potentiel energi} \label{potentielenergi}
+\begin{align*}
+    F = \frac{dU}{dx}
+\end{align*}
+\subsection{Tyngdekraft}
+\begin{align*}
+    U = mgy \\
+    U = -G\frac{m_1m_2}{r}
+\end{align*}
+\hyperref[asc:Maj 2018 opg 5]{Maj 2018 opg 5}, \hyperref[asc:Jan 2019 opg 2]{Jan 2019 opg 2}
+
+\subsection{Fjederkraft}
+\begin{align*}
+    U = \frac{1}{2}kx^2
+\end{align*}
+\hyperref[asc:Jan 2022 opg 4]{Jan 2022 opg 4}
+
+\section{Energi} \label{sc:energi}
+Mekanisk energi: \[E = K + U.\]
+For konservative kræfter er der energibevarelse: \[E_1=E_2.\]
+\hyperref[fig:mekaniskenergi1]{Forlæsning noter} om mekanisk energi, og en kurve for potentiel energi. 
+
+For ikke konservative kræfter som gnidningskraften, er der ikke energibevarelse, der gælder i stedet: \[K_1+U_1+W_1=K_2+U_2,\] hvor $W_1$ er arbejdet som kraften udfører. 
+
+\section{Impuls og kraftens impuls} \label{sc:impuls} 
+Impuls er $\Vec{p}$ (på engelsk momentum), og $d\Vec{p}$ er kraftens impuls (engelsk impulse) 
+\begin{align*}
+    \Vec{p} = m\Vec{v} \\
+    \sum \Vec{F}_i &= \frac{d\Vec{p}}{dt} \\
+    \Rightarrow d\Vec{p} &= \sum \Vec{F}_idt
+\end{align*}
+\subsection{Impulsbevarelse} \label{scc:impulsbevarelse}
+Hvis der ikke er nogle ydre kræfter der påvirker et system, er der impulsbevarelse. 
+\begin{align*}
+    \Vec{P}=\sum\Vec{p}_i \\
+    \Delta \Vec{P}=konts. \\
+    m_1\Vec{p}_1=m_2\Vec{p}_2
+\end{align*}
+
+\section{Kollision} \label{sc:kollision}
+Stød mellem to legemer, kollision uden ydre kræfter, impulsbevarelse. 
+Hvis en kraft virker i kort tid kan vi se bort fra den. Stødtiden er lille. 
+\subsection{Elastisk kollision} \label{scc:elastiskkollision}
+Når kræfterne mellem legemerne er konservative, så er der energibevarelse. 
+\bil{elastiskkollision1}
+Hvis Objekterne bevæger sig mod hinanden inden stød. 
+\begin{align*}
+    v_{A1}+v_{B1} = -\br{v_{A2}-v_{B2}} \\
+    v_{A2}=v_{A1} \frac{m_A-m_B}{m_A+m_B}\\
+    v_{B2} = v_{A1}\frac{2m_A}{m_A+m_B}
+\end{align*}
+Hvis de bevæger sig hver sin vej efter stødet: 
+\begin{align*}
+     v_{A1}-v_{B1} = -\br{v_{A2}-v_{B2}}
+\end{align*}
+\hyperref[asc:Jan 2018 opg 1]{Jan 2018 opg 1}
+\subsection{Uelastisk kollision} \label{scc:uelastiskkollision}
+Mekanisk energi er ikke bevaret, men der er impulsbevarelse. 
+\subsection{Fuldstændig uelastisk kollision} \label{scc:fuldstændiguelastiskkollision}
+Det to legemer hænger sammen efter kollisionen. 
+\bil{fuldstændigkollision1}
+\begin{align*}
+    \frac{K_{\text{efter}}}{K_\text{før}}=\frac{\br{m_A+m_Bn}^2}{\br{m_A+m_B}\br{m_A+m_Bn}}
+\end{align*}
+hvis $m_A=m_B$: 
+\begin{align*}
+    \frac{K_\text{efter}}{K_\text{før}} = \frac{\br{1+n}^2}{2\br{1+n^2}}
+\end{align*}
+\hyperref[asc:Januar 2023 opg 1]{Januar 2023 opg 1}, \hyperref[asc:Maj 2023 opg 2]{Maj 2023 opg 2}
+
+\section{Rotation af stive legemer} \label{sc:rotation}
+\bil{lineærtilrot}
+\bil{rot1}
+\begin{align*}
+    \theta = \theta_0+\omega_0t+\frac{1}{2}\alpha t^2\\
+    \omega = \frac{d\theta}{dt} = \omega_0+\alpha t \\
+    \alpha = \frac{d\omega}{dt}
+\end{align*}
+For konstant vinkelacceleration: 
+\begin{align*}
+    \omega^2=\omega_0^2+2\alpha \br{\theta-\theta_0}\\
+    \br{\theta-\theta_0} = \frac{1}{2}\br{\omega+\omega_0}t
+\end{align*}
+\hyperref[asc:Jan 2020 opg 3]{Jan 2020 opg 3}
+
+\subsubsection{Tangentiel:}
+\[v=r\cdot \br[5]{\omega}\]
+\bil{rot2}
+
+\newpage
+\subsection{Inertimoment} \label{scc:inertimoment}
+\[I = \sum m_ir_i^2\]
+\bil{inertimoment}
+\subsubsection{Parallelakse sætningen} \label{sssc:parallelakse}
+\bil{parallelakse}
+\hyperref[asc:Jan 2019 opg 1]{Jan 2019 opg 1}
+
+Med kontinuert fordelt masse, kan man også regne inertimomentet med: \[I = \int r^2dm. \]
+\hyperref[fig:inertimomentdør]{Eksempel}
+
+\subsection{Kinetisk energi i rotation} \label{scc:kinrotation}
+I et objekt der ruller, regner man den kinetiske energi som summen af den translationelle og den rotationelle kinetiske energi. 
+\begin{align*}
+    K_\text{rot} = \frac{1}{2}I\omega^2 \\
+    K_\text{trans} = \frac{1}{2}mv^2 \\
+    K_\text{tot} = K_\text{rot} + K_\text{trans}
+\end{align*}
+
+\subsection{Kraftmoment} \label{ssc:kraftmoment}
+En krafts evne til at forårsage rotation, afhænger af kraftens størrelse retning og hvor den angriber. 
+Engelsk: Torque
+\begin{align*}
+   \tau &= \Vec{r} \times \Vec{F} \\
+   &= rFsin\phi
+\end{align*}
+Sammenhæng med vinkelacceleration om z-aksen: \[\tau_z=I\alpha_z.\]
+\hyperref[asc:Kraftmoment]{Trisse med masse og friktion} forlæsning eks
+
+\subsection{Rulle uden at glide} \label{ssc:ruludenglid}
+\bil{ruludenglid1}
+\begin{align*}
+    \frac{dx}{dt} = R\frac{d\theta}{dt} \\
+    v_\text{cm} = R\omega \\
+    a_\text{cm} = R\alpha
+\end{align*}
+Der skal være en friktionskraft, for at et objekt kan rulle $f_s$. 
+
+\hyperref[asc:Rul uden glid]{Cykel på vej eks.} viser hvordan man finder ud af, hvor stor en fremdrivende kraft kan være før et objekt begynder at glide. \hyperref[asc:Jan 2022 opg 1]{Jan 2022 opg 1}, viser det samme, men med kugle på skråplan. 
+
+\hyperref[asc:Januar 2023 opg 2]{Januar 2023 opg 2}, \hyperref[asc:Maj 2023 opg 2]{Maj 2023 opg 2}
+
+\subsection{Impulsmoment} \label{ssc:impulsmoment}
+Impulsmoment (Engelsk: Angular momentum) er krydsproduktet mellem en partikels afstand $\Vec{r}$ fra omdrejningspunktet $O$ og partiklens impuls $\Vec{p}$. 
+\begin{align*}
+    \Vec{p} &= m\Vec{v} \\
+    \Vec{L} &= \Vec{r}\times\Vec{v}\\
+    &= rp\sin{\phi}
+\end{align*}
+Det Gælder også at: 
+\begin{align*}
+    \Vec{\tau} = \frac{d\Vec{L}}{dt}
+\end{align*}
+Hvis der er \hyperref[scc:impulsbevarelse]{impulsbevarelse}, så gælder det at: 
+\begin{align*}
+    \Vec{\tau}_\text{tot}^\text{ydre} &= 0 \\
+    \Rightarrow \frac{d\Vec{L}_\text{tot}}{dt} &= \text{konst.}
+\end{align*}
+For rotation om symatriaksen gælder: \[\Vec{L}=I\Vec{\omega}\]
+
+\subsubsection{Gyroskop og Præcissionsvinkel hastighed} \label{sssc:gyroskop}
+\hyperref[asc:Gyroskop og præcissionsvinkelhastighed]{Forlæsning noter.}
+Præcissionsvinkel hastighed: \[\Omega=\frac{\tau}{I\omega}=\frac{rmg}{I\omega}\]
+
+\section{Elastisitet} \label{sc:elastisitet}
+Ikke stive legemer deformeres når kræfter påvirker dem. 
+
+\hyperref[asc:elastisitet]{Forlæsning noter} der indeholde "stress, strain" og Hook's lov. \[\frac{F_\perp}{A}=y\frac{\Delta l}{l_0}\]
+
+\section{Simpel Harmonisk bevægelse} \label{sc:SHB}
+For simpel harmonisk bevægelse gælder altid: 
+\begin{align*}
+	F &= -kx \\
+    a_x &= -\frac{k}{m}x= -\omega^2x \\
+    \omega &= \sqrt{\frac{k}{m}}
+\end{align*}
+$k$ har enheden $\br[2]{\frac{N}{m}}$ og $m$ er massen af objektet. 
+\begin{align*}
+    \frac{d^2x}{dt^2} &= -\omega^2x \\
+    \Rightarrow x &= A\cos\br{\omega t+\phi} \\
+    \Rightarrow v &= \frac{dx}{dt} = -A\omega\sin\br{\omega t +\phi} 
+\end{align*}
+Periode: 
+\begin{align*}
+    \omega = \frac{2\pi}{T} = 2\pi f
+\end{align*}
+\hyperref[fig:SHBbølgefunktioner]{Forskellige bølgefunktioner.}
+
+\hyperref[asc:Jan 2019 opg 3]{Jan 2019 opg 3}
+
+\subsubsection{Energi i SHB}
+\begin{align*}
+    E = \frac{1}{2}mv_x^2+\frac{1}{2}kx^2=\frac{1}{2}kA^2 = \text{konts.}
+\end{align*}
+
+\subsection{Dæmpning} \label{ssc:dæmpning}
+Dæmpningskraft: \[F_d=-bv_x\]
+\begin{align*}
+    \sum F_x = -kx-bv_x = ma_x \\
+    \Rightarrow \frac{d^2x}{dt^2}+\frac{b}{m}\frac{dx}{dt}+\frac{k}{m}x=0
+\end{align*}
+Denne andenordens differentialligning giver 3 tilfælde: 
+\[\omega_0^2=\frac{k}{m},\quad \gamma=\frac{b}{2m}\]
+
+Overdæmpning: 
+\begin{align*}
+    b > 2\sqrt{km} \\
+    x(t) &= C_1\e{\lambda_1t}+C_2\e{\lambda_2t} \\
+    &= \e{-\gamma t}\br{C_1\e{\sqrt{\gamma^2-\omega_0}t}+C_2\e{-\gamma^2-\omega_0}}
+\end{align*}
+
+Kritiskdæmpning: 
+\begin{align*}
+    \lambda = -\gamma \\
+    b = 2\sqrt{km} \\
+    x(t) = \e{-\gamma t}\br{C_1+C_2t}
+\end{align*}
+
+Underdæmpning: 
+\begin{align*}
+    b < 2\sqrt{km} \\
+    x(t) = 2\br[5]{C_1}\cos\br{\omega t+\phi}\e{-\gamma t}
+\end{align*}
+
+\newpage
+\subsection{Tvungne svingninger} \label{ssc:tvungne}
+Når en "driving force" er tilføjet objektet er det en tvunget svingning: 
+\bil{tvungne}
+\[\frac{d^2x}{dt^2}+\frac{b}{m}\frac{dx}{dt}+\omega_0^2x = \frac{F_0}{m} \cos\br{\omega_dt} \]
+\begin{align*}
+    \Rightarrow x_d(t) &= A(\omega_d)\cos\br{\omega_d t+\phi}\\
+    A(\omega_d) &= \frac{F_0}{m}\br{\br{\omega_0^2-\omega_d^2}^2+\br{\frac{b}{m}}^2\omega_d^2}^{-\frac{1}{2}}
+\end{align*}
+
+\subsection{Pendul}
+Matematisk og fysisk pendul 
+\bil{Pendul}
+\hyperref[asc:Maj 2022 opg 3]{Maj 2022 opg 3}
+
+\section{Gravitation} \label{sc:gravitation}
+\begin{align*}
+    F_g &= G\frac{mM}{r^2} \\
+    G &= 6,67\ti{-11} \frac{\text{Nm}^2}{\text{kg}^2}
+\end{align*}
+Potentiel energi: 
+\begin{align*}
+    F_g &= -\frac{dU}{dr} \\
+    \Rightarrow U &= -G\frac{mM}{r}
+\end{align*}
+
+\subsection{Satelitbevægelse} \label{ssc:satelitbevægelse}
+Satelitbevægelse, er en jævn cirkelbevægelse, så $a=\frac{v^2}{r}$
+\begin{align*}
+    v = \sqrt{\frac{GM}{r}} \\
+    \Rightarrow T = 2\pi r\sqrt{\frac{r}{GM}}
+\end{align*}
+Mekanisk energi: \[E = \frac{1}{2}mv^2-G\frac{mM}{r} = -\frac{1}{2}U\]
+
+\subsection{Kepler's love} \label{ssc:keplerslove}
+\hyperref[fig:keplerslove]{Forlæsning noter.}
+
+\section{Væsker} \label{sc:væsker}
+Tryk er en krafts påvirkning af en overflade: \[P=\frac{F}{A}\]
+Paskal: $[P]=1\text{Pa}=1\frac{\text{N}}{\text{m}^2}$
+Atmosfærisk tryk: $P_a=1\text{atm} = 101.325\text{Pa}=1,01325\text{Bar}$
+
+\subsection{Pascal's lov} \label{ssc:pascalslov}
+Trykket på et objekt i en væske varierer: 
+\bil{pascalslov}
+
+\subsection{Opdrift} \label{ssc:opdrift}
+\bil{opdrift}
+\begin{align*}
+    \sum F_y &= B-w \\
+    &= Vg\br{\rho-\rho_s}
+\end{align*}
+
+\subsection{Væske strømning} \label{ssc:strømning}
+Laminar flow er når alle partikler har den samme hastighed i det samme punkt, og densiteten af væsken ikke ændre sig. 
+Kontinuitets og Bernoullis ligning:
+\bil{strømning1}
+\hyperref[asc:Maj 2022 opg 5]{Maj 2022 opg 5}
+
+\subsection{Viskositet} \label{ssc:viskositet}
+Viskositet er en materiale bestemt konstant, der er med til at regne gnidningen mellem partiklerne i en væske, og også gnidningen mellem væsken og røret. 
+\bil{viskositet}
+\begin{align*}
+    F &= \eta \frac{v}{h}A \\
+    \eta &= [Pa\cdot s]
+\end{align*}
+\subsubsection{Poiseuilles lov} \label{sssc:poiseuilleslov}
+\bil{poiseuilles}
+\begin{align*}
+    \frac{dV}{dt} = \frac{\pi r^4 \br{P_1-P_2}}{8\eta L}
+\end{align*}
+\hyperref[asc:Maj 2023 opg 5]{Maj 2023 opg 5}
+
+\subsubsection{Stokes lov} \label{sssc:stokeslov}
+En "drag force" når et objekt falder gennem en væske (R: Radius af objekt): 
+\begin{align*}
+    F_d=6\pi R\eta v
+\end{align*}
+
+\newpage
+\chapter{Termodynamik} \label{ch:termodynamik}
+\section{Termodynamikkens Hovedsætninger} 
+\bil{0hovedsætning}
+\bil{1hovedsætning}
+\bil{2hovedsætning}
+
+\section{Termisk udvidelse} \label{sc:termiskudvidelse}
+\begin{align*}
+    \Delta L &= \alpha L_0 \Delta T \\
+    \Delta V &= \beta V_0 \delta T
+\end{align*}
+\hyperref[fig:termiskudvidelse]{Udvidelseskonstanter}
+\bil{termiskudvidelse2}
+\plainbreak{1}
+\hyperref[fig:youngsmodulus]{Young's modulus.}
+
+\newpage
+\section{Varme} \label{sc:varme}
+Varme er energi der bliver tilført et system. 
+\begin{align*}
+    Q &= mc\Delta T \\
+    &= nMc\Delta T \\
+    &= nC\Delta T
+\end{align*}
+c: \hyperref[fig:varmekapacitet1]{Specifik varmekapacitet.} 
+
+\bil{stofmængde}
+\newpage
+\subsubsection{Faseovergange} \label{sssc:faseovergange}
+Det tager også energi at smelte eller fordampe et stof. 
+\bil{faseovergange}
+\hyperref[fig:faseovergange2]{Værdier for L.}
+
+\subsection{Varmeudveksling} \label{ssc:varmeudveksling}
+Varmestrøm: 
+\begin{align*}
+    H = \frac{dQ}{dt} = kA\frac{T_H-T_C}{L}
+\end{align*}
+\bil{varmestrøm}
+$k$: \hyperref[fig:termiskledningsevne]{termisk ledningsevne}
+
+Stråling kan også lave varmeudveksling
+\bil{stråling1}
+$\sigma$: \hyperref[asc:konstanter]{Boltzmann's konstant.}
+
+\section{Idealgas} \label{sc:idealgas}
+I en idealgas antager vi at molekylerne er punktpartikler, som støder sammen ved fuldstændige elastiske kollisioner. Hvis det \hyperref[asc:Maj 2018 opg 6]{ikke er en idealgas} er der også potentiel energi mellem molekylerne. 
+
+\hyperref[asc:Jan 2019 opg 3]{Jan 2019 opg 3}
+\begin{align*}
+    PV=nRT \\
+\end{align*}
+$R$: Gaskonatant $8,31 \frac{\text{J}}{\text{mol}\cdot\text{K}}$
+\bil{pvdiagram}
+
+\subsection{Kinetisk energi af gaspartikler} \label{ssc:idealgaskinetisk}
+\begin{align*}
+    K_\text{tr}=\frac{3}{2}nRT \\
+    \frac{K_\text{tr}}{N} = \frac{1}{2}m\br[3]{v^2} = \frac{3}{2}kT
+\end{align*}
+$k$: Boltzmann konstant $1.381\ti{-23}\frac{\text{J}}{\text{K}}$
+\begin{align*}
+    v_\text{rms} = \sqrt{\br[3]{v^2}} = \sqrt{\frac{3kT}{m}}
+\end{align*}
+
+\subsubsection{Maxwell-Boltzmanns fordelingen} \label{sssc:maxwellfordeling}
+\begin{align*}
+    f(v) = 4\pi\br{\frac{m}{2\pi kT}}^{\frac{3}{2}}v^2\e{-\frac{mv^2}{2kT}}
+\end{align*}
+Det er en fordelingsfunktion, så man kan bruge sandsynligheds regneregler for at regne farten ud. 
+\begin{align*}
+    \br[3]{v} = \int_0^\infty vf(v)dv = \sqrt{\frac{8kT}{\pi m}}
+\end{align*}
+
+\subsection{Kollision af gaspartikler} \label{ssc:kollisionidealgas}
+Antallet af kollisioner over tid: \[\frac{dN}{dt}=\frac{4\pi \sqrt{2}r^2\br[3]{v}N}{V}.\]
+Gennemsnitstid pr. kollision: \[t_\text{mean}=\frac{V}{4\pi \sqrt{2}r^2\br[3]{v}N}\]
+Gennemsnits længden en partikel rejser, inden den støder ind i en anden: \[\lambda = \br[3]{v}t_\text{mean}=\frac{V}{4\pi \sqrt{2}r^2N}\]
+
+\subsection{Varmekapacitet} \label{ssc:varmekapacitet}
+$C_P$ er varmekapaciteten når der er kontant tryk, og $C_V$ er når der er konstant volumen. 
+For at regne $C_V$ skal man vide hvor mange frihedsgrader et molekyle har. Det har altid 3 fra translationelle bevægelser. Hvis det er en monoatomar gas har den ikke flere, men hvis molekylet har mere end et atom, kan den have 2 eller 3 fra rotationel bevægelse, og så resten fra vibrationer. 
+Et molekyle har altid $3i$ frihedsgrader, hvor $i$ er antallet af atomer. 
+Så er $C_V$: \[C_V=\br{\frac{trans}{2}+\frac{rot}{2}+vib}R\]
+\begin{align*}
+    \text{mono:}\quad C_V&=\frac{3}{2}R \\
+    \text{di:} \quad\quad &= \frac{5}{2}R \\
+    \text{tri-lineær:}\quad &= \frac{13}{2}R \\
+    \text{tri-bøjet:}\quad &= \frac{12}{2}R\\
+    \text{fast:} \quad &= \frac{6}{2}R
+\end{align*}
+\begin{align*}
+    C_P = C_V+R
+\end{align*}
+\hyperref[asc:Jan 2020 opg 3]{Jan 2020 opg 3}
+
+\section{Tryk-rumfangs Arbejde} \label{sc:arbejdeidealgas}
+\bil{pvdiagram2}
+\begin{align*}
+    W = \int_{V_1}^{V_2}P_2dV
+\end{align*}
+Isoterm proces (T konst.): 
+\begin{align*}
+    W &= nRT\ln\br{\frac{V_2}{V_1}} \\
+    Q &= W
+\end{align*}
+Isokor proces (V konst.): 
+\begin{align*}
+    W&=0 \\
+    Q &= nC_V(T_2-T_1)
+\end{align*}
+Isobar proces (P konst.). 
+\begin{align*}
+    W &= P\br{V_2-V_1} \\
+    Q &= nC_P(T_2-T_1)
+\end{align*}
+Adiabatisk proces: 
+\begin{align*}
+    W &= nC_V\br{T_1-T_2} \\
+    &= \frac{C_V}{R}\br{P_1V_1-P_2V_2} \\
+    Q &= 0
+\end{align*}
+\hyperref[asc:Jan 2020 opg 4]{Jan 2020 opg 4}
+
+\subsection{Indre energi} \label{ssc:indreenergi}
+\begin{align*}
+    \Delta U = Q-W \\
+    \Delta U \propto \Delta T
+\end{align*}
+(Ingen temperaturændring, ingen indre energiændring) 
+$U$ er en tilstandfunktion, så vejen fra $U_1$ til $U_2$ betyder ikke noget. 
+
+\subsection{Adiabatisk ekspansion} \label{ssc:adiabatisk}
+\begin{align*}
+    \gamma = \frac{C_P}{C_V} \\
+    TV^{\gamma-1} = \text{konst} \\
+    PV^\gamma = \text{konst}
+\end{align*}
+\hyperref[asc:Maj 2018 opg 6]{Maj 2018 opg 6}
+
+\section{Maskiner} \label{sc:maskiner}
+Varmemaskine: 
+\bil{varmemaskine}
+Effektivitet: \[e=\frac{W}{Q_H}\]
+Kredsløbsprocesser: \[e = 1+\frac{Q_C}{Q_H}\]
+\plainbreak{1}
+Kølemaskine: 
+\bil{kølemaskine}
+Virkningsgrad: \[K = \frac{Q_C}{\br[5]{W}}=\frac{H}{P}\]
+$H$: Varmestrøm, $P$: Effekt af kompressor. 
+
+\hyperref[asc:Jan 2019 opg 4]{Jan 2019 opg 4}, \hyperref[asc:Jan 2020 opg 4]{Jan 2020 opg 4}
+
+\subsection{Carnot-maskinen} \label{ssc:carnot}
+\bil{carnotmaskine}
+\begin{align*}
+    e_c = 1-\frac{T_C}{T_H}
+\end{align*}
+Man kan ikke lave en maskine der har en bedre effektivitet. Det er også den eneste reversible maskine man kan lave, så hvis man har med en reversibel maskine, så ved man det er en Carnot-maskine.
+
+\section{Entropi} \label{sc:entropi}
+Entropi er en tilstandsfunktion. 
+\begin{align*}
+    S = k\ln(w),\quad \br[2]{\frac{\text{J}}{\text{K}}}
+\end{align*}
+Entropiændring: \[\Delta S = k\ln\br{\frac{w_2}{w_1}}\]
+$w$: Multipliciteten: \[w\propto V^N\]
+\begin{align*}
+    \Rightarrow \Delta S = \int_1^2\frac{dQ}{T}
+\end{align*}
+Isokor: \[\Delta S = nC_V\br[2]{\ln(T)}_1^2\]
+
+\hyperref[asc:Januar 2023 opg 4]{Januar 2023 opg 4}
+
+\newpage
+\chapter{Bølger} \label{ch:bølger}
+\bil{bølger1}
+\begin{align*}
+    \lambda &= vT = \frac{v}{f} \\
+    v &= \lambda f = \sqrt{\frac{F}{\mu}}
+\end{align*}
+$\mu$ er masse over længde for snoren, og $F$ er snorspændingen. 
+
+\section{Bølgefunktionen} \label{sc:bølgefunktionen}
+Bølgefunktionen i positiv x-retning:
+\begin{align*}
+    y(x,t)&=A\cos\br{kx-\omega t} \\
+    k&= \frac{\omega}{v}=\frac{2\pi}{\lambda}
+\end{align*}
+$k$ er bølgetallet $\br[2]{\text{m}^{-1}}$
+\begin{align*}
+    v_y &= \frac{\delta y}{\delta t} = \omega A\sin\br{kx-\omega t} \\
+    a_y &= \frac{\delta^2 y}{\delta t^2}=-\omega^2A\cos\br{kx-\omega t} = -\omega^2y, \text{\hyperref[sc:SHB]{(SHB)}}
+\end{align*}
+\bil{bølger2}
+\section{Bølgeligningen} \label{sc:bølgeligningen}
+\begin{align*}
+    \frac{\frac{\delta^2 y}{\delta t^2}}{\frac{\delta^2 y}{\delta x^2}} &= \frac{-\omega^2y}{-k^2y}=\br{\frac{\omega}{k}} = v^2 \\
+    \Rightarrow \frac{\delta^2 y}{\delta x^2} &= \frac{1}{v^2}\frac{\delta^2 y}{\delta t^2}
+\end{align*}
+\hyperref[asc:Jan 2020 opg 2]{Jan 2020 opg 2}
+
+\section{Energi i Bølgeudbredelse} \label{sc:energibølger}
+\subsection{Effekt} \label{ssc:effektbølger}
+\begin{align*}
+    P &= \frac{\delta W}{\delta t} \\
+    &= -F\frac{\delta y}{\delta x}\frac{\delta y}{\delta t} \\
+    &= FkA^2\omega \sin^2\br{kx-\omega t}
+\end{align*}
+\hyperref[asc:Januar 2023 opg 3]{Januar 2023 opg 3}
+
+\subsection{Intensitet} \label{ssc:intensitetbølger}
+Intensitet er den gennemsnitlige tid det tager at transportere energi med bølger. 
+\begin{align*}
+    I=\frac{P}{4\pi r^2} \\
+    \frac{I_1}{I_2} = \frac{r_2^2}{r_1^2}
+\end{align*}
+
+\section{Superpositions princippet} \label{sc:superposition}
+Når en bølge når enden af sit medie, bliver den reflekteret. Når den møder en anden bølge på vej tilbage, vil de overlappe. Når de gør det vil bølgen på mediet være summen af de to bølger. 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\linewidth]{Billeder/superposition.png}
+    \label{fig:superposition}
+\end{figure}
+
+\begin{align*}
+    y(x,t)&=y_1+y_2 \\
+    &= 2A\sin\br{kx}\sin\br{\omega t}
+\end{align*}
+Det kaldes stående bølger. 
+\begin{align*}
+    \lambda_n &= \frac{2L}{n} \\
+    f_n &= n\frac{v}{2L} = \sqrt{\frac{F}{\mu}}\frac{n}{2L}
+\end{align*}
+$n=1$: grundtone, $n=2$: første overtone, osv.
+
+\hyperref[asc:Jan 2021 opg 3]{Jan 2021 opg 3}
+
+\section{Lydbølger} \label{sc:lydbølger}
+\subsection{Længdebølger} \label{ssc:længdebølger}
+\bil{længdebølger}
+\begin{align*}
+    y(x,t) = A\cos\br{kx-\omega t} \\
+\end{align*}
+\plainbreak{2}
+Lydbølgers hastighed: 
+\begin{align*}
+    v = \sqrt{\frac{B}{\rho}}
+\end{align*}
+$B$: \hyperref[fig:youngsmodulus]{Bulks modulus}
+
+\subsection{Tryk i lydbølger} \label{ssc:tryklyd}
+\begin{align*}
+    P &= -B\frac{\delta y}{\delta x} = BAk\sin\br{kx-\omega t} \\
+    P_\text{max} &= BAk=BA\frac{2\pi}{\lambda}
+\end{align*}
+
+\subsection{Lydbølgers fart i luft}
+\begin{align*}
+    B(P_\text{atm})=\gamma P_\text{atm} \\
+    \gamma = \frac{C_P}{C_V}, \quad \gamma_{\;\text{luft}} = \frac{7}{5} \\
+    \frac{P_\text{atm}M}{RT} = \frac{m}{V} = \rho \\
+    v = \sqrt{\frac{B}{\rho}} = \sqrt{\frac{\gamma RT}{M_\text{luft}}} = 344 \frac{\text{m}}{\text{s}}
+\end{align*}
+
+\subsection{Energi i lydbølger} \label{ssc:energilyd}
+\begin{align*}
+    I &= \frac{\br[3]{P(x,t)}}{A}\\
+    \br[3]{P(x,t)} &= \frac{1}{2}BA^2k\omega
+\end{align*}
+\subsubsection{Decibel skalaen} \label{sssc:decibel}
+\begin{align*}
+    \beta = 10\text{dB} \log\frac{I}{\ti{-12}\frac{\text{W}}{\text{m}^2}}
+\end{align*}
+
+
+\newpage
+\chapter{Appendix}
+\addtocontents{toc}{\protect\setcounter{tocdepth}{1}} 
+\setcounter{tocdepth}{1}
+\section{Konstanter} \label{asc:konstanter}
+\bil{konstanter}
+\bil{konstanter2}
+Stefan-Boltzmanns konstant: $5,670\ti{-8} W/m^2\cdot K^4$ 
+\bil{konstanter3}
+
+\section{Materialebestemte konstanter} \label{asc:materialekonst}
+\subsubsection{Termisk udvidelse}
+\bil{termiskudvidelse}
+\subsection{Termiskledningsevne}
+\bil{termiskledningsevne}
+\subsubsection{Young og Bulk modulus}
+\bil{youngsmodulus}
+\subsubsection{Varmekapacitet}
+\bil{varmekapacitet1}
+\subsubsection{Faseovergange}
+\bil{faseovergange2}
+
+\newpage
+\section{Mekanik}
+\subsection{Skråtkast} \ref{ssc:skråtkast}
+\bil{Skråtkast1}
+\bil{Skråtkast2}
+
+\newpage
+\subsection{Mekanik 3D} \ref{ssc:mekanik3d}
+\bil{Mekanik3D1}
+\bil{Mekanik3D2}
+
+\subsection{Energi} \ref{sc:energi}
+\bil{mekaniskenergi1}
+
+\subsection{Inertimoment} \ref{scc:inertimoment}
+\bil{inertimoment}
+\bil{inertimomentdør}
+
+\pdf{Trisse med masse og friktion}{Kraftmoment}{ssc:kraftmoment}
+
+\pdf{Cykel på vej eks}{Rul uden glid}{ssc:ruludenglid}
+
+\pdf{Gyroskop og præcissionsvinkel}{Gyroskop og præcissionsvinkelhastighed}{sssc:gyroskop}
+
+\subsection{Elastisitet} \label{asc:elastisitet} \ref{sc:elastisitet}
+\bil{elastisitet}
+
+\newpage
+\subsection{SHB} \label{asc:SHB} \ref{sc:SHB}
+\bil{SHBbølgefunktioner}
+
+\newpage
+\subsection{Gravitation} \ref{ssc:keplerslove}
+\bil{keplerslove}
+
+%\begin{comment} %For at den ikke compiler alle pdf'erne hver gang
+\newpage
+\section{Eksamensopgaver} \label{asc:eksamensopgaver}
+
+%Overskrifter
+%2018
+\hyperref[asc:Jan 2018 opg 1]{Jan 2018 opg 1}
+
+\opg{Vogne der støder og vogn på rampe, kollision, sympy}
+
+\hyperref[asc:Jan 2018 opg 2]{Jan 2018 opg 2}
+
+\opg{Den klassiske fysik i Bohr's atommodel, cirkelbevægelse, massemidtpunkt, energi}
+
+\hyperref[asc:Maj 2018 opg 5]{Maj 2018 opg 5}
+
+\opg{Trestjernesystem, tyngdekraft, potentiel energi.}
+
+\hyperref[asc:Maj 2018 opg 6]{Maj 2018 opg 6}
+
+\opg{Ekspansion af idealgas i vakuum, adiabatisk ekspansion}
+
+%2019
+\hyperref[asc:Jan 2019 opg 1]{Jan 2019 opg 1}
+
+\opg{Rotation for sjov, cirkelbevægelse, impulsmoment, friktion}
+
+\hyperref[asc:Jan 2019 opg 2]{Jan 2019 opg 2}
+
+\opg{Fald i tyngdefelt uden og med luftmodstand, Potentiel energi, tyngdekraft}
+
+\hyperref[asc:Jan 2019 opg 3]{Jan 2019 opg 3}
+
+\opg{Et gastermometer, idealgas, fjeder og gas, visning af SHB}
+
+\hyperref[asc:Jan 2019 opg 4]{Jan 2019 opg 4}
+
+\opg{En jetmotor, maskiner, PV-diagram, effektivitet}
+
+\hyperref[asc:Maj 2019 opg 3]{Maj 2019 opg 3}
+
+\opg{Stødopgave, Kollision med fjeder, energibevarelse}
+
+%2020
+\hyperref[asc:Jan 2020 opg 2]{Jan 2020 opg 2}
+
+\opg{Bølgepuls på lodret snor med masse, bølger, snor med masse.}
+
+\hyperref[asc:Jan 2020 opg 3]{Jan 2020 opg 3}
+
+\opg{Ozon som roterende stift legeme, og som en gas ved forskellige temperaturer, varmekapacitet}
+
+\hyperref[asc:Jan 2020 opg 4]{Jan 2020 opg 4}
+
+\opg{En ericsson termodynamisk maskine, maskiner, varme og arbjede beregning, effektivitet.}
+
+\hyperref[asc:Maj 2020 opg 2]{Maj 2020 opg 2}
+
+\opg{Gulvvask, gnidningskraft, bevægelse 1D}
+
+\hyperref[asc:Maj 2020 opg 3]{Maj 2020 opg 3}
+
+\opg{Thomson's atommodel, SHB, kraft, energi}
+
+\hyperref[asc:Maj 2020 opg 5]{Maj 2020 opg 5}
+
+\opg{En termodynamisk maskine, kredsløbsprocesser med 6 led, arbejde, varme og effektivitetsudregning}
+
+%2021
+\hyperref[asc:Jan 2021 opg 1]{Jan 2021 opg 1}
+
+\opg{Sjov med gummibold, kollision}
+
+\hyperref[asc:Jan 2021 opg 2]{Jan 2021 opg 2}
+
+\opg{Garntrisse-rul, Rotation af stive legemer, Rul uden glid}
+
+\hyperref[asc:Jan 2021 opg 3]{Jan 2021 opg 3}
+
+\opg{Superposition af bølger, snorbølger, sympy}
+
+\hyperref[asc:Maj 2021 opg 2]{Maj 2021 opg 2}
+
+\opg{Massespektrometri, Newton's 2.lov, cirkelbevægelse}
+
+\hyperref[asc:Maj 2021 opg 3]{Maj 2021 opg 3}
+
+\opg{Svingende lod forbundet til fjeder, fjeder, kraftdiagram, trisse}
+
+\hyperref[asc:Maj 2021 opg 4]{Maj 2021 opg 4}
+
+\opg{En sluseport, tryk og kraft beregning, kraftmoment}
+
+\hyperref[asc:Maj 2021 opg 5]{Maj 2021 opg 5}
+
+\opg{En termodynamisk maskine, maskine, varme og arbejde beregning, effektivitet}
+
+%2022
+\hyperref[asc:Jan 2022 opg 1]{Jan 2022 opg 1}
+
+\opg{Kugle på skråplan, rul uden glid, gnidningskraft}
+
+\hyperref[asc:Jan 2022 opg 4]{Jan 2022 opg 4}
+
+\opg{En punktmasse mellem to fjedre, fjedre, SHB}
+
+\hyperref[asc:Maj 2022 opg 3]{Maj 2022 opg 3}
+
+\opg{Det koniske pendul, cirkelbevægelse, pendul}
+
+\hyperref[asc:Maj 2022 opg 4]{Maj 2022 opg 4}
+
+\opg{Projektilhastighed, fjeder, kollision, periode}
+
+\hyperref[asc:Maj 2022 opg 5]{Maj 2022 opg 5}
+
+\opg{Poiseulle-strømning, væskestrømning med gnidning tryk, volumestrømning udledning.}
+
+%2023
+\hyperref[asc:Januar 2023 opg 1]{Januar 2023 opg 1}
+
+\opg{Spaltning og gendannelse af brintmolekyler, kollision}
+
+\hyperref[asc:Januar 2023 opg 2]{Januar 2023 opg 2}
+
+\opg{Kuglerul, rul uden glid, jævn cirkelbevægelse, kræfter}
+
+\hyperref[asc:Januar 2023 opg 3]{Januar 2023 opg 3}
+
+\opg{Guitarstreng, bølger på snor }
+
+\hyperref[asc:Januar 2023 opg 4]{Januar 2023 opg 4}
+
+\opg{Arbejde og entropi i termodynamiske processer}
+
+\hyperref[asc:Maj 2023 opg 2]{Maj 2023 opg 2}
+
+\opg{Et spil billiard, kollision, rul uden glid}
+
+\hyperref[asc:Maj 2023 opg 3]{Maj 2023 opg 3}
+
+\opg{Træk i trækklods på bord, kræfter}
+
+\hyperref[asc:Maj 2023 opg 5]{Maj 2023 opg 5}
+
+\opg{Vandkar der lækker, væskestrømning, bernoullis og kontinuitets ligningen, sympy.}
+
+
+%pdf'er
+%2018
+\pdf{Jan 2018 opg 1}{Jan 2018 opg 1}{asc:eksamensopgaver}
+\pdf{Jan 2018 opg 2}{Jan 2018 opg 2}{asc:eksamensopgaver}
+\pdf{Maj2018opg5}{Maj 2018 opg 5}{asc:eksamensopgaver}
+\pdf{Maj2018opg6}{Maj 2018 opg 6}{asc:eksamensopgaver}
+%2019
+\pdf{Jan 2019 opg 1}{Jan 2019 opg 1}{asc:eksamensopgaver}
+\pdf{Jan 2019 opg 2}{Jan 2019 opg 2}{asc:eksamensopgaver}
+\pdf{Jan2019opg3}{Jan 2019 opg 3}{asc:eksamensopgaver}
+\pdf{Jan2019opg4}{Jan 2019 opg 4}{asc:eksamensopgaver}
+\pdf{Maj 2019 opg 3}{Maj 2019 opg 3}{asc:eksamensopgaver}
+%2020
+\pdf{Jan2020opg2}{Jan 2020 opg 2}{asc:eksamensopgaver}
+\pdf{Jan 2020 opg 3}{Jan 2020 opg 3}{asc:eksamensopgaver}
+\pdf{Jan 2020 opg 4}{Jan 2020 opg 4}{asc:eksamensopgaver}
+\pdf{Maj 2020 opg 2}{Maj 2020 opg 2}{asc:eksamensopgaver}
+\pdf{Maj 2020 opg 3}{Maj 2020 opg 3}{asc:eksamensopgaver}
+\pdf{Maj 2020 opg 5}{Maj 2020 opg 5}{asc:eksamensopgaver}
+
+%2021
+\pdf{Jan 2021 opg 1}{Jan 2021 opg 1}{asc:eksamensopgaver}
+\pdf{Jan 2021 opg 2}{Jan 2021 opg 2}{asc:eksamensopgaver}
+\pdf{Jan 2021 opg 3}{Jan 2021 opg 3}{asc:eksamensopgaver}
+\pdf{Maj 2021 opg 2}{Maj 2021 opg 2}{asc:eksamensopgaver}
+\pdf{Maj 2021 opg 3}{Maj 2021 opg 3}{asc:eksamensopgaver}
+\pdf{Maj 2021 opg 4}{Maj 2021 opg 4}{asc:eksamensopgaver}
+\pdf{Maj 2021 opg 5}{Maj 2021 opg 5}{asc:eksamensopgaver}
+
+%2022
+\pdf{Jan 2022 opg 1}{Jan 2022 opg 1}{asc:eksamensopgaver}
+\pdf{Jan 2022 opg 4}{Jan 2022 opg 4}{asc:eksamensopgaver}
+\pdf{Maj 2022 opg 3}{Maj 2022 opg 3}{asc:eksamensopgaver}
+\pdf{Maj 2022 opg 4}{Maj 2022 opg 4}{asc:eksamensopgaver}
+\pdf{Maj 2022 opg 5}{Maj 2022 opg 5}{asc:eksamensopgaver}
+
+%2023
+\pdf{Januar 2023 opg 1}{Januar 2023 opg 1}{asc:eksamensopgaver}
+\pdf{Januar 2023 opg 2}{Januar 2023 opg 2}{asc:eksamensopgaver}
+\pdf{Januar 2023 opg 3}{Januar 2023 opg 3}{asc:eksamensopgaver}
+\pdf{Januar 2023 opg 4}{Januar 2023 opg 4}{asc:eksamensopgaver}
+\pdf{Maj 2023 opg 2}{Maj 2023 opg 2}{asc:eksamensopgaver}
+\pdf{Maj 2023 opg 3}{Maj 2023 opg 3}{asc:eksamensopgaver}
+\pdf{Maj 2023 opg 5}{Maj 2023 opg 5}{asc:eksamensopgaver}
+%\end{comment}
+
+\end{document} % ----------Dokumentet er nu slut! ------------

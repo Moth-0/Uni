@@ -1,0 +1,527 @@
+% Første linje er dokumentklassen. Brug *altid* memoir!
+\documentclass[a4paper,oneside,article]{memoir}
+
+% Herunder indlæses forskellige pakker
+\usepackage[utf8]{inputenc}  % Korrekt håndtering af æ, ø og å
+\usepackage[T1]{fontenc}  % Korrekt håndtering af æ, ø og å
+\usepackage{microtype}  % Typografisk magi! Giver bl.a. pænere orddeling
+\usepackage{graphicx}  % Gør det muligt at indsætte billeder
+\usepackage{amsmath}  % Giver adgang til uundværlige matematikting
+\usepackage{mathtools}  % Retter ting i ams og giver ekstra muligheder
+\usepackage[danish]{babel}  % Danske betegnelser og orddeling
+\usepackage{float} %Mere kontrol over billede-placering
+\renewcommand{\danishhyphenmins}{22}  % Bedre dansk orddeling
+\usepackage[exponent-product=\ensuremath{\cdot}]{siunitx} % Sientific notation for forskellige ting, med en regel om at den skal bruge cdot istedet for times. 
+\usepackage{derivative} % Til at skrive differentialligninger 
+\usepackage{xcolor} % For at få flere tekst farver 
+\usepackage[colorlinks=true,pdftex]{hyperref} % For at få refrences man kan trykke på, slet [] hvis man vil have kasser i stedet for farvet tekst.
+\usepackage{pdfpages} % Til at indsætte andre pdf'er
+\usepackage{lmodern} % Så man kan compile i TeXworks
+\usepackage{alphabeta} % Til at skrive græske bogstaver
+\usepackage{subfig} % For at have to billeder ved siden af hinanden
+\usepackage{amssymb} % For \mathbb
+
+
+% Pænere toc indents 
+\usepackage{tocloft}
+\cftsetindents{section}{1em}{2em}
+\cftsetindents{subsection}{4em}{0em}
+
+
+% Indholdet i dit dokument starter her!
+\begin{document}
+\author{Mikkel Moth Billing \\ 202307989}
+\title{Lineær Algebra}
+\date{\today}
+\maketitle   % Indsætter overskriften
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{1}
+\hypersetup{linkcolor=black} % Laver tableofcontents sort.  
+\tableofcontents
+\hypersetup{linkcolor=red} % og så alle andre hyperrefs røde. 
+
+%Custom Commands
+\newcommand{\opg}[3]{
+\hyperref[asc:#1]{#2}
+
+\textcolor{gray}{#3} \plainbreak{1}
+} %Til opgavebeskrivelser
+
+\newcommand{\ti}[1]{\cdot 10^{#1}} % Let: gange 10^x
+\newcommand{\e}[1]{\emph{e}^{#1}} % Pænere e^x
+% Lette paranteser 
+\newcommand{\br}[2][1]{%
+    \ifcase#1
+    \or \left( #2 \right) %1 eller ingenting
+    \or \left[ #2 \right] %2
+    \or \left\langle #2 \right\rangle %3
+    \or \left\{ #2 \right\} %4
+    \or \left| #2 \right| %5
+    \fi
+}
+\newcommand{\bil}[1]{
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{Billeder/#1.png}
+    \label{fig:#1}
+\end{figure}
+}
+
+\newcommand{\pdf}[4]{
+\includepdf[pages=#3,scale=.85,pagecommand={\subsection{#2 - \ref{ch:opg}}  \label{asc:#2}}]{PDF/#1.pdf}
+\includepdf[pages=\the\numexpr 1 + #3\relax-#4, scale=.85]{PDF/#1.pdf}
+}
+
+\newcommand{\prop}[1]{
+\hyperref[fig:#1]{(#1)}
+}
+
+% Lav ny pagestyle (kun odd fordi enkeltsidet)
+\makepagestyle{Title}
+\pagestyle{Title}
+\makeoddhead{Title}{}{}{\footnotesize\color{gray}{\theauthor}}
+\makeoddfoot{Title}{}{\footnotesize\color{gray}{\thepage{} / \thelastpage}}{}
+% Også fod på siden med \maketitle
+\makeoddfoot{plain}{}{\footnotesize\color{gray}{\thepage{} / \thelastpage}}{}
+\newpage
+
+%Skriv
+\chapter{Generalt} \label{ch:gen}
+\section{Matrixprodukt}
+\bil{3.4}
+
+\section{Løsningsmængde}
+\bil{3.12}
+
+\section{Injektiv}
+\bil{6.10}
+\section{Surjektiv} \label{sc:sur}
+At en lineær transformation $L: V \rightarrow W$ er surjektiv betyder, at der for enhver vektor $w \in W$ findes en vektor $v\in V$ så $L(v)=w$. For at se om en lineær transformation er surjektiv, kan man bruge 
+\bil{7.3}
+Hvis rang(\emph{A})=dim(\emph{W}) er $L_A$ surjektiv. Hvis \emph{L} både er injektiv og surjektiv, er den en isomorfi. 
+
+\hyperref[asc:Eksamen 2020 opg 1]{Eksempelopgave}
+
+\section{Rang} \label{sc:rang}
+\bil{7.37}
+\bil{7.38}
+
+\section{Similær}
+\bil{12.21}
+
+\chapter{Invertible matricer} \label{ch:inv}
+\bil{4.1}
+\textcolor{white}{singulær}
+\bil{4.3}
+\bil{4.4}
+\bil{4.6}
+\bil{7.4}
+\bil{11.12}
+En matrix med 2 ens søjler er ikke invertibel, og determinanten er derfor lig 0. 
+\bil{8.25}
+\hyperref[asc:Eksamen 2020 opg 3]{Eksempelopgave}
+
+\chapter{Vektorrum} \label{ch:rum}
+\section{Underrum} \label{sc:urum}
+\bil{5.6}
+\hyperref[asc:Reeksamen 2022 opg 1]{Eksempelopgave}
+\bil{6.7}
+\bil{7.16}
+\hyperref[asc:Eksamen 2021 opg 1]{Eksempelopgave}
+
+\section{Nulrum}
+\emph{n} er antallet af søjler, \emph{r} er antallet af pivoter
+\bil{7.30-33}
+\bil{7.34}
+\bil{7.36}
+\hyperref[asc:Eksamen 2021 opg 1]{Eksempelopgave}
+
+\section{Span}
+\bil{5.12}
+Hvis man skal vise at $V=\text{Span}(v_1,...,v_n)$.
+Så skal man vise at for alle $A\in V$, så gælder $A \in \text{Span}(v_1,...,v_n)$, hvor $(v_1,...,v_n)$ er en basis. Dermed er $A\subseteq \text{Span}(v_1,...,v_n)$, og fra (5.12) har vi $A\supseteq \text{Span}(v_1,...,v_n)$.
+
+
+\chapter{Lineære transformationer} \label{ch:trans}
+For at vise at \emph{L} er en lineær transformation/operator, kan man bruge: 
+\bil{6.1}
+En anden måde, er hvis $L=L_A$ altså hvis man kan lave transformationen ved at gange med en matrix \emph{A}
+\hyperref[asc:Eksamen 2023 opg 3]{Eksempelopgave}, \hyperref[asc:Reeksamen 2022 opg 3]{Eks.opg.}
+\bil{6.20}
+\bil{7.20}
+
+\section{Invertible LT og isomorfi}
+\bil{6.13}
+\bil{6.14}
+\bil{6.15}
+\bil{6.16}
+\bil{6.17}
+For invertible lineære transformationer gælder: $(L\circ L^-1)(A)=A$, hvis dette er er opfyldt, er \emph{L} lineær isomorf. 
+
+\hyperref[asc:Reeksamen 2023 opg 3]{Eksempelopgave}
+
+\bil{8.25}
+
+\chapter{Baser og lineær uafhængighed} \label{ch:baser}
+\bil{7.4}
+\bil{7.6}
+\bil{7.9}
+\bil{7.11}
+\bil{7.12}
+\bil{7.20}
+
+\section{Baser for polynomier}
+Hvis en opgave spørger efter en base for et n'te grads polynomium, kan eksempel 7.7(3) bruges: 
+\bil{7.7(3)}
+Man kan også sige at $\mathcal{V}=(1,X)$ er lineær uafhængig, da \emph{X} ikke er en skalar. 
+
+\chapter{Matrixrepræsentationer} \label{ch:rep}
+\bil{8.3}
+\textcolor{white}{Koordinattransformationsmatrix}
+\bil{8.6}
+\bil{8.8}
+\bil{8.10(2)}
+\hyperref[asc:Reeksamen 2021 opg 1]{Eksempelopgave}
+\bil{8.18}
+Denne korollar kan også bruges, hvis det er to baser for det samme vektorrum, så er de mærkede den samme base, og de umærkede den anden. 
+\begin{align*}
+    \prescript{}{\mathcal{W}}[L]_\mathcal{W} &= \prescript{}{\mathcal{W}}[\Box]_\mathcal{V}\cdot \prescript{}{\mathcal{V}}[L]_\mathcal{V}\cdot \prescript{}{\mathcal{W}}[\Box]_\mathcal{V} \\
+    \prescript{}{\mathcal{W}}[L]_\mathcal{W} &= \prescript{}{\mathcal{W}}[\Box]_\mathcal{V}\cdot \prescript{}{\mathcal{V}}[L]_\mathcal{W}
+\end{align*}
+\bil{8.21}
+Eksempel 8.22.2: 
+\bil{8.22.2}
+\bil{8.23} 
+
+
+
+\chapter{Indre produkt} \label{ch:indre} 
+\bil{9.1}
+For at vise at noget er et indre produkt, skal disse 4 krav vises. 
+
+\hyperref[asc:Reeksamen 2023 opg 2]{Eksempelopgave}, \hyperref[asc:Eksamen 2022 opg 3]{Eks.opg.}
+
+\bil{9.3.1}
+\[\bar{w}^T\bar{v}=\br[3]{v,w}\]
+
+\section{Norm}
+\bil{9.6-7}
+Fra TØ8: 
+Et normeret K-vektorrum er et K-vektorrum V , hvorpå der er defineret en afbildning
+\[||\cdot|| : V \rightarrow [0, \infty [,\]
+opfyldende (for $\Bar{v}, \Bar{w} \in V $)
+
+a) $||v|| = 0$ hvis og kun hvis $\bar{v} = 0$.
+
+b) $||α \cdot \bar{v}|| = |α| \cdot ||\bar{v}||$ for $α \in \mathbb{K}$.
+
+c) $||\bar{v} + \bar{w}|| \leq ||\bar{v}|| + ||\bar{w}||$.
+
+\bil{9.17}
+
+\section{Afstand}
+\bil{9.8}
+Afstandsbevarelse: 
+\begin{align*}
+    & L: V \rightarrow V \\
+    & \forall \; \bar{v}, \bar{w} \in V \\
+    ||L(\bar{v})- & L(\bar{w})|| = ||\bar{v}-\bar{w}||
+\end{align*}
+
+
+\chapter{Ortogonalitet} \label{ch:orto}
+\bil{10.1}
+Dette bruges til at teste om noget er en ortogonal/ortonormal mængde. 
+For at regne fra ortogonal basis $(v_1,...,v_n)$ til ortonormal basis $(\mathcal{W})$: 
+\[\mathcal{W} = \br{\frac{v_1}{||v_1||},...,\frac{v_n}{||v_n||}}\]
+
+Bemærk: \[\br[3]{v_i,v_j}=0 \Leftrightarrow v_i \perp v_j\]
+\bil{10.4}
+Sammen med Prop. \prop{7.12}, kan man sige at $(v_1 ... v_n)$ er en ortonormal basis for $\mathbb{R}^n$
+\section{Ortogonal projektion} \label{sc:op}
+\bil{10.14}
+Her er en måde at finde den ortogonale projektion \emph{p}. Her er $v_n$ en ortogonal mængde (f.eks den base fundet ved Gram-Schmidt) og \emph{v} er den ting, man vil finde projektionen af. 
+
+\hyperref[asc:Eksamen 2023 opg 2]{Eksempelopgave}
+\bil{10.18}
+
+\section{Ortogonalt komplement} \label{sc:ok}
+\bil{10.5}
+Det ortogonale komplement er de vektorer der er ortogonale på alle vektorerene i \emph{W}. Der gælder også at: 
+\bil{10.22}
+\bil{10.41}
+Hvis \emph{V} er 3-dimensionelt rum, og \emph{W} består udelukkende af vektorer i x-y planen, så består $W^\perp$ af alle vektorer i z-planen. 
+\plainbreak{1}
+For at finde en basis til det ortogonale komplement, kan vi fra \hyperref[fig:10.14]{(10.14)} se at \[\bar{h}=\bar{p}-\bar{v} \in W^\perp\] 
+
+\hyperref[asc:Eksamen 2023 opg 2]{Eksempelopgave}
+
+\section{Lineær isometri}
+\bil{10.28}
+
+\section{Gram-Schmidt processen} \label{sc:gs}
+Husk at man skal bruge det indre produkt, der er opgivet i opgaven, når man finder normen. 
+\bil{10.25}
+
+\section{Unitær og ortogonal matricer}
+\bil{10.31}
+\bil{10.34}
+
+\section{Mindste kvadrats løsning}
+\bil{10.39}
+\bil{10.40}
+\bil{10.42}
+\hyperref[asc:Eksamen 2020 opg 1]{Eksempelopgave}
+
+\chapter{Determinanter} \label{ch:det}
+\bil{11.9}
+\bil{11.23}
+\bil{11.12}
+\bil{11.20}
+\[det(A)\cdot det(A^{-1}) = det(AA^{-1})=det(I)=1\]
+
+\section{Kofaktor og adjungeret}
+\bil{11.16}
+\bil{11.24-25}
+\bil{11.27}
+\hyperref[asc:Eksamen 2020 opg 4]{Eksempelopgave}
+
+\chapter{Egenværdier} \label{ch:egen}
+\bil{12.1}
+$A\cdot \bar{v} = λ\cdot \bar{v}$ er vigtig til mange opgaver. Hvis $A-λI$ er singulær er $λ=0$ jf. TØ12 opg 4. 
+
+\hyperref[asc:Eksamen 2023 opg 5]{Eksempelopgave}
+\bil{12.5}
+
+\section{Egenrum} \label{sc:erum}
+\bil{12.10}
+\bil{12.12}
+Dimensionen af nulrummet kan let findes, da det er antallet af nulrækker i en matrix på RREF. 
+\bil{12.13}
+
+\section{Karakteristisk polynomium} \label{sc:poly}
+Det karakteristiske polynomium for \emph{A} (eller $_{\mathcal{V}}[L]_{\mathcal{V}}$) findes som: 
+\bil{12.15}
+\bil{12.23}
+\bil{12.24}
+\bil{12.21}
+
+
+\hyperref[asc:Eksamen 2023 opg 1]{Eksempelopgave}
+
+\section{Algebraisk Multiplicitet} \label{sc:alg}
+\bil{12.28}
+$\text{Alg}_A(λ)$ findes ved, at man faktorisere det karakteristiske polynomium, og kigger på roden af de forskellige egenværdier. 
+\bil{alg1}
+En vigtig relation til den geometrike multiplicitet: 
+\bil{12.30}
+Dette kan bruges med \hyperref[fig:13.13]{(13.13)}, til at se om A er diagonaliserbar. 
+
+\chapter{Diagonalisering} \label{ch:diag}
+\bil{13.9}
+\bil{13.10}
+Gælder også for $L_A=A$. 
+\bil{13.13}
+
+\bil{13.5}
+\hyperref[asc:Eksamen 2022 opg 1]{Eksempelopgave}
+\bil{14.18} \ref{sc:adj}
+
+\section{Ortonormal diagonalisering}
+\bil{14.1}
+\bil{14.4}
+\bil{14.5}
+\bil{14.22}
+
+\section{Selvadjungeret} \label{sc:adj}
+\bil{14.11}
+\hyperref[asc:Eksamen 2022 opg 3]{Eksempelopgave}
+\bil{14.15}
+\bil{14.18} 
+
+\hyperref[asc:Eksamen 2022 opg 3]{Eksempelopgave}
+
+\chapter{Differentialligninger} \label{ch:diff}
+\bil{15.2}
+\section{Eksponentialfunktion} \label{sc:eks}
+\bil{15.4}
+For at vise at noget er en eksponentialfunktion, kan man vise at disse 3 krav er opfyldt. 
+
+\hyperref[asc:Eksamen 2023 opg 5]{Eksempelopgave}
+\bil{15.8}
+
+\section{Lineære differentialligningssystemer} \label{sc:cock}
+\bil{cock1}
+\bil{15.16}
+$\bar{v} = f(0)$, \hyperref[asc:Reeksamen 2023 opg 4]{Eksempelopgave}
+\bil{15.18}
+\bil{15.19}
+\bil{15.20}
+\hyperref[asc:Eksamen 2021 opg 4]{Eksempelopgave}
+
+\newpage
+\addtocontents{toc}{\protect\setcounter{tocdepth}{1}} 
+\setcounter{tocdepth}{1}
+\chapter{Opgaver} \label{ch:opg}
+
+% 1
+\opg{Eksamen 2023 opg 1}{Eksamen 2023 opg 1}{Karakteristisk polynomium, algebrarisk multiplicitet, diagonaliserbar}
+\opg{Eksamen 2023 opg 2}{Eksamen 2023 opg 2}{Polynomier, ortogonal projektion, ortogonalt komplement}
+\opg{Eksamen 2023 opg 3}{Eksamen 2023 opg 3}{Determinant, lineær transformation, basis, surjektiv}
+\opg{Eksamen 2023 opg 4}{Eksamen 2023 opg 4}{Ortonormalbasis, matrixrepræsentation, selvadjungeret, ortonormalt diagonaliserbar}
+\opg{Eksamen 2023 opg 5}{Eksamen 2023 opg 5}{Egenværdier, lineære differntialligningssystemer}
+\plainbreak{1}
+
+% 2
+\opg{Reeksamen 2023 opg 1}{Reeksamen 2023 opg 1}{Matrixrepræsentationen, karakteristisk polynomium, egenværdi, diagonaliserbar}
+\opg{Reeksamen 2023 opg 2}{Reeksamen 2023 opg 2}{Indre produkt, Gram-Schmidt, egenvektorer, ortonormalt diagonaliserbar, selvadjungeret}
+\opg{Reeksamen 2023 opg 3}{Reeksamen 2023 opg 3}{Lineær isomorfi, underrum, ortogonal basis, ortogonalt komplement, projektion}
+\opg{Reeksamen 2023 opg 4}{Reeksamen 2023 opg 4}{Eksponentielfunktion, lineære differentialligningssystem}
+\plainbreak{1}
+
+% 3
+\opg{Eksamen 2022 opg 1}{Eksamen 2022 opg 1}{Egenværdier, diagonaliserbar, similær, determinant}
+\opg{Eksamen 2022 opg 2}{Eksamen 2022 opg 2}{Ortogonal basis, egenvektor, ortonormalt diagonaliserbar, selvadjungeret, ortogonal projektion}
+\opg{Eksamen 2022 opg 3}{Eksamen 2022 opg 3}{Ortonormal basis, selvadjungeret operator, indre produkt}
+\opg{Eksamen 2022 opg 4}{Eksamen 2022 opg 4}{Differentialligninger, matrixrepræsentation, nulrum}
+\plainbreak{1}
+
+% 4
+\opg{Reeksamen 2022 opg 1}{Reeksamen 2022 opg 1}{Vis underrum, lineær uafhængighed og dimension}
+\opg{Reeksamen 2022 opg 2}{Reeksamen 2022 opg 2}{Basis, Gram-Schmidt, projektion}
+\opg{Reeksamen 2022 opg 3}{Reeksamen 2022 opg 3}{polynomier, lineær operator, matrixrepræsentation, egenværdi, lineær isomorfi, diagonaliserbar}
+\opg{Reeksamen 2022 opg 4}{Reeksamen 2022 opg 4}{Differentialligningssystem, lineært uafhængig, basis}
+\plainbreak{1}
+
+% 5 
+\opg{Eksamen 2021 opg 1}{Eksamen 2021 opg 1}{Basis, søjlerum, nulrum, lineær ligningssystem}
+\opg{Eksamen 2021 opg 2}{Eksamen 2021 opg 2}{Gram-Schmidt, ortonormal basis, multiplicitet, selvadjungeret}
+\opg{Eksamen 2021 opg 3}{Eksamen 2021 opg 3}{Indre produkt, ortogonal projektion, udregninger}
+\opg{Eksamen 2021 opg 4}{Eksamen 2021 opg 4}{Differentialligning basis, lineær kombination, lineær operator, matrixrepræsentation, isomorfi}
+\plainbreak{1}
+
+% 6
+\opg{Reeksamen 2021 opg 1}{Reeksamen 2021 opg 1}{Koordinattransformationsmatrice, matrixrepræsentation, ortogonal basis}
+\opg{Reeksamen 2021 opg 2}{Reeksamen 2021 opg 2}{Ortogonal mængde, rang, ortogonalt komplement/basis/projektion}
+\opg{Reeksamen 2021 opg 3}{Reeksamen 2021 opg 3}{Basis, matrixrepræsentation, egenværdier, vis indre produkt, Gram-Schmidt}
+\opg{Reeksamen 2021 opg 4}{Reeksamen 2021 opg 4}{Underrum, basis ved hjælp af Span og underrum, eksponentielfunktion, \hyperref[fig:15.4]{(15.4)}, differentialligningssystem}
+\plainbreak{1}
+
+% 7
+\opg{Eksamen 2020 opg 1}{Eksamen 2020 opg 1}{Injektiv og ikke surjektiv, ingen løsninger til lineær ligningssystem, mindste kvadraters løsning, ortogonal projektion}
+\opg{Eksamen 2020 opg 2}{Eksamen 2020 opg 2}{Integrale, selvadjungeret, ortonormalt diagonaliserbar, karakteristisk polynomium, egenværdi}
+\opg{Eksamen 2020 opg 3}{Eksamen 2020 opg 3}{Matrixrepræsentation $_{\mathcal{E}}[L]_{\mathcal{V}}$, isomorfi, vis indre produkt, Gram-Schmidt med funktioner, ortogonal projektion}
+\opg{Eksamen 2020 opg 4}{Eksamen 2020 opg 4}{Adjungeret, eksponentielfunktion, lineær differentialligningssystem med begyndelsesværdi}
+\plainbreak{1}
+
+% 8 
+\opg{Reeksamen 2020 opg 1}{Reeksamen 2020 opg 1}{Indre produkt og kerne, injektiv, isomorfi, selvadjungeret, ortonormalt diagonaliserbar}
+\opg{Reeksamen 2020 opg 2}{Reeksamen 2020 opg 2}{Søjlerum, mindste kvadraters løsning, nulrum, løsningsmængde, ortogonal projektion}
+\opg{Reeksamen 2020 opg 3}{Reeksamen 2020 opg 3}{Indre produkt, lineært uafhængig, Gram-Schmidt, koordinattransformationsmatricen}
+\opg{Reeksamen 2020 opg 4}{Reeksamen 2020 opg 4}{Egenvektorer, egenværdier, eksponentielfunktioner, differentialligningssystemer}
+\plainbreak{1}
+
+% 9
+\opg{Eksamen 2019 opg 1}{Eksamen 2019 opg 1}{Basis med determinant, Gram-Schmidt}
+\opg{Eksamen 2019 opg 2}{Eksamen 2019 opg 2}{Ikke invertibel, basis for søjlerum, koordinattransformationsmatrice}
+\opg{Eksamen 2019 opg 3}{Eksamen 2019 opg 3}{Løsningsmængde, basis for nulrum, dimension af række/søjlerum, ortogonalt komplement}
+\opg{Eksamen 2019 opg 4}{Eksamen 2019 opg 4}{Vis indre produkt, egenrum, egenværdi, selvadjungeret, diagonaliserbar, ortonormal basis, isometri}
+\opg{Eksamen 2019 opg 5}{Eksamen 2019 opg 5}{Eksponentielfunktion,  differentialligningssystem}
+
+\newpage
+\subsection{TØ opgaver: }
+\textcolor{white}{-}
+
+Uge 2: \textcolor{gray}{ Matricer, RREF, udsagn og induktionbevis. }
+
+Uge 3: \textcolor{gray}{ Matrixprodukt, invertible matricer og rækkeækvivalens. }
+
+Uge 4: \textcolor{gray}{ Vektorrum, underrum, span og ligningssystemer uden løsning. }
+
+Uge 5: \textcolor{gray}{ Billede, kerne, standardmatrixrepræsentation, nulrum, lineær transformation/operator, isomorfi, injektiv og surjektiv. }
+
+Uge 6: \textcolor{gray}{ Span, lineær uafhængighed og basis. }
+
+Uge 7: \textcolor{gray}{ Underrum, kvotientrum, basis for søjlerum, rækkerum og nulrum og koordinattransformationsmatrice. }
+
+Uge 8: \textcolor{gray}{ Basis, koordinattransformationsmatrix, matrixrepræsentation, indre produkt og normeret vektorrum.}
+
+Uge 9: \textcolor{gray}{ Indre produkt rum og underrum, projektion, ortogonal basis, ortogonal/ortonormal mængde, nulrum og spejlinger i hyperplaner. }
+
+Uge 10: \textcolor{gray}{ Gram-Schmidt, mindste kvadrats løsning, ortogonal projektion, lineær/kvadratisk/kubisk approksimation, isomorfi, afstandsbevarende, polariseringsidentiteten og ortonormal basis}
+
+Uge 11: \textcolor{gray}{Matrixrepræsentation, lineær approksimation, determinant, skævsymmetrisk og ortonormal basis.}
+
+Uge 12: \textcolor{gray}{Ortogonal basis, egenværdier og isometri for cos og sin, $\text{det}\br{A^TA}$, egenværdi, egenværdi for projektionsafbildning.}
+
+Uge 13: \textcolor{gray}{Induktionsbevis, karakteristisk polynomium, egenværdi, multipliciteter og egenværdier for polynomier.}
+
+Uge 14: \textcolor{gray}{Egenværdi, ortonormalt diagonaliserbar, mindste kvadraters løsning, Gram-Schmidt, koordinattransformationsmatrix, selvadjungeret og komplekse funktioner.}
+
+Uge 15: \textcolor{gray}{Reelle og komplekse differentialligningssystemer, eksponentialfunktion, }
+
+%\begin{comment}
+% 1
+\pdf{23v}{Eksamen 2023 opg 1}{1}{2}
+\pdf{23v}{Eksamen 2023 opg 2}{3}{4}
+\pdf{23v}{Eksamen 2023 opg 3}{5}{6}
+\pdf{23v}{Eksamen 2023 opg 4}{8}{9}
+\pdf{23v}{Eksamen 2023 opg 5}{10}{12}
+
+% 2
+\pdf{23rv}{Reeksamen 2023 opg 1}{1}{3}
+\pdf{23rv}{Reeksamen 2023 opg 2}{4}{6}
+\pdf{23rv}{Reeksamen 2023 opg 3}{7}{10}
+\pdf{23rv}{Reeksamen 2023 opg 4}{11}{13}
+
+
+% 3 
+\pdf{22v}{Eksamen 2022 opg 1}{1}{2}
+\pdf{22v}{Eksamen 2022 opg 2}{3}{5}
+\pdf{22v}{Eksamen 2022 opg 3}{6}{8}
+\pdf{22v}{Eksamen 2022 opg 4}{9}{11}
+
+% 4 
+\pdf{22rv}{Reeksamen 2022 opg 1}{1}{4}
+\pdf{22rv}{Reeksamen 2022 opg 2}{5}{7}
+\pdf{22rv}{Reeksamen 2022 opg 3}{8}{10}
+\pdf{22rv}{Reeksamen 2022 opg 4}{11}{13}
+
+% 5
+\pdf{21v}{Eksamen 2021 opg 1}{1}{3}
+\pdf{21v}{Eksamen 2021 opg 2}{4}{7}
+\pdf{21v}{Eksamen 2021 opg 3}{8}{11}
+\pdf{21v}{Eksamen 2021 opg 4}{12}{14}
+
+% 6
+\pdf{21rv}{Reeksamen 2021 opg 1}{1}{3}
+\pdf{21rv}{Reeksamen 2021 opg 2}{4}{6}
+\pdf{21rv}{Reeksamen 2021 opg 3}{7}{12}
+\pdf{21rv}{Reeksamen 2021 opg 4}{13}{16}
+
+% 7 
+\pdf{20v}{Eksamen 2020 opg 1}{1}{3}
+\pdf{20v}{Eksamen 2020 opg 2}{4}{6}
+\pdf{20v}{Eksamen 2020 opg 3}{7}{10}
+\pdf{20v}{Eksamen 2020 opg 4}{11}{14}
+
+% 8 
+\pdf{20rv}{Reeksamen 2020 opg 1}{1}{3}
+\pdf{20rv}{Reeksamen 2020 opg 2}{4}{7}
+\pdf{20rv}{Reeksamen 2020 opg 3}{8}{11}
+\pdf{20rv}{Reeksamen 2020 opg 4}{12}{14}
+
+% 9 
+\pdf{19v}{Eksamen 2019 opg 1}{1}{3}
+\pdf{19v}{Eksamen 2019 opg 2}{4}{5}
+\pdf{19v}{Eksamen 2019 opg 3}{6}{8}
+\pdf{19v}{Eksamen 2019 opg 4}{9}{11}
+\pdf{19v}{Eksamen 2019 opg 5}{12}{13}
+
+
+\chapter{Appendix}
+\pdf{Matnoter}{Inductionsbeviser}{53}{56}
+
+%\end{comment}
+
+\end{document} % ----------Dokumentet er nu slut! ------------
