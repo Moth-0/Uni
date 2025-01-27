@@ -1,0 +1,49 @@
+{
+    // Define the toolchains for PDFLaTeX, XeLaTeX, and LuaLaTeX
+    "latex-workshop.latex.tools": [
+        {
+            "name": "xelatex",
+            "command": "xelatex",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "%DOC%"
+            ]
+        },
+        {
+            "name": "bibtex",
+            "command": "bibtex",
+            "args": [
+                "%DOCFILE%"
+            ]
+        },
+        {
+            "name": "pdflatex",
+            "command": "pdflatex",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "%DOC%"
+            ]
+        }
+    ],
+
+    // Define the recipes for compiling LaTeX documents
+    "latex-workshop.latex.recipes": [
+
+        {
+            "name": "xelatex",
+            "tools": ["xelatex", "xelatex"]
+        },
+        {
+            "name": "bibtex",
+            "tools": ["bibtex"]
+        },
+        {
+            "name": "pdflatex",
+            "tools": ["pdflatex"]
+        }
+    ],
+}

@@ -1,0 +1,341 @@
+% Dette er utf8x udgaven af LaTeX-templaten. Den er til brug på
+% systemer der kører utf8x, såsom Linux. Hvis du bruger Windows, så er
+% det letteste at bruge TeXmaker som editor.  Loader dokumentklassen
+% memoir. Sætter sproget i dokumentet til dansk, papirtypen til A4,
+% sætter dokument til lige store højre og venstre margen, laver en
+% søjler og siger at vi gerne vil lave en artikel, sætter
+% skriftstørrelse til 11pt.
+\documentclass[danish,a4paper,oneside,onecolumn,article,11pt]{memoir}
+\usepackage[danish]{babel}    % Giver mulighed for dansk orddeling.
+\usepackage[utf8x]{inputenc}  % Her sættes tegnsæt til utf8x.
+\usepackage{graphicx}	      % Tillader indsættelse af billeder
+\usepackage{mathtools}	      % Ekstra matematik.
+%\usepackage{url}             % Bruges til at formattere url'er.
+\usepackage[colorlinks=true]{hyperref}
+\usepackage[draft]{fixme} % Denne pakke tillader indsættelse af fixme noter ved brug af \fxnote{} som man kan bruge som huske sedler til sig selv.
+\usepackage{xcolor}   % Gør så man kan farve tekst
+\usepackage{lmodern} % Så man kan compile i TeXworks
+\usepackage{alphabeta} % Til at skrive græske bogstaver
+\usepackage{subfig} % For at have to billeder ved siden af hinanden
+
+
+\usepackage{listings} % Hvis man vil inkludere kode eksempler.
+\lstset{language=matlab,breaklines=True} % Syntaks highlight til Matlab.
+\usepackage{float} %Mere kontrol over billede-placering
+
+
+\usepackage{caption}   % For avanceret caption-styling
+\captionsetup{
+    font={small, color=gray},  % Gør teksten lille og grå
+    labelfont={bf, color=black},  % Gør "Figur X" fed og sort
+    labelsep=colon  % Tilføj kolon efter "Figur X"
+    }
+% Caption styles: Laver alle captions om til sans serif fonte og gør dem en smule mindre end brødteksten.
+\captionnamefont{\small\sffamily}
+\captiontitlefont{\small\sffamily}
+
+
+\usepackage{soul} % Dette er til forsiden
+\sodef\an{}{0.2em}{.9em plus.6em}{1em plus.1em minus.1em}
+\newcommand\stext[1]{\an{\scshape#1}}
+
+
+
+\usepackage{microtype} % Pakke der proever at fikse badbox problemer. Kun kompatibel med pdflatex.
+% For at indstille margin:
+%	   		         left   right ratio
+\setlrmarginsandblock{2cm}{2cm}{*} % Hvor stjerne betyder udfyldes "automatisk".
+%                     top    bot ratio
+\setulmarginsandblock{2cm}{2cm}{*} % Hvor stjerne betyder udfyldes "automatisk".
+%\setlength{\oddsidemargin}{0cm} %giver mere plads på siden
+\checkandfixthelayout
+
+\pagestyle{simple} %Giver tom footer og sidetal i header
+
+\newcommand{\ti}[1]{\cdot 10^{#1}} % Let: gange 10^x
+\newcommand{\e}[1]{\emph{e}^{#1}} % Pænere e^x
+\newcommand{\vm}[2]{\begin{pmatrix} #1 \\ #2 \end{pmatrix}}
+\newcommand{\mat}[1]{\begin{pmatrix} #1 \end{pmatrix}}
+
+% Lette paranteser 
+\newcommand{\br}[2][1]{%
+    \ifcase#1
+    \or \left( #2 \right) %1 eller ingenting
+    \or \left[ #2 \right] %2
+    \or \left\langle #2 \right\rangle %3
+    \or \left\{ #2 \right\} %4
+    \or \left| #2 \right| %5
+    \fi
+}
+%Til at sætter bileder ind i store dokumenter
+\newcommand{\bil}[1]{
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Billeder/#1.png}
+    \label{fig:#1}
+\end{figure}
+}
+
+%Til at sætte pdf'er ind i store dokumenter (kun pdf'er på mere end 1 sider)
+\newcommand{\pdf}[4]{
+\includepdf[pages=#3,scale=.85,pagecommand={\subsection{#2 - \ref{ch:opg}}  \label{asc:#2}}]{pdf/#1.pdf}
+\includepdf[pages=\the\numexpr 1 + #3\relax-#4, scale=.85]{pdf/#1.pdf}
+}
+
+\newcommand{\h}{\hbar}
+\newcommand{\dd}{\partial}
+\newcommand{\eq}[1]{\label{eq#1}\tag{#1}}
+\renewcommand{\a}{\hat{a}}
+\newcommand{\n}{\plainbreak{1}}
+\newcommand{\ep}{\epsilon}
+
+\newcommand{\hv}[2][]{%
+    \if\relax\detokenize{#1}\relax
+        |#2\rangle%
+    \else
+        \if\relax\detokenize{#2}\relax
+            \langle #1|%
+        \else
+            \langle #1|#2\rangle%
+        \fi
+    \fi
+}
+
+
+\begin{document}
+%Her laver vi en forside...
+\begin{titlingpage}
+\thispagestyle{empty}
+\centering
+{ \setlength{\baselineskip}{24pt}
+{\Huge \stext{Kvantemekanikprojekt  E2024}} \par\vspace*{2\onelineskip}
+
+\large\stext{Projekt nr: 8} \par %<--- Indsæt projektnummer
+\large\stext{Titel: Åbne Kvantesystemer - Monte Carlo simulering} %<--- Indsæt titel her.
+
+\par\vspace
+*
+{8\onelineskip} %Her skrives dit navn og dit årskortnummer
+\large\stext{Mikkel Moth Billing (studienummer: 202307989)}\par
+\large\stext{Andreea Alexandra Anuta (studienummer: 202209845)}\par
+\large\stext{Aya Sofia Nikolajsen (studienummer: 202205275)}\par
+\large\stext{Nanna Bank-Pedersen (studienummer: 202308053)}\par\vspace*{2\onelineskip}
+%% Skal flere gruppemedlemmer tilføjes, så kopier ovennstående to linjer.
+
+
+\par\vspace*{2\onelineskip}
+\large\stext{Afleveret: dato (Senest fredag d. 6/12 kl.~12.00 til
+  Ann-Berit Porse St\ae rk\ae r, 1522-314)
+}\par\vspace*{2\onelineskip} }
+
+\vfill
+\vspace
+*
+{2\onelineskip}
+%%%% HER SKAL I SKRIVE VEJLEDEREN PÅ PROJEKT OG JERES TØ-INSTRUKTOR %%%%
+%%%% HVIS I HAR FORSKELLIGE INSTRUKTORER TIL TØ, SÅ SKRIV DEM ALLE %%%%%%%
+\stext{Projektvejleder:  Nikolaj Klinkby}\par\vspace*{2\onelineskip}
+\stext{Instruktor: Søren Skovgaard Balling}\par\vspace
+*
+{2\onelineskip}
+\enlargethispage{2\onelineskip}
+\end{titlingpage}
+% ------------------ Forside over -----------------------
+% ------------------ Projekt under ----------------------
+\hypersetup{linkcolor=black} % Laver tableofcontents sort.  
+\tableofcontents* % Indsætter indholdsfotegnelse 
+\hypersetup{linkcolor=red} % Laver alle andre hyperrefs røde.
+\newpage
+
+\chapter{Intro} 
+- Udledning af master equation (Lindblad) i kvant for at beskrive åbent kvantesystem
+\\
+- Lille afsnit om dekoherens
+\\
+- Hvordan omsættes matematikken til noget vi kan bruge til simulering (stokastisk bølgefunktion afsnittet)
+\\
+- Hvad viser vores plots, hvad er vores resultater og forståelse af det fysiske system?
+% Mål: Forklaring af densitet forståelsen, vis tidsafledt densitetmatrix (1) til (8), tror ikke (8) og (9) er vigtige. 
+
+\chapter{Beskrivelse af åbne kvantesystemer}
+I vores kursus indtil videre har vi primært arbejdet med lukkede kvantesystemer, det vil sige systemer der antages fuldt isoleret. Når vi skriver en Hamiltonian for et lukket system behøver vi kun at tage højde for energien i systemet. 
+\begin{align*}
+    H_{lukket} = H_{system}
+\end{align*}
+Et kvantesystem eksisterer dog sjældent alene i den virkelige verden, det eksistere i et miljø som interagere med systemet. En Hamiltionian for et sådanne system vil dermed se sådan ud.
+
+\begin{align*}
+    H_{åben} = H_{system} + H_{miljø} + H_{interaktion} 
+\end{align*}
+
+I det åbne kvantesystem interagerer systemet $(S)$ med omgivelserne $(E)$, hvor den samlede tilstand kan beskrives af en bølgefunktion for det kombinerede system S+E. I praksis er det dog nærmest umuligt at opskrive denne samlede bølgefunktion da omgivelserne kan have frihedsgrader der ikke kan beskrives præcist og fordi der desuden er interaktioner mellem E og S, kaldt $L_k$, der gør det svært at skille E og S ad og opskrive dem eksplicit. 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.45\linewidth]{Billeder/fig2.png}
+    \label{fig:fig2}
+    \caption{\textcolor{gray}{ }}
+\end{figure}
+
+Vi vil dog alligevel opskrive et udtryk der kan beskrive det åbne kvantesystem
+
+- $L_k$ operatorer
+
+\section{Densitet Matrix}
+
+\begin{equation}
+    \rho= \hv{\Psi} \hv[\Psi]{}
+\end{equation}
+
+\section{Von Neumann ligningen}
+Von Neumann ligningen beskriver tidsudviklingen af densitetsmatricen $(\rho)$ og er en generalisering af Schrödingerligningen som vi kender fra kvantemekanik kurset indtil videre. Von Neumann ligningen kan beskrive blandede kvantetilstande, og indeholder således information om sandsynlighedsfordelingen af flere tilstande. 
+\begin{equation}\label{eq:vonneumann}
+        \frac{\partial}{\partial t}\rho_S=-\frac{i}{\hbar}\left[H_S,\rho\right].
+    \end{equation}
+
+\subsection{Antagelser og approximationer}
+
+\section{Lindblad ligningen}
+\begin{equation}\label{eq:lindblad}
+    \frac{\text{d}\rho_S}{\text{d}t}=-\frac{i}{\hbar}\left[H_S,\rho_S\right]+\sum_k\left(L_k\rho_S L_k^\dagger-\frac{1}{2}\left\{L_k^\dagger L_k,\rho_S\right\}\right)
+\end{equation}
+
+% Mål: Forklar Lindblad Ligning, tror ikke udledning er vigtig, men en grundig forklaring af Born/(Wigner-Weisskopf) Aproksimation. Forklaring af interaktion mellem system og miljø, og forklaring af "hæve/sænke" operatorerne. 
+
+\chapter{Stochastic Bølgefunktion (Andreea)}
+En stokastisk bølgefunktion er en metode til at beskrive udviklingen af kvantesystemer, især i åbne kvantesystemer, hvor systemet interagerer med omgivelserne, som i vores tilfælde. Det bruges ofte som en numerisk tilgang til at løse Lindblad-ligningen ved at simulere, hvordan kvantetilstande ændrer sig over tid under påvirkning af både Hamiltonian-dynamik og kvantehop (stokastiske ændringer i tilstanden). 
+
+Her bruger vi den stokastiske bølgefunktion som en måde til at kombinere deterministisk kvantemekanik med stokastiske processer. Dette gøres for at tage højde for interaktioner med omgivelser, der ikke kan beskrives eksakt. Det centrale element er at bruge Monte Carlo-metoder til at generere et statistisk gennemsnit, som kan efterligne udviklingen af systemets densitetsmatrice.
+
+Metoden består af to primære trin:
+\begin{enumerate}
+    \item 
+    Deterministisk udvikling: Systemet udvikler sig over små tidsintervaller $Δt$ under påvirkning af en effektiv Hamiltonian, $H_{eff}$, som inkluderer dekoherens-effekter.
+    \item
+    Stokastiske kvantehop: Efter hvert tidsinterval er der en sandsynlighed for, at systemet udfører et "kvantehop" til en ny tilstand, som bestemmes af Lindblad-operatorerne.
+\end{enumerate}
+
+\plainbreak{1}
+Der kræves mange gentagelser af simulationen for at få en statistisk repræsentation af systemets udvikling.
+
+Vigtige ligninger:
+\begin{enumerate}
+    \item 
+    Effektiv Hamiltonian: Den effektive Hamiltonian beskriver systemets udvikling mellem kvantehop:
+    $$H_{eff}=H_S-\frac{i\hbar}{2}\sum_kL_k^\dagger L_k.$$
+    hvor $H_{S}$ er systemets Hamiltonian, og $L_{k}$ er Lindblad-operatorerne, der repræsenterer interaktionen med omgivelserne.
+    \item
+    Bølgefunktionens tidsudvikling: En kvantetilstand $\hv{ψ}$ udvikler sig deterministisk som:
+    \begin{equation}
+    \hv{\psi_i(t+\Delta t)}=\left(1+\frac{H_{eff}\Delta t}{i\hbar}\right)\hv{\psi_i(t)}.
+\end{equation}
+    Denne tilstand er ikke nødvendigvis normaliseret, så normeringen beregnes bagefter.
+    \item
+    Sandsynlighed for kvantehop: Sandsynligheden for, at et kvantehop sker til en ny tilstand, afhænger af Lindblad-operatorerne:
+    \begin{align}
+    \Delta p_{k,i}&=\Delta t\hv[{\psi_i}]{}{L_k^\dagger L_k}\hv{\psi_i}.
+\end{align}
+    Hvis sandsynligheden for et hop er høj nok, transformeres tilstanden som:
+    \begin{align}
+    |\psi\rangle \to L_k |\psi\rangle
+    \end{align}
+    \item
+    Sandsynlighedsbevarelse: Summen af sandsynlighederne for alle mulige tilstande (inklusive ingen hop) skal være 1:
+    \begin{align}
+    (1 - \Delta p) + \sum_k \Delta p_k = 1
+    \end{align}
+    \item
+    Opdateret tæthedsmatrix: Efter flere gentagelser af simuleringer kan man estimere tæthedsmatricen som:
+    \begin{align}
+    \rho_S(t)=\frac{1}{N}\sum_ip_i\hv{ψ_i}\hv[ψ_i]{},
+    \end{align}
+    hvor $N$ er antallet af gentagelser, og $p_i$ er vægten af hver tilstand.
+\end{enumerate}
+\plainbreak{1}
+Tilnærmelser i metoden:
+\begin{enumerate}
+    \item 
+    Born-Markov-approximationen: Siger at omgivelserne er så store ift. systemet, at der ikke sker nogen ændring i omgivelserne af betydning. Dette gør at densitetsmatricen er faktoriserbar til alle tider.
+    Den tidsafledede af systemets densitet afhænger kun af dets nuværende tilstand, og alle korrelationer mellem den nuværende tilstand og tidligere tilstande er tabt.
+    \item
+    Wigner-Weisskopf-tilnærmelse: Systemet ændres øjeblikkeligt ved interaktion med omgivelserne, og kan ikke huske tidligere stadier eller interaktioner. Man siger at systemet er hukommelsesløst.
+    \item
+    Effektiv Hamiltonian: Den effektive Hamiltonian tager højde for sandsynlighederne for kvantehop ved at inkludere en kompleks dekoherens-term.
+    \item
+    Diskret tidsudvikling: Systemets udvikling simuleres i små tidsintervaller $Δt$, hvor sandsynligheder beregnes for hvert interval.
+\end{enumerate}
+
+Så samlede set, stokastiske bølgefunktioner giver en intuitiv og beregningsmæssig tilgængelig tilgang til at forstå, hvordan et åbent kvantesystem udvikler sig over tid. Metoden er numerisk effektiv og egnet til komplekse systemer, hvor analytiske løsninger er umulige. Og den er essentiel for at forstå dekoherens i kvantecomputere, kvanteoptik og andre åbne kvantesystemer.
+
+% Mål: Forklaring af eff hamilton (39)->(43)
+\chapter{Monte Carlo Simulering + Two Level System (Mikkel)}
+Vi vil lave en Monte Carlo simulering over udviklingen af bølgefunktionen for en partikel. Vi laver denne simulering ud fra et to-niveau system. Til det bruger vi basen $\br[4]{\hv{ψ_1}, \hv{ψ_2}}$. Når vi har et to-niveau system, er $k=0$, og vi kan derfor skrive vores Lindblad-operatorer som: 
+\begin{align*}
+    &L_0 = γ\sqrt{\bar{n}+1}σ_-, \\
+    &L_1 = γ\sqrt{\bar{n}}σ_+.
+\end{align*}
+Ud fra dette skriver vi Hamiltonian for vores system op. 
+\begin{align*}
+    H_{eff} = \h ω \br{a_+a_-+\frac{1}{2}}+\h λ\br{σ_++σ_-}-\frac{i\h γ}{2}\br{(\bar{n}+1)σ_+σ_-+\bar{n}σ_-σ_+}.
+\end{align*}
+
+Vi kan tænke på dette system som et atom i en boks. Vi udsætter dette atom for et energifelt, med drivningskraft $λ$, for at få systemet til at oscillere. Dette skaber en kvante-bit. Boksen vil have en temperatur, og vil derfor udsende sortlegeme stråling. Styrken af denne del er bestemt ud fra $γ$, som er et begreb for, hvor tit boksen vil påvirke atomet, og $\bar{n}$, som er kvantetallet: $\bar{n}=\br[5]{c_1}^2\cdot 1+\br[5]{c_2}^2\cdot2$.
+
+% Omskrives efter del 3
+\textcolor{red}{Nu bruges ligning (49) til at regne sandsynligheden ud for at bølgefunktionen enten udvikler sig efter ligning (52) eller (54) til enhver tid $(t+Δt)$, hvor $Δt = 0.01$. Hvis vi vælger et tilfældigt $p \in [0,1]$, og $Δp \leq p$, udvikler $ψ$ sig efter $H_{eff}$.} Hvis $Δp > p$, udvikler $ψ$ sig efter ligning (54), som i to-niveau systemet er: 
+\begin{align*}
+    \begin{cases}
+    \hv{\phi_{0}} = L_0\hv{ψ} = γ\sqrt{\bar{n}+1}σ_- \hv{ψ}, & \text{hvis } p < Δp0 \\
+    \hv{\phi_{1}} = L_1\hv{ψ} = γ\sqrt{\bar{n}}σ_+ \hv{ψ}, & \text{hvis } Δp0 \leq p < Δp0+Δp1 
+    \end{cases}
+\end{align*}
+
+Hvis vi til hver tid regner densiteten af vores bølgeligning, og tager gennemsnittet over N simuleringer, får vi en gennemsnitlig densitetsudvikling, som kan vise, hvad der sker med systemet. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.50\linewidth]{Billeder/fig1.png}
+    \label{fig:fig1}
+    \caption{\textcolor{gray}{ }}
+\end{figure}
+
+På \hyperref[fig:fig1]{Figur 2} ses simuleringen af den gennemsnitlige densitetsudvikling over 100 simuleringer, hvor atomet er startet i den exciterede tilstand $\hv{ψ_2}$. Her er der både en drivningskraft og interaktion fra boksen. Vi kan se, at sandsynligheden for at være i henholdsvis $\hv{ψ_1}$ og $\hv{ψ_2}$, skaber en dæmpet oscillation. Hvis vi sammenligner med \hyperref[fig:fig3]{Figur 3}, ser vi, at det er drivningskraften der danner oscillationen, og at sortlegeme strålingen fra boksen, skaber en form for dæmpning. 
+
+Vi kan også se ud fra Figur 3.b, at hvis der ikke er nogen drivningskraft, vil sandsynligheden for at være i $\hv{ψ_1}$, overstige sandsynligheden for at være i $\hv{ψ_2}$. Det skyldes at sandsynligheden for at bølgefunktionen udvikler sig efter $\hv{\phi_0}$ og dermed "hopper" ned, er større end at den udvikler sig efter $\hv{\phi_1}$. 
+
+\begin{figure}[H]
+    \centering
+    % First subfigure
+    \subfloat[\textcolor{gray}{Kun drivningskraft}]{%
+        \includegraphics[width=0.4\textwidth]{Billeder/fig3.png} % Replace with your file
+        \label{fig:subfig1}
+    }
+    \hspace{0.05\textwidth} % Juster afstand mellem billeder
+    % Second subfigure
+    \subfloat[\textcolor{gray}{Kun interaktion fra boksen}]{%
+        \includegraphics[width=0.4\textwidth]{Billeder/fig4.png}  % Replace with your file
+        \label{fig:subfig2}
+    }
+
+    % Main figure caption
+    \caption{ }
+    \label{fig:fig3}
+\end{figure}
+
+\chapter{Konklusion}
+Vi kan altså ud fra vores Monte-Carlo simulering se, at 
+
+
+% ------------------ Projekt over -----------------------
+\begin{thebibliography}{99}
+\bibitem{studieordning}
+  \href{https://eddiprod.au.dk/EDDI/webservices/DokOrdningService.cfc?method=visGodkendtOrdning&dokOrdningId=15832&sprog=da}{Studieordning
+    for bacheloruddannelsen i fysik (2019)}.
+  
+\bibitem{griff} Introduction to Quantum Mechanics, Third Edition,
+  David J.~Griffiths and Darrell F.~Schroeter.
+  
+\bibitem{schaums} Schaums's Mathematical Handbook of formulas and
+  Tables, Third Edition, Murray R.~Spiegel et.~al.
+\end{thebibliography}
+
+\end{document}
