@@ -16,7 +16,7 @@ pay = int(input("Monthly payment: "))
 
 months = 0 
 
-while loan >= 0: 
+while loan > 0: 
     months += 1
     intrest = loan * rate
     loan = loan + intrest - pay
