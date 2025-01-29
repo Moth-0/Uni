@@ -20,6 +20,7 @@
  \usepackage{pdfpages} % Til at indsætte andre pdf'er
  \usepackage{subfig} % For at have to billeder ved siden af hinanden
  \usepackage{unicode-math}
+ \usepackage{bm}
  
  % Pænere toc indents 
  \usepackage{tocloft}
@@ -105,6 +106,79 @@
  \newpage
  
  %Skriv
+ \chapter{Math}
+ \section{Vectors}
+\begin{align*}
+    &a(\bar{A}+ \bar{B}) = a\bar{A} + a\bar{B} \\
+    &\bar{A} \cdot \bar{B} = |\bar{A}||\bar{B}|\cos(\theta) \eq{1.1} \\    
+    &\bar{A} \times \bar{B} = |\bar{A}||\bar{B}|\sin(\theta)\hat{n} \eq{1.4} \\
+    &(\bar{A}\times \bar{B}) = -(\bar{B}\times \bar{A}) \eq{1.6} \\
+    &\bar{A} \cdot (\bar{B} \times \bar{C}) = \bar{B} \cdot (\bar{C} \times \bar{A}) = \bar{C} \cdot (\bar{A} \times \bar{B}) \eq{1.15} \\
+    &\bar{A} \times (\bar{B} \times \bar{C}) = \bar{B}(\bar{A} \cdot \bar{C}) - \bar{C}(\bar{A} \cdot \bar{B}) \eq{1.17} \\
+    &(\bar{A} \times \bar{B}) \cdot (\bar{C}\times \bar{D}) = (\bar{A} \cdot \bar{C})(\bar{B} \cdot \bar{D}) - (\bar{A} \cdot \bar{D})(\bar{B} \cdot \bar{C})  \\
+    &\bar{A} \times [\bar{B} \times (\bar{C} \times \bar{D})] = \bar{B}[\bar{A}\cdot(\bar{C}\times \bar{D})] - (\bar{A}\cdot\bar{B})(\bar{C}\cdot\bar{D})\eq{1.18}
+\end{align*} 
+
+\section{Calculus}
+\begin{align*}
+    dT &= \br{\frac{\dd T}{\dd x}+\hat{x}+\frac{\dd T}{\dd y}\hat{y}+\frac{\dd T}{\dd z}\hat{z}} \cdot (dx \hat{x} + dy \hat{y} +dz \hat{z}) \\
+    &= (\nabla T) \cdot d\bar{l}, \eq{1.35} \\
+\end{align*}
+where the gradent ($\nabla$) is an operator: 
+\begin{align*}
+    \nabla = \hat{x}\frac{\dd}{\dd x} + \hat{y}\frac{\dd}{\dd y} + \hat{z}\frac{\dd}{\dd z}. \eq{1.39}
+\end{align*}
+
+The gradient is used to calculate the divergence of a vector with: 
+\begin{align*}
+    \nabla \cdot \bar{v} = \frac{\dd v_x}{\dd x} + \frac{\dd v_y}{\dd y} + \frac{\dd v_z}{\dd z}, \eq{1.40}
+\end{align*}
+and the curl with: 
+\begin{align*}
+    &\nabla \times \bar{v} = \begin{vmatrix} \hat{x} & \hat{y} & \hat{z} \\ \frac{\dd}{\dd x} & \frac{\dd}{\dd y} & \frac{\dd}{\dd z} \\ v_x & v_y & v_z \end{vmatrix} \\ 
+    = \left(\frac{\dd v_z}{\dd y} - \frac{\dd v_y}{\dd z}\right)\hat{x} &+ \left(\frac{\dd v_x}{\dd z} - \frac{\dd v_z}{\dd x}\right)\hat{y} + \left(\frac{\dd v_y}{\dd x} - \frac{\dd v_x}{\dd y}\right)\hat{z}. \eq{1.41}
+\end{align*}
+
+The product rules for the gradient are: 
+\begin{align*}
+    &\nabla (fg) = f\nabla g + g\nabla f \\
+    &\nabla (\bar{A} \cdot \bar{B}) = \bar{A} \times (\nabla \times \bar{B}) + \bar{B} \times (\nabla \times \bar{A}) + (\bar{A} \cdot \nabla)\bar{B} + (\bar{B} \cdot \nabla)\bar{A} \\
+    &\nabla \cdot (f\bar{A}) = f(\nabla \cdot \bar{A}) + \bar{A} \cdot (\nabla f) \\
+    &\nabla\cdot(\bar{A}\times \bar{B}) = \bar{B}\cdot(\nabla\times \bar{A}) - \bar{A}\cdot(\nabla\times \bar{B}) \\
+    &\nabla\times(f\bar{A}) = f(\nabla\times \bar{A}) + \nabla f \times \bar{A} \\
+    &\nabla\times(\bar{A}\times \bar{B}) = \bar{A}(\nabla\cdot \bar{B}) - \bar{B}(\nabla\cdot \bar{A}) + (\bar{B}\cdot \nabla)\bar{A} - (\bar{A}\cdot \nabla)\bar{B}
+\end{align*}
+
+When we use the gradient to make a second derivitive we get the Laplacian: 
+\begin{align*}
+    \nabla (\nabla T) = \frac{\dd^2 T}{\dd x^2} + \frac{\dd^2 T}{\dd y^2} + \frac{\dd^2 T}{\dd z^2}, \eq{1.42}
+\end{align*}
+and the laplacian of a vector: 
+\begin{align*}
+    \nabla^2\bar{v} = (\nabla^2 v_x)\hat{x} + (\nabla^2 v_y)\hat{y} + (\nabla^2 v_z)\hat{z}. \eq{1.43}
+\end{align*}
+
+We also have the following identities:
+\begin{align*}
+    &\nabla \times (\nabla T) = 0 \eq{1.45}\\
+    &\nabla \cdot (\nabla \times \bar{v}) = 0 \eq{1.46}\\
+    &\nabla \times (\nabla \times \bar{v}) = \nabla(\nabla \cdot \bar{A}) - \nabla^2 \bar{A}. \eq{1.47}
+\end{align*}
+
+\section{Fundamental theorem of calculus}
+Gradient: 
+\begin{align*}
+    \int_{\bar{a}}^{\bar{b}} (\nabla T) \cdot d\bar{l} = T(\bar{b}) - T(\bar{a}) \eq{1.55} 
+\end{align*}
+Divergence:
+\begin{align*}
+    \int_{\mathcal{V}} (\nabla \cdot \bar{v})dV = \oint_{\mathcal{S}} \bar{v} \cdot d\bar{a} \eq{1.56}
+\end{align*}
+Curl: 
+\begin{align*}
+    \int_{\mathcal{S}} (\nabla \times \bar{v}) \cdot d\bar{a} = \oint_{\mathcal{P}} \bar{v} \cdot d\bar{l} \eq{1.57}
+\end{align*}
+
 \chapter{Electrostatics}
 \section{Electric field}
 The force on a test charge $(Q)$ from a single point charge $(q)$, a distance $\bar{r}$ away, is calculated by Coulomb's law: 
@@ -113,6 +187,5 @@ The force on a test charge $(Q)$ from a single point charge $(q)$, a distance $\
 \end{align*}
 where  $\ep_0 = 8.85\ti{-12}\frac{\text{C}^2}{\text{N}\cdot \text{m}^2}$ is the permittivity of free space. 
 
-$\mathscr{R}$
 
 \end{document}
