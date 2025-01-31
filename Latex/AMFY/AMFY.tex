@@ -1,0 +1,116 @@
+% Første linje er dokumentklassen. Brug *altid* memoir!
+\documentclass[a4paper,oneside,article]{memoir}
+
+% Herunder indlæses forskellige pakker
+\usepackage[utf8]{inputenc}  % Korrekt håndtering af æ, ø og å
+\usepackage[T1]{fontenc}  % Korrekt håndtering af æ, ø og å
+\usepackage{microtype}  % Typografisk magi! Giver bl.a. pænere orddeling
+\usepackage{graphicx}  % Gør det muligt at indsætte billeder
+\usepackage{amsmath}  % Giver adgang til uundværlige matematikting
+\usepackage{mathtools}  % Retter ting i ams og giver ekstra muligheder
+\usepackage[danish]{babel}  % Danske betegnelser og orddeling
+\usepackage{lmodern}
+\usepackage{alphabeta}
+\usepackage{float} %Mere kontrol over billede-placering
+\renewcommand{\danishhyphenmins}{22}  % Bedre dansk orddeling
+\usepackage[exponent-product=\ensuremath{\cdot}]{siunitx} % Sientific notation for forskellige ting, med en regel om at den skal bruge cdot istedet for times. 
+\usepackage{derivative} % Til at skrive differentialligninger 
+\usepackage{xcolor} % For at få flere tekst farver 
+\usepackage[colorlinks=true]{hyperref} % For at få refrences man kan trykke på, slet [] hvis man vil have kasser i stedet for farvet tekst.
+\usepackage{pdfpages} % Til at indsætte andre pdf'er
+\usepackage{subfig} % For at have to billeder ved siden af hinanden
+\usepackage{unicode-math}
+\usepackage{bm}
+
+
+
+
+% Pænere toc indents 
+\usepackage{tocloft}
+\cftsetindents{section}{1em}{2em}
+\cftsetindents{subsection}{4em}{0em}
+
+
+% Indholdet i dit dokument starter her!
+\begin{document}
+\author{Mikkel Moth Billing \\ 202307989}
+\title{Atom- og Molekylefysik Formelsamling}
+\date{\today}
+\maketitle   % Indsætter overskriften
+% Table of Contents indstillinger
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{1}
+\hypersetup{linkcolor=black} % Laver tableofcontents sort.  
+\tableofcontents %Indsætter ToC
+\hypersetup{linkcolor=red} % og så alle andre hyperrefs røde. 
+
+%Custom Commands
+%Til opgavebeskrivelser
+\newcommand{\opg}[1]{\textcolor{gray}{\emph{#1}}\plainbreak{1}} 
+
+\newcommand{\ti}[1]{\cdot 10^{#1}} % Let: gange 10^x
+\newcommand{\e}[1]{\emph{e}^{#1}} % Pænere e^x
+\newcommand{\vm}[2]{\begin{pmatrix} #1 \\ #2 \end{pmatrix}}
+\newcommand{\mat}[1]{\begin{bmatrix} #1 \end{bmatrix}}
+
+% Lette paranteser 
+\newcommand{\br}[2][1]{%
+\ifcase#1
+\or \left( #2 \right) %1 eller ingenting
+\or \left[ #2 \right] %2
+\or \left\langle #2 \right\rangle %3
+\or \left\{ #2 \right\} %4
+\or \left| #2 \right| %5
+\fi
+}
+%Til at sætter bileder ind i store dokumenter
+\newcommand{\bil}[1]{
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.75\linewidth]{Billeder/#1.png}
+        \label{fig:#1}
+    \end{figure}
+    }
+    
+%Til at sætte pdf'er ind i store dokumenter (kun pdf'er på mere end 1 sider)
+\newcommand{\pdf}[4]{
+    \includepdf[pages=#3,scale=.85,pagecommand={\subsection{#2 - \ref{ch:opg}}  \label{asc:#2}}]{pdf/#1.pdf}
+    \includepdf[pages=\the\numexpr 1 + #3\relax-#4, scale=.85]{pdf/#1.pdf}
+}
+
+\newcommand{\h}{\hbar}
+\newcommand{\dd}{\partial}
+\newcommand{\eq}[1]{\label{eq#1}\tag{#1}}
+\renewcommand{\a}{\hat{a}}
+\newcommand{\n}{\plainbreak{1}}
+\newcommand{\ep}{\epsilon}
+\renewcommand{\r}{\text{\usefont{U}{dutchcal}{m}{n}r}}
+
+
+\newcommand{\hv}[2][]{%
+    \if\relax\detokenize{#1}\relax
+        |#2\rangle%
+    \else
+        \if\relax\detokenize{#2}\relax
+            \langle #1|%
+        \else
+            \langle #1|#2\rangle%
+        \fi
+    \fi
+}
+ 
+ 
+ 
+% Lav ny pagestyle (kun odd fordi enkeltsidet)
+\makepagestyle{Title}
+\pagestyle{Title}
+%\makeoddhead{Title}{\footnotesize\color{gray}{\theauthor}}{}{\textcolor{gray}{\thedate}}
+\makeoddfoot{Title}{}{\footnotesize\color{gray}{\thepage{} / \thelastpage}}{}
+% Også fod på siden med \maketitle
+\makeoddfoot{plain}{}{\footnotesize\color{gray}{\thepage{} / \thelastpage}}{}
+\newpage
+ 
+%Skriv
+
+
+\end{document}
