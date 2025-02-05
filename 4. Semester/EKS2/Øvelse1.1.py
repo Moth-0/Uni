@@ -1,12 +1,25 @@
 # Imports
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy.optimize import curve_fit
 
 # Plot settings
 plt.rc("axes", labelsize=18, titlesize=22)   # skriftstørrelse af `xlabel`, `ylabel` og `title`
 plt.rc("xtick", labelsize=16, top=True, direction="in")  # skriftstørrelse af ticks, vis også ticks øverst og vend ticks indad
 plt.rc("ytick", labelsize=16, right=True, direction="in") # samme som ovenstående
 plt.rc("legend", fontsize=16) # skriftstørrelse af figurers legends
+
+#Functioner 
+def find_θ2(θ1, n1, n2):
+    return np.arcsin(n1/n2 * np.sin(θ1))
+
+def Rs_func(θ1, n1, n2): 
+    return np.sin(θ1 - find_θ2(θ1))**2 / np.sin(θ1 + find_θ2(θ1))**2
+
+def Rp_func(θ1):
+    return np.tan(θ1 - find_θ2(θ1))**2 / np.tan(θ1 + find_θ2(θ1))**2
+
+
 
 # Brydningsindex
 # n_{glas} = n_{luft} * sin(θ_1) / sin(θ_2)
@@ -33,9 +46,20 @@ T_p = np.array([1.01, 1.68, 1.27, 1.65, 1.35, 0.19])
 R_s = np.array([0.01, 0.01, 0.14, 0.24, 0.51, 1.11])
 R_p = np.array([0.07, 0.05, 0.05, 0.04, 0.13, 0.88])
 
+print(T_s + T_p + R_s + R_p)
+
 # Plot reflekteret som funktion af indfaldsvinkel
-plt.plot(θ1_list, R_s, label=r'$R_s$')
-plt.plot(θ1_list, R_p, label=r'$R_p$')
+plt.plot(θ1_list, R_s, "o", label=r'$R_s$')
+plt.plot(θ1_list, R_p, "o",  label=r'$R_p$')
+
+# Fit data
+popt_s, pcov_s = curve_fit(Rs_func, θ1_list, R_s)
+popt_p, pcov_p = curve_fit(Rp_func, θ1_list, R_p)
+
+# Plot fits
+plt.plot(θ1_list, Rs_func(θ1_list), label=r'$R_s$ fit')
+plt.plot(θ1_list, Rp_func(θ1_list), label=r'$R_p$ fit')
+
 
 # Udregn Brewsters vinkel og plot
 θ_B = np.arctan(n_glas/n_luft)

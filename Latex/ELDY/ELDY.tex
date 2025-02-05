@@ -83,7 +83,7 @@
 \newcommand{\eq}[1]{\label{eq#1}\tag{#1}}
 \renewcommand{\a}{\hat{a}}
 \newcommand{\n}{\plainbreak{1}}
-\newcommand{\ep}{\epsilon}
+\newcommand{\ep}{\epsilon_0}
 \renewcommand{\r}{\text{\usefont{U}{dutchcal}{m}{n}r}}
 
 
@@ -189,30 +189,30 @@ Curl:
 \section{Electric field}
 The force on a test charge $(Q)$ from a single point charge $(q)$, a distance $\bar{\r}$ away, is calculated by Coulomb's law: 
 \begin{align*}
-    \bar{F} = \frac{1}{4 \pi \ep_0}\frac{q Q}{\r^2}\hat{\r}, \eq{2.1}
+    \bar{F} = \frac{1}{4 \pi \ep}\frac{q Q}{\r^2}\hat{\r}, \eq{2.1}
 \end{align*}
-where  $\ep_0 = 8.85\ti{-12}\frac{\text{C}^2}{\text{N}\cdot \text{m}^2}$ is the permittivity of free space. 
+where  $\ep = 8.85\ti{-12}\frac{\text{C}^2}{\text{N}\cdot \text{m}^2}$ is the permittivity of free space. 
 
 If we have several point charges, at different distances from Q, we have an elektric field: 
 \begin{align*}
     &\bar{F} = Q\bar{E}, \eq{2.3} \\
-    &\bar{E} = \frac{1}{4\pi\ep_0}\sum_i \frac{q_i}{\r_i^2}\hat{\r_i}. \eq{2.4}
+    &\bar{E} = \frac{1}{4\pi\ep}\sum_i \frac{q_i}{\r_i^2}\hat{\r_i}. \eq{2.4}
 \end{align*}
 
 If we have a continuous charge distribution, we can calculate the electric field by:
 \begin{align*}
-    \bar{E} = \frac{1}{4\pi\ep_0}\int \frac{1}{\r^2}\hat{\r}dq, \eq{2.5}
+    \bar{E} = \frac{1}{4\pi\ep}\int \frac{1}{\r^2}\hat{\r}dq, \eq{2.5}
 \end{align*}
 where $dq$ is the charge in a small element, be it line charge $(dq=λdl)$, area charge $(dq=σda)$  or volume charge $(dq=ρdτ)$.
 
 \subsubsection{Special cases:} 
 $ $
 
-Field of infinite length wire: \[ E = \frac{1}{4π\ep_0}\frac{2λ}{z}\]
+Field of infinite length wire: \[ E = \frac{1}{4π\ep}\frac{2λ}{z}\]
 
-Field of infinite plane: \[ \bar{E} = \frac{σ}{2\ep_0}\hat{a}\]
+Field of infinite plane: \[ \bar{E} = \frac{σ}{2\ep}\hat{a}\]
 
-Field outside a uniformly charged sphere with total charge $q$, $r>R$: \[ \bar{E} = \frac{1}{4π\ep_0}\frac{q}{r^2}\hat{r}\]
+Field outside a uniformly charged sphere with total charge $q$, $r>R$: \[ \bar{E} = \frac{1}{4π\ep}\frac{q}{r^2}\hat{r}\]
 
 \section{Divergence and Curl}
 Field lines are imaginary lines used to represent the direction and strength of a field, such as an electric field. They start on positive charges and end on negative charges. The density of these lines indicates the field's strength; closer lines mean a stronger field.
@@ -224,17 +224,17 @@ Flux refers to the quantity of a field passing through a given surface. For an e
 
 Gauss's law states that the total electric flux through a closed surface is proportional to the charge enclosed within that surface.
 \begin{align*}
-    \oint \bar{E} \cdot d\bar{a} = \frac{Q_{\text{enc}}}{\ep_0}, \eq{2.13}
+    \oint \bar{E} \cdot d\bar{a} = \frac{Q_{\text{enc}}}{\ep}, \eq{2.13}
 \end{align*}
 where $Q_{\text{enc}}$ is the charge enclosed by the surface. 
 It can be rewritten with the divergence thereom, when $Q_{\text{enc}} = \int_{\mathcal{V}}ρdτ$: 
 \begin{align*}
-    \nabla \cdot \bar{E} = \frac{ρ}{\ep_0}. \eq{2.14}
+    \nabla \cdot \bar{E} = \frac{ρ}{\ep}. \eq{2.14}
 \end{align*} 
 
 To calculate the curl of the electric fgield we see that: 
 \begin{align*}
-    \int_{\bar{a}}^{\bar{b}} \bar{E} \cdot d\bar{l} = \frac{1}{4π\ep_0} \br{\frac{q}{r_a}-\frac{q}{r_b}}, \eq{2.18}
+    \int_{\bar{a}}^{\bar{b}} \bar{E} \cdot d\bar{l} = \frac{1}{4π\ep} \br{\frac{q}{r_a}-\frac{q}{r_b}}, \eq{2.18}
 \end{align*}
 which on a closed interval gives us: 
 \begin{align*}
@@ -256,28 +256,28 @@ and the electric potential difference between two points as:
 
 Posson's equation: 
 \begin{align*}
-    \nabla^2 V = -\frac{\rho}{\ep_0}, \eq{2.24}
+    \nabla^2 V = -\frac{\rho}{\ep}, \eq{2.24}
 \end{align*}
 which gives us a way to calculate the potential from the charge distribution: 
 
-For a collection of point charges: \[ V(\bar{r}) = \frac{1}{4π\ep_0}\sum_{i=1}^{n}\frac{q_i}{\r_i}, \eq{2.27}\]
+For a collection of point charges: \[ V(\bar{r}) = \frac{1}{4π\ep}\sum_{i=1}^{n}\frac{q_i}{\r_i}, \eq{2.27}\]
 
-For a continuous charge distribution: \[ V(\bar{r}) = \frac{1}{4π\ep_0}\int \frac{1}{\r}dq, \eq{2.28}\]
+For a continuous charge distribution: \[ V(\bar{r}) = \frac{1}{4π\ep}\int \frac{1}{\r}dq, \eq{2.28}\]
 
-For a volume charge distribution: \[ V(\bar{r}) = \frac{1}{4π\ep_0}\int \frac{ρ(\bar{r}')}{\r}dτ'. \eq{2.29}\]
+For a volume charge distribution: \[ V(\bar{r}) = \frac{1}{4π\ep}\int \frac{ρ(\bar{r}')}{\r}dτ'. \eq{2.29}\]
 
 \subsubsection{Special cases:}
 $ $
 
-Potential of infinite length wire: \[ V = \frac{1}{4π\ep_0}λ\ln\left(\frac{b}{a}\right)\]
+Potential of infinite length wire: \[ V = \frac{1}{4π\ep}λ\ln\left(\frac{b}{a}\right)\]
 
-Potential of infinite plane: \[ V = \frac{σ}{2\ep_0}z\]
+Potential of infinite plane: \[ V = \frac{σ}{2\ep}z\]
 
 Potential of spherical shell: 
 \begin{align*}
     V = \begin{cases}
-        \frac{1}{4π\ep_0}\frac{q}{r} & r>R \\
-        \frac{1}{4π\ep_0}\frac{q}{R} & r<R
+        \frac{1}{4π\ep}\frac{q}{r} & r>R \\
+        \frac{1}{4π\ep}\frac{q}{R} & r<R
     \end{cases}
 \end{align*}
 
@@ -299,8 +299,8 @@ So if you want to move the point from ininfity to a point $\bar{r}$, and you hav
 
 The work to move a collection of charges is:
 \begin{align*}
-    W &= \frac{1}{4π\ep_0}\sum_{i=1}^{n}\sum_{j>i}^{n}\frac{q_iq_j}{\r_{ij}}, \eq{2.40}\\
-    &= \frac{1}{8π\ep_0}\sum_{i=1}^{n}\sum_{j\neq i}^{n}\frac{q_iq_j}{\r_{ij}}, \eq{2.41} \\
+    W &= \frac{1}{4π\ep}\sum_{i=1}^{n}\sum_{j>i}^{n}\frac{q_iq_j}{\r_{ij}}, \eq{2.40}\\
+    &= \frac{1}{8π\ep}\sum_{i=1}^{n}\sum_{j\neq i}^{n}\frac{q_iq_j}{\r_{ij}}, \eq{2.41} \\
     &= \frac{1}{2}\sum_{i=1}^{n}q_iV(\bar{r}_i). \eq{2.42}
 \end{align*}
 
@@ -312,7 +312,7 @@ where again, $dq$ is the charge in a small element, be it line charge $(dq=λdl)
 
 If we take (2.43) for volume over all space, we get: 
 \begin{align*}
-    W = \frac{\ep_0}{2}\int E^2 dτ. \eq{2.45}
+    W = \frac{\ep}{2}\int E^2 dτ. \eq{2.45}
 \end{align*}
 
 \section{Conductors}
@@ -320,7 +320,7 @@ A conducter is a material where the electrons are free to move around. The elect
 The electric field inside a conductor is zero, and when it is placed in an electric field, 
 the charges collect on the surface to create an electrical field inside the conducter, that cancels out the initial field. 
 \begin{align*}
-    \nabla \bar{E} = \frac{ρ}{\ep_0} = 0
+    \nabla \bar{E} = \frac{ρ}{\ep} = 0
 \end{align*}
 
 Induced charges on a conductor are always on the surface, and the electric field is always perpendicular to the surface.
@@ -330,16 +330,16 @@ Outside the conductor, the electric field is the same as if the conductor was no
 
 Because the field inside a conductor is zero, the field immediatly outside is:
 \begin{align*}
-    \bar{E} = \frac{σ}{\ep_0}\hat{n}, \eq{2.48}
+    \bar{E} = \frac{σ}{\ep}\hat{n}, \eq{2.48}
 \end{align*}
 
 The outward electrostatic pressure on the surface of a conductor is: 
 \begin{align*}
-    \bar{f} = \frac{1}{2\ep_o}σ^2\hat{n}. \eq{2.51}
+    \bar{f} = \frac{1}{2\ep}σ^2\hat{n}. \eq{2.51}
 \end{align*}
 
 \subsection{Capacitors}
-If we have two conductors with charge Q and -Q, the elektric potentiel between them is: 
+If we have two conductors with charge Q and -Q, the elektric potential between them is: 
 \begin{align*}
     V = V_+ - V_- = -\int_{(-)}^{(+)}\bar{E} \cdot d\bar{l},
 \end{align*}
@@ -352,7 +352,7 @@ We can talk about the capactiance of a single capacitor, this refers to (2.53) w
 
 For a parallel-plate capacitor the capacitance is:
 \begin{align*}
-    C = \frac{A\ep_0}{d}, \eq{2.54}
+    C = \frac{A\ep}{d}, \eq{2.54}
 \end{align*}
 
 To charge a capacitor you have to move the charge from the possitive plate to the negative plate. 
@@ -378,13 +378,87 @@ but for 2 dimensions it is not easy to calculate exactly, but you can caluculate
 \begin{align*}
     V(x,y) = \frac{1}{2πR}\oint_{circle}Vdl, 
 \end{align*}
-which might make no sence, but it can be used to calculate the charge distribution, when boundery conditions are known. 
+which might make no sence, but it can be used to calculate the charge distribution, when boundary conditions are known. 
 
 In three dimensions the value of $V$ at point $\bar{r}$ is the average value of $V$ over a spherical surface of radius $R$ centered at $\bar{r}$: 
 \begin{align*}
     V(\bar{r}) = \frac{1}{4πR^2}\oint_{\text{sphere}}Vda. 
 \end{align*}
 
+\textbf{First uniqueness theorem:} The solution to Laplace’s equation in 
+some volume $\mathcal{V}$ is uniquely determined if $V$ is specified on the 
+boundary surface $\mathcal{S}$.
+
+\textbf{Second uniqueness theorem:} In a volume $\mathcal{V}$ surrounded by 
+conductors and containing a specified charge density $\rho$, the electric field 
+is uniquely determined if the \textit{total charge} on each conductor is given. 
+(The region as a whole can be bounded by another conductor, 
+or else unbounded.)
+
+
+\section{The Method of Images}
+The method of images can be used to solve advanced electrostatic problems, 
+by replacing conductors with fictitious charges that mimic the same boundary conditions. 
+
+For example ig we have a infinite grounded plate, with a point charge a distance $d$ above it. 
+The boundary potential is that $V=0 when z=0$ and that $V \rightarrow 0$ far from the charge (Fig 3.10).
+The same boundary conditions are satisfied if we have a point charge at $-d$ instead of the conductor (Fig 3.11). 
+Therefore the potential for a pointcharge above an infinite grounded plate is: 
+\begin{align*}
+    V(x,y,z) = \frac{1}{4π\ep}\br[2]{\frac{q}{\sqrt{x^2+y^2+(z-d)^2}}-\frac{q}{\sqrt{x^2+y^2+(z+d)^2}}}. \eq{3.9}
+\end{align*}
+
+From this we can calculate the induced surface charge on the conductor: 
+\begin{align*}
+    σ(x,y) &= -\ep \frac{\dd V}{\dd z}|_{z=0} \\
+    &= \frac{-qd}{2π(x^2+y^2+d^2)^{3/2}}, \eq{3.10}
+\end{align*}
+and the total charge: 
+\begin{align*}
+    Q = \int σda = -q. \eq{3.11}
+\end{align*}
+
+We can also use the method of images to find the force on the point charge due to the induction: 
+\begin{align*}
+    \bar{F} = -\frac{1}{4π\ep} \frac{q^2}{(2d)^2}\hat{z}, \eq{3.12}
+\end{align*}
+but the work will not be the same for the plane, and the point charge, 
+so if we want to calculate the energy to move the charge from infinity to d as:
+\begin{align*}
+    W = \int_{\infty}^{d}\bar{F}\cdot d\bar{l}= -\frac{1}{4π\ep}\frac{q^2}{4d}. \eq{3.14}
+\end{align*}
+
+You can not put the image charge in the reagion where you are calculating the potential, 
+so in example 3.2, where we have a point charge a distance a away from a sperical grounded conductor, 
+the image charge is inside the sphere. 
+
+This gives the potential: 
+\begin{align*}
+    V(\bar{r}) = \frac{1}{4π\ep}\br{\frac{q}{\r}+\frac{q'}{\r'}}, \eq{3.17}
+\end{align*}
+where $q'$ is the image charge, and $\r$ and $\r'$ is the distance from $q$ and $q'$. 
+
+\section{Seperation of variables}
+Chapter 3.3.1 shows and 3 exampls of how to calculate the potential between 2 parallel grounded conductors, 
+connected by insulators. To calculate the potential between the plates we use separation of variables, 
+so we asume the potential can be written as: 
+\begin{align*}
+    &V(x,y) = X(x)Y(y) \eq{3.22} \\
+    &\Rightarrow \frac{1}{X}\frac{\dd^2 X}{\dd x^2}+\frac{1}{Y}\frac{\dd^2 Y}{\dd y^2} = 0 \eq{3.23}
+\end{align*}
+which we can then solve from the boundery conditions of the problem, with the help of Fouriers trick. 
+\n
+In chapter 3.3.2 we find a genreral soultion for the potential in sperical coordinates, 
+with symmetry in $φ$: 
+\begin{align*}
+    V(r,θ) = \sum_{l=0}^{\infty}\br{A_lr^l+\frac{B_l}{r^{l+1}}}P_l(\cos(θ)), \eq{3.65}
+\end{align*}
+where $A_l$ and $B_l$ are constants determined by the boundary conditions, 
+and $P_l(\cos(θ))$ is the Legendre polynomials given by: 
+\begin{align*}
+    P_l(x) = \frac{1}{2^ll!}\br{\frac{d}{dx}}^l(x^2-1)^l. \eq{3.62}
+\end{align*}
+\bil{fig3.1}
 
 
 \end{document}
