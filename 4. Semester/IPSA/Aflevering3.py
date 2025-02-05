@@ -1,12 +1,13 @@
 """
-HANDIN 2 (palindrome)
+HANDIN 3 - Triplet distance part 1
 
 This handin is done by: 
     202307989 Mikkel Moth Billing 
 
 Reflection upon solution: 
-    I'm not sure about the effeciency of my pairs function. Maybe there is  a way without using to for loops, 
-    but im not sure. In e, I'm not sure if I understood the question right, but i got 18 elements, like specified
+    At first i made the pair function with two for nested for loops, but i rewrote it to be in one line, 
+    i dont know what is faster, but it looks nicer this way. 
+    In e, I'm not sure if I understood the question right, but i got 18 elements, like specified
     in the description. Otherwise i think my solution is correct and well explained. 
 """
 
@@ -30,12 +31,10 @@ def permute(L):
 print("b: ", permute(generate_labels(5)))
 
 # c 
-def pairs(L): 
-    pair = []
-    for i in range(len(L)):             # For each element in L
-        for j in range(i+1, len(L)):    # For each element after i
-            pair.append((L[i], L[j]))   # Add the tuple to the list
-    return pair
+def pairs(L):
+    return [(L[i], L[j]) for i in range(len(L)) for j in range(i+1, len(L))]
+    # For each element in L, for each element after i, add the tuple to the list
+    # Done in one line instead of two for loops
 
 print("c: ", pairs(generate_labels(3)))
 

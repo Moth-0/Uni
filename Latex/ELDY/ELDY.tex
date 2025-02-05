@@ -332,4 +332,54 @@ Because the field inside a conductor is zero, the field immediatly outside is:
 \begin{align*}
     \bar{E} = \frac{σ}{\ep_0}\hat{n}, \eq{2.48}
 \end{align*}
+
+The outward electrostatic pressure on the surface of a conductor is: 
+\begin{align*}
+    \bar{f} = \frac{1}{2\ep_o}σ^2\hat{n}. \eq{2.51}
+\end{align*}
+
+\subsection{Capacitors}
+If we have two conductors with charge Q and -Q, the elektric potentiel between them is: 
+\begin{align*}
+    V = V_+ - V_- = -\int_{(-)}^{(+)}\bar{E} \cdot d\bar{l},
+\end{align*}
+if the shape is complicated, $\bar{E}$ is hard to calculate, but we know it is proportional to $Q$, 
+and therefore $V$ is also proportional, which gives us the capacitance: 
+\begin{align*}
+    C = \frac{Q}{V}. \eq{2.53}
+\end{align*}
+We can talk about the capactiance of a single capacitor, this refers to (2.53) where the refrence point for $V$ is infinity.
+
+For a parallel-plate capacitor the capacitance is:
+\begin{align*}
+    C = \frac{A\ep_0}{d}, \eq{2.54}
+\end{align*}
+
+To charge a capacitor you have to move the charge from the possitive plate to the negative plate. 
+the energy required to do this is:
+\begin{align*}
+    W = \frac{1}{2}CV^2 = \frac{1}{2}QV = \frac{1}{2}\frac{Q^2}{C}. \eq{2.55}
+\end{align*}
+
+\newpage 
+\chapter{Potential}
+\section{Laplace's equation}
+To easily calculate the potential in a region, we can use Laplace's equation:
+\begin{align*}
+    \nabla^2 V = 0. \eq{3.4}
+\end{align*}
+
+In one dimension the solution is:
+\begin{align*}
+    V(x) = ax + b, \eq{3.6}
+\end{align*}
+
+but for 2 dimensions it is not easy to calculate exactly, but you can caluculate $V(x,y)$ as the average of the potential around the point: 
+\begin{align*}
+    V(x,y) = \frac{1}{2πR}\oint_{circle}Vdl, 
+\end{align*}
+which might make no sence, but it can be used to calculate the charge distribution, when boundery conditions are known. 
+
+In three dimensions 
+
 \end{document}

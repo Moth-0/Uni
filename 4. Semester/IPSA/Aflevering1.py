@@ -21,4 +21,4 @@ while loan > 0:
     intrest = loan * rate
     loan = loan + intrest - pay
 
-print("Months to pay off loan: " + str(months))
+print(f"Months to pay off loan: {str(months)}")
