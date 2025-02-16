@@ -85,6 +85,7 @@
 \newcommand{\n}{\plainbreak{1}}
 \newcommand{\ep}{\epsilon_0}
 \renewcommand{\r}{\text{\usefont{U}{dutchcal}{m}{n}r}}
+\newcommand{\elcon}{\frac{1}{4π\ep}}
 
 
 \newcommand{\hv}[2][]{%
@@ -402,7 +403,8 @@ In three dimensions the value of $V$ at point $\bar{r}$ is the average value of 
 
 \textbf{First uniqueness theorem:} The solution to Laplace’s equation in 
 some volume $\mathcal{V}$ is uniquely determined if $V$ is specified on the 
-boundary surface $\mathcal{S}$.
+boundary surface $\mathcal{S}$. Meaning that it doesn't matter how you get your solution, 
+if it satisfies Laplace’s equation, and the boundery values are correct, then the answer is correct. 
 
 \textbf{Second uniqueness theorem:} In a volume $\mathcal{V}$ surrounded by 
 conductors and containing a specified charge density $\rho$, the electric field 
@@ -415,8 +417,8 @@ or else unbounded.)
 The method of images can be used to solve advanced electrostatic problems, 
 by replacing conductors with fictitious charges that mimic the same boundary conditions. 
 
-For example ig we have a infinite grounded plate, with a point charge a distance $d$ above it. 
-The boundary potential is that $V=0 when z=0$ and that $V \rightarrow 0$ far from the charge (Fig 3.10).
+For example, we have a infinite grounded plate, with a point charge a distance $d$ above it. 
+The boundary potential is that $V=0$ when $z=0$ and that $V \rightarrow 0$ far from the charge (Fig 3.10).
 The same boundary conditions are satisfied if we have a point charge at $-d$ instead of the conductor (Fig 3.11). 
 Therefore the potential for a pointcharge above an infinite grounded plate is: 
 \begin{align*}
@@ -474,6 +476,26 @@ and $P_l(\cos(θ))$ is the Legendre polynomials given by:
     P_l(x) = \frac{1}{2^ll!}\br{\frac{d}{dx}}^l(x^2-1)^l. \eq{3.62}
 \end{align*}
 \bil{fig3.1}
+
+\section{Multipole Expansion}
+A dipole is two opposide charges particles, collect two dipoles to make an quardupole, and so on.
+\bil{fig3.27}
+To calculate the potential from a multipole we use:
+\begin{align*}
+    V(\bar{r}) = \frac{1}{4π\ep}\sum_{n=0}^{\infty}\frac{1}{r^{n+1}}\int(r')^nP_n(\cos(α))ρ(\bar{r}')dτ', \eq{3.95}
+\end{align*}
+where $P_l$ is the Legendre polynomial, \textcolor{red}{What is the rest?}. 
+
+For monopole and dipole we get: 
+\begin{align*}
+    V_{mon}(\bar{r}) = \elcon \frac{Q}{r}, \eq{3.97} \\
+    V_{dip}(\bar{r}) = \elcon \frac{\bar{p}\cdot \hat{r}}{r^2}, \eq{3.99}
+\end{align*}
+where $\bar{p}$ is the dipole moment of the distrubution: 
+\begin{align*}
+    \bar{p} = \int \bar{r}'ρ(\bar{r}')dτ'. \eq{3.98}
+\end{align*}
+
 
 
 

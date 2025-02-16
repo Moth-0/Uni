@@ -5,9 +5,9 @@ This handin is done by:
     202307989 Mikkel Moth Billing 
 
 Reflection upon solution: 
-    I used int for the payment, so you cant pay with decimal increments. 
-    Off course you have to overshoot the loan payment, and therefore get an interger number of months,
-    i guess you could make it to calculate the last payment so you hit 0.0. 
+    Fixed to solve the excersise, if the loan can not be payed off, 
+    (because the interest is bigger then the pay)
+    the while loop breaks. 
 """
 
 loan = float(input("Size of initial loan: "))
@@ -19,6 +19,8 @@ months = 0
 while loan > 0: 
     months += 1
     intrest = loan * rate
+    if intrest >= pay: 
+        print("Montly payment not enough to pay off loan!")
+        break
     loan = loan + intrest - pay
-
-print(f"Months to pay off loan: {str(months)}")
+    print(f"Month: {months}, Remaining loan: {loan:.2f}") # Now solves the excesice! 
