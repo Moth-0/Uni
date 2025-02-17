@@ -171,6 +171,20 @@ We also have the following identities:
     &\nabla \times (\nabla \times \bar{v}) = \nabla(\nabla \cdot \bar{A}) - \nabla^2 \bar{A}. \eq{1.47}
 \end{align*}
 
+\subsection{Dirac Delta Function}
+\begin{align*}
+    &δ(x-a)=\begin{cases}
+        0, & \text{if } x\neq 0 \\
+        \infty, & \text{if } x=a
+    \end{cases} \\
+    &\int_{-\infty}^{\infty}δ(x-a)dx=1 \\
+    &\int_{-\infty}^{\infty}f(x)δ(x-a)dx=f(a) \\
+    &\int_{-\infty}^{\infty}f(x)δ(g(x))dx = \sum_{x_i}\frac{f(x_i)}{\br[5]{g′(x_i)}} \\
+    &δ(x^2-a^2) = \frac{δ(x-a)+δ(x+a)}{2\br[5]{a}}
+\end{align*}
+
+
+
 \section{Fundamental theorem of calculus}
 Gradient: 
 \begin{align*}
@@ -282,7 +296,7 @@ Potential of spherical shell:
     \end{cases}
 \end{align*}
 
-Figure (2.35) shows the way to go between electric field, electri potential and volume charge: 
+Figure (2.35) shows the way to go between electric field, electric potential and volume charge: 
 \bil{fig2.35}
 
 \n
@@ -404,7 +418,7 @@ In three dimensions the value of $V$ at point $\bar{r}$ is the average value of 
 \textbf{First uniqueness theorem:} The solution to Laplace’s equation in 
 some volume $\mathcal{V}$ is uniquely determined if $V$ is specified on the 
 boundary surface $\mathcal{S}$. Meaning that it doesn't matter how you get your solution, 
-if it satisfies Laplace’s equation, and the boundery values are correct, then the answer is correct. 
+if it satisfies Laplace’s equation, and the boundary values are correct, then the answer is correct. 
 
 \textbf{Second uniqueness theorem:} In a volume $\mathcal{V}$ surrounded by 
 conductors and containing a specified charge density $\rho$, the electric field 
@@ -463,7 +477,7 @@ so we asume the potential can be written as:
     &V(x,y) = X(x)Y(y) \eq{3.22} \\
     &\Rightarrow \frac{1}{X}\frac{\dd^2 X}{\dd x^2}+\frac{1}{Y}\frac{\dd^2 Y}{\dd y^2} = 0 \eq{3.23}
 \end{align*}
-which we can then solve from the boundery conditions of the problem, with the help of Fouriers trick. 
+which we can then solve from the boundary conditions of the problem, with the help of Fouriers trick. 
 \n
 In chapter 3.3.2 we find a genreral soultion for the potential in sperical coordinates, 
 with symmetry in $φ$: 
@@ -484,7 +498,8 @@ To calculate the potential from a multipole we use:
 \begin{align*}
     V(\bar{r}) = \frac{1}{4π\ep}\sum_{n=0}^{\infty}\frac{1}{r^{n+1}}\int(r')^nP_n(\cos(α))ρ(\bar{r}')dτ', \eq{3.95}
 \end{align*}
-where $P_l$ is the Legendre polynomial, \textcolor{red}{What is the rest?}. 
+where $P_l$ is the Legendre polynomial, $ρ$ is the total charge of the distrubution. 
+$n = 0 $ for monopole, $1$ for dipole and so on. 
 
 For monopole and dipole we get: 
 \begin{align*}
@@ -496,6 +511,10 @@ where $\bar{p}$ is the dipole moment of the distrubution:
     \bar{p} = \int \bar{r}'ρ(\bar{r}')dτ'. \eq{3.98}
 \end{align*}
 
+The electric field of a dipole is: 
+\begin{align*}
+    \bar{E}_{dip}(r,θ) = \frac{p}{4π\ep r^3}\br{2\cos(θ)\hat{r}+\sin(θ)\hat{θ}}. \eq{3.103}
+\end{align*}
 
 
 
