@@ -516,6 +516,60 @@ The electric field of a dipole is:
     \bar{E}_{dip}(r,θ) = \frac{p}{4π\ep r^3}\br{2\cos(θ)\hat{r}+\sin(θ)\hat{θ}}. \eq{3.103}
 \end{align*}
 
+\chapter{Electric Fields in Matter}
+\section{Dielectrics}
+If you put a neutrol atom in an electric field, it is either ripped apart, being ionized, 
+or it reaches an equilibrium, where the force from the electric field and the force holding the atom toghether cancel eachother, 
+making the atom polarized. This will cause the atom to have a dipolemoment $\bar{p}$, with the same direction as $\bar{E}$. 
+\begin{align*}
+    \bar{p} = α\bar{E} \eq{4.1}, 
+\end{align*}
+here $α$ is called the atomic polarizability, and is dependent on the atoms structure. 
 
+If an atom was made by a center charge $q$ surrounded by as spherical charged cloud $-q$ with radius $a$, 
+then the electric field we place the atom in, would move the nucleus a distance $d$ from the center. 
+Now the electric field in equilibrium would be: 
+\begin{align*}
+    E &= \elcon \frac{qd}{a^3}, \quad \text{or} \quad p = qd = (4π\ep a^3)E, \\
+    \Rightarrow α &= 4π\ep a^3 = 3\ep v, \eq{4.2}
+\end{align*}
+where $v$ is the volume of the atom. 
+\bil{fig4.1}
+
+For molecules it is not so easy, as the dipolemoment might not be the same direction as E, 
+and therefor we get 9 polarizability constants: 
+\begin{align*}
+    \begin{cases}
+        p_x = \alpha_{xx} E_x + \alpha_{xy} E_y + \alpha_{xz} E_z, \\
+        p_y = \alpha_{yx} E_x + \alpha_{yy} E_y + \alpha_{yz} E_z, \\
+        p_z = \alpha_{zx} E_x + \alpha_{zy} E_y + \alpha_{zz} E_z.
+    \end{cases} \eq{4.3}
+\end{align*}
+
+
+\subsection{Alignment of polar molecules}
+Some molecules have their own dipolemoment, such as water, which are called polar molecules. 
+If placed in an uniform electric field, the force on the postive end, cancels out with the force on the negative end, 
+but there will be a torque 
+\begin{align*}
+    \bar{N} = (\bar{r}_+ \times \bar{F}_+)+(\bar{r}_- \times \bar{F}_-) = \bar{p}\times \bar{E}. \eq{4.4}
+\end{align*}
+\bil{fig4.4}
+$\bar{N}$ is in such a direction to line $\bar{p}$ parallel to $\bar{E}$. 
+
+If the field is not uniform over det atom, which is rare, there is a net force on the atom 
+\begin{align*}
+    \bar{F} = \br{\bar{p}\cdot \nabla}\bar{E}. \eq{4.5}
+\end{align*}
+
+An ideal dipole is the atrifical limit $d\rightarrow 0$ and $q \rightarrow \infty$. 
+The energy of an ideal dipolemoment is 
+\begin{align*}
+    U = -\bar{p}\cdot \bar{E}, \eq{4.6} 
+\end{align*}
+and the interaction energy between two ideal dipoles with displacement $\bar{r}$ is 
+\begin{align*}
+    U = \elcon \frac{1}{r^3}\br[2]{\bar{p}_1\cdot\bar{p}_2-3\br{\bar{p}_1\cdot \hat{r}}\br{\bar{p}_2\cdot \hat{r}}}. \eq{4.7}
+\end{align*}
 
 \end{document}

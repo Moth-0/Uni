@@ -110,6 +110,114 @@
 \newpage
  
 %Skriv
+\chapter{Sandwichformlen}
+In quantum mechanics, dipole transitions involve matrix elements of the form:
+\begin{equation}
+    \langle \psi_f | r_i | \psi_i \rangle,
+\end{equation}
+where $r_i = x, y,$ or $z$ represents the position operator components in spherical coordinates.
 
+The goal is to determine which operator ($x, y,$ or $z$) to use based on selection rules and symmetry.
+
+Step 1: Check the Selection Rules
+Dipole transitions must satisfy the following:
+\begin{enumerate}
+    \item \textbf{Change in orbital angular momentum:} 
+    \begin{equation}
+        \Delta l = \pm1.
+    \end{equation}
+    \item \textbf{Change in magnetic quantum number $m$:}
+    \begin{equation}
+        \Delta m = 0, \pm1.
+    \end{equation}
+    \item Different operators couple different values of $m$:
+    \begin{itemize}
+        \item $x$ and $y$ couple $m \to m \pm 1$.
+        \item $z$ couples $m \to m$ (i.e., $\Delta m = 0$).
+    \end{itemize}
+\end{enumerate}
+
+Step 2: Transformation of $x, y, z$ in Terms of Spherical Harmonics.
+In spherical coordinates, the position operators transform as:
+\begin{align}
+    x &= r \sin\theta \cos\phi \quad \text{(behaves like $Y_1^{+1} + Y_1^{-1}$)} \\
+    y &= r \sin\theta \sin\phi \quad \text{(behaves like $i(Y_1^{+1} - Y_1^{-1})$)} \\
+    z &= r \cos\theta \quad \text{(behaves like $Y_1^0$)}.
+\end{align}
+
+This means:
+\begin{itemize}
+    \item $z$ can only couple states with $\Delta m = 0$.
+    \item $x$ and $y$ couple states with $\Delta m = \pm1$.
+    \item $y$ introduces an imaginary factor $i$, while $x$ does not.
+\end{itemize}
+
+Step 3: Match $\Delta m$ to the Right Operator. 
+The choice of operator depends on the magnetic quantum number change:
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Initial $m$} & \textbf{Final $m$} & \textbf{Use Operator} \\
+        \hline
+        0 & 0 & $z$ \\
+        0 & $\pm1$ & $x$ or $y$ \\
+        $\pm1$ & 0 & $x$ or $y$ \\
+        $\pm1$ & $\pm1$ & Forbidden \\
+        $\pm1$ & $\mp1$ & $x$ or $y$ \\
+        Any & $\pm2$ & Forbidden \\
+        \hline
+    \end{tabular}
+    \caption{Operator Selection Based on $\Delta m$}
+\end{table}
+
+Step 4: Check for Integral Symmetry. 
+Even if the selection rules allow a transition, the integral may still vanish due to symmetry:
+\begin{itemize}
+    \item If the integral contains an \textbf{odd function over a symmetric range}, it is \textbf{zero}.
+    \item If the integral contains an \textbf{orthogonal spherical harmonic combination}, it is \textbf{zero}.
+    \item If the integral using $x$ is zero, try $y$ instead. The extra \textbf{imaginary factor} in $y$ can sometimes fix cancellations.
+\end{itemize}
+
+Example Applications
+Example 1: $\langle \psi_{100} | x | \psi_{211} \rangle$
+\begin{itemize}
+    \item $\psi_{100}$ has $m = 0$.
+    \item $\psi_{211}$ has $m = +1$.
+    \item $\Delta m = +1$ $\Rightarrow$ Use $x$ or $y$.
+    \item The $x$-integral vanishes, but $y$ introduces an $i$ factor and gives a nonzero result.
+\end{itemize}
+\textbf{Final choice:} Use $y$ instead of $x$.
+
+Example 2: $\langle \psi_{100} | z | \psi_{210} \rangle$
+\begin{itemize}
+    \item $\psi_{100}$ has $m = 0$.
+    \item $\psi_{210}$ has $m = 0$.
+    \item $\Delta m = 0$ $\Rightarrow$ Use $z$.
+    \item The integral is nonzero.
+\end{itemize}
+\textbf{Final choice:} Use $z$.
+
+Example 3: $\langle \psi_{100} | y | \psi_{21-1} \rangle$
+\begin{itemize}
+    \item $\psi_{100}$ has $m = 0$.
+    \item $\psi_{21-1}$ has $m = -1$.
+    \item $\Delta m = -1$ $\Rightarrow$ Use $x$ or $y$.
+    \item The $x$-integral vanishes, but $y$ introduces an imaginary phase.
+\end{itemize}
+\textbf{Final choice:} Use $y$.
+
+Summary
+\begin{enumerate}
+    \item \textbf{Check selection rules:} Ensure $\Delta l = \pm1$ and $\Delta m = 0, \pm1$.
+    \item \textbf{Match $\Delta m$ to the correct operator:}
+    \begin{itemize}
+        \item $\Delta m = 0 \Rightarrow$ Use $z$.
+        \item $\Delta m = \pm1 \Rightarrow$ Use $x$ or $y$.
+    \end{itemize}
+    \item \textbf{Check spherical harmonics for integral symmetry:} If $x$-integral is zero, try $y$.
+    \item \textbf{Use the decision table to quickly determine the valid operator.}
+\end{enumerate}
 
 \end{document}
