@@ -9,63 +9,89 @@ plt.rc("xtick", labelsize=16, top=True, direction="in")  # skriftstørrelse af t
 plt.rc("ytick", labelsize=16, right=True, direction="in") # samme som ovenstående
 plt.rc("legend", fontsize=16) # skriftstørrelse af figurers legends
 
-#Functioner 
-def find_θ2(θ1):
-    return np.arcsin(n_luft/n_glas * np.sin(θ1))
+# Functioner 
+def find_θ2(θ1, n_glas):
+    return np.arcsin(n_luft / n_glas * np.sin(θ1))
 
-def Rs_func(θ1): 
-    return np.sin(θ1 - find_θ2(θ1))**2 / np.sin(θ1 + find_θ2(θ1))**2
+def Rs_func(θ1, n_glas): 
+    θ2 = find_θ2(θ1, n_glas)
+    return np.sin(θ1 - θ2)**2 / np.sin(θ1 + θ2)**2
 
-def Rp_func(θ1):
-    return np.tan(θ1 - find_θ2(θ1))**2 / np.tan(θ1 + find_θ2(θ1))**2
+def Rp_func(θ1, n_glas):
+    θ2 = find_θ2(θ1, n_glas)
+    return np.tan(θ1 - θ2)**2 / np.tan(θ1 + θ2)**2
 
-def Ts_func(θ1):
-    return np.sin(2*θ1)*np.sin(2*find_θ2(θ1))/np.sin(θ1+find_θ2(θ1))**2
+def Ts_func(θ1, n_glas):
+    θ2 = find_θ2(θ1, n_glas)
+    return np.sin(2*θ1) * np.sin(2*θ2) / np.sin(θ1 + θ2)**2
 
-def Tp_func(θ1):
-    return np.sin(2*θ1)*np.sin(2*find_θ2(θ1))/np.sin(θ1+find_θ2(θ1))**2/np.cos(θ1-find_θ2(θ1))**2
+def Tp_func(θ1, n_glas):
+    θ2 = find_θ2(θ1, n_glas)
+    return np.sin(2*θ1) * np.sin(2*θ2) / (np.sin(θ1 + θ2)**2 * np.cos(θ1 - θ2)**2)
 
-baggrund = 0.0366
-n_glas = 1.5
-n_luft = 1.0
+baggrund = 0.0366   # Background intensity
+n_glas = 1.5        # Teoretical glass index
+n_luft = 1.0        # Air index
 
-θ1_list = np.array([0, 15, 20, 25, 30,35,40,45,50,55,60,65,70,75,80,85,90])
+# Messured angle of small disk 
+θ1_list = np.array([15, 20, 25, 30,35,40,45,50,55,60,65,70,75,80,85])
 
-φ2_list = np.array([180, 176, 174,172,171,172,174,176,178,161,164,167,151,155,141,145,178])
+# Messured angle of Transmission, rewritten from 180 -> 0 to 0 -> 180
+φ2_list = np.array([176, 174,172,171,172,174,176,178,161,164,167,151,155,141,145])
 φ2_list = 180 - φ2_list
 
+# Calculated θ2
 θ2_list = θ1_list - φ2_list
 
-θ1_lin = np.linspace(0, 90, 1000)
+# Messured angle of Reflection 
+θ1_lin = np.linspace(1, 90, 1000)
 
-n_g_teori = np.sin(np.deg2rad(θ1_list[1:])) / np.sin(np.deg2rad(θ2_list[1:]))
+# Calculated index of glass from experiment
+n_g_list = np.sin(np.deg2rad(θ2_list)) / np.sin(np.deg2rad(θ1_list))
+n_g_teori = np.average(n_g_list)
 
-print(np.average(n_g_teori))
+print(f'n_glas_teori = {n_g_teori}')
 
 
-# Transmittet
+# Transmittet intensities 
 T_s = np.array([4.98, 5.13, 5.18, 5.16, 5.17, 4.92, 5.11, 4.805, 4.437, 4.429, 4.541, 3.842, 3.400, 2.744, 1.599, 0.472]) - baggrund
 T_p = np.array([4.88, 4.37, 4.52, 4.48, 4.64, 4.07, 4.45, 4.411, 4.19, 4.15, 4.539, 4.059, 3.825, 3.303, 2.198, 0.715]) - baggrund
 
-# Reflekteret
-R_s = np.array([0, 0.122, 0.207, 0.232, 0.282, 0.285, 0.343, 0.48, 0.477, 0.604, 0.878, 1.136, 1.456, 2.268, 3.216, 4.638]) - baggrund
-R_p = np.array([0, 0.122, 0.159, 0.146, 0.122, 0.096, 0.09, 0.066, 0.017, 0.004, 0.005, 0.0064, 0.166, 0.444, 1.040, 2.339]) - baggrund
+# Reflekteret intensities
+R_s = np.array([0.207, 0.232, 0.282, 0.285, 0.343, 0.48, 0.477, 0.604, 0.878, 1.136, 1.456, 2.268, 3.216, 4.638]) - baggrund
+R_p = np.array([0.159, 0.146, 0.122, 0.096, 0.09, 0.066, 0.017, 0.004, 0.005, 0.0064, 0.166, 0.444, 1.040, 2.339]) - baggrund
 
-R_s = R_s/T_s[1]
-R_p = R_p/T_p[1]
+# Normalize Intensities 
+R_s = R_s/T_s[0]
+R_p = R_p/T_p[0]
 
-T_s = T_s/T_s[1]
-T_p = T_p/T_p[1]
+T_s = T_s/T_s[0]
+T_p = T_p/T_p[0]
 
-# Plot reflekteret som funktion af indfaldsvinkel
-plt.plot(θ1_list[:-1], R_s, "o", label=r'$R_s$')
-plt.plot(θ1_list[:-1], R_p, "o",  label=r'$R_p$')
+# Fit functions to data
+popt_Rs, _ = curve_fit(Rs_func, np.deg2rad(θ1_list[1:]), R_s)
+popt_Rp, _ = curve_fit(Rp_func, np.deg2rad(θ1_list[1:]), R_p)
+popt_Ts, _ = curve_fit(Ts_func, np.deg2rad(θ1_list[:]), T_s[1:])
+popt_Tp, _ = curve_fit(Tp_func, np.deg2rad(θ1_list[:]), T_p[1:])
+
+# Plot the fits
+plt.plot(θ1_lin, Rs_func(np.deg2rad(θ1_lin), *popt_Rs), label='Fit $R_s$')
+plt.plot(θ1_lin, Rp_func(np.deg2rad(θ1_lin), *popt_Rp), label='Fit $R_p$')
+
+# Print the variables from the curve fit
+print(f'Fit parameters for Rs: {popt_Rs}')
+print(f'Fit parameters for Rp: {popt_Rp}')
+
+
+# Plot reflected as function of insidentangle
+plt.plot(θ1_list[1:], R_s, "o", label=r'$R_s$')
+plt.plot(θ1_list[1:], R_p, "o",  label=r'$R_p$')
 
 # Plot teori
-plt.plot(θ1_lin, Rs_func(np.deg2rad(θ1_lin)), label=r'$R_s$ teori')
-plt.plot(θ1_lin, Rp_func(np.deg2rad(θ1_lin)), label=r'$R_p$ teori')
+plt.plot(θ1_lin, Rs_func(np.deg2rad(θ1_lin), n_glas), label=r'$R_s$ teori')
+plt.plot(θ1_lin, Rp_func(np.deg2rad(θ1_lin), n_glas), label=r'$R_p$ teori')
 
-# Udregn Brewsters vinkel og plot
+# Calculate Brewster angle and plot
 θ_B = np.arctan(n_glas/n_luft)
 plt.plot([np.rad2deg(θ_B), np.rad2deg(θ_B)], [0.0, 0.05], color='r', linestyle='--', label='Brewster Angle')
 
@@ -78,22 +104,29 @@ plt.title('Reflectance vs Incident Angle')
 plt.legend(fontsize=12)
 plt.show()
 
-# Plot reflekteret som funktion af indfaldsvinkel
-plt.plot(θ1_list[:-1], T_s, "o", label=r'$T_s$')
-plt.plot(θ1_list[:-1], T_p, "o",  label=r'$T_p$')
+# Plot Transmittet as function of insident angle
+plt.plot(θ1_list[:], T_s[1:], "o", label=r'$T_s$')
+plt.plot(θ1_list[:], T_p[1:], "o",  label=r'$T_p$')
 
 # Plot teori
-plt.plot(θ1_lin, Ts_func(np.deg2rad(θ1_lin)), label=r'$T_s$ teori')
-plt.plot(θ1_lin, Tp_func(np.deg2rad(θ1_lin)), label=r'$T_p$ teori')
+plt.plot(θ1_lin, Ts_func(np.deg2rad(θ1_lin), n_glas), label=r'$T_s$ teori')
+plt.plot(θ1_lin, Tp_func(np.deg2rad(θ1_lin), n_glas), label=r'$T_p$ teori')
+
+# Fits 
+plt.plot(θ1_lin, Ts_func(np.deg2rad(θ1_lin), *popt_Ts), label='Fit $T_s$')
+plt.plot(θ1_lin, Tp_func(np.deg2rad(θ1_lin), *popt_Tp), label='Fit $T_p$')
+
+print(f'Fit parameters for Ts: {popt_Ts}')
+print(f'Fit parameters for Tp: {popt_Tp}')
 
 # Plot settings
-plt.xlim(10, 90)
+plt.xlim(0, 90)
 plt.ylim(0, 1.3)
 plt.xlabel(r'Incident Angle $(θ_1)$')
-plt.ylabel('Reflectance')
-plt.title('Reflectance vs Incident Angle')
+plt.ylabel('Transmittet')
+plt.title('Transmittet vs Incident Angle')
 plt.legend(fontsize=12)
 plt.show()
 
-print(T_s+R_s)
-print(T_p+R_p)
+print(T_s[2:]+R_s)
+print(T_p[2:]+R_p)

@@ -32,9 +32,9 @@ print("b: ", permute(generate_labels(5)))
 
 # c 
 def pairs(L):
-    return [(L[i], L[j]) for i in range(len(L)) for j in range(i+1, len(L))]
+    return [(min(L[i], L[j]), max(L[i], L[j])) for i in range(len(L)) for j in range(i+1, len(L))]
     # For each element in L, for each element after i, add the tuple to the list
-    # Done in one line instead of two for loops
+    # Done in one line instead of two for loops, and sorted for part 2 
 
 print("c: ", pairs(generate_labels(3)))
 
