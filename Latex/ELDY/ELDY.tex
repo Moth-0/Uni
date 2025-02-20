@@ -572,4 +572,35 @@ and the interaction energy between two ideal dipoles with displacement $\bar{r}$
     U = \elcon \frac{1}{r^3}\br[2]{\bar{p}_1\cdot\bar{p}_2-3\br{\bar{p}_1\cdot \hat{r}}\br{\bar{p}_2\cdot \hat{r}}}. \eq{4.7}
 \end{align*}
 
+If we place a material made of nonpolar molecules in an electric field,  
+it will induce a dipole moment in all the molecules. If we place a polar material, 
+the field will turn all the molecules. We get the polarization which is 
+\begin{align*}
+    \bar{P} = dipole moment per unit volume. 
+\end{align*}
+
+\section{Field of a Polarized Object}
+To calculate the field that arises from the induced dipoles in a material placed in an electric field, 
+we first calculate the potential by integrating each dipole over det volume $\bar{p}=\bar{P}dτ'$: 
+\begin{align*}
+    V(\bar{r}) &= \elcon \int_{\mathcal{V}} \frac{\bar{P}(\bar{r}')\cdot \hat{\r}}{\r^2}dτ', \eq{4.9} \\
+    &= \elcon \oint_{\mathcal{S}} \frac{σ_b}{\r}da'+\elcon \int_{\mathcal{V}}\frac{ρ_b}{\r}dτ', \eq{4.13}
+\end{align*}
+where we have the surface charge density $σ_b = \bar{P}\cdot\hat{n}$ and the volume charge density $ρ_b = -\bar{\nabla}\cdot \bar{P}$. 
+
+For a uniformly polarized sphere of radius R, the volume charge density is zero bacause $\bar{P}$ is uniform, but 
+\begin{align*}
+    σ_b = \bar{P}\cdot \hat{n} = P\cos θ,
+\end{align*}
+from this we get
+\begin{align*}
+    V(r,θ) = \begin{cases}
+        \frac{P}{3\ep}r\cos θ & \text{for } r \leq R, \\
+        \frac{P}{3\ep}\frac{R^3}{r^2}\cos θ & \text{for } r \geq R.
+    \end{cases}
+\end{align*}
+
+So the field inside the sphere is uniform, and outside the sphere it behaves like a ideal dipole, 
+whose dipole moment is the total dipole moment of a sphere $\bar{p} = \frac{4}{3}πR^3\bar{P}$.
+
 \end{document}
