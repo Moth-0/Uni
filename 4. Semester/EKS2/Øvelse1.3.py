@@ -11,7 +11,7 @@ plt.rc("legend", fontsize=16) # skriftstørrelse af figurers legends
 
 # Functioner 
 def find_θ2(θ1, n_glas):
-    return np.arcsin(n_glas / n_luft * np.sin(θ1))
+    return np.arcsin(n_glas / n_luft) * np.sin(θ1)
 
 def Rs_func(θ1, n_glas): 
     θ2 = find_θ2(θ1, n_glas)
@@ -71,11 +71,12 @@ R_p = R_p/T_p[0]
 T_s = T_s/T_s[0]
 T_p = T_p/T_p[0]
 
+
 # Fit functions to data
-popt_Rs, _ = curve_fit(Rs_func, np.deg2rad(θ1_list[3:-3]), R_s[:-3])
-popt_Rp, _ = curve_fit(Rp_func, np.deg2rad(θ1_list[3:-3]), R_p[:-3])
-popt_Ts, _ = curve_fit(Ts_func, np.deg2rad(θ1_list[1:-4]), T_s[1:])
-popt_Tp, _ = curve_fit(Tp_func, np.deg2rad(θ1_list[1:-4]), T_p[1:])
+popt_Rs, Rs_pcov = curve_fit(Rs_func, np.deg2rad(θ1_list[3:-3]), R_s[:-3], p0=[1.2])
+popt_Rp, Rp_pcov = curve_fit(Rp_func, np.deg2rad(θ1_list[3:-3]), R_p[:-3], p0=[1.2])
+popt_Ts, Ts_pcov = curve_fit(Ts_func, np.deg2rad(θ1_list[1:-4]), T_s[1:], p0=[1.1])
+popt_Tp, Tp_pcov = curve_fit(Tp_func, np.deg2rad(θ1_list[1:-4]), T_p[1:], p0=[1.1])
 
 # Plot reflected as function of insidentangle
 plt.plot(θ1_list[3:-3], R_s[:-3], "o", label=r'$R_s$')
@@ -86,12 +87,12 @@ plt.plot(θ1_lin, Rs_func(np.deg2rad(θ1_lin), n_glas), label=r'$R_s$ teori')
 plt.plot(θ1_lin, Rp_func(np.deg2rad(θ1_lin), n_glas), label=r'$R_p$ teori')
 
 # Plot the fits
-plt.plot(θ1_lin, Rs_func(np.deg2rad(θ1_lin), *popt_Rs), label='Fit $R_s$')
-plt.plot(θ1_lin, Rp_func(np.deg2rad(θ1_lin), *popt_Rp), label='Fit $R_p$')
+plt.plot(θ1_lin, Rp_func(np.deg2rad(θ1_lin), *popt_Rp), "--", label='Fit $R_p$')
+plt.plot(θ1_lin, Rs_func(np.deg2rad(θ1_lin), *popt_Rs), "--", label='Fit $R_s$')
 
 # Print the variables from the curve fit
-print(f'Fit parameters for Rs: {popt_Rs}')
-print(f'Fit parameters for Rp: {popt_Rp}')
+print(f'Fit parameters for Rs: {popt_Rs}, error: {np.sqrt(np.diag(Rs_pcov))}')
+print(f'Fit parameters for Rp: {popt_Rp}, error: {np.sqrt(np.diag(Rp_pcov))}')
 
 # Calculate Brewster angle and plot
 θ_B = np.arctan(n_luft/n_g_teori)
@@ -121,11 +122,11 @@ plt.plot(θ1_lin, Ts_func(np.deg2rad(θ1_lin), n_glas), label=r'$T_s$ teori')
 plt.plot(θ1_lin, Tp_func(np.deg2rad(θ1_lin), n_glas), label=r'$T_p$ teori')
 
 # Fits 
-plt.plot(θ1_lin, Ts_func(np.deg2rad(θ1_lin), *popt_Ts), label='Fit $T_s$')
-plt.plot(θ1_lin, Tp_func(np.deg2rad(θ1_lin), *popt_Tp), label='Fit $T_p$')
+plt.plot(θ1_lin, Tp_func(np.deg2rad(θ1_lin), *popt_Tp), "--", label='Fit $T_p$')
+plt.plot(θ1_lin, Ts_func(np.deg2rad(θ1_lin), *popt_Ts), "--", label='Fit $T_s$')
 
-print(f'Fit parameters for Ts: {popt_Ts}')
-print(f'Fit parameters for Tp: {popt_Tp}')
+print(f'Fit parameters for Ts: {popt_Ts}, error: {np.sqrt(np.diag(Ts_pcov))}')
+print(f'Fit parameters for Tp: {popt_Tp}, error: {np.sqrt(np.diag(Tp_pcov))}')
 
 # Plot settings
 plt.xlim(0, 60)
