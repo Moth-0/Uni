@@ -117,8 +117,12 @@ plt.plot(θ1_lin, Tp_func(np.deg2rad(θ1_lin), n_glas), label=r'$T_p$ theory')
 plt.plot(θ1_lin, Tp_func(np.deg2rad(θ1_lin), *popt_Tp), "--", label='Fit $T_p$')
 plt.plot(θ1_lin, Ts_func(np.deg2rad(θ1_lin), *popt_Ts), "--", label='Fit $T_s$')
 
+
+
 print(f'Fit parameters for Ts: {popt_Ts}, error: {np.sqrt(np.diag(Ts_pcov))}')
 print(f'Fit parameters for Tp: {popt_Tp}, error: {np.sqrt(np.diag(Tp_pcov))}')
+
+
 
 # Plot settings
 plt.xlim(0, 90)
