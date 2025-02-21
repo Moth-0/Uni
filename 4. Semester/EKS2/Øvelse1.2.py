@@ -11,7 +11,7 @@ plt.rc("legend", fontsize=16) # skriftstørrelse af figurers legends
 
 # Functioner 
 def find_θ2(θ1, n_glas):
-    return np.arcsin(n_luft / n_glas) * np.sin(θ1)
+    return np.arcsin(n_luft / n_glas * np.sin(θ1))
 
 def Rs_func(θ1, n_glas): 
     θ2 = find_θ2(θ1, n_glas)
@@ -69,10 +69,10 @@ T_s = T_s/T_s[0]
 T_p = T_p/T_p[0]
 
 # Fit functions to data
-popt_Rs, Rs_pcov = curve_fit(Rs_func, np.deg2rad(θ1_list[1:]), R_s, p0=[1.5])
+popt_Rs, Rs_pcov = curve_fit(Rs_func, np.deg2rad(θ1_list[1:]), R_s, p0=[1.2])
 popt_Rp, Rp_pcov = curve_fit(Rp_func, np.deg2rad(θ1_list[1:]), R_p, p0=[1.5])
 popt_Ts, Ts_pcov = curve_fit(Ts_func, np.deg2rad(θ1_list[:]), T_s[1:], p0=[1.5])
-popt_Tp, Tp_pcov = curve_fit(Tp_func, np.deg2rad(θ1_list[:]), T_p[1:], p0=[1.5])
+popt_Tp, Tp_pcov = curve_fit(Tp_func, np.deg2rad(θ1_list[:]), T_p[1:], p0=[1])
 
 
 # Plot reflected as function of insidentangle
@@ -80,8 +80,8 @@ plt.plot(θ1_list[1:], R_s, "o", label=r'$R_s$')
 plt.plot(θ1_list[1:], R_p, "o",  label=r'$R_p$')
 
 # Plot teori
-plt.plot(θ1_lin, Rs_func(np.deg2rad(θ1_lin), n_glas), label=r'$R_s$ teori')
-plt.plot(θ1_lin, Rp_func(np.deg2rad(θ1_lin), n_glas), label=r'$R_p$ teori')
+plt.plot(θ1_lin, Rs_func(np.deg2rad(θ1_lin), n_glas), label=r'$R_s$ theory')
+plt.plot(θ1_lin, Rp_func(np.deg2rad(θ1_lin), n_glas), label=r'$R_p$ theory')
 
 # Plot the fits
 plt.plot(θ1_lin, Rp_func(np.deg2rad(θ1_lin), *popt_Rp), "--", label='Fit $R_p$')
@@ -100,7 +100,7 @@ plt.plot([np.rad2deg(θ_B), np.rad2deg(θ_B)], [0.0, 0.05], color='r', linestyle
 plt.xlim(10, 90)
 plt.ylim(0, 1.3)
 plt.xlabel(r'Incident Angle $(θ_1)$')
-plt.ylabel('Reflectance')
+plt.ylabel('Reflectance (V)')
 plt.title('Reflectance vs Incident Angle')
 plt.legend(fontsize=12)
 plt.show()
@@ -110,8 +110,8 @@ plt.plot(θ1_list[:], T_s[1:], "o", label=r'$T_s$')
 plt.plot(θ1_list[:], T_p[1:], "o",  label=r'$T_p$')
 
 # Plot teori
-plt.plot(θ1_lin, Ts_func(np.deg2rad(θ1_lin), n_glas), label=r'$T_s$ teori')
-plt.plot(θ1_lin, Tp_func(np.deg2rad(θ1_lin), n_glas), label=r'$T_p$ teori')
+plt.plot(θ1_lin, Ts_func(np.deg2rad(θ1_lin), n_glas), label=r'$T_s$ theory')
+plt.plot(θ1_lin, Tp_func(np.deg2rad(θ1_lin), n_glas), label=r'$T_p$ theory')
 
 # Fits 
 plt.plot(θ1_lin, Tp_func(np.deg2rad(θ1_lin), *popt_Tp), "--", label='Fit $T_p$')
@@ -124,8 +124,8 @@ print(f'Fit parameters for Tp: {popt_Tp}, error: {np.sqrt(np.diag(Tp_pcov))}')
 plt.xlim(0, 90)
 plt.ylim(0, 1.3)
 plt.xlabel(r'Incident Angle $(θ_1)$')
-plt.ylabel('Transmittet')
-plt.title('Transmittet vs Incident Angle')
+plt.ylabel('Transmission (V)')
+plt.title('Transmission vs Incident Angle')
 plt.legend(fontsize=12)
 plt.show()
 
