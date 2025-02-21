@@ -576,7 +576,7 @@ If we place a material made of nonpolar molecules in an electric field,
 it will induce a dipole moment in all the molecules. If we place a polar material, 
 the field will turn all the molecules. We get the polarization which is 
 \begin{align*}
-    \bar{P} = dipole moment per unit volume. 
+    \bar{P} = \text{dipole moment per unit volume. }
 \end{align*}
 
 \section{Field of a Polarized Object}
@@ -602,5 +602,31 @@ from this we get
 
 So the field inside the sphere is uniform, and outside the sphere it behaves like a ideal dipole, 
 whose dipole moment is the total dipole moment of a sphere $\bar{p} = \frac{4}{3}πR^3\bar{P}$.
+
+\section{Electric Displacement}
+Along with the bound charge, there is also fee charge which could be electrons on a fonductor, 
+or ions embedded in the dielectric material, so any charge not assosiated with $\bar{P}$. 
+Within the dielectric, the total charge density is 
+\begin{align*}
+    ρ = ρ_b + ρ_f, \eq{4.20}
+\end{align*}
+and Gauss's law is 
+\begin{align*}
+    \ep \bar{\nabla}\cdot\bar{E} = ρ = ρ_b + ρ_f = -\bar{\nabla}\cdot\bar{P}+ρ_f, 
+\end{align*}
+where $\bar{E}$ is the toral field. 
+
+This lead to a term for $ρ_f$: 
+\begin{align*}
+    ρ_f &= \bar{\nabla}\cdot\br{\ep\bar{E}+\bar{P}}, \\
+    &= \bar{\nabla}\cdot\bar{D}, \eq{4.22} \\
+    \Rightarrow \oint &\bar{D}\cdot d\bar{a} = Q_{f_{enc}}. \eq{4.23}
+\end{align*}
+Here $\bar{D}$ is known as the electric displacement. 
+
+Typically we know $ρ_f$, and we can therefor calculate D. When computing the displacement look for symmetry, 
+if there is spherical, cylindircal or plane symmetri we can use (\ref{eq4.23}) because $\bar{\nabla}\times\bar{D} = 0$. 
+
+
 
 \end{document}
