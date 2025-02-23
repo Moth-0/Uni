@@ -90,7 +90,8 @@ plt.plot(θ1_lin, Rs_func(np.deg2rad(θ1_lin), *popt_Rs), "--", label='Fit $R_s$
 # Print the variables from the curve fit
 print(f'Fit parameters for Rs: {popt_Rs}, error: {np.sqrt(np.diag(Rs_pcov))}')
 print(f'Fit parameters for Rp: {popt_Rp}, error: {np.sqrt(np.diag(Rp_pcov))}')
-
+print(f"Brewster angle from fit: {np.rad2deg(np.arctan(popt_Rs))} pm {np.rad2deg(np.arctan(np.sqrt(np.diag(Rs_pcov))))}")
+print(f"Brewster angle from fit: {np.rad2deg(np.arctan(popt_Rp))} pm {np.rad2deg(np.arctan(np.sqrt(np.diag(Rp_pcov))))}")
 
 # Calculate Brewster angle and plot
 θ_B = np.arctan(n_glas/n_luft)
@@ -121,7 +122,8 @@ plt.plot(θ1_lin, Ts_func(np.deg2rad(θ1_lin), *popt_Ts), "--", label='Fit $T_s$
 
 print(f'Fit parameters for Ts: {popt_Ts}, error: {np.sqrt(np.diag(Ts_pcov))}')
 print(f'Fit parameters for Tp: {popt_Tp}, error: {np.sqrt(np.diag(Tp_pcov))}')
-
+print(f"Brewster angle from fit: {np.rad2deg(np.arctan(popt_Ts))} pm {np.rad2deg(np.arctan(np.sqrt(np.diag(Ts_pcov))))}")
+print(f"Brewster angle from fit: {np.rad2deg(np.arctan(popt_Tp))} pm {np.rad2deg(np.arctan(np.sqrt(np.diag(Tp_pcov))))}")
 
 
 # Plot settings
@@ -135,3 +137,28 @@ plt.show()
 
 print(T_s[2:]+R_s)
 print(T_p[2:]+R_p)
+
+# Calculate chi-squared for Rs
+observed_Rs = R_s
+expected_Rs = Rs_func(np.deg2rad(θ1_list[1:]), *popt_Rs)
+chi_squared_Rs = np.sum(((observed_Rs - expected_Rs) ** 2) / expected_Rs)
+
+# Calculate chi-squared for Rp
+observed_Rp = R_p
+expected_Rp = Rp_func(np.deg2rad(θ1_list[1:]), *popt_Rp)
+chi_squared_Rp = np.sum(((observed_Rp - expected_Rp) ** 2) / expected_Rp)
+
+# Calculate chi-squared for Ts
+observed_Ts = T_s[1:]
+expected_Ts = Ts_func(np.deg2rad(θ1_list[:]), *popt_Ts)
+chi_squared_Ts = np.sum(((observed_Ts - expected_Ts) ** 2) / expected_Ts)
+
+# Calculate chi-squared for Tp
+observed_Tp = T_p[1:]
+expected_Tp = Tp_func(np.deg2rad(θ1_list[:]), *popt_Tp)
+chi_squared_Tp = np.sum(((observed_Tp - expected_Tp) ** 2) / expected_Tp)
+
+print(f'Chi-squared for Rs: {chi_squared_Rs}')
+print(f'Chi-squared for Rp: {chi_squared_Rp}')
+print(f'Chi-squared for Ts: {chi_squared_Ts}')
+print(f'Chi-squared for Tp: {chi_squared_Tp}')

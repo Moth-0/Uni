@@ -29,6 +29,11 @@ def Tp_func(θ1, n_glas):
     θ2 = find_θ2(θ1, n_glas)
     return np.sin(2*θ1) * np.sin(2*θ2) / (np.sin(θ1 + θ2)**2 * np.cos(θ1 - θ2)**2)
 
+def brewster(n1, n2): 
+    return np.rad2deg(np.arctan(n2/n1))
+
+def critical(n): 
+    return np.rad2deg(np.arcsin(1/n))
 
 baggrund = 0.0366   # Background intensity
 n_glas = 1.5        # Teoretical glass index
@@ -93,16 +98,21 @@ plt.plot(θ1_lin, Rs_func(np.deg2rad(θ1_lin), *popt_Rs), "--", label='Fit $R_s$
 # Print the variables from the curve fit
 print(f'Fit parameters for Rs: {popt_Rs}, error: {np.sqrt(np.diag(Rs_pcov))}')
 print(f'Fit parameters for Rp: {popt_Rp}, error: {np.sqrt(np.diag(Rp_pcov))}')
+print(f"Brewster angle from fit: {brewster(popt_Rs,1)} pm {90-np.rad2deg(np.arctan(1/np.sqrt(np.diag(Rs_pcov))))}")
+print(f"Brewster angle from fit: {np.rad2deg(np.arctan(1/popt_Rp))} pm {90-np.rad2deg(np.arctan(1/np.sqrt(np.diag(Rp_pcov))))}")
+print(f"Critical angle from fit: {np.rad2deg(np.arcsin(1/popt_Rs))} pm {np.rad2deg(np.arcsin(1/np.sqrt(np.diag(Rs_pcov))))}")
+print(f"Critical angle from fit: {np.rad2deg(np.arcsin(1/popt_Rp))} pm {np.rad2deg(np.arcsin(1/np.sqrt(np.diag(Rp_pcov))))}")
+
 
 # Calculate Brewster angle and plot
-θ_B = np.arctan(n_luft/n_g_teori)
+θ_B = brewster(1,n_g_teori)
 print(f"Brewster angle = {θ_B}")
-plt.plot([np.rad2deg(θ_B), np.rad2deg(θ_B)], [0.0, 0.05], color='r', linestyle='--', label='Brewster Angle')
+plt.plot([θ_B, θ_B], [0.0, 0.05], color='r', linestyle='--', label='Brewster Angle')
 
 # Calculate critical angle and plot
-θ_C = np.arcsin(n_luft/n_g_teori)
+θ_C = critical(n_g_teori)
 print(f"Critical angle = {θ_C}")
-plt.plot([np.rad2deg(θ_C), np.rad2deg(θ_C)], [0.0, 0.05], color='b', linestyle='--', label='Critical Angle')
+plt.plot([θ_C, θ_C], [0.0, 0.05], color='b', linestyle='--', label='Critical Angle')
 
 # Plot settings
 plt.xlim(0, 60)
@@ -127,6 +137,10 @@ plt.plot(θ1_lin, Ts_func(np.deg2rad(θ1_lin), *popt_Ts), "--", label='Fit $T_s$
 
 print(f'Fit parameters for Ts: {popt_Ts}, error: {np.sqrt(np.diag(Ts_pcov))}')
 print(f'Fit parameters for Tp: {popt_Tp}, error: {np.sqrt(np.diag(Tp_pcov))}')
+print(f"Brewster angle from fit: {np.rad2deg(np.arctan(1/popt_Ts))} pm {90-np.rad2deg(np.arctan(1/np.sqrt(np.diag(Ts_pcov))))}")
+print(f"Brewster angle from fit: {np.rad2deg(np.arctan(1/popt_Tp))} pm {90-np.rad2deg(np.arctan(1/np.sqrt(np.diag(Tp_pcov))))}")
+print(f"Critical angle from fit: {np.rad2deg(np.arcsin(1/popt_Ts))} pm {np.rad2deg(np.arcsin(1/np.sqrt(np.diag(Ts_pcov))))}")
+print(f"Critical angle from fit: {np.rad2deg(np.arcsin(1/popt_Tp))} pm {np.rad2deg(np.arcsin(1/np.sqrt(np.diag(Tp_pcov))))}")
 
 # Plot settings
 plt.xlim(0, 60)
@@ -139,3 +153,34 @@ plt.show()
 
 print(T_s[3:]+R_s[:-4])
 print(T_p[3:]+R_p[:-4])
+
+# Calculate chi^2 for all fits
+def chi_squared(observed, expected, errors):
+    return np.sum(((observed - expected) / errors) ** 2)
+
+# Calculate errors (assuming Poisson statistics for simplicity)
+errors_Rs = np.sqrt(R_s)
+errors_Rp = np.sqrt(R_p)
+errors_Ts = np.sqrt(T_s)
+errors_Tp = np.sqrt(T_p)
+
+# Calculate expected values from the fit parameters
+expected_Rs = Rs_func(np.deg2rad(θ1_list[3:-3]), *popt_Rs)
+expected_Rp = Rp_func(np.deg2rad(θ1_list[3:-3]), *popt_Rp)
+expected_Ts = Ts_func(np.deg2rad(θ1_list[1:-4]), *popt_Ts)
+expected_Tp = Tp_func(np.deg2rad(θ1_list[1:-4]), *popt_Tp)
+
+# Calculate chi^2 for each fit
+chi2_Rs = chi_squared(R_s[:-3], expected_Rs, errors_Rs[:-3])
+chi2_Rp = chi_squared(R_p[:-3], expected_Rp, errors_Rp[:-3])
+chi2_Ts = chi_squared(T_s[1:], expected_Ts, errors_Ts[1:])
+chi2_Tp = chi_squared(T_p[1:], expected_Tp, errors_Tp[1:])
+
+# Print chi^2 values
+print(f'Chi^2 for Rs fit: {chi2_Rs}')
+print(f'Chi^2 for Rp fit: {chi2_Rp}')
+print(f'Chi^2 for Ts fit: {chi2_Ts}')
+print(f'Chi^2 for Tp fit: {chi2_Tp}')
+
+print(f"{brewster(1.5, 1)}")
+print(f"{critical(1.5)}")

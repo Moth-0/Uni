@@ -574,7 +574,7 @@ If we place a material made of nonpolar molecules in an electric field,
 it will induce a dipole moment in all the molecules. If we place a polar material, 
 the field will turn all the molecules. We get the polarization which is 
 \begin{align*}
-    \bar{P} = \text{dipole moment per unit volume. }
+    \bar{P} = \text{dipole moment per unit volume. } 
 \end{align*}
 
 \section{Field of a Polarized Object}
@@ -625,6 +625,32 @@ Here $\bar{D}$ is known as the electric displacement.
 
 Typically we know $ρ_f$, and we can therefor calculate D. When computing the displacement look for symmetry, 
 if there is spherical, cylindircal or plane symmetri we can use (\ref{eq4.23}) because $\bar{\nabla}\times\bar{D} = 0$. 
+
+\section{Linear Dielectrics}
+The polarization is proportional to the electric field: 
+\begin{align*}
+    \bar{P} = \ep Χ_e \bar{E} \eq{4.30}, 
+\end{align*}
+where $χ_e$ is the electric susceptibility, which is dependant on the structure of the material. 
+Materials that obey eq. 4.30 are called linear dielectrics. 
+Notice that $\bar{E}$ is the total electric field, and therefore we can not calculate $\bar{P}$ from eq. 4.30, 
+instead we could calculate 
+\begin{align*}
+    \bar{D} = \ep \bar{E}+\bar{P} = \ep(1+χ_e)\bar{E}=\epsilon \bar{E}, \eq{4.31}
+\end{align*}
+where we have the permittivity of the material, and dielectric constant:
+\begin{align*}
+    \epsilon = \ep(1+χ_e), \eq{4.33} \\
+    \epsilon_r = 1+χ_e = \frac{\epsilon}{\ep}. \eq{4.34}
+\end{align*}
+
+\bil{fig4.2}
+
+When we have a charge distrubution in homogeneous linear dielectric, the field is calculated as in vacum, but using $\epsilon$ instead of $\ep$. 
+To calculate the full energy stored in a electrostatic system in a linear dielectric, we rewrite (\hyperref[eq2.45]{2.45}) to
+\begin{align*}
+    W = \frac{\ep}{2}\int \epsilon_r E^2dτ = \frac{1}{2}\int \bar{D}\cdot \bar{E}dτ. \eq{4.58}
+\end{align*}
 
 
 \end{document}
