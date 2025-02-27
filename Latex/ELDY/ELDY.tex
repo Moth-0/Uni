@@ -21,6 +21,7 @@
 \usepackage{subfig} % For at have to billeder ved siden af hinanden
 \usepackage{unicode-math}
 \usepackage{bm}
+\usepackage{physics}
 
 
 % Pænere toc indents 
@@ -50,6 +51,7 @@
 \newcommand{\e}[1]{\emph{e}^{#1}} % Pænere e^x
 \newcommand{\vm}[2]{\begin{pmatrix} #1 \\ #2 \end{pmatrix}}
 \newcommand{\mat}[1]{\begin{bmatrix} #1 \end{bmatrix}}
+\renewcommand{\v}[1]{\mathbfit{#1}}
 
 % Lette paranteser 
 \newcommand{\br}[2][1]{%
@@ -77,13 +79,14 @@
 }
 
 \newcommand{\h}{\hbar}
-\newcommand{\dd}{\partial}
+\renewcommand{\dd}{\partial}
 \newcommand{\eq}[1]{\label{eq#1}\tag{#1}}
-\renewcommand{\a}{\hat{a}}
+\renewcommand{\a}{\hat{\v{a}}}
 \newcommand{\n}{\plainbreak{1}}
 \newcommand{\ep}{\epsilon_0}
 \renewcommand{\r}{\text{\usefont{U}{dutchcal}{m}{n}r}}
 \newcommand{\elcon}{\frac{1}{4π\ep}}
+
 
 
 \newcommand{\hv}[2][]{%
@@ -113,44 +116,44 @@
 \chapter{Math}
 \section{Vectors}
 \begin{align*}
-    &a(\bar{A}+ \bar{B}) = a\bar{A} + a\bar{B} \\
-    &\bar{A} \cdot \bar{B} = |\bar{A}||\bar{B}|\cos(\theta) \eq{1.1} \\    
-    &\bar{A} \times \bar{B} = |\bar{A}||\bar{B}|\sin(\theta)\hat{n} \eq{1.4} \\
-    &(\bar{A}\times \bar{B}) = -(\bar{B}\times \bar{A}) \eq{1.6} \\
-    &\bar{A} \cdot (\bar{B} \times \bar{C}) = \bar{B} \cdot (\bar{C} \times \bar{A}) = \bar{C} \cdot (\bar{A} \times \bar{B}) \eq{1.15} \\
-    &\bar{A} \times (\bar{B} \times \bar{C}) = \bar{B}(\bar{A} \cdot \bar{C}) - \bar{C}(\bar{A} \cdot \bar{B}) \eq{1.17} \\
-    &(\bar{A} \times \bar{B}) \cdot (\bar{C}\times \bar{D}) = (\bar{A} \cdot \bar{C})(\bar{B} \cdot \bar{D}) - (\bar{A} \cdot \bar{D})(\bar{B} \cdot \bar{C})  \\
-    &\bar{A} \times [\bar{B} \times (\bar{C} \times \bar{D})] = \bar{B}[\bar{A}\cdot(\bar{C}\times \bar{D})] - (\bar{A}\cdot\bar{B})(\bar{C}\cdot\bar{D})\eq{1.18}
+    &a(\v{A}+ \v{B}) = a\v{A} + a\v{B} \\
+    &\v{A} \cdot \v{B} = |\v{A}||\v{B}|\cos(\theta) \eq{1.1} \\    
+    &\v{A} \times \v{B} = |\v{A}||\v{B}|\sin(\theta)\hat{\v{n}} \eq{1.4} \\
+    &(\v{A}\times \v{B}) = -(\v{B}\times \v{A}) \eq{1.6} \\
+    &\v{A} \cdot (\v{B} \times \v{C}) = \v{B} \cdot (\v{C} \times \v{A}) = \v{C} \cdot (\v{A} \times \v{B}) \eq{1.15} \\
+    &\v{A} \times (\v{B} \times \v{C}) = \v{B}(\v{A} \cdot \v{C}) - \v{C}(\v{A} \cdot \v{B}) \eq{1.17} \\
+    &(\v{A} \times \v{B}) \cdot (\v{C}\times \v{D}) = (\v{A} \cdot \v{C})(\v{B} \cdot \v{D}) - (\v{A} \cdot \v{D})(\v{B} \cdot \v{C})  \\
+    &\v{A} \times [\v{B} \times (\v{C} \times \v{D})] = \v{B}[\v{A}\cdot(\v{C}\times \v{D})] - (\v{A}\cdot\v{B})(\v{C}\cdot\v{D})\eq{1.18}
 \end{align*} 
 
 \section{Calculus}
 \begin{align*}
-    dT &= \br{\frac{\dd T}{\dd x}+\hat{x}+\frac{\dd T}{\dd y}\hat{y}+\frac{\dd T}{\dd z}\hat{z}} \cdot (dx \hat{x} + dy \hat{y} +dz \hat{z}) \\
-    &= (\nabla T) \cdot d\bar{l}, \eq{1.35} \\
+    dT &= \br{\frac{\dd T}{\dd x}+\hat{\v{n}}+\frac{\dd T}{\dd y}\hat{\v{n}}+\frac{\dd T}{\dd z}\hat{\v{n}}} \cdot (dx \hat{\v{n}} + dy \hat{\v{n}} +dz \hat{\v{n}}) \\
+    &= (\nabla T) \cdot d\v{l}, \eq{1.35} \\
 \end{align*}
 where the gradent ($\nabla$) is an operator: 
 \begin{align*}
-    \nabla = \hat{x}\frac{\dd}{\dd x} + \hat{y}\frac{\dd}{\dd y} + \hat{z}\frac{\dd}{\dd z}. \eq{1.39}
+    \nabla = \hat{\v{n}}\frac{\dd}{\dd x} + \hat{\v{n}}\frac{\dd}{\dd y} + \hat{\v{n}}\frac{\dd}{\dd z}. \eq{1.39}
 \end{align*}
 
 The gradient is used to calculate the divergence of a vector with: 
 \begin{align*}
-    \nabla \cdot \bar{v} = \frac{\dd v_x}{\dd x} + \frac{\dd v_y}{\dd y} + \frac{\dd v_z}{\dd z}, \eq{1.40}
+    \nabla \cdot \v{v} = \frac{\dd v_x}{\dd x} + \frac{\dd v_y}{\dd y} + \frac{\dd v_z}{\dd z}, \eq{1.40}
 \end{align*}
 and the curl with: 
 \begin{align*}
-    &\nabla \times \bar{v} = \begin{vmatrix} \hat{x} & \hat{y} & \hat{z} \\ \frac{\dd}{\dd x} & \frac{\dd}{\dd y} & \frac{\dd}{\dd z} \\ v_x & v_y & v_z \end{vmatrix} \\ 
-    = \left(\frac{\dd v_z}{\dd y} - \frac{\dd v_y}{\dd z}\right)\hat{x} &+ \left(\frac{\dd v_x}{\dd z} - \frac{\dd v_z}{\dd x}\right)\hat{y} + \left(\frac{\dd v_y}{\dd x} - \frac{\dd v_x}{\dd y}\right)\hat{z}. \eq{1.41}
+    &\nabla \times \v{v} = \begin{vmatrix} \hat{\v{n}} & \hat{\v{n}} & \hat{\v{n}} \\ \frac{\dd}{\dd x} & \frac{\dd}{\dd y} & \frac{\dd}{\dd z} \\ v_x & v_y & v_z \end{vmatrix} \\ 
+    = \left(\frac{\dd v_z}{\dd y} - \frac{\dd v_y}{\dd z}\right)\hat{\v{n}} &+ \left(\frac{\dd v_x}{\dd z} - \frac{\dd v_z}{\dd x}\right)\hat{\v{n}} + \left(\frac{\dd v_y}{\dd x} - \frac{\dd v_x}{\dd y}\right)\hat{\v{n}}. \eq{1.41}
 \end{align*}
 
 The product rules for the gradient are: 
 \begin{align*}
     &\nabla (fg) = f\nabla g + g\nabla f \\
-    &\nabla (\bar{A} \cdot \bar{B}) = \bar{A} \times (\nabla \times \bar{B}) + \bar{B} \times (\nabla \times \bar{A}) + (\bar{A} \cdot \nabla)\bar{B} + (\bar{B} \cdot \nabla)\bar{A} \\
-    &\nabla \cdot (f\bar{A}) = f(\nabla \cdot \bar{A}) + \bar{A} \cdot (\nabla f) \\
-    &\nabla\cdot(\bar{A}\times \bar{B}) = \bar{B}\cdot(\nabla\times \bar{A}) - \bar{A}\cdot(\nabla\times \bar{B}) \\
-    &\nabla\times(f\bar{A}) = f(\nabla\times \bar{A}) + \nabla f \times \bar{A} \\
-    &\nabla\times(\bar{A}\times \bar{B}) = \bar{A}(\nabla\cdot \bar{B}) - \bar{B}(\nabla\cdot \bar{A}) + (\bar{B}\cdot \nabla)\bar{A} - (\bar{A}\cdot \nabla)\bar{B}
+    &\nabla (\v{A} \cdot \v{B}) = \v{A} \times (\nabla \times \v{B}) + \v{B} \times (\nabla \times \v{A}) + (\v{A} \cdot \nabla)\v{B} + (\v{B} \cdot \nabla)\v{A} \\
+    &\nabla \cdot (f\v{A}) = f(\nabla \cdot \v{A}) + \v{A} \cdot (\nabla f) \\
+    &\nabla\cdot(\v{A}\times \v{B}) = \v{B}\cdot(\nabla\times \v{A}) - \v{A}\cdot(\nabla\times \v{B}) \\
+    &\nabla\times(f\v{A}) = f(\nabla\times \v{A}) + \nabla f \times \v{A} \\
+    &\nabla\times(\v{A}\times \v{B}) = \v{A}(\nabla\cdot \v{B}) - \v{B}(\nabla\cdot \v{A}) + (\v{B}\cdot \nabla)\v{A} - (\v{A}\cdot \nabla)\v{B}
 \end{align*}
 
 When we use the gradient to make a second derivitive we get the Laplacian: 
@@ -159,14 +162,14 @@ When we use the gradient to make a second derivitive we get the Laplacian:
 \end{align*}
 and the laplacian of a vector: 
 \begin{align*}
-    \nabla^2\bar{v} = (\nabla^2 v_x)\hat{x} + (\nabla^2 v_y)\hat{y} + (\nabla^2 v_z)\hat{z}. \eq{1.43}
+    \nabla^2\v{v} = (\nabla^2 v_x)\hat{\v{n}} + (\nabla^2 v_y)\hat{\v{n}} + (\nabla^2 v_z)\hat{\v{n}}. \eq{1.43}
 \end{align*}
 
 We also have the following identities:
 \begin{align*}
     &\nabla \times (\nabla T) = 0 \eq{1.45}\\
-    &\nabla \cdot (\nabla \times \bar{v}) = 0 \eq{1.46}\\
-    &\nabla \times (\nabla \times \bar{v}) = \nabla(\nabla \cdot \bar{A}) - \nabla^2 \bar{A}. \eq{1.47}
+    &\nabla \cdot (\nabla \times \v{v}) = 0 \eq{1.46}\\
+    &\nabla \times (\nabla \times \v{v}) = \nabla(\nabla \cdot \v{A}) - \nabla^2 \v{A}. \eq{1.47}
 \end{align*}
 
 \subsection{Dirac Delta Function}
@@ -186,35 +189,35 @@ We also have the following identities:
 \section{Fundamental theorem of calculus}
 Gradient: 
 \begin{align*}
-    \int_{\bar{a}}^{\bar{b}} (\nabla T) \cdot d\bar{l} = T(\bar{b}) - T(\bar{a}) \eq{1.55} 
+    \int_{\v{a}}^{\v{b}} (\nabla T) \cdot d\v{l} = T(\v{b}) - T(\v{a}) \eq{1.55} 
 \end{align*}
 Divergence:
 \begin{align*}
-    \int_{\mathcal{V}} (\nabla \cdot \bar{v})dV = \oint_{\mathcal{S}} \bar{v} \cdot d\bar{a} \eq{1.56}
+    \int_{\mathcal{V}} (\nabla \cdot \v{v})dV = \oint_{\mathcal{S}} \v{v} \cdot d\v{a} \eq{1.56}
 \end{align*}
 Curl: 
 \begin{align*}
-    \int_{\mathcal{S}} (\nabla \times \bar{v}) \cdot d\bar{a} = \oint_{\mathcal{P}} \bar{v} \cdot d\bar{l} \eq{1.57}
+    \int_{\mathcal{S}} (\nabla \times \v{v}) \cdot d\v{a} = \oint_{\mathcal{P}} \v{v} \cdot d\v{l} \eq{1.57}
 \end{align*}
 
 
 \chapter{Electrostatics}
 \section{Electric field}
-The force on a test charge $(Q)$ from a single point charge $(q)$, a distance $\bar{\r}$ away, is calculated by Coulomb's law: 
+The force on a test charge $(Q)$ from a single point charge $(q)$, a distance $\pmb{\r}$ away, is calculated by Coulomb's law: 
 \begin{align*}
-    \bar{F} = \frac{1}{4 \pi \ep}\frac{q Q}{\r^2}\hat{\r}, \eq{2.1}
+    \v{F} = \frac{1}{4 \pi \ep}\frac{q Q}{\r^2}\hat{\pmb{\r}}, \eq{2.1}
 \end{align*}
 where  $\ep = 8.85\ti{-12}\frac{\text{C}^2}{\text{N}\cdot \text{m}^2}$ is the permittivity of free space. 
 
 If we have several point charges, at different distances from Q, we have an elektric field: 
 \begin{align*}
-    &\bar{F} = Q\bar{E}, \eq{2.3} \\
-    &\bar{E} = \frac{1}{4\pi\ep}\sum_i \frac{q_i}{\r_i^2}\hat{\r_i}. \eq{2.4}
+    &\v{F} = Q\v{E}, \eq{2.3} \\
+    &\v{E} = \frac{1}{4\pi\ep}\sum_i \frac{q_i}{\r_i^2}\hat{\pmb{\r}_i}. \eq{2.4}
 \end{align*}
 
 If we have a continuous charge distribution, we can calculate the electric field by:
 \begin{align*}
-    \bar{E} = \frac{1}{4\pi\ep}\int \frac{1}{\r^2}\hat{\r}dq, \eq{2.5}
+    \v{E} = \frac{1}{4\pi\ep}\int \frac{1}{\r^2}\hat{\pmb{\r}}dq, \eq{2.5}
 \end{align*}
 where $dq$ is the charge in a small element, be it line charge $(dq=λdl)$, area charge $(dq=σda)$  or volume charge $(dq=ρdτ)$.
 
@@ -223,48 +226,48 @@ $ $
 
 Field of infinite length wire: \[ E = \frac{1}{4π\ep}\frac{2λ}{z}\]
 
-Field of infinite plane: \[ \bar{E} = \frac{σ}{2\ep}\hat{a}\]
+Field of infinite plane: \[ \v{E} = \frac{σ}{2\ep}\hat{\v{a}}\]
 
-Field outside a uniformly charged sphere with total charge $q$, $r>R$: \[ \bar{E} = \frac{1}{4π\ep}\frac{q}{r^2}\hat{r}\]
+Field outside a uniformly charged sphere with total charge $q$, $r>R$: \[ \v{E} = \frac{1}{4π\ep}\frac{q}{r^2}\hat{\v{r}}\]
 
 \section{Divergence and Curl}
 Field lines are imaginary lines used to represent the direction and strength of a field, such as an electric field. They start on positive charges and end on negative charges. The density of these lines indicates the field's strength; closer lines mean a stronger field.
 
 Flux refers to the quantity of a field passing through a given surface. For an electric field, it is the product of the electric field strength and the area through which the field lines pass, considering the angle between the field lines and the surface.
 \begin{align*}
-    \Phi = \int_{\mathcal{S}} \bar{E} \cdot d\bar{a} \eq{2.11}
+    \Phi = \int_{\mathcal{S}} \v{E} \cdot d\v{a} \eq{2.11}
 \end{align*}
 
 Gauss's law states that the total electric flux through a closed surface is proportional to the charge enclosed within that surface.
 \begin{align*}
-    \oint \bar{E} \cdot d\bar{a} = \frac{Q_{\text{enc}}}{\ep}, \eq{2.13}
+    \oint \v{E} \cdot d\v{a} = \frac{Q_{\text{enc}}}{\ep}, \eq{2.13}
 \end{align*}
 where $Q_{\text{enc}}$ is the charge enclosed by the surface. 
 It can be rewritten with the divergence thereom, when $Q_{\text{enc}} = \int_{\mathcal{V}}ρdτ$: 
 \begin{align*}
-    \nabla \cdot \bar{E} = \frac{ρ}{\ep}. \eq{2.14}
+    \nabla \cdot \v{E} = \frac{ρ}{\ep}. \eq{2.14}
 \end{align*} 
 
 To calculate the curl of the electric fgield we see that: 
 \begin{align*}
-    \int_{\bar{a}}^{\bar{b}} \bar{E} \cdot d\bar{l} = \frac{1}{4π\ep} \br{\frac{q}{r_a}-\frac{q}{r_b}}, \eq{2.18}
+    \int_{\v{a}}^{\v{b}} \v{E} \cdot d\v{l} = \frac{1}{4π\ep} \br{\frac{q}{r_a}-\frac{q}{r_b}}, \eq{2.18}
 \end{align*}
 which on a closed interval gives us: 
 \begin{align*}
-    \oint \bar{E} \cdot d\bar{l} = 0, \eq{2.19} \\
-    \nabla \times \bar{E} = \bar{0}. \eq{2.20}
+    \oint \v{E} \cdot d\v{l} = 0, \eq{2.19} \\
+    \nabla \times \v{E} = \v{0}. \eq{2.20}
 \end{align*}
 
 \n
 \section{Electric potential}
-Since we have $\oint \bar{E} \cdot d\bar{l}$, it must be independent of the path taken, and therefore we can calculate the potential of a point as: 
+Since we have $\oint \v{E} \cdot d\v{l}$, it must be independent of the path taken, and therefore we can calculate the potential of a point as: 
 \begin{align*}
-    V(\bar{r}) = -\int_{\mathcal{O}}^{\bar{r}}\bar{E} \cdot d\bar{l}, \eq{2.21}
+    V(\v{r}) = -\int_{\mathcal{O}}^{\v{r}}\v{E} \cdot d\v{l}, \eq{2.21}
 \end{align*} 
 and the electric potential difference between two points as:
 \begin{align*}
-    V(\bar{b}) - V(\bar{a}) &= -\int_{\bar{a}}^{\bar{b}}\bar{E} \cdot d\bar{l}, \eq{2.22} \\
-    \Rightarrow \bar{E} &= -\nabla V. \eq{2.23}
+    V(\v{b}) - V(\v{a}) &= -\int_{\v{a}}^{\v{b}}\v{E} \cdot d\v{l}, \eq{2.22} \\
+    \Rightarrow \v{E} &= -\nabla V. \eq{2.23}
 \end{align*}
 
 Posson's equation: 
@@ -273,11 +276,11 @@ Posson's equation:
 \end{align*}
 which gives us a way to calculate the potential from the charge distribution: 
 
-For a collection of point charges: \[ V(\bar{r}) = \frac{1}{4π\ep}\sum_{i=1}^{n}\frac{q_i}{\r_i}, \eq{2.27}\]
+For a collection of point charges: \[ V(\v{r}) = \frac{1}{4π\ep}\sum_{i=1}^{n}\frac{q_i}{\r_i}, \eq{2.27}\]
 
-For a continuous charge distribution: \[ V(\bar{r}) = \frac{1}{4π\ep}\int \frac{1}{\r}dq, \eq{2.28}\]
+For a continuous charge distribution: \[ V(\v{r}) = \frac{1}{4π\ep}\int \frac{1}{\r}dq, \eq{2.28}\]
 
-For a volume charge distribution: \[ V(\bar{r}) = \frac{1}{4π\ep}\int \frac{ρ(\bar{r}')}{\r}dτ'. \eq{2.29}\]
+For a volume charge distribution: \[ V(\v{r}) = \frac{1}{4π\ep}\int \frac{ρ(\v{r}')}{\r}dτ'. \eq{2.29}\]
 
 \subsubsection{Special cases:}
 $ $
@@ -299,22 +302,22 @@ Figure (2.35) shows the way to go between electric field, electric potential and
 
 \n
 \section{Work and Energy}
-If you want to move a test charge $(Q)$ from point $\bar{a}$ to point $\bar{b}$, 
+If you want to move a test charge $(Q)$ from point $\v{a}$ to point $\v{b}$, 
 you have to do work against the electric field. 
 The work done is the potential difference between the two points: 
 \begin{align*}
-    W = Q\br[2]{V(\bar{b}) - V(\bar{a})}. \eq{2.38}
+    W = Q\br[2]{V(\v{b}) - V(\v{a})}. \eq{2.38}
 \end{align*}
-So if you want to move the point from ininfity to a point $\bar{r}$, and you have the reference point in infinity: 
+So if you want to move the point from ininfity to a point $\v{r}$, and you have the reference point in infinity: 
 \begin{align*}
-    W = QV(\bar{r}). \eq{2.39}
+    W = QV(\v{r}). \eq{2.39}
 \end{align*}
 
 The work to move a collection of charges is:
 \begin{align*}
     W &= \frac{1}{4π\ep}\sum_{i=1}^{n}\sum_{j>i}^{n}\frac{q_iq_j}{\r_{ij}}, \eq{2.40}\\
     &= \frac{1}{8π\ep}\sum_{i=1}^{n}\sum_{j\neq i}^{n}\frac{q_iq_j}{\r_{ij}}, \eq{2.41} \\
-    &= \frac{1}{2}\sum_{i=1}^{n}q_iV(\bar{r}_i). \eq{2.42}
+    &= \frac{1}{2}\sum_{i=1}^{n}q_iV(\v{r}_i). \eq{2.42}
 \end{align*}
 
 For continuous charge distributions:
@@ -343,7 +346,7 @@ A conducter is a material where the electrons are free to move around. The elect
 The electric field inside a conductor is zero, and when it is placed in an electric field, 
 the charges collect on the surface to create an electrical field inside the conducter, that cancels out the initial field. 
 \begin{align*}
-    \nabla \bar{E} = \frac{ρ}{\ep} = 0
+    \nabla \v{E} = \frac{ρ}{\ep} = 0
 \end{align*}
 
 Induced charges on a conductor are always on the surface, and the electric field is always perpendicular to the surface.
@@ -357,21 +360,21 @@ so they are always perpendicular. so the elektric field parallel to a conductor 
 
 Because the field inside a conductor is zero, the field immediatly outside is:
 \begin{align*}
-    \bar{E} = \frac{σ}{\ep}\hat{n}, \eq{2.48}
+    \v{E} = \frac{σ}{\ep}\hat{\v{n}}, \eq{2.48}
 \end{align*}
 
 The force per unit area and outward electrostatic pressure on the surface of a conductor is: 
 \begin{align*}
-    \bar{f} &= \frac{1}{2\ep}σ^2\hat{n}, \eq{2.51} \\
+    \v{f} &= \frac{1}{2\ep}σ^2\hat{\v{n}}, \eq{2.51} \\
     P &= \frac{\ep}{2}E^2 = \frac{σ^2}{2\ep}. \eq{2.52}
 \end{align*}
 
 \subsection{Capacitors}
 If we have two conductors with charge Q and -Q, the elektric potential between them is: 
 \begin{align*}
-    V = V_+ - V_- = -\int_{(-)}^{(+)}\bar{E} \cdot d\bar{l},
+    V = V_+ - V_- = -\int_{(-)}^{(+)}\v{E} \cdot d\v{l},
 \end{align*}
-if the shape is complicated, $\bar{E}$ is hard to calculate, but we know it is proportional to $Q$, 
+if the shape is complicated, $\v{E}$ is hard to calculate, but we know it is proportional to $Q$, 
 and therefore $V$ is also proportional, which gives us the capacitance: 
 \begin{align*}
     C = \frac{Q}{V}. \eq{2.53}
@@ -408,9 +411,9 @@ but for 2 dimensions it is not easy to calculate exactly, but you can caluculate
 \end{align*}
 which might make no sence, but it can be used to calculate the charge distribution, when boundary conditions are known. 
 
-In three dimensions the value of $V$ at point $\bar{r}$ is the average value of $V$ over a spherical surface of radius $R$ centered at $\bar{r}$: 
+In three dimensions the value of $V$ at point $\v{r}$ is the average value of $V$ over a spherical surface of radius $R$ centered at $\v{r}$: 
 \begin{align*}
-    V(\bar{r}) = \frac{1}{4πR^2}\oint_{\text{sphere}}Vda. 
+    V(\v{r}) = \frac{1}{4πR^2}\oint_{\text{sphere}}Vda. 
 \end{align*}
 
 \textbf{First uniqueness theorem:} The solution to Laplace’s equation in 
@@ -449,12 +452,12 @@ and the total charge:
 
 We can also use the method of images to find the force on the point charge due to the induction: 
 \begin{align*}
-    \bar{F} = -\frac{1}{4π\ep} \frac{q^2}{(2d)^2}\hat{z}, \eq{3.12}
+    \v{F} = -\frac{1}{4π\ep} \frac{q^2}{(2d)^2}\hat{\v{n}}, \eq{3.12}
 \end{align*}
 but the work will not be the same for the plane, and the point charge, 
 so if we want to calculate the energy to move the charge from infinity to d as:
 \begin{align*}
-    W = \int_{\infty}^{d}\bar{F}\cdot d\bar{l}= -\frac{1}{4π\ep}\frac{q^2}{4d}. \eq{3.14}
+    W = \int_{\infty}^{d}\v{F}\cdot d\v{l}= -\frac{1}{4π\ep}\frac{q^2}{4d}. \eq{3.14}
 \end{align*}
 
 You can not put the image charge in the reagion where you are calculating the potential, 
@@ -463,7 +466,7 @@ the image charge is inside the sphere.
 
 This gives the potential: 
 \begin{align*}
-    V(\bar{r}) = \frac{1}{4π\ep}\br{\frac{q}{\r}+\frac{q'}{\r'}}, \eq{3.17}
+    V(\v{r}) = \frac{1}{4π\ep}\br{\frac{q}{\r}+\frac{q'}{\r'}}, \eq{3.17}
 \end{align*}
 where $q'$ is the image charge, and $\r$ and $\r'$ is the distance from $q$ and $q'$. 
 
@@ -494,33 +497,33 @@ A dipole is two opposide charges particles, collect two dipoles to make an quard
 \bil{fig3.27}
 To calculate the potential from a multipole we use:
 \begin{align*}
-    V(\bar{r}) = \frac{1}{4π\ep}\sum_{n=0}^{\infty}\frac{1}{r^{n+1}}\int(r')^nP_n(\cos(α))ρ(\bar{r}')dτ', \eq{3.95}
+    V(\v{r}) = \frac{1}{4π\ep}\sum_{n=0}^{\infty}\frac{1}{r^{n+1}}\int(r')^nP_n(\cos(α))ρ(\v{r}')dτ', \eq{3.95}
 \end{align*}
 where $P_l$ is the Legendre polynomial, $ρ$ is the total charge of the distrubution. 
 $n = 0 $ for monopole, $1$ for dipole and so on. 
 
 For monopole and dipole we get: 
 \begin{align*}
-    V_{mon}(\bar{r}) = \elcon \frac{Q}{r}, \eq{3.97} \\
-    V_{dip}(\bar{r}) = \elcon \frac{\bar{p}\cdot \hat{r}}{r^2}, \eq{3.99}
+    V_{mon}(\v{r}) = \elcon \frac{Q}{r}, \eq{3.97} \\
+    V_{dip}(\v{r}) = \elcon \frac{\v{p}\cdot \hat{\v{r}}}{r^2}, \eq{3.99}
 \end{align*}
-where $\bar{p}$ is the dipole moment of the distrubution: 
+where $\v{p}$ is the dipole moment of the distrubution: 
 \begin{align*}
-    \bar{p} = \int \bar{r}'ρ(\bar{r}')dτ'. \eq{3.98}
+    \v{p} = \int \v{r}'ρ(\v{r}')dτ'. \eq{3.98}
 \end{align*}
 
 The electric field of a dipole is: 
 \begin{align*}
-    \bar{E}_{dip}(r,θ) = \frac{p}{4π\ep r^3}\br{2\cos(θ)\hat{r}+\sin(θ)\hat{θ}}. \eq{3.103}
+    \v{E}_{dip}(r,θ) = \frac{p}{4π\ep r^3}\br{2\cos(θ)\hat{\v{r}}+\sin(θ)\hat{\v{θ}}}. \eq{3.103}
 \end{align*}
 
 \chapter{Electric Fields in Matter}
 \section{Dielectrics}
 If you put a neutrol atom in an electric field, it is either ripped apart, being ionized, 
 or it reaches an equilibrium, where the force from the electric field and the force holding the atom toghether cancel eachother, 
-making the atom polarized. This will cause the atom to have a dipolemoment $\bar{p}$, with the same direction as $\bar{E}$. 
+making the atom polarized. This will cause the atom to have a dipolemoment $\v{p}$, with the same direction as $\v{E}$. 
 \begin{align*}
-    \bar{p} = α\bar{E} \eq{4.1}, 
+    \v{p} = α\v{E} \eq{4.1}, 
 \end{align*}
 here $α$ is called the atomic polarizability, and is dependent on the atoms structure. 
 
@@ -535,7 +538,7 @@ where $v$ is the volume of the atom.
 \bil{fig4.1}
 
 For molecules it is not so easy, as the dipolemoment might not be the same direction as E, 
-and therefor we get 9 polarizability constants: 
+and therefore we get 9 polarizability constants: 
 \begin{align*}
     \begin{cases}
         p_x = \alpha_{xx} E_x + \alpha_{xy} E_y + \alpha_{xz} E_z, \\
@@ -550,45 +553,45 @@ Some molecules have their own dipolemoment, such as water, which are called pola
 If placed in an uniform electric field, the force on the postive end, cancels out with the force on the negative end, 
 but there will be a torque 
 \begin{align*}
-    \bar{N} = (\bar{r}_+ \times \bar{F}_+)+(\bar{r}_- \times \bar{F}_-) = \bar{p}\times \bar{E}. \eq{4.4}
+    \v{N} = (\v{r}_+ \times \v{F}_+)+(\v{r}_- \times \v{F}_-) = \v{p}\times \v{E}. \eq{4.4}
 \end{align*}
 \bil{fig4.4}
-$\bar{N}$ is in such a direction to line $\bar{p}$ parallel to $\bar{E}$. 
+$\v{N}$ is in such a direction to line $\v{p}$ parallel to $\v{E}$. 
 
 If the field is not uniform over det atom, which is rare, there is a net force on the atom 
 \begin{align*}
-    \bar{F} = \br{\bar{p}\cdot \nabla}\bar{E}. \eq{4.5}
+    \v{F} = \br{\v{p}\cdot \nabla}\v{E}. \eq{4.5}
 \end{align*}
 
 An ideal dipole is the atrifical limit $d\rightarrow 0$ and $q \rightarrow \infty$. 
 The energy of an ideal dipolemoment is 
 \begin{align*}
-    U = -\bar{p}\cdot \bar{E}, \eq{4.6} 
+    U = -\v{p}\cdot \v{E}, \eq{4.6} 
 \end{align*}
-and the interaction energy between two ideal dipoles with displacement $\bar{r}$ is 
+and the interaction energy between two ideal dipoles with displacement $\v{r}$ is 
 \begin{align*}
-    U = \elcon \frac{1}{r^3}\br[2]{\bar{p}_1\cdot\bar{p}_2-3\br{\bar{p}_1\cdot \hat{r}}\br{\bar{p}_2\cdot \hat{r}}}. \eq{4.7}
+    U = \elcon \frac{1}{r^3}\br[2]{\v{p}_1\cdot\v{p}_2-3\br{\v{p}_1\cdot \hat{\v{r}}}\br{\v{p}_2\cdot \hat{\v{r}}}}. \eq{4.7}
 \end{align*}
 
 If we place a material made of nonpolar molecules in an electric field,  
 it will induce a dipole moment in all the molecules. If we place a polar material, 
 the field will turn all the molecules. We get the polarization which is 
 \begin{align*}
-    \bar{P} = \text{dipole moment per unit volume. } 
+    \v{P} = \text{dipole moment per unit volume. } 
 \end{align*}
 
 \section{Field of a Polarized Object}
 To calculate the field that arises from the induced dipoles in a material placed in an electric field, 
-we first calculate the potential by integrating each dipole over det volume $\bar{p}=\bar{P}dτ'$: 
+we first calculate the potential by integrating each dipole over det volume $\v{p}=\v{P}dτ'$: 
 \begin{align*}
-    V(\bar{r}) &= \elcon \int_{\mathcal{V}} \frac{\bar{P}(\bar{r}')\cdot \hat{\r}}{\r^2}dτ', \eq{4.9} \\
+    V(\v{r}) &= \elcon \int_{\mathcal{V}} \frac{\v{P}(\v{r}')\cdot \hat{\pmb{\r}}}{\r^2}dτ', \eq{4.9} \\
     &= \elcon \oint_{\mathcal{S}} \frac{σ_b}{\r}da'+\elcon \int_{\mathcal{V}}\frac{ρ_b}{\r}dτ', \eq{4.13}
 \end{align*}
-where we have the surface charge density $σ_b = \bar{P}\cdot\hat{n}$ and the volume charge density $ρ_b = -\bar{\nabla}\cdot \bar{P}$. 
+where we have the surface charge density $σ_b = \v{P}\cdot\hat{\v{n}}$ and the volume charge density $ρ_b = -\v{\nabla}\cdot \v{P}$. 
 
-For a uniformly polarized sphere of radius R, the volume charge density is zero bacause $\bar{P}$ is uniform, but 
+For a uniformly polarized sphere of radius R, the volume charge density is zero bacause $\v{P}$ is uniform, but 
 \begin{align*}
-    σ_b = \bar{P}\cdot \hat{n} = P\cos θ,
+    σ_b = \v{P}\cdot \hat{\v{n}} = P\cos θ,
 \end{align*}
 from this we get
 \begin{align*}
@@ -599,44 +602,44 @@ from this we get
 \end{align*}
 
 So the field inside the sphere is uniform, and outside the sphere it behaves like a ideal dipole, 
-whose dipole moment is the total dipole moment of a sphere $\bar{p} = \frac{4}{3}πR^3\bar{P}$.
+whose dipole moment is the total dipole moment of a sphere $\v{p} = \frac{4}{3}πR^3\v{P}$.
 
 
 \section{Electric Displacement}
 Along with the bound charge, there is also fee charge which could be electrons on a fonductor, 
-or ions embedded in the dielectric material, so any charge not assosiated with $\bar{P}$. 
+or ions embedded in the dielectric material, so any charge not assosiated with $\v{P}$. 
 Within the dielectric, the total charge density is 
 \begin{align*}
     ρ = ρ_b + ρ_f, \eq{4.20}
 \end{align*}
 and Gauss's law is 
 \begin{align*}
-    \ep \bar{\nabla}\cdot\bar{E} = ρ = ρ_b + ρ_f = -\bar{\nabla}\cdot\bar{P}+ρ_f, 
+    \ep \v{\nabla}\cdot\v{E} = ρ = ρ_b + ρ_f = -\v{\nabla}\cdot\v{P}+ρ_f, 
 \end{align*}
-where $\bar{E}$ is the toral field. 
+where $\v{E}$ is the toral field. 
 
 This lead to a term for $ρ_f$: 
 \begin{align*}
-    ρ_f &= \bar{\nabla}\cdot\br{\ep\bar{E}+\bar{P}}, \\
-    &= \bar{\nabla}\cdot\bar{D}, \eq{4.22} \\
-    \Rightarrow \oint &\bar{D}\cdot d\bar{a} = Q_{f_{enc}}. \eq{4.23}
+    ρ_f &= \v{\nabla}\cdot\br{\ep\v{E}+\v{P}}, \\
+    &= \v{\nabla}\cdot\v{D}, \eq{4.22} \\
+    \Rightarrow \oint &\v{D}\cdot d\v{a} = Q_{f_{enc}}. \eq{4.23}
 \end{align*}
-Here $\bar{D}$ is known as the electric displacement. 
+Here $\v{D}$ is known as the electric displacement. 
 
-Typically we know $ρ_f$, and we can therefor calculate D. When computing the displacement look for symmetry, 
-if there is spherical, cylindircal or plane symmetri we can use (\ref{eq4.23}) because $\bar{\nabla}\times\bar{D} = 0$. 
+Typically we know $ρ_f$, and we can therefore calculate D. When computing the displacement look for symmetry, 
+if there is spherical, cylindircal or plane symmetri we can use (\ref{eq4.23}) because $\v{\nabla}\times\v{D} = 0$. 
 
 \section{Linear Dielectrics}
 The polarization is proportional to the electric field: 
 \begin{align*}
-    \bar{P} = \ep Χ_e \bar{E} \eq{4.30}, 
+    \v{P} = \ep Χ_e \v{E} \eq{4.30}, 
 \end{align*}
 where $χ_e$ is the electric susceptibility, which is dependant on the structure of the material. 
 Materials that obey eq. 4.30 are called linear dielectrics. 
-Notice that $\bar{E}$ is the total electric field, and therefore we can not calculate $\bar{P}$ from eq. 4.30, 
+Notice that $\v{E}$ is the total electric field, and therefore we can not calculate $\v{P}$ from eq. 4.30, 
 instead we could calculate 
 \begin{align*}
-    \bar{D} = \ep \bar{E}+\bar{P} = \ep(1+χ_e)\bar{E}=\epsilon \bar{E}, \eq{4.31}
+    \v{D} = \ep \v{E}+\v{P} = \ep(1+χ_e)\v{E}=\epsilon \v{E}, \eq{4.31}
 \end{align*}
 where we have the permittivity of the material, and dielectric constant:
 \begin{align*}
@@ -649,7 +652,7 @@ where we have the permittivity of the material, and dielectric constant:
 When we have a charge distrubution in homogeneous linear dielectric, the field is calculated as in vacum, but using $\epsilon$ instead of $\ep$. 
 To calculate the full energy stored in a electrostatic system in a linear dielectric, we rewrite (\hyperref[eq2.45]{2.45}) to
 \begin{align*}
-    W = \frac{\ep}{2}\int \epsilon_r E^2dτ = \frac{1}{2}\int \bar{D}\cdot \bar{E}dτ. \eq{4.58}
+    W = \frac{\ep}{2}\int \epsilon_r E^2dτ = \frac{1}{2}\int \v{D}\cdot \v{E}dτ. \eq{4.58}
 \end{align*}
 
 Say we have a dielectric in a capacitor, the force required to remove the dielectric can be calculated as 
@@ -665,14 +668,98 @@ If we have a wire with a current running through, it will create a magnetic fiel
 the direction of the filed can be found by the right hand rule, if your thumb is in the direction of current, 
 you fingers curl in the direction of the magnetic field. 
 
-A force will be induced on a moving charge ($Q$) in a magnetic field, moving with velocity ($\bar{v}$)
+A force will be induced on a moving charge ($Q$) in a magnetic field, moving with velocity ($\v{v}$)
 \begin{align*}
-    \bar{F}_{mag} = Q\br{\bar{v}\times \bar{B}}\eq{5.1}. 
+    \v{F}_{mag} = Q\br{\v{v}\times \v{B}}\eq{5.1}. 
 \end{align*}
 This is the Lorentz force law. When there is both a magnetic field and an electric field, the force would be 
 \begin{align*}
-    \bar{F} = Q\br{\bar{E}+\br{\bar{v}\times\bar{B}}}.\eq{5.2}
+    \v{F} = Q\br{\v{E}+\br{\v{v}\times\v{B}}}.\eq{5.2} 
 \end{align*}
 
+For a charged particle in a magnetic field, the magnetic force will create a centripetal acceleration, 
+which leads to the cycletron formula, used to find the momentum of a charged particle,
+\begin{align*}
+    QvB = m\frac{v^2}{R}, \quad\text{or } p = QBR. \eq{5.3}
+\end{align*}
+
+If we have both a magnetic field and an electric field, we can follow example 5.2, 
+to show that the particle will move in a cycloid motion, a circle where the center moves $(0,Rωt,R)$: 
+\begin{align*}
+    (y-Rωt)^2+&(z-R)^2=R^2 \eq{5.9} \\
+    &Rω = \frac{E}{B} \eq{5.10}.
+\end{align*}
+
+A magnetic field can not speed up or slow down a particle, it can only change its direction, 
+therefore the field does no work on the particle, 
+\begin{align*}
+    dW_{mag} = \v{F}_{mag}\cdot d\v{l}=Q(\v{v}\times\v{B})\cdot\v{v}dt=0. \eq{5.11}
+\end{align*}
+
+\subsection{Current}
+A line charge $λ$ traveling down a wire at speed $v$, constitutes a charge
+\begin{align*}
+    \v{I} = λ\v{v}. \eq{5.14}
+\end{align*}
+
+The magnetic force on a segment of current-carrying wire is:
+\begin{align*}
+    \v{F}_{mag} = \int (\v{I}\times\v{B})dl, \eq{5.15}
+\end{align*}
+if $\v{I}$ and $d\v{l}$ point in the same direction: 
+\begin{align*}
+    \v{F}_{mag} = I \int (d\v{l}\times\v{B}). \eq{5.17}
+\end{align*}
+
+When charge voves over a surface we describe it by the surface current density
+\begin{align*}
+    \v{K} = \frac{d\v{I}}{dl_{\perp}} = σ\v{v}. \eq{5.23}
+\end{align*}
+
+And the magnetic force on the surface current is
+\begin{align*}
+    \v{F}_{mag} = \int (\v{K} \times \v{B}) da. \eq{5.24}
+\end{align*}
+
+In a volume we have the volume current density: 
+\begin{align*}
+    \v{J} &= \frac{d\v{I}}{da_{\perp}} = ρ\v{v}, \eq{5.26}\\
+    \v{F}_{mag} &= \int (\v{J} \times \v{B}) dτ. \eq{5.27}
+\end{align*}
+
+The total charge crossing a surface can be calculated as 
+\begin{align*}
+    I = \int_{\mathcal{S}}Jda_{\perp} = \int_{\mathcal{S}}\v{J}d\v{a}. \eq{5.28}
+\end{align*}
+
+From this we get the continuity equation 
+\begin{align*}
+    \v{\nabla} \cdot \v{J} = -\frac{\dd ρ}{\dd t}. \eq{5.29}
+\end{align*}
+
+\section{Biot-Savart Law}
+The magnetic field of a steady line current is given by Biot-Savart law: 
+\begin{align*}
+    \v{B}(\v{r}) = \frac{\mu_0}{4\pi} \int \frac{\v{I} \times \hat{\pmb{\r}}}{\r^2} dl',
+\end{align*}
+where $μ_0$ is the permeability of free space. 
+
+The magnitude of the magnetic field caused by an infinite wire is: 
+\begin{align*}
+    B = \frac{μ_0I}{2πs}, \eq{5.38}
+\end{align*}
+where the direction follows the right-hand rule. 
+For a point a distance $z$ above a circular loop of radius $R$, the field is: 
+\begin{align*}
+    B(z) = \frac{μ_0I}{2}\frac{R^2}{\br{R^2+z^2}^{3/2}}. \eq{5.41}
+\end{align*}
+
+For surface and volume charge the Biot-Savart law becomes: 
+\begin{align*}
+    \v{B}(\v{r}) = \frac{\mu_0}{4\pi} \int \frac{\v{K} \times \hat{\pmb{\r}}}{\r^2} da', \\
+    \v{B}(\v{r}) = \frac{\mu_0}{4\pi} \int \frac{\v{J} \times \hat{\pmb{\r}}}{\r^2} dτ'. \eq{5.42}
+\end{align*}
+
+\section{Divergence and Curl of B}
 
 \end{document}
