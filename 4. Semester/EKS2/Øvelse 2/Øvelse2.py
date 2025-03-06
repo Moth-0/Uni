@@ -12,16 +12,33 @@ plt.rc("legend", fontsize=16)
 
 # Function to find peaks and lows in the data
 def peaks(a, b): 
-    peak = find_peaks(b, height=0, distance=100000)[0]
-    low = find_peaks(-b, height=0, distance=100000)[0]
+    peak = find_peaks(b, height = -20, distance=100)[0]
+    low = find_peaks(-b, height = -20, distance=100)[0]
     
     plt.plot(a[peak], b[peak], "o")
     plt.plot(a[low], b[low], "o")
 
     return a[peak], a[low]
 
+def abs_peaks(a, b): 
+    peak = find_peaks(b, distance = 100)[0]
+    plt.plot(a[peak], b[peak], "o")
+    return a[peak]
+
+# Function to calculate the average wavelength using absolute peaks
+def wave_len_abs(peaks):
+    peak_distances = np.diff(peaks)
+    avg_wavelength = np.mean(peak_distances)
+    return avg_wavelength        
+
 # Function to calculate the average wavelength from peaks and lows
 def wave_len(peaks, lows):
+    distances = []
+    for peak, low in zip(peaks, lows):
+        distances.append(abs(peak - low))
+    avg_distance = np.mean(distances)
+    return 2*avg_distance
+    
     peak_distances = np.diff(peaks)
     low_distances = np.diff(lows)
     avg_wavelength = (np.mean(peak_distances) + np.mean(low_distances)) / 2
@@ -36,7 +53,7 @@ c_inc = []
 c_dec = []
 
 # Folder containing the data files
-folder = "dag1"
+folder = "dag2"
 
 # Loop through each file in the folder
 for file in os.listdir(folder):
@@ -47,10 +64,13 @@ for file in os.listdir(folder):
 
     # Find the midpoint where A is maximum
     mid = np.argmax(A)
+    # Find the index where A goes over 0 and where it goes back under
+    start = np.where(A[:mid] > 0)[0][0]
+    end = mid + np.where(A[mid:] < 0)[0][0]
 
     # Split the data into two halves
-    A1, B1 = A[:mid], B[:mid]  # First half (increasing V)
-    A2, B2 = A[mid:], B[mid:]  # Second half (decreasing V)
+    A1, B1 = A[start:mid], B[start:mid]  # First half (increasing V)
+    A2, B2 = A[mid:end], B[mid:end]  # Second half (decreasing V)
 
     # Plot the data
     plt.plot(A1, B1, label='First Half')

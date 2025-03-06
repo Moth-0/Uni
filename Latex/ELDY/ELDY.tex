@@ -761,5 +761,21 @@ For surface and volume charge the Biot-Savart law becomes:
 \end{align*}
 
 \section{Divergence and Curl of B}
+For any wire running through a chosen loop, the integral of $\v{B}$ is: 
+\begin{align*}
+    \oint \v{B} \cdot d\v{l} = μ_0I_{\text{enc}}, \eq{5.44}
+\end{align*}
+where $I_{\text{enc}}$ is the total current enclosed by the loop. 
+If the flow of current is volume current density, the enclosed current is: 
+\begin{align*}
+    I_{\text{enc}} = \int \v{J}\cdot d\v{a}. \eq{5.45}
+\end{align*}
+Applying Stokes law, gives us the curl of $\v{B}$ for infinite wires:
+\begin{align*}
+    \int \br{\nabla \times \v{B}}\cdot d\v{a} = μ_0 \int \v{J} \cdot d\v{a}, \\
+    \Rightarrow \nabla \times \v{B} = μ_0 \v{J}. \eq{5.46}
+\end{align*}
+
+
 
 \end{document}
