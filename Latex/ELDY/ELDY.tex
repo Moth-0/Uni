@@ -89,6 +89,7 @@
 
 
 
+
 \newcommand{\hv}[2][]{%
     \if\relax\detokenize{#1}\relax
         |#2\rangle%
@@ -128,12 +129,12 @@
 
 \section{Calculus}
 \begin{align*}
-    dT &= \br{\frac{\dd T}{\dd x}+\hat{\v{n}}+\frac{\dd T}{\dd y}\hat{\v{n}}+\frac{\dd T}{\dd z}\hat{\v{n}}} \cdot (dx \hat{\v{n}} + dy \hat{\v{n}} +dz \hat{\v{n}}) \\
+    dT &= \br{\frac{\dd T}{\dd x}+\hat{\v{x}}+\frac{\dd T}{\dd y}\hat{\v{y}}+\frac{\dd T}{\dd z}\hat{\v{z}}} \cdot (dx \hat{\v{x}} + dy \hat{\v{y}} +dz \hat{\v{z}}) \\
     &= (\nabla T) \cdot d\v{l}, \eq{1.35} \\
 \end{align*}
 where the gradent ($\nabla$) is an operator: 
 \begin{align*}
-    \nabla = \hat{\v{n}}\frac{\dd}{\dd x} + \hat{\v{n}}\frac{\dd}{\dd y} + \hat{\v{n}}\frac{\dd}{\dd z}. \eq{1.39}
+    \nabla = \hat{\v{x}}\frac{\dd}{\dd x} + \hat{\v{y}}\frac{\dd}{\dd y} + \hat{\v{z}}\frac{\dd}{\dd z}. \eq{1.39}
 \end{align*}
 
 The gradient is used to calculate the divergence of a vector with: 
@@ -142,8 +143,8 @@ The gradient is used to calculate the divergence of a vector with:
 \end{align*}
 and the curl with: 
 \begin{align*}
-    &\nabla \times \v{v} = \begin{vmatrix} \hat{\v{n}} & \hat{\v{n}} & \hat{\v{n}} \\ \frac{\dd}{\dd x} & \frac{\dd}{\dd y} & \frac{\dd}{\dd z} \\ v_x & v_y & v_z \end{vmatrix} \\ 
-    = \left(\frac{\dd v_z}{\dd y} - \frac{\dd v_y}{\dd z}\right)\hat{\v{n}} &+ \left(\frac{\dd v_x}{\dd z} - \frac{\dd v_z}{\dd x}\right)\hat{\v{n}} + \left(\frac{\dd v_y}{\dd x} - \frac{\dd v_x}{\dd y}\right)\hat{\v{n}}. \eq{1.41}
+    &\nabla \times \v{v} = \begin{vmatrix} \hat{\v{x}} & \hat{\v{y}} & \hat{\v{z}} \\ \frac{\dd}{\dd x} & \frac{\dd}{\dd y} & \frac{\dd}{\dd z} \\ v_x & v_y & v_z \end{vmatrix} \\ 
+    = \left(\frac{\dd v_z}{\dd y} - \frac{\dd v_y}{\dd z}\right)\hat{\v{x}} &+ \left(\frac{\dd v_x}{\dd z} - \frac{\dd v_z}{\dd x}\right)\hat{\v{y}} + \left(\frac{\dd v_y}{\dd x} - \frac{\dd v_x}{\dd y}\right)\hat{\v{z}}. \eq{1.41}
 \end{align*}
 
 The product rules for the gradient are: 
@@ -162,7 +163,7 @@ When we use the gradient to make a second derivitive we get the Laplacian:
 \end{align*}
 and the laplacian of a vector: 
 \begin{align*}
-    \nabla^2\v{v} = (\nabla^2 v_x)\hat{\v{n}} + (\nabla^2 v_y)\hat{\v{n}} + (\nabla^2 v_z)\hat{\v{n}}. \eq{1.43}
+    \nabla^2\v{v} = (\nabla^2 v_x)\hat{\v{x}} + (\nabla^2 v_y)\hat{\v{y}} + (\nabla^2 v_z)\hat{\v{z}}. \eq{1.43}
 \end{align*}
 
 We also have the following identities:
@@ -452,7 +453,7 @@ and the total charge:
 
 We can also use the method of images to find the force on the point charge due to the induction: 
 \begin{align*}
-    \v{F} = -\frac{1}{4π\ep} \frac{q^2}{(2d)^2}\hat{\v{n}}, \eq{3.12}
+    \v{F} = -\frac{1}{4π\ep} \frac{q^2}{(2d)^2}\hat{\v{z}}, \eq{3.12}
 \end{align*}
 but the work will not be the same for the plane, and the point charge, 
 so if we want to calculate the energy to move the charge from infinity to d as:
@@ -775,6 +776,63 @@ Applying Stokes law, gives us the curl of $\v{B}$ for infinite wires:
     \int \br{\nabla \times \v{B}}\cdot d\v{a} = μ_0 \int \v{J} \cdot d\v{a}, \\
     \Rightarrow \nabla \times \v{B} = μ_0 \v{J}. \eq{5.46}
 \end{align*}
+
+To find the general curl of $\v{B}$, we use Biot Savart law: 
+\begin{align*}
+    \nabla \times \v{B} &= \frac{μ_0}{4π} \int \v{J} \times \frac{\hat{\pmb{\r}}}{\r^2} dτ', \eq{5.51} \\
+    &= μ_0 \v{J}. \eq{5.56}
+\end{align*}
+
+For the divergence of $\v{B}$ we get:
+\begin{align*}
+    \nabla \cdot \v{B} = 0. \eq{5.50}
+\end{align*}
+
+\section{Ampère's Law}
+Equation (5.56) is called Ampère's law in differential form, if we integrate we get:
+\begin{align*}
+    \oint \v{B}\cdot d\v{l} = μ_0 \int \v{J}\cdot d\v{a} = μ_0 I_{\text{enc}}. \eq{5.57}
+\end{align*}
+This playes the role of Gauss law for magnetostatics. 
+
+\subsubsection{Special cases:} 
+$ $
+
+Field of infinite sheet with in xy-plane with $\v{K} = K\hat{\v{x}}$: 
+\begin{align*}
+    \v{B} = 
+    \begin{cases}
+        + \frac{μ_0}{2}K\hat{\v{y}} & \text{for } z < 0, \\
+        - \frac{μ_0}{2}K\hat{\v{y}} & \text{for } z > 0.
+    \end{cases} \eq{5.58}
+\end{align*}
+
+Field of long solenoid with $n$ windings and radius $R$:
+\begin{align*}
+    \v{B} = 
+    \begin{cases}
+        μ_0nI\hat{\v{z}} & \text{for } r < R, \\
+        0 & \text{for } r > R.
+    \end{cases} \eq{5.59}
+\end{align*}
+
+Field of a toroidal coil (\hyperref[fig:fig5.37]{Fig 5.37}) with $n$ turns a distance $s$ form the symmetry axis: 
+\begin{align*}
+    \v{B}(\v{r}) = 
+    \begin{cases}
+        \frac{μ_0nI}{2\pi s}\hat{\v{φ}} & \text{inside coil}, \\
+        \v{0} & \text{outside coil}.
+    \end{cases} \eq{5.60
+    }
+\end{align*}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.3\linewidth]{Billeder/fig5.37.png}
+    \label{fig:fig5.37}
+    \caption*{\textcolor{gray}{Crosssection can be any shape}}
+\end{figure}
+
 
 
 
