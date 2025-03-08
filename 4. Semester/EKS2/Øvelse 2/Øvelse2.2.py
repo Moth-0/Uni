@@ -12,17 +12,17 @@ plt.rc("ytick", labelsize=16, right=True, direction="in")
 plt.rc("legend", fontsize=16)
 
 print("\n\n\n-------------------------------")
-plots = True
+plots = False
 
 # Sine function for fitting
 def sine_func(x, A, λ, φ, D):
     return A * np.sin(2*np.pi / λ * x + φ) + D
 
-def lin_func(x, k, b):
-    return 2*k*x+b
+def lin_func(x, a, b):
+    return a * x + b
 
 def Δs(max, v): 
-    return 2 * laser_wavelength / v * max
+    return 2 * laser_wavelength / v * max # IS THE 2 HERE RIGHT? 
 
 def guess(a, b): 
     A = (np.max(b) - np.min(b))/2
@@ -127,6 +127,8 @@ v_max_list = np.array(v_max_list)
 c_inc = np.array(c_inc)
 c_dec = np.array(c_dec)
 
+v_lin = np.linspace(0, 150)
+
 # Plot C vs. V_max
 plt.figure(figsize=(8,6))
 plt.scatter(v_max_list, c_inc, color='blue', label=r"$C_{increasing}$")
@@ -149,8 +151,8 @@ popt_dec, _ = curve_fit(lin_func, v_max_list, Δs_dec)
 plt.figure(figsize=(8,6))
 plt.plot(v_max_list, Δs_inc, "o", label="Increasing")
 plt.plot(v_max_list, Δs_dec, "o", label="Decreasing")
-plt.plot(v_max_list, lin_func(v_max_list, *popt_inc), '--', label="Fit Increasing")
-plt.plot(v_max_list, lin_func(v_max_list, *popt_dec), '--', label="Fit Decreasing")
+plt.plot(v_lin, lin_func(v_lin, *popt_inc), '--', label="Fit Increasing")
+plt.plot(v_lin, lin_func(v_lin, *popt_dec), '--', label="Fit Decreasing")
 plt.xlabel(r"$V_{max}$ (V)")
 plt.ylabel(r"$\Delta s$ (μm)")
 plt.title(r"Variation of $\Delta s$ with $V_{max}$")
@@ -159,5 +161,5 @@ plt.show()
 
 # Print Summary Statistics
 print("\nFinal Summary:")
-print(f"C increasing from fit: {popt_inc[0]:.5e} μm/V")
-print(f"C decreasing from fit: {popt_dec[0]:.5e} μm/V")
+print(f"C increasing from fit: {popt_inc[0]:.5e} μm/V - b value {popt_inc[1]}")
+print(f"C decreasing from fit: {popt_dec[0]:.5e} μm/V - b value {popt_dec[1]}")
