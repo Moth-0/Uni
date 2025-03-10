@@ -788,7 +788,7 @@ For the divergence of $\v{B}$ we get:
     \nabla \cdot \v{B} = 0. \eq{5.50}
 \end{align*}
 
-\section{Ampère's Law}
+\subsection{Ampère's Law}
 Equation (5.56) is called Ampère's law in differential form, if we integrate we get:
 \begin{align*}
     \oint \v{B}\cdot d\v{l} = μ_0 \int \v{J}\cdot d\v{a} = μ_0 I_{\text{enc}}. \eq{5.57}
@@ -822,8 +822,7 @@ Field of a toroidal coil (\hyperref[fig:fig5.37]{Fig 5.37}) with $n$ turns a dis
     \begin{cases}
         \frac{μ_0nI}{2\pi s}\hat{\v{φ}} & \text{inside coil}, \\
         \v{0} & \text{outside coil}.
-    \end{cases} \eq{5.60
-    }
+    \end{cases} \eq{5.60}
 \end{align*}
 
 \begin{figure}[htbp]
@@ -833,7 +832,44 @@ Field of a toroidal coil (\hyperref[fig:fig5.37]{Fig 5.37}) with $n$ turns a dis
     \caption*{\textcolor{gray}{Crosssection can be any shape}}
 \end{figure}
 
+\section{Magnetic Vector Potential}
+We introduce the vector potential $\v{A}$:
+\begin{align*}
+    \v{B} = \nabla \times \v{A}, \eq{5.61}
+\end{align*}
+which divergence is 0:
+\begin{align*}
+    \nabla \cdot \v{A} = \v{0}. \eq{5.63}
+\end{align*}
+With the help of Amperes law this exstends to: 
+\begin{align*}
+    \nabla^2 \v{A} = -μ_0 \v{J}, \eq{5.64}
+\end{align*}
+which gives us a direct term for $\v{A}$, if $\v{J}$ goes to zero at infinity: 
+\begin{align*}
+    \v{A}(\v{r}) = \frac{μ_0}{4π} \int \frac{\v{J}(\v{r}')}{\r}dτ'. \eq{5.65}
+\end{align*}
 
+If $\v{J}$ doesn't go to zero at infinity we can use: 
+\begin{align*}
+    \oint \v{A}\cdot d\v{l} = \int \v{B}\cdot d\v{a} = Φ. \eq{5.71}
+\end{align*}
+
+Figure 5.51 shows the calculations between J, B and A.
+\bil{fig5.51}
+
+If you want to find the vector potential for a current distrubution, we can use multipole expansion:
+\begin{align*}
+    \v{A}(\v{r}) = \frac{μ_0I}{4π} \sum_{n=0}^{\infty} \frac{1}{r^{n+1}} \oint (r')^n P_n(\cosα) d\v{l}'. \eq{5.80}
+\end{align*}
+which in most cases leads to the dipole moment being the dominant term: 
+\begin{align*}
+    \v{A}_{\text{dip}}(\v{r}) = \frac{μ_0}{4π} \frac{\v{m} \times \hat{\v{r}}}{r^2}, \eq{5.85}
+\end{align*}
+where $\v{m}$ is the magnetic dipole moment:
+\begin{align*}
+    \v{m} = I\int d\v{a} = I\v{a}. \eq{5.86}
+\end{align*}
 
 
 \end{document}
