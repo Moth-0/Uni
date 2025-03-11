@@ -64,6 +64,7 @@ for file in os.listdir(folder):
 
     # Find the midpoint where A is maximum
     mid = np.argmax(A)
+
     # Find the index where A goes over 0 and where it goes back under
     start = 30 + np.where(A[:mid] > 0)[0][0]
     end = mid + np.where(A[mid:] < 0)[0][0] - 20
@@ -80,8 +81,10 @@ for file in os.listdir(folder):
 
 
     # Fit sine function to both halves
-    popt1, err1 = curve_fit(sine_func, A1, B1, p0=initial_guess1, maxfev=10000)
-    popt2, err2 = curve_fit(sine_func, A2, B2, p0=initial_guess2, maxfev=10000)
+    sigma1 = np.full_like(B1, 0.1)
+    sigma2 = np.full_like(B2, 0.1)
+    popt1, err1 = curve_fit(sine_func, A1, B1, p0=initial_guess1, maxfev=10000, sigma=sigma1, absolute_sigma=False)
+    popt2, err2 = curve_fit(sine_func, A2, B2, p0=initial_guess2, maxfev=10000, sigma=sigma2, absolute_sigma=False)
 
     
     # Calculate the wavelength from the fit parameters
@@ -109,6 +112,14 @@ for file in os.listdir(folder):
         print(f"ΔV (Decreasing): {lambda_V2:.5f} V")
         print(f"Inc_err: {perr1:.5f} V")
         print(f"Dec_err: {perr2:.5f} V")
+
+        # Calculate chi-squared for the fits
+        chi2_inc = np.sum(((B1 - sine_func(A1, *popt1)) / perr1) ** 2)
+        chi2_dec = np.sum(((B2 - sine_func(A2, *popt2)) / perr2) ** 2)
+        
+        # Print chi-squared values
+        print(f"Chi-squared (Increasing): {chi2_inc:.5f}")
+        print(f"Chi-squared (Decreasing): {chi2_dec:.5f}")
 
 
         # Plot the data and the fits
