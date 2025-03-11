@@ -4,76 +4,82 @@ import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 
 # Plot settings
-plt.rc("axes", labelsize=18, titlesize=22)   # skriftstørrelse af `xlabel`, `ylabel` og `title`
-plt.rc("xtick", labelsize=16, top=True, direction="in")  # skriftstørrelse af ticks, vis også ticks øverst og vend ticks indad
-plt.rc("ytick", labelsize=16, right=True, direction="in") # samme som ovenstående
-plt.rc("legend", fontsize=16) # skriftstørrelse af figurers legends
+plt.rc("axes", labelsize=18, titlesize=22)
+plt.rc("xtick", labelsize=16, top=True, direction="in")
+plt.rc("ytick", labelsize=16, right=True, direction="in")
+plt.rc("legend", fontsize=16)
 
-#Functioner 
-def find_θ2(θ1, n1, n2):
-    return np.arcsin(n1/n2 * np.sin(θ1))
+# Constants
+n_luft = 1.0  # Air index
+n_glas_teori = 1.5  # Theoretical glass index
+baggrund = 0.0366  # Background intensity
 
-def Rs_func(θ1, n1, n2): 
-    return np.sin(θ1 - find_θ2(θ1))**2 / np.sin(θ1 + find_θ2(θ1))**2
+# Functions
+def find_θ2(θ1, n_glas):
+    return np.arcsin(n_luft / n_glas * np.sin(θ1))
 
-def Rp_func(θ1):
-    return np.tan(θ1 - find_θ2(θ1))**2 / np.tan(θ1 + find_θ2(θ1))**2
+def Rs_func(θ1, n_glas): 
+    θ2 = find_θ2(θ1, n_glas)
+    return np.sin(θ1 - θ2)**2 / np.sin(θ1 + θ2)**2
 
+def Rp_func(θ1, n_glas):
+    θ2 = find_θ2(θ1, n_glas)
+    return np.tan(θ1 - θ2)**2 / np.tan(θ1 + θ2)**2
 
+def Ts_func(θ1, n_glas):
+    θ2 = find_θ2(θ1, n_glas)
+    return np.sin(2*θ1) * np.sin(2*θ2) / np.sin(θ1 + θ2)**2
 
-# Brydningsindex
-# n_{glas} = n_{luft} * sin(θ_1) / sin(θ_2)
+def Tp_func(θ1, n_glas):
+    θ2 = find_θ2(θ1, n_glas)
+    return np.sin(2*θ1) * np.sin(2*θ2) / (np.sin(θ1 + θ2)**2 * np.cos(θ1 - θ2)**2)
 
-θ1_list = np.array([20, 35, 40, 55, 70, 85])
+def brewster(n1, n2):
+    return np.rad2deg(np.arctan(n2 / n1))
 
-φ2_list = np.array([7.5, 13, 15, 23, 33, -1])
-θ2_list = θ1_list - φ2_list
+def critical(n):
+    return np.rad2deg(np.arcsin(1 / n))
 
-n_luft = 1 
+# Data for Air-to-Glass
+θ1_air_to_glass = np.array([15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85])
+φ2_air_to_glass = 180 - np.array([176, 174, 172, 171, 172, 174, 176, 178, 161, 164, 167, 151, 155, 141, 145])
+θ2_air_to_glass = θ1_air_to_glass - φ2_air_to_glass
 
-n_glas = np.sin(np.average(np.deg2rad(θ1_list))) / np.sin(np.average(np.deg2rad(θ2_list)))
+# Data for Glass-to-Air
+θ1_glass_to_air = np.array([0, 5, 10, 15, 20, 25, 30, 35, 40, 42, 43, 44, 45, 50, 55, 60])
+φ2_glass_to_air = 180 - np.array([172, 169.5, 166, 162.2, 158, 151, 146, 142.2, 135.2])
+θ2_glass_to_air = θ1_glass_to_air[3:-4] + φ2_glass_to_air
 
-print(n_glas)
+# Function to process data
+def process_experiment(θ1_list, θ2_list, label):
+    # Measured intensities (background corrected)
+    T_s = np.array([4.98, 5.13, 5.18, 5.16, 5.17, 4.92, 5.11, 4.805, 4.437, 4.429, 4.541, 3.842, 3.400, 2.744, 1.599, 0.472]) - baggrund
+    T_p = np.array([4.88, 4.37, 4.52, 4.48, 4.64, 4.07, 4.45, 4.411, 4.19, 4.15, 4.539, 4.059, 3.825, 3.303, 2.198, 0.715]) - baggrund
+    R_s = np.array([0.207, 0.232, 0.282, 0.285, 0.343, 0.48, 0.477, 0.604, 0.878, 1.136, 1.456, 2.268, 3.216, 4.638]) - baggrund
+    R_p = np.array([0.159, 0.146, 0.122, 0.096, 0.09, 0.066, 0.017, 0.004, 0.005, 0.0064, 0.166, 0.444, 1.040, 2.339]) - baggrund
 
-#%% 
-# Intensistet 
+    # Normalize intensities
+    R_s /= T_s[0]
+    R_p /= T_p[0]
+    T_s /= T_s[0]
+    T_p /= T_p[0]
 
-# Transmittet
-T_s = np.array([1.02, 1.61, 1.22, 1.43, 0.92, 0.19])
-T_p = np.array([1.01, 1.68, 1.27, 1.65, 1.35, 0.19])
+    # Curve fitting
+    popt_Rs, Rs_pcov = curve_fit(Rs_func, np.deg2rad(θ1_list[1:]), R_s, p0=[1.2])
+    popt_Rp, Rp_pcov = curve_fit(Rp_func, np.deg2rad(θ1_list[1:]), R_p, p0=[1.5])
+    
+    # Plot Reflectance
+    plt.errorbar(θ1_list[1:], R_s, yerr=0.01, fmt=".", capsize=5, label=f'R_s {label}')
+    plt.errorbar(θ1_list[1:], R_p, yerr=0.01, fmt=".", capsize=5, label=f'R_p {label}')
+    θ1_lin = np.linspace(1, 90, 1000)
+    plt.plot(θ1_lin, Rs_func(np.deg2rad(θ1_lin), n_glas_teori), label=f'R_s theory {label}')
+    plt.plot(θ1_lin, Rp_func(np.deg2rad(θ1_lin), n_glas_teori), label=f'R_p theory {label}')
+    plt.xlabel(r'Incident Angle $(\theta_1)$')
+    plt.ylabel('Reflectance (V)')
+    plt.title(f'Reflectance vs Incident Angle ({label})')
+    plt.legend()
+    plt.show()
 
-# Reflekteret
-R_s = np.array([0.01, 0.01, 0.14, 0.24, 0.51, 1.11])
-R_p = np.array([0.07, 0.05, 0.05, 0.04, 0.13, 0.88])
-
-print(T_s + T_p + R_s + R_p)
-
-# Plot reflekteret som funktion af indfaldsvinkel
-plt.plot(θ1_list, R_s, "o", label=r'$R_s$')
-plt.plot(θ1_list, R_p, "o",  label=r'$R_p$')
-
-# Fit data
-popt_s, pcov_s = curve_fit(Rs_func, θ1_list, R_s)
-popt_p, pcov_p = curve_fit(Rp_func, θ1_list, R_p)
-
-# Plot fits
-plt.plot(θ1_list, Rs_func(θ1_list), label=r'$R_s$ fit')
-plt.plot(θ1_list, Rp_func(θ1_list), label=r'$R_p$ fit')
-
-
-# Udregn Brewsters vinkel og plot
-θ_B = np.arctan(n_glas/n_luft)
-plt.plot([np.rad2deg(θ_B), np.rad2deg(θ_B)], [0.0, 0.05], color='r', linestyle='--', label='Brewster Angle')
-
-# Critical angle (kun for n1 > n2, så glas -> luft)
-#θ_C = np.arcsin(1/1.5)
-#plt.plot([np.rad2deg(θ_C), np.rad2deg(θ_C)], [0.0, 0.05], color='b', linestyle='--')
-
-# Plot settings
-plt.xlim(20, 90)
-plt.ylim(0, 1)
-plt.xlabel(r'Incident Angle $(θ_1)$')
-plt.ylabel('Reflectance')
-plt.title('Reflectance vs Incident Angle')
-plt.legend()
-plt.show()
+# Process both experiments
+process_experiment(θ1_air_to_glass, θ2_air_to_glass, "Air-to-Glass")
+process_experiment(θ1_glass_to_air, θ2_glass_to_air, "Glass-to-Air")

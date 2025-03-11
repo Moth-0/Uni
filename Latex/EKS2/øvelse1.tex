@@ -1,27 +1,31 @@
 \documentclass[a4paper,oneside,article]{memoir}
 \usepackage{graphicx} % Required for inserting images
-\usepackage[danish]{babel}    % Giver mulighed for dansk orddeling.
+\usepackage[english]{babel}    % Mulighed for dansk orddeling med danish
 \usepackage[utf8x]{inputenc}  % Her sættes tegnsæt til utf8x.
 \usepackage{graphicx}	      % Tillader indsættelse af billeder
 \usepackage{mathtools}	      % Ekstra matematik.
 %\usepackage{url}             % Bruges til at formattere url'er.
 \usepackage[colorlinks=true]{hyperref} % Only include hyperref once
-%\usepackage[draft]{fixme} % Denne pakke tillader indsættelse af fixme noter ved brug af \fxnote{} som man kan bruge som huske sedler til sig selv.
+\usepackage[draft]{fixme} % Denne pakke tillader indsættelse af fixme noter ved brug af \fxnote{} som man kan bruge som huske sedler til sig selv.
 \usepackage{xcolor}   % Gør så man kan farve tekst
 \usepackage{lmodern} % Så man kan compile i TeXworks
 \usepackage{alphabeta} % Til at skrive græske bogstaver
 \usepackage{subfig} % For at have to billeder ved siden af hinanden
 %\usepackage[toc,page]{appendix} % for tilføje bilag
-%\usepackage{minted} % Til kodeblok
+\usepackage{minted} % Til kodeblok
 \usepackage{hyperref} % For clickable TOC (only once)
 \usepackage{listings} % Hvis man vil inkludere kode eksempler.
 \lstset{language=matlab,breaklines=True} % Syntaks highlight til Matlab.
 \usepackage{float} %Mere kontrol over billede-placering
 \usepackage{tabularx}
-
-
-\usepackage{multicol}
 \usepackage{microtype} 
+\usepackage[a4paper, left=0.85in, right=0.5in, bottom=1.5in]{geometry}
+\usepackage{multicol}
+\usepackage{titlesec}
+\usepackage{titletoc} 
+\usepackage{caption}
+\usepackage{rotating}
+
 
 \newcommand{\ti}[1]{\cdot 10^{#1}} % Let: gange 10^x
 \newcommand{\e}[1]{\emph{e}^{#1}} % Pænere e^x
@@ -68,70 +72,192 @@
             \langle #1|#2\rangle%
         \fi
     \fi
-    }
+}
 
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black
+}
+
+\titlecontents{section}
+[0em] 
+{\vskip 0.5ex} 
+{\thecontentslabel\quad} 
+{} 
+{\titlerule*[0.5pc]{.}\contentspage} 
+
+\raggedbottom 
+\usepackage{changepage}
 
 %____________________________________________________________
 \begin{document}
+\title{The Fresnel Relations}
+\author{Nanna Bank-Pedersen and Mikkel Moth Billing}
+\date{February 2025}
+\maketitle
+\hypersetup{linkcolor=black} % Laver tableofcontents sort.  
+\tableofcontents %Indsætter ToC
+\hypersetup{linkcolor=red} % og så alle andre hyperrefs røde.
+\captionsetup{font=small}
+\newpage
 
+\begin{center}
+\textbf{\Large{Experimental Physics II, Experiment 1: The Fresnel Relations}}
+\vspace{0.3cm}
+\begin{adjustwidth}{35pt}{35pt}
+    \indent The Fresnel Relations describe the reflection and transmission of light at the interface between two different media. By conducting an experiment,  the reflection and transmission coefficients for light incident on a dielectric-air and air-dielectric interface was measured. The dependence of the coefficients on the refractive indices of the media was analyzed, and the experimental results were compared with theoretical predictions to assess their accuracy. Overall, the findings support the validity of the Fresnel equations in describing light behavior at boundaries with minor deviation. 
+    The polarization angle, also known as Brewster's angle from glass to air was found to be $35.103^\circ \pm 0.239^\circ$, and from air to glass: $56.546^\circ \pm 4.038^\circ$. The critical angle for glass into air, often referred to as the angle of total internal reflection, was found to be $44.663^\circ \pm 0.310^\circ$.
+\end{adjustwidth}
+\end{center}
+\begin{figure*}[b]
+    \centering
+    \subfloat[\textcolor{black}{Glass to Air} ]{
+        \includegraphics[width=0.4\textwidth]{Billeder/figga.png} % Replace with your file
+        \label{fig:airtoglass}
+    }
+    \hspace{0.05\textwidth} % Juster afstand mellem billeder
+    \subfloat[\textcolor{black}{Air to Glass }]{%
+        \includegraphics[width=0.4\textwidth]{Billeder/figag.png}  % Replace with your file
+        \label{fig:glasstoair}
+    }
+    \caption{Illustration of the incident angle $\theta_1$ and the refracted angle $\theta_2$, defined at the interface between two media. The incident angle $\theta_1$ is measured between the incoming light ray and the normal to the surface, while the refracted angle $\theta_2$ is measured between the transmitted ray and the normal.}
+    \label{fig:ia}
+\end{figure*}
 
-\chapter*{Experimental Physics II, Experiment 1: The Fresnel Relations}
-%\chapter*{Foreword}
-About fresnel relations and what overall items we used in the lab to investigate this topic, and what results we have. (resume ish)
-
+\setlength{\columnsep}{.7cm}
 \begin{multicols}{2}
+
 \chapter{Introduction}
-This report covers the Fresnel relations which describe the reflection and transmission of light. For the experiment we use a laser, which we shoot through som lenses and into a semicircular glass, and measure the intensity and angle of the reflected and transmitted light. From this we can use Fresnel's relations to calculate the theoretical intensities: 
-\begin{align*}
-    R_p &= \frac{\tan^2 (\theta_1 - \theta_2)}{\tan^2 (\theta_1 + \theta_2)}  \eq{7} \\
-    T_p &= \frac{\sin 2\theta_1 \sin 2\theta_2}{\sin^2 (\theta_1 + \theta_2) \cos^2 (\theta_1 - \theta_2)}  \eq{8} \\
-    R_s &= \frac{\sin^2 (\theta_1 - \theta_2)}{\sin^2 (\theta_1 + \theta_2)}  \eq{9} \\
-    T_s &= \frac{\sin 2\theta_1 \sin 2\theta_2}{\sin^2 (\theta_1 + \theta_2)}  \eq{10}
-\end{align*}
-And we can use Snell's law to calculate the angles 
+This report covers the Fresnel relations which describe the reflection and transmission of light at the interface between two media. In this experiment, we use a Red Diode Laser, directing it through a setup where the light is polarized before passing through a semicircular dielectric. We then measure the intensity and angle of the reflected and transmitted light for each polarization. These experimental measurements are compared to theoretical predictions based on the Fresnel relations, from which the theoretical intensities are calculated.
+
+The measured angles in this experiment are denoted as \(\phi\), which correspond to the angular readings from the measurement device. However, for analysis using Fresnel’s equations, these must be converted into the true angles of incidence and refraction, \(\theta\), by considering geometric corrections based on the experimental setup, as seen in Figure \hyperref[fig:ia]{1}. Additionally, Snell's Law is used to relate the angles of incidence and refraction, given by \(n_1 \sin\theta_1 = n_2 \sin\theta_2\), where \(n_1\) and \(n_2\) are the refractive indices of the two media.
+\begin{figure*}[htb]
+    \centering
+    \includegraphics[width=0.4\textwidth]{Billeder/snell.png}
+    \caption{Visualization of Snell's Law}
+    \label{fig:snell}
+\end{figure*}
+\subsection{Polarization and Light Interaction at a medium interface}
+Light is an electromagnetic wave consisting of oscillating electric and magnetic fields that are perpendicular to both each other and the direction of propagation. In most natural sources, such as sunlight or incandescent light bulbs, light is unpolarized, meaning its electric field vectors oscillate in multiple, random planes. However, under certain conditions - such as when passing through a polarizing lens, as in this experiment - light can become polarized, meaning its electric field oscillates preferentially in a single direction.
+
+Importantly, the polarization state of light influences the way it interacts at the interface. Light can be decomposed into two perpendicular components:
+\begin{itemize}
+    \item \textbf{p-polarized light} (parallel polarization), where the electric field lies in the plane of incidence.
+    \item \textbf{s-polarized light} (perpendicular polarization), where the electric field is perpendicular to the plane of incidence.
+\end{itemize}
+
+When light encounters a boundary between two different media, it undergoes reflection and refraction, ruled by the Fresnel relations. These equations describe how the intensities of reflected and transmitted light depend on the angle of incidence and the refractive indices of the media. 
+The relationship between the angles of incidence $\theta_1$
+and refraction $\theta_2$ is given by Snell’s Law\footnote{Unauthored, page 3.}:
 \begin{align*}
     n_1 \sin\theta_1 = n_2 \sin\theta_2. 
 \end{align*}
+Where $n_1$ and $n_2$ are the indices of refraction of the first and second media. For example, the refractive indices for air and the used dielectric are $n_{\text{air}} = 1.0$ and $n_{\text{glass}} = 1.5$. The angles $θ_1$ and $θ_2$, are the angles of incidence and refraction, which can be determined from the measured angles of the incident light as seen in (Figure \hyperref[fig:ia]{1}), where the measured angles must be added and subtracted for glass to air and air to glass interfaces respectively.
+We denote the reflected light beam as $R$, with subscribts $p$ and $s$ to distinguish between p- and s-polarized light. Similarly, the transmitted beam is denoted by $T$.
+\begin{align*}
+    R_p &= \frac{\tan^2 (\theta_1 - \theta_2)}{\tan^2 (\theta_1 + \theta_2)},  \eq{7} \\
+    T_p &= \frac{\sin 2\theta_1 \sin 2\theta_2}{\sin^2 (\theta_1 + \theta_2) \cos^2 (\theta_1 - \theta_2)},  \eq{8} \\
+    R_s &= \frac{\sin^2 (\theta_1 - \theta_2)}{\sin^2 (\theta_1 + \theta_2)},  \eq{9} \\
+    T_s &= \frac{\sin 2\theta_1 \sin 2\theta_2}{\sin^2 (\theta_1 + \theta_2)},  \eq{10}
+\end{align*}
 
-Where $n_1$ and $n_2$ are the indexes of refraction, which are $n_{\text{air}} = 1.0$ and $n_{\text{glass}} = 1.5$. The angles $θ_1$ and $θ_2$, can be calculated from the measured angles of the disks as seen in \textcolor{red}{figure}.  
+The Fresnel equations\footnote{Unauthored, page 4.} predict that these two components experience different reflection and transmission coefficients. This distinction leads to important polarization-dependent effects, including Brewster’s angle and the critical angle of total internal reflection.
 
-\textcolor{gray}{5-6 sentences on the experiment. Describe the purpose and ideas of the project/exercise. Optionally describe the subject of the project/exercise in a broader context. Explain briefly the central physical ideas for the project/exercise. Possibly support the brief explanation with figures. Summarize the experimental methods applied in the investigation.}
+\subsubsection{Brewster's Angle and the Critical Angle}
+An interesting phenomenon occurs when the reflected light is fully polarized. This happens at a special angle known as Brewster’s angle (or the polarization angle). At this angle, the reflected wave consists entirely of s-polarized light because the p-polarized component is completely transmitted into the second medium. The condition for Brewster’s angle is derived from the Fresnel equations and occurs when the reflected and refracted beams are perpendicular to each other. Mathematically, Brewster’s angle is given by:
+\begin{align*}
+    \theta_B = \arctan\br{\frac{n_2}{n_1}}. \eq{12}
+\end{align*}
 
-\chapter{Experimental setup}
-\textcolor{gray}{Describe the applied setup systematically. Explain how measurements are performed. Support the written text with figures/illustrations/photos, for example: a sketch of the experimental setup, photo of the setup taken during the investigation, figures that show direct data (could e.g. be traces obtained with picoscope). The  descriptions  must  be  so  that  a  person  who does  not  know  the  experimental system can repeat the experiments and potentially identify possible flaws. Subsections can often be used to ensure a logical structure of the description.}
+A related and equally important phenomenon occurs when light moves from a medium of higher refractive index to one with a lower refractive index, which can result in total internal reflection. This phenomenon happens when the angle of incidence exceeds a critical value, known as the critical angle $\theta_C$. At this angle, the refracted beam travels along the boundary, and any further increase in the angle of incidence results in complete reflection of the light within the first medium. The critical angle $\theta_C$ is determined by Snell’s law and is given by:
+\begin{align*}
+    \theta_C = \arcsin\br{\frac{1}{n}}, \eq{13}
+\end{align*}
+Where $n$ is the refractive index of the medium in which the light is initially traveling, typically the media with the higher refractive index. If the angle of incidence exceeds $\theta_C$, no refraction occurs, and all light is reflected back into the original medium as can be seen in Figure \hyperref[fig:CrAn]{2}.
 
-\subsection{Equipment}
-The following list contains the equipment used, placed in order of appearance in the experimental setup:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.17\textwidth]{Billeder/CrAn.png}
+    \caption{Picture of internal reflection at a glass-air interface which occurs by exceeding the critical angle $\theta_C$. Here can also be seen the big and small rotating disk which are used to measure the position of the detector at angles of transmission and reflection.}
+    \label{fig:CrAn}
+\end{figure}
+
+\chapter{Materials and methods}
+
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Billeder/setup.png}
+    \caption{General setup of the experiment with the laser on the far right and detector on the far left. Detailed component description can be found under \hyperref[sec:equ]{Equipment}. (Notice the blue lettering above each component)}
+    \label{fig:setup}
+\end{figure*}
+
+\subsection{Measurement plan}
 \begin{itemize}
-    \item Red Diode Laser (PASCO OS-8525A).
-    \item Collimating Slits to ensures that the lightbeam remains well-defined and collimated.
-    \item Collimator to further refine the beam to maintain parallel rays.
-    \item Polarizing Lens to control and adjust the polarization state of the light. (See section \hyperref[sec:cal]{2.2}).
-    \item Rotating Disk with Angular Scale, and Brewster's Angle Accessory for measurement of incidence and reflection angles.
-    \item Semicircular Dielectric Material (n=1.5).
-    \item Focusing Lens.
-    \item Transmission Axis Polarization Lens, to focus on either p- or s-polarization. (TAPL)
-    \item Optical Filter (10\% Transmission) to prevent detector saturation.
-    \item Optical Detector for measuring the intensity of transmitted and reflected light, connected to picoscope for data collection (Saturation at 5V).
+    \item First lab session 
+    \\
+    We familiarized ourselves with the setup and developed a measurement plan, ensuring proper polarization needed for calibration. Initial measurements of reflected and transmitted intensities were taken at various angles for initial analysis. We also identified potential errors in the form of light contamination, which were addressed in later sessions (see also section \hyperref[sec:dis]{4}).
+    \item Second lab session
+    \\
+    Measurements were conducted for the air-to-glass interface to determine Brewster’s angle. Efforts to minimize errors were made by shutting window blinds, and focusing on fully capturing the beam by the detector. Total internal reflection was examined briefly to prepare for the following lab session.
+    \item Third lab session
+    \\
+    Final measurements were taken for the glass-to-air interface to determine the critical angle in the transition to total internal reflection.
+\end{itemize}
+
+\subsection{Equipment} \label{sec:equ}
+The following list contains the equipment used, placed in order of appearance in the experimental setup, the lettering refers to what can be seen in Figure \hyperref[fig:setup]{3}:
+\begin{itemize}
+    \item (A) Red Diode Laser (PASCO OS-8525A).
+    \item (B) Collimating Slits to ensures well-defined lightbeam.
+    \item (C) Collimator to further refine the beam to maintain parallel rays.
+    \item (D) Polarizing Lens to adjust polarization state of light for calibration (see \hyperref[sec:cal]{Calibration} for details).
+    \item (E) Angular Scale and Brewster's Angle Accessory for measurement of incidence and reflection angles.
+    \item (E) Semicircular Dielectric Material (n = 1.5).
+    \item (F) Focusing Lens.
+    \item (G) Transmission Axis Polarization Lens (TAPL), used to isolate either p- or s-polarization. 
+    \item (I) Optical Filter (10\% Transmission) to prevent detector saturation.
+    \item (I) Optical Detector connected to picoscope.
+\end{itemize}
+
+\subsection{General setup and safety}
+The experiment is conducted using a series of optical components arranged in a specific order as described in the list of \hyperref[sec:equ]{Equipment}, and shown in Figure \hyperref[fig:setup]{3}. Figure 3 does not, however, show the electrical connections, as the detector is linked to the picoscope. We found, that the intensities recorded by picoscope became more stable when minimizing outside light interference. For this reason, we conducted the measurements with the lights off and the blinds closed.
+
+The setup process begins with aligning the angular scales. The large scale is set to zero, and the small turntable is adjusted for proper alignment making the dielectric stand normal to the angle of incidence. The polarizer is set to the appropriate polarization of equal p- and s-polarization -  a method that will be detailed in \hyperref[sec:cal]{Calibration}. The laser is then turned on, and the beam is directed at the detector, with adjustments made to the beam’s focus and direction to ensure accurate measurements.
+
+\subsubsection{Conducting measurements}
+To measure the reflection and transmission coefficients ($R_p,\text{ } T_p, \text{ }R_s \text{ and } T_s$), we adjusted the incident angle $\theta_1$ by rotating the small turntable holding the dielectric. The detector was moved until the reflected or transmitted beam was captured. For each angle, we recorded the intensity of the reflected and transmitted light, ensuring maximum signal by fine-tuning the detector’s position and height. In some instances this was troublesome, as we experienced some bleeding of the beam, and it was therefore unable to fit entirely in the detector. The intensity data was captured through picoscope, which could have allowed us to obtain an average intensity value at each position, and given the standard deviation of each measurement. To compare our data with the theoretical values from the Fresnel relations, we adjusted some angle measurements to ensure accurate calculation of the reflection and transmission coefficients. The angular scale readings required this correction, as certain values were misinterpreted - for example, a reading of 167° actually corresponded to 13°, which needed to be accounted for during the analysis.
+
+\subsubsection{Class II Laser Safety}
+As the experiment used a Class II laser (visible light, $<$1mW), precautions were taken to prevent eye injury. While these lasers are safe under normal conditions, prolonged direct exposure can be harmful. The following safety measures\footnote{Drewsen: Laser safety measures from introductory lecture to the course Experimental Physics II.} were followed:
+\begin{itemize}
+    \item Horizontal alignment away from eye level to prevent unintended exposure.
+    \item Removal of reflective items such as jewelry, and enhanced caution when introducing items into beam path.
 \end{itemize}
 
 \subsection{Calibration} \label{sec:cal}
-The calibration of the experimental setup is important to ensure accurate measurements of s- and p-polarized light. Since our laser source was mainly emitting p-polarized light, an adjustment was required to attain an equal distribution in intensity of the two polarizations. The calibration itself involves adjustments of a few different components of the setup, and can be a bit tricky to master initially. Since the Detector will saturate at 5V, it was necessary to either let a smaller amount of light through the Collimating slits, by choosing a smaller size or directly by turning down the laser intensity. Then, by making a note of the value of the unpolarized intensity (this can be higher than the saturation value since we cut out all the unwanted polarizations), the appropriate setting of the polarizing lens can be found by alternating between p- and s-polarization with the TAPL, until the intensity is approximately equal for both polarizations (these must be less than the saturation value of 5V). In our case we could find equal intensities at around 4V for each polarization. 
+The calibration of the experimental setup is crucial for ensuring accurate measurements of s- and p-polarized light. Since our laser source primarily emits p-polarized light, an adjustment is necessary to achieve an equal intensity distribution between the two polarizations.
+
+The calibration process involves adjusting several components of the setup, which can be challenging at first. Because the detector saturates at 5V, it's important to either reduce the amount of light passing through the collimating slits (by selecting a smaller slit size) or decrease the laser intensity. Next, by measuring the unpolarized intensity (which can exceed the saturation value, as all unwanted polarizations are later blocked), the appropriate setting for the polarizing lens can be determined. This is done by alternating between p- and s-polarization using the TAPL, adjusting the Polarizing Lens until the intensities for both polarizations are roughly equal - ensuring they each stay below the 5V saturation threshold. In our case, we found equal intensities at around 4V for each polarization, which was sufficient for good data without saturating the detector.
 
 \chapter{Results}
-\subsection{Data}
-From the experiment we get data for the three measured angles and four intensities. We have data from both glass into air, and air into glass, a part of the data can be seen in \hyperref[tab:data1]{Table 1} for air into glass, and \hyperref[tab:data2]{Table 2} for glass into air. At some points it was impossible to measure the reflected laser, as it was non existent or at almost the same angles as transmitted, this is represented with "-" int the table. 
+The experiment yielded data for three measured angles and four intensities, collected for both the glass-to-air and air-to-glass interfaces. An example of the raw data can be found in Table \hyperref[tab:data1]{1} for the air-to-glass interface and in Table \hyperref[tab:data2]{2} for the glass-to-air interface.
 
-\subsection{Fitting}
-From this we use Snell's law to calculate $θ_2$, which we can use together with the measured $θ_1$ to fit the data to Fresnel's relations. We have plotted the data, the fit and the theoretical values for the normalized intensities of reflected and transmitted light. As fitting parameter we have used the index of refraction for glass, and the fits can be seen in \hyperref[fig:ag]{Figur 1} for air to glass, and in \hyperref[fig:ga]{Figur 2} for glass to air. 
+During the experiment, some data points for the reflected light could not be recorded either due to the absence of reflection or because the reflected light closely coincided with the transmitted light, and the equipment could therefore not be positioned in a way that would allow proper measurement of these angles. These instances are represented by a '-' in the table.
 
-We can see that the measured intensities for reflectance follow the theory very well, and for the fit, we get the fitting parameters shown in table 3
+\subsection{Fitting procedure}
+
+%__________________________________________________________
+To analyze our experimental data, we first converted the measured angles into the angles required for Fresnel’s equations using Snell’s law. This provided the transmitted angle $\theta_2$, which, along with the measured incident angle $\theta_1$, was used to determine the experimental reflection and transmission coefficients.  
+
+  
+
+%__________________________________________________________
 
 
-\end{multicols}
-
-\begin{table}[b]
+\begin{table}[H]
     \centering
+    \footnotesize
+    \textbf{Air to glass (Brewster's angle)} \\[0.5em]
     \begin{tabular}{|c|c|c|c|c|c|c|}
         \hline
         $\theta_1$ (°) & $\phi_1$ (°) & $T_{\text{p}} (V)$ & $T_{\text{s}} (V)$ & $\phi_2$ (°) & $R_{\text{p}} (V)$ & $R_{\text{s}} (V)$ \\
@@ -150,12 +276,11 @@ We can see that the measured intensities for reflectance follow the theory very 
         90 & 178 & 5.148 & 5.148 & -   & -     & -     \\
         \hline
     \end{tabular}
-    \caption{Measured transmission and reflection intensities for different incident angles, for air into glass.}
-    \label{tab:data1}
-\end{table}
+    \caption{\textcolor{black}{Measured transmission and reflection intensities for different incident angles for air-to-glass transition. A noticeable drop in s-polarized transmission is observed near Brewster's angle.}}
 
-\begin{table}[b]
-    \centering
+    \label{tab:data1}
+    \vspace{1em}
+    \textbf{Glass to air (Critical angle)} \\[0.5em]
     \begin{tabular}{|c|c|c|c|c|c|c|}
         \hline
         $\theta_1$ (°) & $\phi_1$ (°) & $T_{\text{p}} (V)$ & $T_{\text{s}} (V)$ & $\phi_2$ (°) & $R_{\text{p}} (V)$ & $R_{\text{s}} (V)$ \\
@@ -173,89 +298,131 @@ We can see that the measured intensities for reflectance follow the theory very 
         \hline
         \multicolumn{7}{|c|}{\dots} \\
         \hline
-        55 & 107   & 1.972 & 2.198 &  -   &  -    &  -    \\
-        60 & 112   & 2.252 & 1.841 &  -   &  -    &  -    \\
-        \hline
     \end{tabular}
-    \caption{Measured transmission and reflection intensities for different incident angles, for glass into air.}
+    \caption{\textcolor{black}{Measured transmission and reflection intensities for different incident angles for glass-to-air transition. A sharp decrease in transmitted intensity is observed near the critical angle, where total internal reflection occurs.}}
     \label{tab:data2}
 \end{table}
 
-
-\begin{figure}[H]
+\begin{figure*}[t]
     \centering
     % First subfigure
-    \subfloat[\textcolor{gray}{Reflectance as a function of incident angle. } ]{%
-        \includegraphics[width=0.4\textwidth]{Billeder/Rag.png} % Replace with your file
+        \includegraphics[width=0.35\textwidth]{Billeder/Rag.png} % Replace with your file
         \label{fig:subfig1}
-    }
     \hspace{0.05\textwidth} % Juster afstand mellem billeder
     % Second subfigure
-    \subfloat[\textcolor{gray}{Transmission as a function of incident angle. }]{%
-        \includegraphics[width=0.4\textwidth]{Billeder/Tag.png}  % Replace with your file
+        \includegraphics[width=0.35\textwidth]{Billeder/Tag.png}  % Replace with your file
         \label{fig:subfig2}
-    }
 
     % Main figure caption
-    \caption{Data, fit and theory for experiment for air into glass. }
+    \caption{Reflectance and transmission data for air-to-glass, compared to theoretical curves. Reflectance follows theoretical predictions, with expected behavior in $R_s$ and $R_p$. Transmission shows some deviations, particularly in $T_p$, likely due to experimental uncertainties or detector misalignment. The Brewster angle aligns with the expected minimum in $R_p$.	
+ }
     \label{fig:ag}
-\end{figure}
+\end{figure*}
 
-\begin{figure}[H]
+\begin{figure*}[!b]
     \centering
     % First subfigure
-    \subfloat[\textcolor{gray}{Reflectance as a function of incident angle. } ]{%
-        \includegraphics[width=0.4\textwidth]{Billeder/Rga.png} % Replace with your file
+        \includegraphics[width=0.4\textwidth]{Billeder/AngErr.png} % Replace with your file
+        % Main figure caption
+    \caption{Refractive index measurements and errors for Air-to-Glass and Glass-to-Air transitions.}
+    \label{tab:fit}
+\end{figure*}
+
+Using the experimentally obtained angles and intensity measurements, we performed a nonlinear least-squares fit to Fresnel’s relations with the refractive index of glass, $n_{\text{glass}}$, as the sole fitting parameter. The fitting was conducted using Python’s \texttt{curve\_fit} function, which minimizes the sum of squared residuals between the experimental data and the theoretical model. To assess the quality of the fit, we computed the reduced chi-squared ($\chi^2_{red}$), which indicates a great fit for values close to 1 - which we did obtain for the s-polarizations of the air to glass interface with values (1.12, 1.08), the p-polarizations however were not as good, yielding values (6.11, 3.47). This could be due to the fact that we used the fit residuals to compute the standard deviation, and not deviations from the data.
+%, given by:  
+
+%\begin{equation}
+%\chi^2_{\nu} = \frac{1}{N - p} \sum_{i=1}^{N} \left( \frac{y_i - %f(x_i, \mathbf{p})}{\sigma_i} \right)^2
+%\end{equation}
+
+%where $N$ is the number of data points, $p$ is the number of fitting parameters, $y_i$ are the measured intensities, $f(x_i, \mathbf{p})$ are the model predictions, and $\sigma_i$ are the uncertainties in the measurements. A $\chi^2_{\nu}$ value close to 1 suggests a good fit, while significantly larger values indicate systematic deviations or underestimated uncertainties.  
+
+Figure \hyperref[fig:ag]{4} and Figure \hyperref[fig:ga]{6} display the fitted curves alongside the measured data and theoretical predictions for both air-to-glass and glass-to-air interfaces. The reflectance measurements exhibit strong agreement with theory, as reflected in the obtained values of $n_{\text{glass}}$ (see Figure \hyperref[tab:fit]{5}).  
+
+However, the transmission data deviates more significantly from the theoretical expectations. Despite this, the fit remains statistically good, which can be attributed to the constraints imposed by the Fresnel equations. The fitting function inherently obeys the boundary conditions at the interface, which might lead to an overestimation of the fit accuracy, despite inconsistencies in the data.  
+
+For the air-to-glass transition, the fitted refractive index is close to the expected theoretical value of $n_{\text{glass}}$. In contrast, for the glass-to-air transition, the fitted refractive index is slightly lower than expected, despite a small statistical uncertainty in the fit. This suggests that while the fit conforms well mathematically, potential systematic errors or misalignment in the experimental setup may have influenced the transmission measurements. Additionally, we calculated the refractive index using Snell’s law for each interface, yielding $n_{\text{glass}} = 1.295$ for air-to-glass and $n_{\text{glass}} = 1.468$ for glass-to-air. The air-to-glass result deviates significantly from both the theoretical and fitted values, despite a good-looking dataset. This inconsistency suggests that additional experimental uncertainties, such as alignment errors, may have impacted the transmission measurements.
+
+\subsection{Uncertainties}
+The transmission data exhibited significant variation in intensity, especially for the second experiment (glass to air interface). For the first experiment (air to glass), the variation was somewhat systematic, while in the second experiment, the data showed random variation with some points deviating significantly. During the experiment, we noticed that the reflected light was not centered on the detector, which we corrected for in the reflectance measurements. However, this adjustment was not applied to the transmission part, potentially leading to missed laser intensity at certain angles and resulting in lower-than-expected transmission values.
+
+\begin{figure*}[!t]
+    \centering
+    % First subfigure
+        \includegraphics[width=0.35\textwidth]{Billeder/Rga.png} % Replace with your file
         \label{fig:subfig1}
-    }
     \hspace{0.05\textwidth} % Juster afstand mellem billeder
     % Second subfigure
-    \subfloat[\textcolor{gray}{Transmission as a function of incident angle. }]{%
-        \includegraphics[width=0.4\textwidth]{Billeder/Tga.png}  % Replace with your file
+        \includegraphics[width=0.35\textwidth]{Billeder/Tga.png}  % Replace with your file
         \label{fig:subfig2}
-    }
+    
 
     % Main figure caption
-    \caption{Data, fit and theory for experiment for glass into air. }
+    \caption{Reflectance and transmission data for the glass-to-air transition, compared with theoretical curves. Reflectance follows trends, increasing near the critical angle, where total internal reflection occurs. Transmission shows larger deviations, especially in $T_p$.}
     \label{fig:ga}
-\end{figure}
+\end{figure*}
 
-\begin{table}[]
-\centering
-\begin{tabular}{|l|l|l|}
-\multicolumn{3}{c}{Air to Glass} \\ \hline
-& \text{$n_{glass}$} & \text{Error} \\ \hline
-$R_s$ & 1.561 & $\pm 0.060$ \\ \hline
-$R_p$ & 1.544 & $\pm 0.556$ \\ \hline
-$T_s$ & 1.501 & $\pm 0.080$ \\ \hline
-$T_p$ & 1.451 & $\pm 0.735$ \\ \hline
-\end{tabular}
-\begin{tabular}{|l|l|l|}
-\multicolumn{3}{c}{Glass to Air} \\ \hline
-& \text{$n_{glass}$} & \text{Error} \\ \hline
-$R_s$ & 1.405 & $\pm 0.007$ \\ \hline
-$R_p$ & 1.414 & $\pm 0.004$ \\ \hline
-$T_s$ & 1.433 & $\pm 0.009$ \\ \hline
-$T_p$ & 1.439 & $\pm 0.008$ \\ \hline
-\end{tabular}
-\caption{Refractive index measurements and errors for Air-to-Glass and Glass-to-Air transitions.}
-\label{tab:fit}
-\end{table}
+Additionally, both experiments were conducted near a window with the blinds closed, but with some light still leaking through. This could explain the variation in transmission intensity at low incident angles, especially since the detector was initially facing the window and later repositioned as $θ_1$ increased, while collecting data, we would shadow the setup as we moved around, causing a fluctuation in intensity. These environmental factors likely contributed to the observed inconsistencies in the transmission measurements, particularly at smaller angles, where the detector and window were more directly facing each other. Another source of uncertainty stems from our inability to get the Picoscope to provide an averaged intensity at each angle. As a result, we had to manually read the values from a sometimes highly fluctuating and unstable intensity signal.
 
-\begin{multicols}{2}
+%\end{multicols}
 
-\textcolor{gray}{Present measurements and data analyzes from the experimental investigation. Explain how the data has been evaluated, i.e.,what calibrations, calculations, and analyzes (for example fits) have been done. Use figures and tables to clarify the data presentation. Always state uncertainties. For example, the results from a fit is always given with uncertainties and the fitted curve is often plotted together with the data. Apply relevant statistical methods. Reflect critically on the applied methods, i.e., consider for instance the quality of a fit. Consider sources of uncertainty  and inaccuracy.}
+%\begin{table}[htb]
+%\centering
+%\begin{tabular}{|l|l|l|}
+%\multicolumn{3}{c}{Air to Glass} \\ \hline
+%& \text{$n_{glass}$} & \text{Error} \\ \hline
+%$R_s$ & 1.561 & $\pm 0.060$ \\ \hline
+%$R_p$ & 1.544 & $\pm 0.556$ \\ \hline
+%$T_s$ & 1.501 & $\pm 0.080$ \\ \hline
+%$T_p$ & 1.451 & $\pm 0.735$ \\ \hline
+%\end{tabular}
+%\begin{tabular}{|l|l|l|}
+%\multicolumn{3}{c}{Glass to Air} \\ \hline
+%& \text{$n_{glass}$} & \text{Error} \\ \hline
+%$R_s$ & 1.405 & $\pm 0.007$ \\ \hline
+%$R_p$ & 1.414 & $\pm 0.004$ \\ \hline
+%$T_s$ & 1.433 & $\pm 0.009$ \\ \hline
+%$T_p$ & 1.439 & $\pm 0.008$ \\ \hline
+%\end{tabular}
+%\caption{Refractive index measurements and errors for Air-to-%Glass and Glass-to-Air transitions.}
+%\label{tab:fit}
+%\end{table}
 
-\chapter{Discussion}
-\textcolor{gray}{Discuss relevant aspects of the investigation. Consider for example the agreement between measured data and theory, reasons for deviations between experiment and theory, possible improvements of the experiment, problems with assumption made in the experiment or theory. Consider using subsections to clarify the discussion. }
+%\end{multicols}
+
+
+
+
+
+
+
+
+
+%\begin{multicols}{2}
+
+\chapter{Discussion}\label{sec:dis}
+The experimental results generally align with the theoretical Fresnel equations, particularly in the reflectance data, where the measured values closely follow theoretical predictions. However, some deviations are observed in the transmission measurements, likely due to external light interference or potential misalignment of the detector. Additionally, the inability to obtain averaged intensity values directly from the Picoscope introduced uncertainty, as readings had to be manually recorded from a fluctuating signal.
+
+We also observed that the fitted refractive index was lower than expected in the second experiment, which suggests possible issues with the dielectric material. Since a different sample was used compared to the first experiment, as we carried them out in different lab sessions, inconsistencies in material properties such as scratches could have contributed to this inconsistency. Despite these variations, the reflectance data, particularly from the first experiment, provides a more stable estimate of the refractive index, reinforcing the validity of the Fresnel relations.
+
+\subsubsection{Potential improvements}
+\begin{itemize} \item Improving the alignment of both the incident beam and the detector to reduce systematic errors. \item Conducting measurements in a controlled dark environment to minimize external light contamination. \item Extending measurement durations to reduce statistical uncertainties, using  Picoscope's function to calculate the standard deviation of intensity values for a given incident angle dataset. \item Ensuring the dielectric surface is free of scratches and irregularities, as these could affect the measured intensities. \item Optimizing the use of the Picoscope to obtain averaged intensity values, thereby minimizing uncertainties from fluctuating signals. \end{itemize}
 
 \chapter{Conclusion}
-\textcolor{gray}{Give a short summary of the idea of the investigation and all relevant conclusions that have been obtained.}
+The experiment confirmed the Fresnel relations by measuring reflection and transmission coefficients at a dielectric interface. The refractive index of glass was, on average, determined as $n = 1.514 \pm 0.538$ from experiment 1, and $n = 1.423 \pm 0.007$ from experiment 2, showing minor deviations from the expected value of $n = 1.5$. Brewster and critical angles were measured as $35.103 \pm 0.239^{\circ}$ and $44.663 \pm 0.310^{\circ}$, for glass into air, aligning well with theory of $33.69^{\circ}$ and $41.81^{\circ}$. Future improvements should focus on detector alignment and reducing ambient light interference.
+
+
+\end{multicols}
+
+
 
 \chapter{References}
-\textcolor{gray}{Collect and number all references in order of appearance in the text. Use a consistent format for the references, for example. Authors, Title, Journal name, vol, pages(year). Avoid as far as possible to make direct reference to wikipedia pages and unauthorized webpages, but try instead to find original literature and authorized database.}
+\begin{itemize}
+    \item Unauthored. Exercise 1 - Fresnel Relations. Theoretical expressions for the Fresnel Relations [.pdf document].
+    \item Drewsen, Michael. (2025, January 28). Intro to experimental physics [PowerPoint slides]. Institute of Physics, Aarhus University.
+\end{itemize}
 
-\chapter{Appendices}
-\textcolor{gray}{Collect other relevant materials that belongs to the obtained data and performed analyzes, for example additional documentation of these.}
-\end{multicols}
+
+
+
 \end{document}

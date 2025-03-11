@@ -84,8 +84,8 @@ popt_Ts, Ts_pcov = curve_fit(Ts_func, np.deg2rad(θ1_list[1:-4]), T_s[1:], p0=[1
 popt_Tp, Tp_pcov = curve_fit(Tp_func, np.deg2rad(θ1_list[1:-4]), T_p[1:], p0=[1.2])
 
 # Plot reflected as function of insidentangle
-plt.plot(θ1_list[3:-3], R_s[:-3], "o", label=r'$R_s$')
-plt.plot(θ1_list[3:-3], R_p[:-3], "o",  label=r'$R_p$')
+plt.errorbar(θ1_list[3:-3], R_s[:-3], yerr=0.01, fmt=".", capsize=5, label=r'$R_s$')
+plt.errorbar(θ1_list[3:-3], R_p[:-3], yerr=0.01, fmt=".", capsize=5, label=r'$R_p$')
 
 # Plot teori
 plt.plot(θ1_lin, Rs_func(np.deg2rad(θ1_lin), n_glas), label=r'$R_s$ theory')
@@ -98,14 +98,71 @@ plt.plot(θ1_lin, Rs_func(np.deg2rad(θ1_lin), *popt_Rs), "--", label='Fit $R_s$
 # Print the variables from the curve fit
 print(f'Fit parameters for Rs: {popt_Rs}, error: {np.sqrt(np.diag(Rs_pcov))}')
 print(f'Fit parameters for Rp: {popt_Rp}, error: {np.sqrt(np.diag(Rp_pcov))}')
-print(f"Brewster angle from fit: {brewster(popt_Rs,1)} pm {90-np.rad2deg(np.arctan(1/np.sqrt(np.diag(Rs_pcov))))}")
-print(f"Brewster angle from fit: {np.rad2deg(np.arctan(1/popt_Rp))} pm {90-np.rad2deg(np.arctan(1/np.sqrt(np.diag(Rp_pcov))))}")
-print(f"Critical angle from fit: {np.rad2deg(np.arcsin(1/popt_Rs))} pm {np.rad2deg(np.arcsin(1/np.sqrt(np.diag(Rs_pcov))))}")
-print(f"Critical angle from fit: {np.rad2deg(np.arcsin(1/popt_Rp))} pm {np.rad2deg(np.arcsin(1/np.sqrt(np.diag(Rp_pcov))))}")
 
+# Assuming popt_Rs and popt_Rp contain the fitted refractive indices (n_2)
+n2_Rs = popt_Rs[0]  # Fitted value
+n2_Rp = popt_Rp[0]  # Fitted value
+
+# Extract uncertainties from covariance matrix
+sigma_n2_Rs = np.sqrt(np.diag(Rs_pcov))[0]  # Standard deviation of fit parameter
+sigma_n2_Rp = np.sqrt(np.diag(Rp_pcov))[0]  # Standard deviation of fit parameter
+
+# Brewster's angle: θ_B = arctan(n2/n1), assuming n1 = 1 (air)
+theta_B_Rs = np.rad2deg(np.arctan(1/n2_Rs))
+theta_B_Rp = np.rad2deg(np.arctan(1/n2_Rp))
+
+# Propagate uncertainty for Brewster’s angle
+sigma_theta_B_Rs = np.rad2deg((1 / (1 + n2_Rs**2)) * (sigma_n2_Rs))
+sigma_theta_B_Rp = np.rad2deg((1 / (1 + n2_Rp**2)) * (sigma_n2_Rp))
+
+# Critical angle: θ_C = arcsin(1/n2)
+theta_C_Rs = np.rad2deg(np.arcsin(1 / n2_Rs))
+theta_C_Rp = np.rad2deg(np.arcsin(1 / n2_Rp))
+
+# Propagate uncertainty for critical angle
+sigma_theta_C_Rs = np.rad2deg((1 / np.sqrt(1 - (1/n2_Rs)**2)) * (sigma_n2_Rs / n2_Rs**2))
+sigma_theta_C_Rp = np.rad2deg((1 / np.sqrt(1 - (1/n2_Rp)**2)) * (sigma_n2_Rp / n2_Rp**2))
+
+# Print results with correct uncertainty
+print(f"Brewster angle from fit (R_s): {theta_B_Rs:.2f} ± {sigma_theta_B_Rs:.2f} degrees")
+print(f"Brewster angle from fit (R_p): {theta_B_Rp:.2f} ± {sigma_theta_B_Rp:.2f} degrees")
+
+print(f"Critical angle from fit (R_s): {theta_C_Rs:.2f} ± {sigma_theta_C_Rs:.2f} degrees")
+print(f"Critical angle from fit (R_p): {theta_C_Rp:.2f} ± {sigma_theta_C_Rp:.2f} degrees")
+
+# Assuming popt_Ts and popt_Tp contain the fitted refractive indices (n_2)
+n2_Ts = popt_Ts[0]  # Fitted value
+n2_Tp = popt_Tp[0]  # Fitted value
+
+# Extract uncertainties from covariance matrix
+sigma_n2_Ts = np.sqrt(np.diag(Ts_pcov))[0]  # Standard deviation of fit parameter
+sigma_n2_Tp = np.sqrt(np.diag(Tp_pcov))[0]  # Standard deviation of fit parameter
+
+# Brewster's angle: θ_B = arctan(n2/n1), assuming n1 = 1 (air)
+theta_B_Ts = np.rad2deg(np.arctan(1/n2_Ts))
+theta_B_Tp = np.rad2deg(np.arctan(1/n2_Tp))
+
+# Propagate uncertainty for Brewster’s angle
+sigma_theta_B_Ts = np.rad2deg((1 / (1 + n2_Ts**2)) * (sigma_n2_Ts))
+sigma_theta_B_Tp = np.rad2deg((1 / (1 + n2_Tp**2)) * (sigma_n2_Tp))
+
+# Critical angle: θ_C = arcsin(1/n2)
+theta_C_Ts = np.rad2deg(np.arcsin(1/n2_Ts))
+theta_C_Tp = np.rad2deg(np.arcsin(1/n2_Tp))
+
+# Propagate uncertainty for critical angle
+sigma_theta_C_Ts = np.rad2deg((1 / np.sqrt(1 - (1/n2_Ts)**2)) * (sigma_n2_Ts / n2_Ts**2))
+sigma_theta_C_Tp = np.rad2deg((1 / np.sqrt(1 - (1/n2_Tp)**2)) * (sigma_n2_Tp / n2_Tp**2))
+
+# Print results with correct uncertainty
+print(f"Brewster angle from fit (T_s): {theta_B_Ts:.2f} ± {sigma_theta_B_Ts:.2f} degrees")
+print(f"Brewster angle from fit (T_p): {theta_B_Tp:.2f} ± {sigma_theta_B_Tp:.2f} degrees")
+
+print(f"Critical angle from fit (T_s): {theta_C_Ts:.2f} ± {sigma_theta_C_Ts:.2f} degrees")
+print(f"Critical angle from fit (T_p): {theta_C_Tp:.2f} ± {sigma_theta_C_Tp:.2f} degrees")
 
 # Calculate Brewster angle and plot
-θ_B = brewster(1,n_g_teori)
+θ_B = brewster(n_g_teori,1)
 print(f"Brewster angle = {θ_B}")
 plt.plot([θ_B, θ_B], [0.0, 0.05], color='r', linestyle='--', label='Brewster Angle')
 
@@ -124,8 +181,8 @@ plt.legend(fontsize=12)
 plt.show()
 
 # Plot Transmittet as function of insident angle
-plt.plot(θ1_list[:-4], T_s, "o", label=r'$T_s$')
-plt.plot(θ1_list[:-4], T_p, "o",  label=r'$T_p$')
+plt.errorbar(θ1_list[:-4], T_s, yerr=0.01, fmt=".", capsize=5, label=r'$T_s$')
+plt.errorbar(θ1_list[:-4], T_p, yerr=0.01, fmt=".", capsize=5, label=r'$T_p$')
 
 # Plot teori
 plt.plot(θ1_lin, Ts_func(np.deg2rad(θ1_lin), n_glas), label=r'$T_s$ theory')
@@ -137,10 +194,7 @@ plt.plot(θ1_lin, Ts_func(np.deg2rad(θ1_lin), *popt_Ts), "--", label='Fit $T_s$
 
 print(f'Fit parameters for Ts: {popt_Ts}, error: {np.sqrt(np.diag(Ts_pcov))}')
 print(f'Fit parameters for Tp: {popt_Tp}, error: {np.sqrt(np.diag(Tp_pcov))}')
-print(f"Brewster angle from fit: {np.rad2deg(np.arctan(1/popt_Ts))} pm {90-np.rad2deg(np.arctan(1/np.sqrt(np.diag(Ts_pcov))))}")
-print(f"Brewster angle from fit: {np.rad2deg(np.arctan(1/popt_Tp))} pm {90-np.rad2deg(np.arctan(1/np.sqrt(np.diag(Tp_pcov))))}")
-print(f"Critical angle from fit: {np.rad2deg(np.arcsin(1/popt_Ts))} pm {np.rad2deg(np.arcsin(1/np.sqrt(np.diag(Ts_pcov))))}")
-print(f"Critical angle from fit: {np.rad2deg(np.arcsin(1/popt_Tp))} pm {np.rad2deg(np.arcsin(1/np.sqrt(np.diag(Tp_pcov))))}")
+
 
 # Plot settings
 plt.xlim(0, 60)
@@ -181,6 +235,24 @@ print(f'Chi^2 for Rs fit: {chi2_Rs}')
 print(f'Chi^2 for Rp fit: {chi2_Rp}')
 print(f'Chi^2 for Ts fit: {chi2_Ts}')
 print(f'Chi^2 for Tp fit: {chi2_Tp}')
+
+# Average Brewster angles and their uncertainties
+brewster_angles = [theta_B_Rs, theta_B_Rp, theta_B_Ts, theta_B_Tp]
+brewster_uncertainties = [sigma_theta_B_Rs, sigma_theta_B_Rp, sigma_theta_B_Ts, sigma_theta_B_Tp]
+
+average_brewster_angle = np.mean(brewster_angles)
+average_brewster_uncertainty = np.sqrt(np.sum(np.array(brewster_uncertainties)**2)) / len(brewster_uncertainties)
+
+print(f"Average Brewster angle: {average_brewster_angle:.2f} ± {average_brewster_uncertainty:.2f} degrees")
+
+# Average critical angles and their uncertainties
+critical_angles = [theta_C_Rs, theta_C_Rp, theta_C_Ts, theta_C_Tp]
+critical_uncertainties = [sigma_theta_C_Rs, sigma_theta_C_Rp, sigma_theta_C_Ts, sigma_theta_C_Tp]
+
+average_critical_angle = np.mean(critical_angles)
+average_critical_uncertainty = np.sqrt(np.sum(np.array(critical_uncertainties)**2)) / len(critical_uncertainties)
+
+print(f"Average critical angle: {average_critical_angle:.2f} ± {average_critical_uncertainty:.2f} degrees")
 
 print(f"{brewster(1.5, 1)}")
 print(f"{critical(1.5)}")

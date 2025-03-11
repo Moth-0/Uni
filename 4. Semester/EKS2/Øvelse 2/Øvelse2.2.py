@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 from scipy.signal import find_peaks
+from scipy.stats import chi2
 import os
 
 # Plot settings
@@ -12,7 +13,7 @@ plt.rc("ytick", labelsize=16, right=True, direction="in")
 plt.rc("legend", fontsize=16)
 
 print("\n\n\n-------------------------------")
-plots = False
+plots = True
 
 # Sine function for fitting
 def sine_func(x, A, λ, φ, D):
@@ -44,6 +45,8 @@ laser_wavelength = 632.8e-9  # meters (for HeNe laser)
 # Lists to store results
 v_inc_list = []
 v_dec_list = []
+v_inc_err = []
+v_dec_err = []
 v_max_list = []
 
 # Folder containing the data files
@@ -77,9 +80,10 @@ for file in os.listdir(folder):
 
 
     # Fit sine function to both halves
-    popt1, _ = curve_fit(sine_func, A1, B1, p0=initial_guess1, maxfev=10000)
-    popt2, _ = curve_fit(sine_func, A2, B2, p0=initial_guess2, maxfev=10000)
+    popt1, err1 = curve_fit(sine_func, A1, B1, p0=initial_guess1, maxfev=10000)
+    popt2, err2 = curve_fit(sine_func, A2, B2, p0=initial_guess2, maxfev=10000)
 
+    
     # Calculate the wavelength from the fit parameters
     lambda_V1 = abs(popt1[1])
     lambda_V2 = abs(popt2[1])
@@ -87,13 +91,25 @@ for file in os.listdir(folder):
     # Store results
     v_inc_list.append(lambda_V1)  # Store ΔV for increasing V
     v_dec_list.append(lambda_V2)  # Store ΔV for decreasing V
+
+    # Calculate the error of the fit parameters
+    perr1 = np.sqrt(np.diag(err1))[1]
+    perr2 = np.sqrt(np.diag(err2))[1]
+    
+
+    # Store the errors
+    v_inc_err.append(perr1)
+    v_dec_err.append(perr2)
+    
     v_max_list.append(A[mid])  # Store V_max
 
     if plots: 
         print(f"{str(file)}")
         print(f"ΔV (Increasing): {lambda_V1:.5f} V")
         print(f"ΔV (Decreasing): {lambda_V2:.5f} V")
-        
+        print(f"Inc_err: {perr1:.5f} V")
+        print(f"Dec_err: {perr2:.5f} V")
+
 
         # Plot the data and the fits
         plt.plot(A1, B1, label='First Half')
@@ -121,22 +137,27 @@ for file in os.listdir(folder):
 v_inc_list = np.array(v_inc_list)
 v_dec_list = np.array(v_dec_list)
 v_max_list = np.array(v_max_list)
+v_inc_err = np.array(v_inc_err)
+v_dec_err = np.array(v_dec_err)
 
-v_lin = np.linspace(10, 150)
-
+v_lin = np.linspace(20, 95)
 
 # Calculate Δs
 Δs_inc = Δs(v_max_list, v_inc_list) * 10**6 # m to μm
 Δs_dec = Δs(v_max_list, v_dec_list) * 10**6 
 
+# Compute the propagated error using error propagation formula
+Δs_inc_err = np.abs(- 2 * v_max_list * laser_wavelength / v_inc_list**2) * v_inc_err * 10**6  # Convert to μm
+Δs_dec_err = np.abs(- 2 * v_max_list * laser_wavelength / v_dec_list**2) * v_dec_err * 10**6
+
 # Linear fit for Δs vs. V_max
 popt_inc, _ = curve_fit(lin_func, v_max_list, Δs_inc)
 popt_dec, _ = curve_fit(lin_func, v_max_list, Δs_dec)
 
-# Plot Δs vs. V_max with linear fit
+# Plot Δs vs. V_max with linear fit and error bars
 plt.figure(figsize=(8,6))
-plt.plot(v_max_list, Δs_inc, "o", label="Increasing")
-plt.plot(v_max_list, Δs_dec, "o", label="Decreasing")
+plt.errorbar(v_max_list, Δs_inc, yerr=Δs_inc_err, fmt=".", label="Increasing", capsize=5)
+plt.errorbar(v_max_list, Δs_dec, yerr=Δs_dec_err, fmt=".", label="Decreasing", capsize=5)
 plt.plot(v_lin, lin_func(v_lin, *popt_inc), '--', label="Fit Increasing")
 plt.plot(v_lin, lin_func(v_lin, *popt_dec), '--', label="Fit Decreasing")
 plt.xlabel(r"$V_{max}$ (V)")
