@@ -13,17 +13,17 @@ plt.rc("ytick", labelsize=16, right=True, direction="in")
 plt.rc("legend", fontsize=16)
 
 print("\n\n\n-------------------------------")
-plots = True
+plots = False
 
 # Sine function for fitting
 def sine_func(x, A, λ, φ, D):
     return A * np.sin(2*np.pi / λ * x + φ) + D
 
-def lin_func(x, k, b):
-    return 2 * k * x + b
+def lin_func(x, k):
+    return k * x
 
 def Δs(max, v): 
-    return 2 * max * laser_wavelength / v # IS THE 2 HERE RIGHT? 
+    return laser_wavelength / v * max  
 
 def guess(a, b): 
     A = (np.max(b) - np.min(b))/2
@@ -35,6 +35,7 @@ def guess(a, b):
         B = avg_peak_distance
     else:
         B = a[-1] - a[0]
+    
     C = 0
     D = np.mean(b)
     return [A, B, C, D]
@@ -179,5 +180,5 @@ plt.show()
 
 # Print Summary Statistics
 print("\nFinal Summary:")
-print(f"k increasing from fit: {popt_inc[0]:.5e} μm/V - b value {popt_inc[1]}")
-print(f"k decreasing from fit: {popt_dec[0]:.5e} μm/V - b value {popt_dec[1]}")
+print(f"k increasing from fit: {popt_inc[0]:.5e} μm/V - value of Δl at 150V {popt_inc[0]*0.5*150:.3f} μm")
+print(f"k decreasing from fit: {popt_dec[0]:.5e} μm/V - value of Δl at 150V {popt_dec[0]*0.5*150:.3f} μm")

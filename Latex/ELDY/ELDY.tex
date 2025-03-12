@@ -21,7 +21,6 @@
 \usepackage{subfig} % For at have to billeder ved siden af hinanden
 \usepackage{unicode-math}
 \usepackage{bm}
-\usepackage{physics}
 
 
 % Pænere toc indents 
@@ -79,7 +78,7 @@
 }
 
 \newcommand{\h}{\hbar}
-\renewcommand{\dd}{\partial}
+\newcommand{\dd}{\partial}
 \newcommand{\eq}[1]{\label{eq#1}\tag{#1}}
 \renewcommand{\a}{\hat{\v{a}}}
 \newcommand{\n}{\plainbreak{1}}
@@ -872,6 +871,7 @@ where $\v{m}$ is the magnetic dipole moment:
 \end{align*}
 
 \chapter{Magnetic Fields in Matter}
+\section{Magnetization}
 Magnetic material, are magnetic because the electrons spin around their core. this creates magnetic dipoles. 
 which in most magnets are turned in the direction of the magnetic field, the material is placed in. 
 
@@ -886,6 +886,41 @@ the magnitude of the force is $F=IbB$, which leads to:
 where $\v{m}=Iab$ is the magnetic dipole moment of the loop.
 
 \bil{fig6.2}
+
+In a uniform magnetic field the net force on a current loop is $0$, 
+but in a nonuniform field it is:
+\begin{align*}
+    \v{F} = \nabla(\v{m}\cdot \v{B}). \eq{6.3}
+\end{align*}
+
+\subsection{Atomic Orbits}
+If we say electrons revolve around the nucleus in a circular motion with radius $R$,
+it will look like a steady current: 
+\begin{align*}
+    I &= \frac{e}{T} = \frac{e}{2πR/v}, \\
+    \Rightarrow \v{m} &= - \frac{1}{2}evR\hat{\v{z}}. \eq{6.4}
+\end{align*}
+
+If we put an atom in a magnetic field, it will be hard to tilt the orbit of the electron, 
+however the electron will speed up or slow down, depending on the direction of $\v{B}$. 
+Without the field we have: 
+\begin{align*}
+    \frac{1}{4π\ep}\frac{e^2}{R^2} = m_e \frac{v^2}{R}, \eq{6.5}
+\end{align*}
+but in a field there is a force $-e(\v{v}\times \v{B})$, 
+if $\v{B}$ is perpendicular on the plane of orbit, we get: 
+\begin{align*}
+    \frac{1}{4π\ep}\frac{e^2}{R^2} + e\bar{v}B= m_e \frac{\bar{v}^2}{R}, \eq{6.6}
+\end{align*}
+where $\bar{v}$ is the new speed of the electron. We can calculate the difference assuming the change in speed is small:
+\begin{align*}
+    Δv = \bar{v}-v = \frac{eRB}{2m_e}. \eq{6.7}
+\end{align*}
+
+This also leads to a change in dipole moment, opposide the fields direction: 
+\begin{align*}
+    Δ\v{m} = -\frac{1}{2}eRΔv\hat{\v{z}} = -\frac{e^2R^2}{4m_e}\v{B}. \eq{6.8}
+\end{align*}
 
 
 
