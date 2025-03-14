@@ -79,7 +79,7 @@
 
 \newcommand{\h}{\hbar}
 \newcommand{\dd}{\partial}
-\newcommand{\eq}[1]{\label{eq#1}\tag{#1}}
+\newcommand{\eq}[1]{\label{eq:#1}\tag{#1}}
 \renewcommand{\a}{\hat{\v{a}}}
 \newcommand{\n}{\plainbreak{1}}
 \newcommand{\ep}{\epsilon_0}
@@ -627,7 +627,7 @@ This lead to a term for $ρ_f$:
 Here $\v{D}$ is known as the electric displacement. 
 
 Typically we know $ρ_f$, and we can therefore calculate D. When computing the displacement look for symmetry, 
-if there is spherical, cylindircal or plane symmetri we can use (\ref{eq4.23}) because $\v{\nabla}\times\v{D} = 0$. 
+if there is spherical, cylindircal or plane symmetri we can use (\ref{eq:4.23}) because $\v{\nabla}\times\v{D} = 0$. 
 
 \section{Linear Dielectrics}
 The polarization is proportional to the electric field: 
@@ -650,7 +650,7 @@ where we have the permittivity of the material, and dielectric constant:
 \bil{fig4.2}
 
 When we have a charge distrubution in homogeneous linear dielectric, the field is calculated as in vacum, but using $\epsilon$ instead of $\ep$. 
-To calculate the full energy stored in a electrostatic system in a linear dielectric, we rewrite (\hyperref[eq2.45]{2.45}) to
+To calculate the full energy stored in a electrostatic system in a linear dielectric, we rewrite (\ref{eq:2.45}) to
 \begin{align*}
     W = \frac{\ep}{2}\int \epsilon_r E^2dτ = \frac{1}{2}\int \v{D}\cdot \v{E}dτ. \eq{4.58}
 \end{align*}
@@ -922,6 +922,21 @@ This also leads to a change in dipole moment, opposide the fields direction:
     Δ\v{m} = -\frac{1}{2}eRΔv\hat{\v{z}} = -\frac{e^2R^2}{4m_e}\v{B}. \eq{6.8}
 \end{align*}
 
+\subsection{Magnetization}
+So far we have seen two kinds of Magnetization. 
+\textit{Paramagnetism} where the dipoles associated with spins of unpaired electrons experience a torque tending to line them up parallel to the field, and 
+\textit{Diamagnetism} where the speed of the electrons is altered in such a way to change the obital dipole moment in a direction opposide the field. 
+These effect can be decribed by the \textit{magnetization} $\v{M}$, which is the magnetic dipole moment per unit volume. 
+
+\section{Field of a Magnetized Object}
+With the magnetization we can calculate the vector potentiel from (\ref{eq:5.85}) knowing that $\v{m} = \v{M}dτ'$:
+\begin{align*}
+    \v{A}(\v{r}) = \frac{μ_0}{4π} \int \frac{\v{M}(\v{r}') \times \hat{\pmb{\r}}}{\r^2}dτ', \eq{6.11}
+\end{align*}
+which can also be rewritten in terms of the potential of a volume current $\v{J}_b = \nabla \times \v{M}$ and surface current $\v{K}_b = \v{M} \times \hat{\v{n}}$:
+\begin{align*}
+    \v{A}(\v{r}) = \frac{μ_0}{4π} \int_{\mathscr{V}} \frac{\v{J}_b(\v{r}')}{\r}dτ' + \frac{μ_0}{4π} \oint_{\mathcal{S}} \frac{\v{K}_b(\v{r}')}{\r}da'. \eq{6.15}
+\end{align*}
 
 
 \end{document}
