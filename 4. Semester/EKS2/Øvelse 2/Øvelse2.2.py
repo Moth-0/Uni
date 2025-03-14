@@ -13,7 +13,7 @@ plt.rc("ytick", labelsize=16, right=True, direction="in")
 plt.rc("legend", fontsize=16)
 
 print("\n\n\n-------------------------------")
-plots = False
+plots = True
 
 # Sine function for fitting
 def sine_func(x, A, λ, φ, D):
@@ -124,22 +124,23 @@ for file in os.listdir(folder):
 
 
         # Plot the data and the fits
-        plt.plot(A1, B1, label='First Half')
-        plt.plot(A2, B2, label='Second Half')
-        plt.plot(A1, sine_func(A1, *popt1), '--', label='Fit First Half')
-        plt.plot(A2, sine_func(A2, *popt2), '--', label='Fit Second Half')
+        plt.plot(A1, B1*1000, label='First Half')
+        plt.plot(A2, B2*1000, label='Second Half')
+        plt.plot(A1, sine_func(A1, *popt1)*1000, '--', label='Fit First Half')
+        plt.plot(A2, sine_func(A2, *popt2)*1000, '--', label='Fit Second Half')
 
         # Plot the peaks found with find_peaks
-        peaks1 = find_peaks(B1, height=0, distance=distance)[0]
-        peaks2 = find_peaks(B2, height=0, distance=distance)[0]
-        plt.plot(A1[peaks1], B1[peaks1], 'x', label='Peaks First Half')
-        plt.plot(A2[peaks2], B2[peaks2], 'x', label='Peaks Second Half')
+        #peaks1 = find_peaks(B1, height=0, distance=distance)[0]
+        #peaks2 = find_peaks(B2, height=0, distance=distance)[0]
+        #plt.plot(A1[peaks1], B1[peaks1], 'x', label='Peaks First Half')
+        #plt.plot(A2[peaks2], B2[peaks2], 'x', label='Peaks Second Half')
         
 
         # Plot settings
         plt.xlabel('A (V)')
-        plt.ylabel('B (V)')
+        plt.ylabel('B (mV)')
         plt.title(r'Wave Analysis $V_{max}=$' + f"{A[mid]:.1f} V")
+        plt.legend(fontsize=12)
         plt.show()
 
         
