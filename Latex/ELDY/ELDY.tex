@@ -641,13 +641,11 @@ instead we could calculate
 \begin{align*}
     \v{D} = \ep \v{E}+\v{P} = \ep(1+χ_e)\v{E}=\epsilon \v{E}, \eq{4.31}
 \end{align*}
-where we have the permittivity of the material, and dielectric constant:
+where we have the permittivity of the material, and dielectric constant (Table \hyperref[fig:fig4.2]{4.2}):
 \begin{align*}
     \epsilon = \ep(1+χ_e), \eq{4.33} \\
     \epsilon_r = 1+χ_e = \frac{\epsilon}{\ep}. \eq{4.34}
 \end{align*}
-
-\bil{fig4.2}
 
 When we have a charge distrubution in homogeneous linear dielectric, the field is calculated as in vacum, but using $\epsilon$ instead of $\ep$. 
 To calculate the full energy stored in a electrostatic system in a linear dielectric, we rewrite (\ref{eq:2.45}) to
@@ -938,5 +936,119 @@ which can also be rewritten in terms of the potential of a volume current $\v{J}
     \v{A}(\v{r}) = \frac{μ_0}{4π} \int_{\mathscr{V}} \frac{\v{J}_b(\v{r}')}{\r}dτ' + \frac{μ_0}{4π} \oint_{\mathcal{S}} \frac{\v{K}_b(\v{r}')}{\r}da'. \eq{6.15}
 \end{align*}
 
+\section{Auxiliary Field}
+We can now collect the field due to bound charge, and the field due to the free charge. 
+\begin{align*}
+    \v{J} = \v{J}_b + \v{J}_f. \eq{6.17}
+\end{align*}
+With Amperes law we get: 
+\begin{align*}
+    \frac{1}{μ_0} (\nabla \times \v{B}) &= \v{J} = \v{J}_b + \v{J}_f = \v{J}_f + (\nabla \times \v{M}), \\ 
+    &\Rightarrow \nabla \times \br{\frac{1}{μ_0}\v{B} - \v{M}} = \v{J}_f, 
+\end{align*}
+We define $\v{H}$: 
+\begin{align*}
+    \v{H} = \frac{1}{μ_0}\v{B} - \v{M}, \eq{6.18} \\
+    \Rightarrow \nabla \times \v{H} = \v{J}_f. \eq{6.19}
+\end{align*}
+
+\section{Linear and Nonlinear Media}
+In paramagnetic and diamagnetic materials, the magnetization is sustained by the field. 
+Which means $\v{M}$ is proportional to $\v{B}$ and therefore also $\v{H}$: 
+\begin{align*}
+    \v{M} = χ_m \v{H}, \eq{6.29}
+\end{align*}
+where $χ_m$ is the magnetic susceptibility, and is dependent of material. 
+Materials that obey (\ref{eq:6.29}) are called linear media. 
+This gives us: 
+\begin{align*}
+    \v{B} = μ\v{H}, \eq{6.31}\\
+    \Rightarrow μ=μ_0(1+χ_m), \eq{6.32}
+\end{align*}
+which is the permeability of the material (Table \hyperref[fig:tab6.1]{6.1}). 
+
+\subsection{Ferromagnatism}
+In ferromagnetic materials, the alignement of sipoles is "frozen", 
+because each dipole like to face the same way as their neighbours. 
+We split the material up into domains, which can have different alignmenets, 
+which explains why not all iron tools are magnetic. 
+When a magnetic field is applied, the domains will compete and move their bounderies, 
+so the domains with dipoles facing parallel to the field will grow. 
+
+\chapter{Electrodynamics}
+\section{Electromotive Force}
+To make current flow, you have to "push" the charges. 
+For most materials the current density $\v{J}$ is proportional to the force per unit charge $\v{f}$:
+\begin{align*}
+    \v{J} = σ\v{f}, \eq{7.1}
+\end{align*}
+where $σ$ is the conductivity of the material, which is sometimes written as resistivity $ρ = 1/σ$ (Table \hyperref[fig:tab7.1]{7.1}). 
+Usually it is a electromagnetic forces that "pushes" and (\ref{eq:7.1}) becomes:
+\begin{align*}
+    \v{J} = σ(\v{E} + \v{v} \times \v{B}), \eq{7.2}	
+\end{align*}
+but the velocity of the charges is small enough that we can ignore the term, 
+and we get Ohm's Law: 
+\begin{align*}
+    \v{J} = σ\v{E}, \eq{7.3}
+\end{align*}
+which might not seem famillar, but if we use (\ref{eq:7.3}) to find the potential difference between two electrodes, 
+we get: 
+\begin{align*}
+    V=IR. \eq{7.4}
+\end{align*}
+
+As electrons travels down a wire, they collide with the atoms in the material, and eachother. 
+This results in energy given off as heat in the resistor: 
+\begin{align*}
+    P = VI = I^2R. \eq{7.7}
+\end{align*}
+
+The reason a light turns on instantly when you close a switch, 
+is because if the if the charges built up at a point in a circuit, it will create an electric field, 
+that will then restore uniform flow. This electric field propegates through the circuit at lightspeed, 
+hence why the light turns on almost instantly. 
+
+So there are two forces that drive the current, the electric field and the source, often chemical force from a battery: 
+\begin{align*}
+    \v{f} = \v{f}_s + \v{E}. \eq{7.8}
+\end{align*}
+The electromotive force or \textit{emf}, is determined by: 
+\begin{align*}
+    \mathscr{E} = \oint \v{f} \cdot d\v{l} = \oint \v{f}_s \cdot d\v{l}. \eq{7.9}
+\end{align*}
+In an ideal emf we have $\v{E} = - \v{f}_s$, and therefore: 
+\begin{align*}
+    V = \int_{a}^{b} \v{f}_s\cdot d\v{l} = \mathscr{E}. \eq{7.10}
+\end{align*}
+
+\subsection{Motional emf}
+Suppose you move part of a current loop through a uniform magnetic field, 
+with Lorentz law this will induce a current in the loop. 
+\begin{align*}
+    \mathscr{E} = \oint \v{f}_{\text{mag}}\cdot d\v{l}=vBh, \eq{7.11}
+\end{align*}
+where the loop is rectangular with height h. But the magnetic force does not do work on the loop, 
+so the person moving the loop is doing the work. 
+The force required is $f_{\text{pull}} = uB$ where $u$ is the vertical speed of the charges. 
+This leads to the work done by unit charge: 
+\begin{align*}
+    \oint \v{f}_{\text{pull}}\cdot d\v{l} = vBh = \mathscr{E}. 
+\end{align*}
+
+Instead of calculating for each charge, we use the flux through the loop:
+\begin{align*}
+    Φ = & xBh, \quad
+    \frac{dΦ}{dt} = -vBh, \\
+    &\Rightarrow \mathscr{E} = -\frac{dΦ}{dt}. \eq{7.13}
+\end{align*}
+
+\section{Electromagnetic Induction}
+
+\chapter{Appendix}
+\section*{Tables}
+\bil{fig4.2}
+\bil{tab6.1}
+\bil{tab7.1}
 
 \end{document}
