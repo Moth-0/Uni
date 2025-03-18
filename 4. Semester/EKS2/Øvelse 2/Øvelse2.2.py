@@ -13,17 +13,17 @@ plt.rc("ytick", labelsize=16, right=True, direction="in")
 plt.rc("legend", fontsize=16)
 
 print("\n\n\n-------------------------------")
-plots = True
+plots = False
 
 # Sine function for fitting
 def sine_func(x, A, λ, φ, D):
     return A * np.sin(2*np.pi / λ * x + φ) + D
 
 def lin_func(x, k):
-    return k * x
+    return 1/2 * k * x
 
 def Δs(max, v): 
-    return laser_wavelength / v * max  
+    return 1/2 * laser_wavelength / v * max 
 
 def guess(a, b): 
     A = (np.max(b) - np.min(b))/2
@@ -63,9 +63,18 @@ for file in os.listdir(folder):
     A = A * 10 # From Amplicator 
     B = B * 0.001 # From mV to V
 
-    # Find the midpoint where A is maximum
-    mid = np.argmax(A)
+    
 
+    # Find the midpoint wher e A is maximum
+    mid = np.argmax(A)
+    
+    plt.plot(A, B)
+    plt.legend(fontsize=12)
+    plt.xlabel('A (V)')
+    plt.ylabel('B (mV)')
+    plt.title(r"Raw Data from Picoscope $V_{max}=$" + f"{A[mid]:.1f} V")
+    plt.show()
+    
     # Find the index where A goes over 0 and where it goes back under
     start = 30 + np.where(A[:mid] > 0)[0][0]
     end = mid + np.where(A[mid:] < 0)[0][0] - 20
@@ -82,10 +91,8 @@ for file in os.listdir(folder):
 
 
     # Fit sine function to both halves
-    sigma1 = np.full_like(B1, 0.1)
-    sigma2 = np.full_like(B2, 0.1)
-    popt1, err1 = curve_fit(sine_func, A1, B1, p0=initial_guess1, maxfev=10000, sigma=sigma1, absolute_sigma=False)
-    popt2, err2 = curve_fit(sine_func, A2, B2, p0=initial_guess2, maxfev=10000, sigma=sigma2, absolute_sigma=False)
+    popt1, err1 = curve_fit(sine_func, A1, B1, p0=initial_guess1, maxfev=10000)
+    popt2, err2 = curve_fit(sine_func, A2, B2, p0=initial_guess2, maxfev=10000)
 
     
     # Calculate the wavelength from the fit parameters
@@ -124,10 +131,10 @@ for file in os.listdir(folder):
 
 
         # Plot the data and the fits
-        plt.plot(A1, B1*1000, label='First Half')
-        plt.plot(A2, B2*1000, label='Second Half')
-        plt.plot(A1, sine_func(A1, *popt1)*1000, '--', label='Fit First Half')
-        plt.plot(A2, sine_func(A2, *popt2)*1000, '--', label='Fit Second Half')
+        plt.plot(A1, B1*1000, label='Increasing')
+        plt.plot(A2, B2*1000, label='Decreasing')
+        plt.plot(A1, sine_func(A1, *popt1)*1000, '--', label='Fit Increasing')
+        plt.plot(A2, sine_func(A2, *popt2)*1000, '--', label='Fit Decreasing')
 
         # Plot the peaks found with find_peaks
         #peaks1 = find_peaks(B1, height=0, distance=distance)[0]
@@ -142,6 +149,9 @@ for file in os.listdir(folder):
         plt.title(r'Wave Analysis $V_{max}=$' + f"{A[mid]:.1f} V")
         plt.legend(fontsize=12)
         plt.show()
+
+
+        
 
         
 
@@ -160,12 +170,14 @@ v_lin = np.linspace(20, 95)
 Δs_dec = Δs(v_max_list, v_dec_list) * 10**6 
 
 # Compute the propagated error using error propagation formula
-Δs_inc_err = np.abs(- 2 * v_max_list * laser_wavelength / v_inc_list**2) * v_inc_err * 10**6  # Convert to μm
-Δs_dec_err = np.abs(- 2 * v_max_list * laser_wavelength / v_dec_list**2) * v_dec_err * 10**6
+Δs_inc_err = np.abs(1/2 * v_max_list * laser_wavelength / v_inc_list**2) * v_inc_err * 10**6  # Convert to μm
+Δs_dec_err = np.abs(1/2 *v_max_list * laser_wavelength / v_dec_list**2) * v_dec_err * 10**6
 
 # Linear fit for Δs vs. V_max
-popt_inc, _ = curve_fit(lin_func, v_max_list, Δs_inc)
-popt_dec, _ = curve_fit(lin_func, v_max_list, Δs_dec)
+popt_inc, pcov_inc = curve_fit(lin_func, v_max_list, Δs_inc, sigma=Δs_inc_err, absolute_sigma=False)
+popt_dec, pcov_dec = curve_fit(lin_func, v_max_list, Δs_dec, sigma=Δs_dec_err, absolute_sigma=False)
+err_inc = np.sqrt(np.diag(pcov_inc))[0]
+err_dec = np.sqrt(np.diag(pcov_dec))[0]
 
 # Plot Δs vs. V_max with linear fit and error bars
 plt.figure(figsize=(8,6))
@@ -181,5 +193,13 @@ plt.show()
 
 # Print Summary Statistics
 print("\nFinal Summary:")
-print(f"k increasing from fit: {popt_inc[0]:.5e} μm/V - value of Δl at 150V {popt_inc[0]*0.5*150:.3f} μm")
-print(f"k decreasing from fit: {popt_dec[0]:.5e} μm/V - value of Δl at 150V {popt_dec[0]*0.5*150:.3f} μm")
+print(f"k increasing from fit: {popt_inc[0]:.3e} ± {err_inc:.3e} μm/V - value of Δs at 90V {popt_inc[0]/2*90:.3f} ± {err_inc/2*90:.3f} μm")
+print(f"k decreasing from fit: {popt_dec[0]:.3e} ± {err_dec:.3e} μm/V - value of Δs at 90V {popt_dec[0]/2*90:.3f} ± {err_dec/2*90:.3f} μm")
+
+
+# Calculate the percentage deviation at 150V from the error
+k_avg = (popt_inc[0] + popt_dec[0]) / 2 
+k_avg_err = (err_inc + err_dec) / 2
+percentage_deviation = (k_avg_err) / k_avg * 100
+
+print(f"Average k: {k_avg:.3e} ± {k_avg_err:.3e} μm/V and value at 90V {k_avg/2*90:.3f} μm ± {k_avg_err/2*90:.3f}%")
