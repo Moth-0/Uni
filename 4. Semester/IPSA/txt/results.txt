@@ -1,0 +1,7 @@
+107;Programming;10
+107;Mathematics;8
+107;Computability;7
+243;Programming;10
+243;Computer forensic;10
+243;Computability;9
+465;Mathematics;6
