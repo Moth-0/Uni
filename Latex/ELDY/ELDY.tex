@@ -85,6 +85,7 @@
 \newcommand{\ep}{\epsilon_0}
 \renewcommand{\r}{\text{\usefont{U}{dutchcal}{m}{n}r}}
 \newcommand{\elcon}{\frac{1}{4π\ep}}
+\newcommand{\emf}{\mathscr{E}}
 
 
 
@@ -1050,6 +1051,111 @@ Instead of calculating for each charge, we use the flux through the loop:
 \end{align*}
 
 \section{Electromagnetic Induction}
+Faraday found that if he moved the magnetic field instead of the loop, current would still run through the loop.
+But it can't be the magnetic field moving the charges, instead it is an induced electric field. 
+\begin{align*}
+    \mathscr{E} = \oint \v{E}\cdot d\v{l} = -\frac{dΦ}{dt}, \eq{7.23}
+\end{align*}
+this leads to Faraday's law: 
+\begin{align*}
+    \oint \v{E}\cdot d\v{l} &= -\int \frac{\dd\v{B}}{\dd t} \cdot d\v{a} \eq{7.24} \\
+    \nabla \times \v{E} &= -\frac{\dd\v{B}}{\dd t}. \eq{7.25}
+\end{align*}
+Toghether with this Lenz's law say that the induced current is in such a direction that it opposes the change in magnetic flux.
+
+If $\v{E}$ is a pure Faraday field, due only to the change in $\v{B}$, then the calculations are analogoue to magnetostatics:
+\begin{align*}
+    \v{E} = -\frac{1}{4π}\frac{\dd}{\dd t}\int \frac{\v{B} \times \hat{\pmb{\r}}}{\r^2}dτ, \eq{7.27}
+\end{align*}
+and if we have symmetry we can use Amperes law: 
+\begin{align*}
+    \oint \v{E}\cdot d\v{l} = -\frac{dΦ}{dt}. \eq{7.28}
+\end{align*}
+
+\subsection{Inductance}
+If we have two loops of wire, and a current runs in one of the wires, this creates a magnetic field.
+This magnetic field will have a flux through the other loop, which is proportional to the current: 
+\begin{align*}
+    Φ = MI, \eq{7.31}
+\end{align*}
+where $M$ is the mutual inductance. $M$ is a geometrical property, and is the same for if the current was running in loop 2. 
+\begin{align*}
+    M_{12} = M_{21} = \frac{μ_0}{4π}\oint \oint \frac{d\v{l}_2\cdot d\v{l}_2}{\r}. \eq{7.32}
+\end{align*}
+If the current is not steady we see that an emf is induced in the other loop: 
+\begin{align*}
+    \mathscr{E}_2 = -\frac{dΦ_2}{dt} = -M\frac{dI_1}{dt}. \eq{7.34}
+\end{align*}
+
+On top of that it also induces an emf in itself: 
+\begin{align*}
+    Φ = LI, \eq{7.35}
+\end{align*}
+where $L$ is the self-inductance, or just inductance. If the current is changing we get: 
+\begin{align*}
+    \mathscr{E} = -L\frac{dI}{dt}. \eq{7.36}
+\end{align*}
+
+When you close a circuit with an inductance $L$ and resistance $R$, the current will build up,
+since 
+\begin{align*}
+    &\emf_0 - L\frac{dI}{dt} = IR, \\
+    \Rightarrow &I(t) = \frac{\emf_0}{R}\br{1-\e{-(R/L)t}}, \eq{7.38}
+\end{align*}
+if $I(0) = 0$. 
+
+It takes energy to build up this current in the loop, which can be seen as energy stored in the magnetic field. 
+If we start at $I(0)=0$and work up to $I$, we get:
+\begin{align*}
+    W &= \frac{1}{2}LI^2, \eq{7.39} \\
+    &= \frac{1}{2} \oint (\v{A}\cdot\v{I})dl, \eq{7.40}\\
+    &= \frac{1}{2} \int_{\mathcal{V}}(\v{A}\cdot\v{J})dτ, \eq{7.41} \\
+    &= \frac{1}{2μ_0} \int_{\text{all space}} B^2dτ. \eq{7.44}
+\end{align*}
+
+\section{Maxwell's Equations}
+So far we have 4 equations: 
+\begin{align*}
+    (i)\quad &\v{\nabla} \cdot \v{E} = \frac{ρ}{\ep} & (\text{Gauss's law}), \\
+    (ii)\quad &\v{\nabla} \cdot \v{B} = 0 & (\text{No name}), \\
+    (iii)\quad &\v{\nabla} \times \v{E} = -\frac{\dd \v{B}}{\dd t} & (\text{Faraday's law}), \\
+    (iv)\quad &\v{\nabla} \times \v{B} = μ_0\v{J} & (\text{Ampère's law}).
+\end{align*}
+But there is a problem with Ampère's law, since it is only for magnetostatics. 
+Maxwell fixed this problem and the $(iv)$ equation becomes:
+\begin{align*}
+    \v{\nabla} \times \v{B} = μ_0\v{J} + μ_0ε_0\frac{\dd \v{E}}{\dd t}. \eq{7.46}
+\end{align*}
+
+Griffiths write the Maxwell equations like this: 
+\begin{equation*}
+    \begin{rcases}
+        (i)\quad \v{\nabla} \cdot \v{E} = \frac{ρ}{\ep}, & (iii)\quad \v{\nabla} \times \v{E} + \frac{\dd \v{B}}{\dd t} = \pmb{0},\\
+        (ii)\quad \v{\nabla} \cdot \v{B} = 0, & (iv)\quad \v{\nabla} \times \v{B} - μ_0\ep\frac{\dd \v{E}}{\dd t} = μ_0\v{J}.
+    \end{rcases} \eq{7.52}
+\end{equation*}
+
+\subsection{Maxwell's Equations in Matter}
+If the polarization of a material changes it induces a current: 
+\begin{align*}
+    \v{J}_p = \frac{\dd \v{P}}{\dd t}, \eq{7.58}
+\end{align*}
+which means that the total current density is: 
+\begin{align*}
+    \v{J} = \v{J}_f + \v{J}_b + \v{J}_p = \v{J}_f + \nabla \times \v{M}+\frac{\dd\v{P}}{\dd t}. \eq{7.60}
+\end{align*}
+With this we can write Maxwell's equations for free charge and current: 
+\begin{equation*}
+    \begin{rcases}
+        (i)\quad \v{\nabla} \cdot \v{D} = ρ_f, & (iii)\quad \v{\nabla} \times \v{E} = -\frac{\dd \v{B}}{\dd t},\\
+        (ii)\quad \v{\nabla} \cdot \v{B} = 0, & (iv)\quad \v{\nabla} \times \v{H} = \v{J}_f+\frac{\dd \v{H}}{\dd t},
+    \end{rcases} \eq{7.65}
+\end{equation*}
+where 
+\begin{align*}
+    &\v{D} = \varepsilon \v{E} \quad \text{and} \quad \v{H} = \frac{1}{μ} \v{B}, \eq{7.67} \\
+    &\varepsilon = \varepsilon_0(1+χ_e) \quad \text{and} \quad μ = μ_0(1+χ_m). 
+\end{align*}
 
 \chapter{Appendix}
 \section*{Tables}
