@@ -7,6 +7,8 @@ This handin is done by:
 Reflection upon solution: 
     Overall the assignment went well, i used a lot of time finding out, how to compute the convex hull. 
     I feel like my tests are good, i feel like it is unnecessary to check the output, when they are all lists. 
+    Fixed the issue where dots on the line are included, caused by left_turn calculating if dot were on the line, 
+    which it shouldn't. 
 """
 from random import random
 import matplotlib.pyplot as plt
@@ -15,7 +17,7 @@ def left_turn(p, q, r):
     '''
     Find if point r is to the left of the line between p and q
     '''
-    return (q[0] - p[0]) * (r[1] - p[1]) - (r[0] - p[0]) * (q[1] - p[1]) >= 0
+    return (q[0] - p[0]) * (r[1] - p[1]) - (r[0] - p[0]) * (q[1] - p[1]) > 0
 
 def random_points(n): 
     ''' 
@@ -79,8 +81,9 @@ def convex_hull(points):
     # Return the list of points but remove the duplicates that come from both lists. 
     return lower[:-1] + upper[:-1]
 
+
 # Plot an example 
-points = random_points(20)
+points = [(1, 1), (2, 2), (3, 3), (4, 1), (5, 5), (6, 0)]
 plot_hull(points, convex_hull(points))
 
 # Use scipy to see if we get the right list

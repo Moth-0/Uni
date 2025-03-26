@@ -928,7 +928,8 @@ So far we have seen two kinds of Magnetization.
 These effect can be decribed by the \textit{magnetization} $\v{M}$, which is the magnetic dipole moment per unit volume. 
 
 \section{Field of a Magnetized Object}
-With the magnetization we can calculate the vector potentiel from (\ref{eq:5.85}) knowing that $\v{m} = \v{M}dτ'$:
+With the magnetization we can calculate the vector potentiel from (\ref{eq:5.85}) 
+knowing that $\v{m} = \v{M}dτ'$:
 \begin{align*}
     \v{A}(\v{r}) = \frac{μ_0}{4π} \int \frac{\v{M}(\v{r}') \times \hat{\pmb{\r}}}{\r^2}dτ', \eq{6.11}
 \end{align*}
@@ -1156,6 +1157,64 @@ where
     &\v{D} = \varepsilon \v{E} \quad \text{and} \quad \v{H} = \frac{1}{μ} \v{B}, \eq{7.67} \\
     &\varepsilon = \varepsilon_0(1+χ_e) \quad \text{and} \quad μ = μ_0(1+χ_m). 
 \end{align*}
+
+\chapter{Conservation Laws}
+\section{Charge and energy}
+Because of local charge conservation, charge must flow through a surface to leave a system: 
+\begin{align*}
+    \frac{dQ}{dt} = -\oint_{\mathcal{S}} \v{J}\cdot d\v{a}, \eq{8.2}
+\end{align*}
+which leads to the continuity equation: 
+\begin{align*}
+    \frac{dρ}{dt} = -\nabla \cdot \v{J}. \eq{8.4}
+\end{align*}
+
+From the work required to assamble a static charge distrubution (\ref{eq:2.45}), 
+and the work required to get current to move against the back emf (\ref{eq:7.44}), 
+we get the total stored energy in electromagnetic fields, per unit volume: 
+\begin{align*}
+    u = \frac{1}{2} \br{\ep E^2 + \frac{1}{μ_0}B^2}. \eq{8.5}
+\end{align*}
+The rate of work done on all charges in a volume is: 
+\begin{align*}
+    \frac{dW}{dt} = \int \v{E}\cdot\v{J} dτ, \eq{8.6}
+\end{align*}
+which can be rewritten using Ampère-Maxwell law: 
+\begin{align*}
+    \frac{dW}{dt} = -\frac{d}{dt} \int_{\mathcal{V}} \frac{1}{2} \br{\ep E^2 + \frac{1}{μ_0}B^2} dτ - \frac{1}{μ_0} \oint_{\mathcal{S}} (\v{E} \times \v{B})\cdot d\v{a}. \eq{8.9}
+\end{align*}
+This is Poynting's theorem. The first integral is the total energy stored in the electromagnetic field, 
+the secon integral is the energy leaving the volume $\mathcal{V}$. 
+The energy per unit time, per unit area, transported by the fields is called the Poynting vector: 
+\begin{align*}
+    \v{S} = \frac{1}{μ_0}(\v{E} \times \v{B}). \eq{8.10}
+\end{align*}
+Now we can rewrite (\ref{eq:8.9}) again: 
+\begin{align*}
+    \frac{dW}{dt} = -\frac{d}{dt} \int_{\mathcal{V}} u dτ - \oint_{\mathcal{S}} \v{S}\cdot d\v{a}. \eq{8.11}
+\end{align*}
+This leads to a general continuity equtaion for energy in electromagnetic fields: 
+\begin{align*}
+    \frac{\dd u}{\dd t} = -\nabla \cdot \v{S}. \eq{8.12}
+\end{align*}
+
+\section{Momentum}
+The force per unit volume on charges is: 
+\begin{align*}
+    \v{f} &= ρ\v{E} + \v{J} \times \v{B}, \eq{8.14} \\
+    &= \epsilon_0 \left[ (\nabla \cdot \v{E})\v{E} + (\v{E} \cdot \nabla)\v{E} \right]
+    + \frac{1}{\mu_0} \left[ (\nabla \cdot \v{B})\v{B} + (\v{B} \cdot \nabla)\v{B} \right] \\
+    & - \frac{1}{2} \nabla \left( \epsilon_0 E^2 + \frac{1}{\mu_0} B^2 \right)
+    - \epsilon_0 \frac{\partial}{\partial t} (\v{E} \times \v{B}). \eq{8.16}    
+\end{align*}
+which can be rewritten using Maxwell stress tensor: 
+\begin{align*}
+    T_{ij} = \ep \br{E_iE_j-\frac{1}{2}δ_{ij}E^2}+\frac{1}{μ_0} \br{B_iB_j-\frac{1}{2}δ_{ij}B^2}, \eq{8.17}
+\end{align*}
+
+
+
+
 
 \chapter{Appendix}
 \section*{Tables}

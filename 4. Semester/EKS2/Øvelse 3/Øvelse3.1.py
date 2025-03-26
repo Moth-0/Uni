@@ -2,6 +2,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.signal import find_peaks
+from scipy.optimize import curve_fit
 from scipy.stats import chi2
 import os
 
@@ -9,7 +10,10 @@ import os
 plt.rc("axes", labelsize=18, titlesize=22)
 plt.rc("xtick", labelsize=16, top=True, direction="in")
 plt.rc("ytick", labelsize=16, right=True, direction="in")
-plt.rc("legend", fontsize=16)
+plt.rc("legend", fontsize=12)
+
+def lin_func(x, a, b): 
+    return a * x + b
 
 print("\n\n\n-------------------------------")
 
@@ -36,7 +40,7 @@ for file in os.listdir(folder):
     pressure.append(pres)
 
     # Apply convolution to the data
-    kernel = np.ones(10) / 10  # Simple moving average kernel
+    kernel = np.ones(100) / 100  # Simple moving average kernel
     A = np.convolve(A, kernel, mode='same')[1:]
     t = t[1:]
 
@@ -55,12 +59,11 @@ for file in os.listdir(folder):
         # Plots
         plt.plot(t, A, "-", label="Data")
         plt.plot(t[p], A[p], ".", label="Peaks")
-        plt.title(str(file))
+        plt.title(f"Data for {pres} bar")
         plt.xlabel("Time (s)")
         plt.ylabel("Detector (V)")
         plt.show()
 
-print(pressure)
 print(peaks)
 
 N = np.array(peaks)
@@ -68,7 +71,32 @@ N = np.array(peaks)
 
 Δn = N * λ / l
 
-plt.plot(Δp, Δn, "o")
-plt.xlabel("Δn")
+# Unsertainties from measurements and find peaks 
+p_uns = np.ones_like(Δp) * 0.05 
+n_uns = np. ones_like(Δn) * 2 * λ / l # ± 2 peaks
+
+# Fitting 
+popt, pcov = curve_fit(lin_func, Δp, Δn, sigma=n_uns, absolute_sigma=False)
+
+a = popt[0]
+b = popt[1]
+
+a_err = np.sqrt(np.diag(pcov))[0]
+b_err = np.sqrt(np.diag(pcov))[1]
+
+# Print fit results
+print(f"Δn/Δp = {a:.3e} ± {a_err:.3e}")
+print(f"offset = {b:.3e} ± {b_err:.3e}")
+
+# Plot data and fit 
+plt.errorbar(Δp, Δn, xerr=p_uns, yerr=n_uns, fmt='.', capsize=3, label="Data")
+plt.plot(Δp, lin_func(Δp, *popt), label="Curve_fit")
+
+#plt.title("Title")
+plt.xlabel("Δp (bar)")
 plt.ylabel("Δn")
+plt.legend()
 plt.show
+
+n = 1 + a * 1.01325 # maybe 1.01325 to calculate in bar
+print(f"Final result: \n n = {n} ± {a_err:.1e}")
