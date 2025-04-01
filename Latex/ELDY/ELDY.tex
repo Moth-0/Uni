@@ -1223,9 +1223,91 @@ and total force:
 \begin{align*}
     \v{F} = \oint_{\mathcal{S}} \v{T} \cdot d\v{a} - \ep μ_0 \frac{d}{dt} \int_{\mathcal{V}} \v{S} dτ. \eq{8.20}
 \end{align*}
+with this we can rewrite the force per unit volume and total force: 
+\begin{align*}
+    \v{f} &= \nabla \cdot \v{T} - \ep \frac{\partial \v{S}}{\partial t}, \eq{8.19} \\
+    \v{F} &= \frac{d\v{p}}{dt} = \oint_{\mathcal{S}} \v{T} \cdot d\v{a} - \ep μ_0 \frac{d}{dt} \int_{\mathcal{V}} \v{S} dτ. \eq{8.20}
+\end{align*}
 
+this gives us an expression for the momentum of the charges stored in the field: 
+\begin{align*}
+    \v{p} = \ep μ_0 \int_{\mathcal{V}} \v{S} dτ, \eq{8.28}
+\end{align*}
+the momentum density is: 
+\begin{align*}
+    \v{g} = \ep μ_0 \v{S} = \ep (\v{E}\times\v{B}). \eq{8.29}
+\end{align*}
 
+There can also be an angular momentum stored in the field, the angular momentum per unit volume is: 
+\begin{align*}
+    \v{l} = \v{r} \times \v{g} = \ep \br[2]{\v{r}\times (\v{E}\times\v{B})}. \eq{8.33}
+\end{align*}
+½
+\section{Magnetic Forces Do No Work}
 
+According to the Lorentz force law,
+\[
+\mathbf{F} = q(\mathbf{E} + \mathbf{v} \times \mathbf{B}),
+\]
+the magnetic part of the force, $\mathbf{F}_{\text{mag}} = q\, \mathbf{v} \times \mathbf{B}$, is always perpendicular to the velocity $\mathbf{v}$ and therefore does no work:
+\[
+\mathbf{F}_{\text{mag}} \cdot \mathbf{v} = 0.
+\]
+
+This implies that magnetic fields cannot increase or decrease the kinetic energy of charged particles.
+Despite this, real-life systems (e.g., a magnetic crane lifting a car) seem to contradict this rule. However, Griffiths explains:
+
+\begin{itemize}
+    \item The energy comes from external sources (e.g., power supplies), not from the magnetic field itself.
+    \item Magnetic fields redirect forces but cannot do work.
+    \item Induced electric fields (via Faraday’s law) or motional emf are responsible for actual energy transfer.
+    \item Examples (e.g., lifting current loops or magnets) show that the magnetic force is conservative, redistributing energy but not generating it.
+\end{itemize}
+
+Any scenario that appears to violate this must be explained through alternative mechanisms (e.g., induced electric fields, energy stored in fields, or mechanical agents).
+
+with this we can rewrite the force per unit volume and total force: 
+\begin{align*}
+    \v{f} &= \nabla \cdot \v{T} - \ep \frac{\partial \v{S}}{\partial t}, \eq{8.19} \\
+    \v{F} &= \frac{d\v{p}}{dt} = \oint_{\mathcal{S}} \v{T} \cdot d\v{a} - \ep μ_0 \frac{d}{dt} \int_{\mathcal{V}} \v{S} dτ. \eq{8.20}
+\end{align*}
+
+this gives us an expression for the momentum of the charges stored in the field: 
+\begin{align*}
+    \v{p} = \ep μ_0 \int_{\mathcal{V}} \v{S} dτ, \eq{8.28}
+\end{align*}
+the momentum density is: 
+\begin{align*}
+    \v{g} = \ep μ_0 \v{S} = \ep (\v{E}\times\v{B}). \eq{8.29}
+\end{align*}
+
+There can also be an angular momentum stored in the field, the angular momentum per unit volume is: 
+\begin{align*}
+    \v{l} = \v{r} \times \v{g} = \ep \br[2]{\v{r}\times (\v{E}\times\v{B})}. \eq{8.33}
+\end{align*}
+½
+\section{Magnetic Forces Do No Work}
+
+According to the Lorentz force law,
+\[
+\mathbf{F} = q(\mathbf{E} + \mathbf{v} \times \mathbf{B}),
+\]
+the magnetic part of the force, $\mathbf{F}_{\text{mag}} = q\, \mathbf{v} \times \mathbf{B}$, is always perpendicular to the velocity $\mathbf{v}$ and therefore does no work:
+\[
+\mathbf{F}_{\text{mag}} \cdot \mathbf{v} = 0.
+\]
+
+This implies that magnetic fields cannot increase or decrease the kinetic energy of charged particles.
+Despite this, real-life systems (e.g., a magnetic crane lifting a car) seem to contradict this rule. However, Griffiths explains:
+
+\begin{itemize}
+    \item The energy comes from external sources (e.g., power supplies), not from the magnetic field itself.
+    \item Magnetic fields redirect forces but cannot do work.
+    \item Induced electric fields (via Faraday’s law) or motional emf are responsible for actual energy transfer.
+    \item Examples (e.g., lifting current loops or magnets) show that the magnetic force is conservative, redistributing energy but not generating it.
+\end{itemize}
+
+Any scenario that appears to violate this must be explained through alternative mechanisms (e.g., induced electric fields, energy stored in fields, or mechanical agents).
 
 
 
