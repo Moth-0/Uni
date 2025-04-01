@@ -17,7 +17,7 @@ def lin_func(x, a, b):
 
 print("\n\n\n-------------------------------")
 
-plot = False
+plot = True
 
 folder = "dag2"
 
