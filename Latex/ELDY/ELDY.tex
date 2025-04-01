@@ -1309,6 +1309,123 @@ Despite this, real-life systems (e.g., a magnetic crane lifting a car) seem to c
 
 Any scenario that appears to violate this must be explained through alternative mechanisms (e.g., induced electric fields, energy stored in fields, or mechanical agents).
 
+\chapter{Electromagnetic Waves}
+\section{Waves in One Dimension}
+Waves propegating in $z$ with a speed $v$, satisfy the wave equation: 
+\begin{align*}
+    \frac{\dd^2 f}{\dd z^2} = \frac{1}{v^2} \frac{\dd^2 f}{\dd t^2}, \eq{9.2}
+\end{align*}
+$v = T/μ$ where $T$ is the tension and $μ$ is the mass per unit length.
+The wave equation is linear, so the sum of two solutions is a solution. 
+We have 3 different kinds of wave equations: 
+
+Sinusoidal waves: 
+\begin{align*}
+    f(z,t) = A\cos\br[2]{k(z-vt)+δ}, \eq{9.7}
+\end{align*}
+where $A$ is the aplitude, the cosine is the phase and $δ$ is the phase constant. 
+$k$ is the wave number related to the wavelength $λ$:
+\begin{align*}
+    λ = \frac{2π}{k}. \eq{9.8}
+\end{align*}
+We can claculate the period $T$, the frequency $ν$ and the angular frequency $ω$: 
+\begin{align*}
+    T &= \frac{2\pi}{kv}, \eq{9.9} \\
+    ν &= \frac{1}{T} = \frac{kv}{2\pi}, \eq{9.10} \\
+    ω &= 2\pi ν = kv. \eq{9.11}
+\end{align*}
+The wavefunction can now be written as: 
+\begin{align*}
+    f(z,t) = A\cos(kz-ωt+δ). \eq{9.12}
+\end{align*}
+
+Complex notation: 
+\begin{align*}
+    f(z,t) = Re\br[2]{A\e{i(kz-ωt+δ)}} = Re\br[2]{\tilde{f}(z,t)}. \eq{9.16}
+\end{align*}
+
+Linear combination: 
+\begin{align*}
+    \tilde{f}(z,t) = \int_{\infty}^{\infty}\tilde{A}_k\e{i(kz-ωt+δ)}dk. \eq{9.20}
+\end{align*}
+
+If a wave hits a knot, that is where the tension on one side is deifferent from the other, 
+the wave equation becomes: 
+\begin{align*}
+    \tilde{f}(z,t) = 
+    \begin{cases*}
+        \tilde{A}_I\e{i(k_1z-ωt)} + \tilde{A}_R\e{i(-k_1z-ωt)} & \text{for } z<0, \\
+        \tilde{A}_T\e{i(k_2z-ωt)} & \text{for } z>0. 
+    \end{cases*} \eq{9.25}
+\end{align*}
+
+\bil{fig9.5}
+
+We can find the amplitudes of the reflected and transmitted, from the incomming wave: 
+\begin{align*}
+    \tilde{A}_R = \frac{v_2-v_1}{v_2+v_1}\tilde{A}_I, \quad \tilde{A}_T = \frac{2v_1}{v_2+v_1}\tilde{A}_I. \eq{9.30}
+\end{align*}
+
+The wave can be ploarized in the xy-plane with the vector: 
+\begin{align*}
+    \hat{\v{n}} = \cosθ\hat{\v{x}} + \sinθ\hat{\v{y}}. \eq{9.38}
+\end{align*}
+
+\section{Electromagnetic Waves in Vacuum}
+From Maxwell's equations (\ref{eq:7.52}, in vacuum) we can find that:
+\begin{align*}
+    \nabla^2 \v{E} = μ_0\ep \frac{\dd^2 \v{E}}{\dd t^2}, \quad \nabla^2\v{B} = μ_0\ep \frac{\dd^2 \v{B}}{\dd t^2}, \eq{9.41} 
+\end{align*}
+since $\nabla\cdot\v{E} = 0$ and $\nabla\cdot\v{B} = 0$. 
+Since these are wave equations, we find that: 
+\begin{align*}
+    v = \frac{1}{\sqrt{μ_0\ep}} = c. \eq{9.43}
+\end{align*}
+
+Electromagnetic waves are transverse waves, the magnetic and electric parts are perpendicular, 
+therefore we get the relation: 
+\begin{align*}
+    B_0 = \frac{k}{ω}E_0=\frac{1}{c}E_0 \eq{9.48}
+\end{align*}
+
+We can generalize the equations for $B$ and $E$: 
+\begin{align*}
+    \begin{cases}
+        \tilde{\v{E}}(\v{r},t) = \tilde{E}_0\e{i(\v{k}\cdot\v{r}-ωt)}\hat{\v{n}}, \\
+        \tilde{\v{B}}(\v{r},t) = \tilde{B}_0\e{i(\v{k}\cdot\v{r}-ωt)}(\hat{\v{k}}\times \hat{\v{n}}),
+    \end{cases} \eq{9.50}
+\end{align*}
+where $\hat{\v{k}}$ is the wave propegations vector, and $\hat{\v{n}}$ is the polaization vector. 
+
+In a monocromatic wave the energy per unit volume is: 
+\begin{align*}
+    u = \frac{1}{2}\ep E^2 + \frac{1}{2μ_0}B^2 = \ep E_0^2, \eq{9.56}
+\end{align*}
+and the pointing vector is: 
+\begin{align*}
+    \v{S} = \frac{1}{μ_0}(\v{E}\times\v{B}) = cu\hat{\v{k}}. \eq{9.58}
+\end{align*}
+Electromagnetic waves also carry momentum, and the momentum density is: 
+\begin{align*}
+    \v{g} &= \frac{1}{c^2}\v{S}, \eq{9.59} \\
+    &= \frac{1}{c} u\hat{\v{k}}. \eq{9.60}
+\end{align*}
+
+The average of a cosine is $1/2$, so we get: 
+\begin{align*}
+    \br[3]{u} &= \frac{1}{2} \ep E_0^2, \eq{9.61} \\
+    \br[3]{\v{S}} &= \frac{1}{2} \ep c E_0^2 \hat{\v{k}}, \eq{9.62} \\
+    \br[3]{\v{g}} &= \frac{1}{2} \ep E_0^2 \hat{\v{k}}. \eq{9.63}
+\end{align*}
+
+The average power per unit area transported by the wave is called intensity: 
+\begin{align*}
+    I = \br[3]{\v{S}} = \frac{1}{2} \ep c E_0^2, \eq{9.64}
+\end{align*}
+and the average force per unit area (radiation pressure) is: 
+\begin{align*}
+    P = \frac{1}{A} \frac{Δp}{Δt} = \frac{1}{2} \ep E_0^2 = \frac{I}{c}. \eq{9.65}
+\end{align*}
 
 
 
