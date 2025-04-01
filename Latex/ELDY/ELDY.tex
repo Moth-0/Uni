@@ -1043,6 +1043,10 @@ This leads to the work done by unit charge:
 \begin{align*}
     \oint \v{f}_{\text{pull}}\cdot d\v{l} = vBh = \mathscr{E}. 
 \end{align*}
+The flux of $\v{B}$ through a loop is: 
+\begin{align*}
+    Φ = \int \v{B}\cdot d\v{a}. \eq{7.12}
+\end{align*}
 
 Instead of calculating for each charge, we use the flux through the loop:
 \begin{align*}
@@ -1204,13 +1208,23 @@ The force per unit volume on charges is:
     \v{f} &= ρ\v{E} + \v{J} \times \v{B}, \eq{8.14} \\
     &= \epsilon_0 \left[ (\nabla \cdot \v{E})\v{E} + (\v{E} \cdot \nabla)\v{E} \right]
     + \frac{1}{\mu_0} \left[ (\nabla \cdot \v{B})\v{B} + (\v{B} \cdot \nabla)\v{B} \right] \\
-    & - \frac{1}{2} \nabla \left( \epsilon_0 E^2 + \frac{1}{\mu_0} B^2 \right)
+    & \quad - \frac{1}{2} \nabla \left( \epsilon_0 E^2 + \frac{1}{\mu_0} B^2 \right)
     - \epsilon_0 \frac{\partial}{\partial t} (\v{E} \times \v{B}). \eq{8.16}    
 \end{align*}
 which can be rewritten using Maxwell stress tensor: 
 \begin{align*}
-    T_{ij} = \ep \br{E_iE_j-\frac{1}{2}δ_{ij}E^2}+\frac{1}{μ_0} \br{B_iB_j-\frac{1}{2}δ_{ij}B^2}, \eq{8.17}
+    T_{ij} = \ep \br{E_iE_j-\frac{1}{2}δ_{ij}E^2}+\frac{1}{μ_0} \br{B_iB_j-\frac{1}{2}δ_{ij}B^2}. \eq{8.17}
 \end{align*}
+This leads to force per unit volume: 
+\begin{align*}
+    \v{f} = \nabla \cdot \v{T} - \ep μ_0 \frac{\dd S}{\dd t}, \eq{8.19}
+\end{align*}
+and total force: 
+\begin{align*}
+    \v{F} = \oint_{\mathcal{S}} \v{T} \cdot d\v{a} - \ep μ_0 \frac{d}{dt} \int_{\mathcal{V}} \v{S} dτ. \eq{8.20}
+\end{align*}
+
+
 
 
 
