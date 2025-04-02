@@ -1043,6 +1043,10 @@ This leads to the work done by unit charge:
 \begin{align*}
     \oint \v{f}_{\text{pull}}\cdot d\v{l} = vBh = \mathscr{E}. 
 \end{align*}
+The flux of $\v{B}$ through a loop is: 
+\begin{align*}
+    Φ = \int \v{B}\cdot d\v{a}. \eq{7.12}
+\end{align*}
 
 Instead of calculating for each charge, we use the flux through the loop:
 \begin{align*}
@@ -1204,12 +1208,20 @@ The force per unit volume on charges is:
     \v{f} &= ρ\v{E} + \v{J} \times \v{B}, \eq{8.14} \\
     &= \epsilon_0 \left[ (\nabla \cdot \v{E})\v{E} + (\v{E} \cdot \nabla)\v{E} \right]
     + \frac{1}{\mu_0} \left[ (\nabla \cdot \v{B})\v{B} + (\v{B} \cdot \nabla)\v{B} \right] \\
-    & - \frac{1}{2} \nabla \left( \epsilon_0 E^2 + \frac{1}{\mu_0} B^2 \right)
+    & \quad - \frac{1}{2} \nabla \left( \epsilon_0 E^2 + \frac{1}{\mu_0} B^2 \right)
     - \epsilon_0 \frac{\partial}{\partial t} (\v{E} \times \v{B}). \eq{8.16}    
 \end{align*}
 which can be rewritten using Maxwell stress tensor: 
 \begin{align*}
-    T_{ij} = \ep \br{E_iE_j-\frac{1}{2}δ_{ij}E^2}+\frac{1}{μ_0} \br{B_iB_j-\frac{1}{2}δ_{ij}B^2}, \eq{8.17}
+    T_{ij} = \ep \br{E_iE_j-\frac{1}{2}δ_{ij}E^2}+\frac{1}{μ_0} \br{B_iB_j-\frac{1}{2}δ_{ij}B^2}. \eq{8.17}
+\end{align*}
+This leads to force per unit volume: 
+\begin{align*}
+    \v{f} = \nabla \cdot \v{T} - \ep μ_0 \frac{\dd S}{\dd t}, \eq{8.19}
+\end{align*}
+and total force: 
+\begin{align*}
+    \v{F} = \oint_{\mathcal{S}} \v{T} \cdot d\v{a} - \ep μ_0 \frac{d}{dt} \int_{\mathcal{V}} \v{S} dτ. \eq{8.20}
 \end{align*}
 with this we can rewrite the force per unit volume and total force: 
 \begin{align*}
@@ -1254,6 +1266,166 @@ Despite this, real-life systems (e.g., a magnetic crane lifting a car) seem to c
 
 Any scenario that appears to violate this must be explained through alternative mechanisms (e.g., induced electric fields, energy stored in fields, or mechanical agents).
 
+with this we can rewrite the force per unit volume and total force: 
+\begin{align*}
+    \v{f} &= \nabla \cdot \v{T} - \ep \frac{\partial \v{S}}{\partial t}, \eq{8.19} \\
+    \v{F} &= \frac{d\v{p}}{dt} = \oint_{\mathcal{S}} \v{T} \cdot d\v{a} - \ep μ_0 \frac{d}{dt} \int_{\mathcal{V}} \v{S} dτ. \eq{8.20}
+\end{align*}
+
+this gives us an expression for the momentum of the charges stored in the field: 
+\begin{align*}
+    \v{p} = \ep μ_0 \int_{\mathcal{V}} \v{S} dτ, \eq{8.28}
+\end{align*}
+the momentum density is: 
+\begin{align*}
+    \v{g} = \ep μ_0 \v{S} = \ep (\v{E}\times\v{B}). \eq{8.29}
+\end{align*}
+
+There can also be an angular momentum stored in the field, the angular momentum per unit volume is: 
+\begin{align*}
+    \v{l} = \v{r} \times \v{g} = \ep \br[2]{\v{r}\times (\v{E}\times\v{B})}. \eq{8.33}
+\end{align*}
+½
+\section{Magnetic Forces Do No Work}
+
+According to the Lorentz force law,
+\[
+\mathbf{F} = q(\mathbf{E} + \mathbf{v} \times \mathbf{B}),
+\]
+the magnetic part of the force, $\mathbf{F}_{\text{mag}} = q\, \mathbf{v} \times \mathbf{B}$, is always perpendicular to the velocity $\mathbf{v}$ and therefore does no work:
+\[
+\mathbf{F}_{\text{mag}} \cdot \mathbf{v} = 0.
+\]
+
+This implies that magnetic fields cannot increase or decrease the kinetic energy of charged particles.
+Despite this, real-life systems (e.g., a magnetic crane lifting a car) seem to contradict this rule. However, Griffiths explains:
+
+\begin{itemize}
+    \item The energy comes from external sources (e.g., power supplies), not from the magnetic field itself.
+    \item Magnetic fields redirect forces but cannot do work.
+    \item Induced electric fields (via Faraday’s law) or motional emf are responsible for actual energy transfer.
+    \item Examples (e.g., lifting current loops or magnets) show that the magnetic force is conservative, redistributing energy but not generating it.
+\end{itemize}
+
+Any scenario that appears to violate this must be explained through alternative mechanisms (e.g., induced electric fields, energy stored in fields, or mechanical agents).
+
+\chapter{Electromagnetic Waves}
+\section{Waves in One Dimension}
+Waves propegating in $z$ with a speed $v$, satisfy the wave equation: 
+\begin{align*}
+    \frac{\dd^2 f}{\dd z^2} = \frac{1}{v^2} \frac{\dd^2 f}{\dd t^2}, \eq{9.2}
+\end{align*}
+$v = T/μ$ where $T$ is the tension and $μ$ is the mass per unit length.
+The wave equation is linear, so the sum of two solutions is a solution. 
+We have 3 different kinds of wave equations: 
+
+Sinusoidal waves: 
+\begin{align*}
+    f(z,t) = A\cos\br[2]{k(z-vt)+δ}, \eq{9.7}
+\end{align*}
+where $A$ is the aplitude, the cosine is the phase and $δ$ is the phase constant. 
+$k$ is the wave number related to the wavelength $λ$:
+\begin{align*}
+    λ = \frac{2π}{k}. \eq{9.8}
+\end{align*}
+We can claculate the period $T$, the frequency $ν$ and the angular frequency $ω$: 
+\begin{align*}
+    T &= \frac{2\pi}{kv}, \eq{9.9} \\
+    ν &= \frac{1}{T} = \frac{kv}{2\pi}, \eq{9.10} \\
+    ω &= 2\pi ν = kv. \eq{9.11}
+\end{align*}
+The wavefunction can now be written as: 
+\begin{align*}
+    f(z,t) = A\cos(kz-ωt+δ). \eq{9.12}
+\end{align*}
+
+Complex notation: 
+\begin{align*}
+    f(z,t) = Re\br[2]{A\e{i(kz-ωt+δ)}} = Re\br[2]{\tilde{f}(z,t)}. \eq{9.16}
+\end{align*}
+
+Linear combination: 
+\begin{align*}
+    \tilde{f}(z,t) = \int_{\infty}^{\infty}\tilde{A}_k\e{i(kz-ωt+δ)}dk. \eq{9.20}
+\end{align*}
+
+If a wave hits a knot, that is where the tension on one side is deifferent from the other, 
+the wave equation becomes: 
+\begin{align*}
+    \tilde{f}(z,t) = 
+    \begin{cases*}
+        \tilde{A}_I\e{i(k_1z-ωt)} + \tilde{A}_R\e{i(-k_1z-ωt)} & \text{for } z<0, \\
+        \tilde{A}_T\e{i(k_2z-ωt)} & \text{for } z>0. 
+    \end{cases*} \eq{9.25}
+\end{align*}
+
+\bil{fig9.5}
+
+We can find the amplitudes of the reflected and transmitted, from the incomming wave: 
+\begin{align*}
+    \tilde{A}_R = \frac{v_2-v_1}{v_2+v_1}\tilde{A}_I, \quad \tilde{A}_T = \frac{2v_1}{v_2+v_1}\tilde{A}_I. \eq{9.30}
+\end{align*}
+
+The wave can be ploarized in the xy-plane with the vector: 
+\begin{align*}
+    \hat{\v{n}} = \cosθ\hat{\v{x}} + \sinθ\hat{\v{y}}. \eq{9.38}
+\end{align*}
+
+\section{Electromagnetic Waves in Vacuum}
+From Maxwell's equations (\ref{eq:7.52}, in vacuum) we can find that:
+\begin{align*}
+    \nabla^2 \v{E} = μ_0\ep \frac{\dd^2 \v{E}}{\dd t^2}, \quad \nabla^2\v{B} = μ_0\ep \frac{\dd^2 \v{B}}{\dd t^2}, \eq{9.41} 
+\end{align*}
+since $\nabla\cdot\v{E} = 0$ and $\nabla\cdot\v{B} = 0$. 
+Since these are wave equations, we find that: 
+\begin{align*}
+    v = \frac{1}{\sqrt{μ_0\ep}} = c. \eq{9.43}
+\end{align*}
+
+Electromagnetic waves are transverse waves, the magnetic and electric parts are perpendicular, 
+therefore we get the relation: 
+\begin{align*}
+    B_0 = \frac{k}{ω}E_0=\frac{1}{c}E_0 \eq{9.48}
+\end{align*}
+
+We can generalize the equations for $B$ and $E$: 
+\begin{align*}
+    \begin{cases}
+        \tilde{\v{E}}(\v{r},t) = \tilde{E}_0\e{i(\v{k}\cdot\v{r}-ωt)}\hat{\v{n}}, \\
+        \tilde{\v{B}}(\v{r},t) = \tilde{B}_0\e{i(\v{k}\cdot\v{r}-ωt)}(\hat{\v{k}}\times \hat{\v{n}}),
+    \end{cases} \eq{9.50}
+\end{align*}
+where $\hat{\v{k}}$ is the wave propegations vector, and $\hat{\v{n}}$ is the polaization vector. 
+
+In a monocromatic wave the energy per unit volume is: 
+\begin{align*}
+    u = \frac{1}{2}\ep E^2 + \frac{1}{2μ_0}B^2 = \ep E_0^2, \eq{9.56}
+\end{align*}
+and the pointing vector is: 
+\begin{align*}
+    \v{S} = \frac{1}{μ_0}(\v{E}\times\v{B}) = cu\hat{\v{k}}. \eq{9.58}
+\end{align*}
+Electromagnetic waves also carry momentum, and the momentum density is: 
+\begin{align*}
+    \v{g} &= \frac{1}{c^2}\v{S}, \eq{9.59} \\
+    &= \frac{1}{c} u\hat{\v{k}}. \eq{9.60}
+\end{align*}
+
+The average of a cosine is $1/2$, so we get: 
+\begin{align*}
+    \br[3]{u} &= \frac{1}{2} \ep E_0^2, \eq{9.61} \\
+    \br[3]{\v{S}} &= \frac{1}{2} \ep c E_0^2 \hat{\v{k}}, \eq{9.62} \\
+    \br[3]{\v{g}} &= \frac{1}{2} \ep E_0^2 \hat{\v{k}}. \eq{9.63}
+\end{align*}
+
+The average power per unit area transported by the wave is called intensity: 
+\begin{align*}
+    I = \br[3]{\v{S}} = \frac{1}{2} \ep c E_0^2, \eq{9.64}
+\end{align*}
+and the average force per unit area (radiation pressure) is: 
+\begin{align*}
+    P = \frac{1}{A} \frac{Δp}{Δt} = \frac{1}{2} \ep E_0^2 = \frac{I}{c}. \eq{9.65}
+\end{align*}
 
 
 
