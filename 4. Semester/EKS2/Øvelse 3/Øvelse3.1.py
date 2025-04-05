@@ -32,9 +32,7 @@ for file in os.listdir(folder):
     data = np.loadtxt(file_path, skiprows=3)
 
     t, A = data.T # t in (s) and A in (V)
-    skip = 10000
-    t = t[:-skip]
-    A = A[:-skip]
+
 
     pres = float(file[0] + "." + file[1])
     pressure.append(pres)
@@ -76,17 +74,18 @@ p_uns = np.ones_like(Δp) * 0.05
 n_uns = np.ones_like(Δn) * 2 * λ / l # ± 2 peaks
 
 # Fitting 
-popt, pcov = curve_fit(lin_func, Δp, Δn, sigma=n_uns, absolute_sigma=False)
+popt, pcov = curve_fit(
+    lin_func, 
+    Δp, Δn, 
+    sigma=n_uns, 
+    absolute_sigma=True)
 
 a = popt[0]
-#b = popt[1]
 
 a_err = np.sqrt(np.diag(pcov))[0]
-#b_err = np.sqrt(np.diag(pcov))[1]
 
 # Print fit results
 print(f"Δn/Δp = {a:.3e} ± {a_err:.3e}")
-#print(f"offset = {b:.3e} ± {b_err:.3e}")
 
 # Plot data and fit 
 plt.errorbar(Δp, Δn, xerr=p_uns, yerr=n_uns, fmt='.', capsize=3, label="Data")
