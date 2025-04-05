@@ -588,7 +588,7 @@ we first calculate the potential by integrating each dipole over det volume $\v{
     V(\v{r}) &= \elcon \int_{\mathcal{V}} \frac{\v{P}(\v{r}')\cdot \hat{\pmb{\r}}}{\r^2}dτ', \eq{4.9} \\
     &= \elcon \oint_{\mathcal{S}} \frac{σ_b}{\r}da'+\elcon \int_{\mathcal{V}}\frac{ρ_b}{\r}dτ', \eq{4.13}
 \end{align*}
-where we have the surface charge density $σ_b = \v{P}\cdot\hat{\v{n}}$ and the volume charge density $ρ_b = -\v{\nabla}\cdot \v{P}$. 
+where we have the surface charge density $σ_b = \v{P}\cdot\hat{\v{n}}$ and the volume charge density $ρ_b = -\nabla\cdot \v{P}$. 
 
 For a uniformly polarized sphere of radius R, the volume charge density is zero bacause $\v{P}$ is uniform, but 
 \begin{align*}
@@ -615,20 +615,20 @@ Within the dielectric, the total charge density is
 \end{align*}
 and Gauss's law is 
 \begin{align*}
-    \ep \v{\nabla}\cdot\v{E} = ρ = ρ_b + ρ_f = -\v{\nabla}\cdot\v{P}+ρ_f, 
+    \ep \nabla\cdot\v{E} = ρ = ρ_b + ρ_f = -\nabla\cdot\v{P}+ρ_f, 
 \end{align*}
 where $\v{E}$ is the toral field. 
 
 This lead to a term for $ρ_f$: 
 \begin{align*}
-    ρ_f &= \v{\nabla}\cdot\br{\ep\v{E}+\v{P}}, \\
-    &= \v{\nabla}\cdot\v{D}, \eq{4.22} \\
+    ρ_f &= \nabla\cdot\br{\ep\v{E}+\v{P}}, \\
+    &= \nabla\cdot\v{D}, \eq{4.22} \\
     \Rightarrow \oint &\v{D}\cdot d\v{a} = Q_{f_{enc}}. \eq{4.23}
 \end{align*}
 Here $\v{D}$ is known as the electric displacement. 
 
 Typically we know $ρ_f$, and we can therefore calculate D. When computing the displacement look for symmetry, 
-if there is spherical, cylindircal or plane symmetri we can use (\ref{eq:4.23}) because $\v{\nabla}\times\v{D} = 0$. 
+if there is spherical, cylindircal or plane symmetri we can use (\ref{eq:4.23}) because $\nabla\times\v{D} = 0$. 
 
 \section{Linear Dielectrics}
 The polarization is proportional to the electric field: 
@@ -733,7 +733,7 @@ The total charge crossing a surface can be calculated as
 
 From this we get the continuity equation 
 \begin{align*}
-    \v{\nabla} \cdot \v{J} = -\frac{\dd ρ}{\dd t}. \eq{5.29}
+    \nabla \cdot \v{J} = -\frac{\dd ρ}{\dd t}. \eq{5.29}
 \end{align*}
 
 \section{Biot-Savart Law}
@@ -1121,22 +1121,22 @@ If we start at $I(0)=0$and work up to $I$, we get:
 \section{Maxwell's Equations}
 So far we have 4 equations: 
 \begin{align*}
-    (i)\quad &\v{\nabla} \cdot \v{E} = \frac{ρ}{\ep} & (\text{Gauss's law}), \\
-    (ii)\quad &\v{\nabla} \cdot \v{B} = 0 & (\text{No name}), \\
-    (iii)\quad &\v{\nabla} \times \v{E} = -\frac{\dd \v{B}}{\dd t} & (\text{Faraday's law}), \\
-    (iv)\quad &\v{\nabla} \times \v{B} = μ_0\v{J} & (\text{Ampère's law}).
+    (i)\quad &\nabla \cdot \v{E} = \frac{ρ}{\ep} & (\text{Gauss's law}), \\
+    (ii)\quad &\nabla \cdot \v{B} = 0 & (\text{No name}), \\
+    (iii)\quad &\nabla \times \v{E} = -\frac{\dd \v{B}}{\dd t} & (\text{Faraday's law}), \\
+    (iv)\quad &\nabla \times \v{B} = μ_0\v{J} & (\text{Ampère's law}).
 \end{align*}
 But there is a problem with Ampère's law, since it is only for magnetostatics. 
 Maxwell fixed this problem and the $(iv)$ equation becomes:
 \begin{align*}
-    \v{\nabla} \times \v{B} = μ_0\v{J} + μ_0ε_0\frac{\dd \v{E}}{\dd t}. \eq{7.46}
+    \nabla \times \v{B} = μ_0\v{J} + μ_0ε_0\frac{\dd \v{E}}{\dd t}. \eq{7.46}
 \end{align*}
 
 Griffiths write the Maxwell equations like this: 
 \begin{equation*}
     \begin{rcases}
-        (i)\quad \v{\nabla} \cdot \v{E} = \frac{ρ}{\ep}, & (iii)\quad \v{\nabla} \times \v{E} + \frac{\dd \v{B}}{\dd t} = \pmb{0},\\
-        (ii)\quad \v{\nabla} \cdot \v{B} = 0, & (iv)\quad \v{\nabla} \times \v{B} - μ_0\ep\frac{\dd \v{E}}{\dd t} = μ_0\v{J}.
+        (i)\quad \nabla \cdot \v{E} = \frac{ρ}{\ep}, & (iii)\quad \nabla \times \v{E} + \frac{\dd \v{B}}{\dd t} = \pmb{0},\\
+        (ii)\quad \nabla \cdot \v{B} = 0, & (iv)\quad \nabla \times \v{B} - μ_0\ep\frac{\dd \v{E}}{\dd t} = μ_0\v{J}.
     \end{rcases} \eq{7.52}
 \end{equation*}
 
@@ -1152,8 +1152,8 @@ which means that the total current density is:
 With this we can write Maxwell's equations for free charge and current: 
 \begin{equation*}
     \begin{rcases}
-        (i)\quad \v{\nabla} \cdot \v{D} = ρ_f, & (iii)\quad \v{\nabla} \times \v{E} = -\frac{\dd \v{B}}{\dd t},\\
-        (ii)\quad \v{\nabla} \cdot \v{B} = 0, & (iv)\quad \v{\nabla} \times \v{H} = \v{J}_f+\frac{\dd \v{H}}{\dd t},
+        (i)\quad \nabla \cdot \v{D} = ρ_f, & (iii)\quad \nabla \times \v{E} = -\frac{\dd \v{B}}{\dd t},\\
+        (ii)\quad \nabla \cdot \v{B} = 0, & (iv)\quad \nabla \times \v{H} = \v{J}_f+\frac{\dd \v{H}}{\dd t},
     \end{rcases} \eq{7.65}
 \end{equation*}
 where 
@@ -1242,7 +1242,7 @@ There can also be an angular momentum stored in the field, the angular momentum 
 \begin{align*}
     \v{l} = \v{r} \times \v{g} = \ep \br[2]{\v{r}\times (\v{E}\times\v{B})}. \eq{8.33}
 \end{align*}
-½
+
 \section{Magnetic Forces Do No Work}
 
 According to the Lorentz force law,
@@ -1285,7 +1285,7 @@ There can also be an angular momentum stored in the field, the angular momentum 
 \begin{align*}
     \v{l} = \v{r} \times \v{g} = \ep \br[2]{\v{r}\times (\v{E}\times\v{B})}. \eq{8.33}
 \end{align*}
-½
+
 \section{Magnetic Forces Do No Work}
 
 According to the Lorentz force law,
@@ -1428,7 +1428,89 @@ and the average force per unit area (radiation pressure) is:
 \end{align*}
 
 \section{Electromagnetic Waves in Matter}
+Inside a linear meteriel where there is no free charge or free current, Maxwell's equations become:
+\begin{align*}
+    \begin{rcases}
+        (i)\quad \nabla \cdot \v{E} = 0, & (iii)\quad \nabla \times \v{E} = -\frac{\dd \v{B}}{\dd t},\\
+        (ii)\quad \nabla \cdot \v{B} = 0, & (iv)\quad \nabla \times \v{B} = μ\epsilon \frac{\dd \v{E}}{\dd t}.
+    \end{rcases} \eq{9.68}
+\end{align*}
+Elecectromagnetic waves propegate through a linear meteriel with a speed: 
+\begin{align*}
+    v = \frac{1}{\sqrt{μ\epsilon}} = \frac{c}{n}, \eq{9.69}
+\end{align*}
+where 
+\begin{align*}
+    n = \sqrt{\frac{μ\epsilon}{μ_0\ep}} \approx \sqrt{\epsilon_r}\eq{9.70}, 
+\end{align*}
+is the index of refraction. 
 
+\subsection{Reflection and Transmission}
+When a wave travels from one materiel to another, it has to satisfy these conditions: 
+\begin{align*}
+    \begin{rcases}
+        (i)\quad \epsilon_1E_1^{\perp} = \epsilon_2E_2^{\perp}, & (iii)\quad \v{E}_1^{\parallel} = \v{E}_2^{\parallel},\\
+        (ii)\quad B_1^{\perp} = B_2^{\perp}, & (iv)\quad \frac{1}{μ_1}\v{B}_1^{\parallel} = \frac{1}{μ_2}\v{B}_2^{\parallel}.
+    \end{rcases} \eq{9.75}
+\end{align*}
+
+If we use that $μ_1 = μ_2 = μ$ we can see that the intensity of the electric field, when it goes from one medium to another, is:
+\begin{align*}
+    E_R &= \br[5]{\frac{v_2-v_1}{v_2+v_1}}E_I. E_T=\br{\frac{2v_2}{v_2+v_1}}E_I \eq{9.85}, \\
+    &= \br[5]{\frac{n_1-n_2}{n_2+n_1}}E_I. E_T=\br{\frac{2n1}{n_2+n_1}}E_I \eq{9.86}.
+\end{align*}
+and the intensity of the wave is: 
+\begin{align*}
+    R = \frac{I_R}{I_I} = \br{\frac{E_R}{E_I}}^2 = \br{\frac{n_1-n_2}{n_1+n_2}}^2, \eq{9.87} \\
+    T = \frac{I_T}{I_I} = \frac{\epsilon_2v_2}{\epsilon_1v_1}\br{\frac{E_T}{E_I}}^2 = \frac{4n_1n_2}{\br{n_1+n_2}^2}. \eq{9.88}
+\end{align*}
+
+\subsection{Reflection and Transmission at an Angle}
+When a wave goes from one medium to another at an angle, it will have to satisfy: 
+\begin{align*}
+    k_Iv_1 = k_Rv_1 = k_Tv_2, \eq{9.92} \\
+    \v{k}_I\v{r} = \v{k}_R\v{r} = \v{k}_T\v{r}, \eq{9.95}
+\end{align*}
+if we say that $(k_I)_y = 0$ we see that the incident, reflected and transmitted wave vectors form a plane of incident. 
+We also get that: 
+\begin{align*}
+    k_I \sin θ_I = k_R \sin θ_R = k_T \sin θ_T, \eq{9.99}
+\end{align*}
+where the angles are measured from the normal of the plane of incident. 
+The angle of incident is equal to the angle of refraction: 
+\begin{align*}
+    θ_I = θ_R. \eq{9.100}
+\end{align*}
+Now we get Snell's law: 
+\begin{align*}
+    \frac{\sin θ_T}{\sin θ_I} = \frac{n_1}{n_2}. \eq{9.101}
+\end{align*}
+
+If the polarization of the incident wave is parallel to the plane of inceident, we get Fresnel's equations: 
+\begin{align*}
+    \tilde{E}_R = \br{\frac{α-β}{α+β}}\tilde{E}_I, \quad \tilde{E}_T = \br{\frac{2}{α+β}}\tilde{E}_I, \eq{9.110}
+\end{align*}
+where
+\begin{align*}
+    α = \frac{\cos θ_T}{\cos θ_I}, \quad β = \frac{μ_1n_2}{n_1μ_2}. \eq{9.107}
+\end{align*}
+
+At the brewster angle, the reflected wave disapears: 
+\begin{align*}
+    \sin^2θ_B &= \frac{1-β^2}{(n_1/n_2)^2-β^2}, \eq{9.112} \\
+    \Rightarrow \tan θ_B & \approx \frac{n_2}{n_1}. \eq{9.113}
+\end{align*}
+
+We get the intensities: 
+\begin{align*}
+    &I_I = \frac{1}{2}\epsilon_1v_1E_I^2\cos θ_I, \eq{9.114} \\
+    I_R = \frac{1}{2}\epsilon_1v_1&E_R^2\cos θ_R \quad \text{and}\quad I_R = \frac{1}{2}\epsilon_2v_2E_T^2\cos θ_T\eq{9.115} \\
+\end{align*}
+and the reflection and transmission coefficients:
+\begin{align*}
+    &R = \frac{I_R}{I_I} = \br{\frac{α-β}{α+β}}^2, \eq{9.116} \\
+    &T = \frac{I_T}{I_I} = αβ\br{\frac{2}{α+β}}. \eq{9.117}
+\end{align*}
 
 \chapter{Appendix}
 \section*{Tables}
