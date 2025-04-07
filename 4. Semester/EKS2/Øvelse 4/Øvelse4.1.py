@@ -43,5 +43,5 @@ for filename in os.listdir(directory):
     fit.rescale_x(1e9)   # Convert x from meters to nanometers
     fit.plot(title=filename, lineplot=True)
     x_lin = np.linspace(200, 1000, 1000)
-    plt.plot(x_lin, planck(x_lin*1e-9, 5772, 1)*1e-9)
+    plt.plot(x_lin, planck(x_lin*1e-9, 5772, 1)/np.max(planck(x_lin*1e-9, 5772, 1)))
     plt.show()
