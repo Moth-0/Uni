@@ -52,7 +52,7 @@ yerr = [amplitudes - amin, amax - amplitudes]
 
 # Sine function for fitting
 def sine_func(x, A, λ, φ, D):
-    return A * np.sin(2*np.pi / λ * x + φ) + D
+    return A * np.sin(λ * np.deg2rad(x) + φ)**2 + D
 
 popt, pcov = curve_fit(
     sine_func, 
@@ -60,7 +60,7 @@ popt, pcov = curve_fit(
     amplitudes, 
     sigma=np.maximum(0.5 * (yerr[0] + yerr[1]), 1e-3), # Use yerr for weights
     absolute_sigma=True,
-    p0=[1, 100, 0.2, 1.5], 
+    p0=[1, np.pi/100, 0.2, 1.5], 
     maxfev=100000
 )
 print(popt)
