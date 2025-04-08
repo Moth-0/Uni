@@ -56,7 +56,8 @@ class ez_curve_fit:
             self.y,
             p0=self.p0,
             sigma=self.y_err,
-            absolute_sigma= True if self.y_err is not None else False
+            absolute_sigma= True if self.y_err is not None else False,
+            maxfev= 10000
         )
         self.perr = np.sqrt(np.diag(self.pcov))
         self._print_params()
