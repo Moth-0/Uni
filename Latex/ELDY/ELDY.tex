@@ -1518,7 +1518,7 @@ which, toghether with Ohm's law and Gauss's law, gives:
 
 This gives that the initial free charge disapears in a time $τ = \epsilon/σ$. 
 In normal problems this time is small and we will wait for the free charge to disapear, 
-which means (\ref{9.120}(i)) becomes $\nabla \cdot \v{E} = 0$.
+which means (\ref{eq:9.120} (i)) becomes $\nabla \cdot \v{E} = 0$.
 
 Having this current density will lead to the wavefunctions becomming: 
 \begin{align*}
@@ -1605,10 +1605,33 @@ If there are $N$ molecules per unit volume, the polarization $\mathbf{P}$ is giv
 
 Now $\v{P}$ and $\v{E}$ are no longer proportional, but the complex part is: 
 \begin{align*}
-    \tilde{P} \ep \tilde{χ}_e\tilde{\v{E}}. \eq{9.162}
+    \tilde{P} = \ep \tilde{χ}_e\tilde{\v{E}}. \eq{9.162}
+\end{align*}
+So now that we have the complex susceptibility, we can write the complex permittivity:
+\begin{align*}
+    \tilde{\epsilon} = \ep (1+\tilde{χ}_e),
+\end{align*}
+and the complex dielectric constant: 
+\begin{align*}
+    \tilde{\epsilon}_r = \frac{\tilde{\epsilon}}{\ep} = 1 + \frac{N q^2}{m\ep} \sum_j \frac{f_j}{\omega_j^2 - \omega^2 - i \gamma_j \omega}. \eq{9.163}
 \end{align*}
 
-\textcolor{red}{Missing rest of 9.4 and 9.5}
+In a dispersive medium the wave equation has solutions of the form: 
+\begin{align*}
+    \tilde{\v{E}}(z,t) = \tilde{E}_0\e{-κz}\e{i(\tilde{k}z-ωt)}, \eq{9.168}
+\end{align*}
+with the complex wave number: 
+\begin{align*}
+    \tilde{k} &= \sqrt{\tilde{\epsilon}μ_0}ω = k+iκ, \eq{9.166}\\
+    &= \frac{ω}{c}\sqrt{\tilde{\epsilon}_r} \approx \frac{ω}{c}\br[2]{1+\frac{N q^2}{2m\ep} \sum_j \frac{f_j}{\omega_j^2 - \omega^2 - i \gamma_j \omega}}. \eq{9.171}
+\end{align*}
+The index of refraction is: 
+\begin{align*}
+    n= &\frac{ck}{ω}, \eq{9.170}\\
+    &\approx 1+\frac{N q^2}{2m\ep} \sum_j \frac{f_j(ω_j^2-ω^2)}{(\omega_j^2 - \omega^2)^2 + \gamma_j^2 \omega^2}. \eq{9.172}
+\end{align*}
+
+
 
 \chapter{Potentials and Fields}
 
