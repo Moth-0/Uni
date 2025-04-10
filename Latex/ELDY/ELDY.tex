@@ -868,6 +868,10 @@ where $\v{m}$ is the magnetic dipole moment:
 \begin{align*}
     \v{m} = I\int d\v{a} = I\v{a}. \eq{5.86}
 \end{align*}
+The magnetic field of a magnetic dipole is: 
+\begin{align*}
+    \v{B}(\v{r}) = \frac{μ_0}{4\pi r^3}\br[2]{3(\v{m}\cdot\hat{\v{r}})\hat{\v{r}}-\v{m}}. \eq{5.89}
+\end{align*}
 
 \chapter{Magnetic Fields in Matter}
 \section{Magnetization}
@@ -1286,29 +1290,6 @@ There can also be an angular momentum stored in the field, the angular momentum 
     \v{l} = \v{r} \times \v{g} = \ep \br[2]{\v{r}\times (\v{E}\times\v{B})}. \eq{8.33}
 \end{align*}
 
-\section{Magnetic Forces Do No Work}
-
-According to the Lorentz force law,
-\[
-\mathbf{F} = q(\mathbf{E} + \mathbf{v} \times \mathbf{B}),
-\]
-the magnetic part of the force, $\mathbf{F}_{\text{mag}} = q\, \mathbf{v} \times \mathbf{B}$, is always perpendicular to the velocity $\mathbf{v}$ and therefore does no work:
-\[
-\mathbf{F}_{\text{mag}} \cdot \mathbf{v} = 0.
-\]
-
-This implies that magnetic fields cannot increase or decrease the kinetic energy of charged particles.
-Despite this, real-life systems (e.g., a magnetic crane lifting a car) seem to contradict this rule. However, Griffiths explains:
-
-\begin{itemize}
-    \item The energy comes from external sources (e.g., power supplies), not from the magnetic field itself.
-    \item Magnetic fields redirect forces but cannot do work.
-    \item Induced electric fields (via Faraday’s law) or motional emf are responsible for actual energy transfer.
-    \item Examples (e.g., lifting current loops or magnets) show that the magnetic force is conservative, redistributing energy but not generating it.
-\end{itemize}
-
-Any scenario that appears to violate this must be explained through alternative mechanisms (e.g., induced electric fields, energy stored in fields, or mechanical agents).
-
 \chapter{Electromagnetic Waves}
 \section{Waves in One Dimension}
 Waves propegating in $z$ with a speed $v$, satisfy the wave equation: 
@@ -1397,11 +1378,11 @@ We can generalize the equations for $B$ and $E$:
 \end{align*}
 where $\hat{\v{k}}$ is the wave propegations vector, and $\hat{\v{n}}$ is the polaization vector. 
 
-In a monocromatic wave the energy per unit volume is: 
+In a monocromatic wave the energy per unit volume is (energy density): 
 \begin{align*}
     u = \frac{1}{2}\ep E^2 + \frac{1}{2μ_0}B^2 = \ep E_0^2, \eq{9.56}
 \end{align*}
-and the pointing vector is: 
+and the pointing vector is (energy flux density): 
 \begin{align*}
     \v{S} = \frac{1}{μ_0}(\v{E}\times\v{B}) = cu\hat{\v{k}}. \eq{9.58}
 \end{align*}
@@ -1446,7 +1427,7 @@ where
 is the index of refraction. 
 
 \subsection{Reflection and Transmission}
-When a wave travels from one materiel to another, it has to satisfy these conditions: 
+When a wave travels from one material to another, it has to satisfy these conditions: 
 \begin{align*}
     \begin{rcases}
         (i)\quad \epsilon_1E_1^{\perp} = \epsilon_2E_2^{\perp}, & (iii)\quad \v{E}_1^{\parallel} = \v{E}_2^{\parallel},\\
@@ -1512,10 +1493,133 @@ and the reflection and transmission coefficients:
     &T = \frac{I_T}{I_I} = αβ\br{\frac{2}{α+β}}. \eq{9.117}
 \end{align*}
 
+\section{Absorption and Dispersion}
+When we are in a material with charge density $ρ_f$ and current density $\v{J}_f$,
+we see that the currrent density is proportional to the electric field: 
+\begin{align*}
+    \v{J}_f = σ\v{E}, \eq{9.119}
+\end{align*}
+this leads to Maxwells equations being: 
+\begin{align*}
+    \begin{rcases}
+        (i)\quad \nabla \cdot \v{E} = \frac{1}{\epsilon}ρ_f, & (iii)\quad \nabla \times \v{E} = -\frac{\dd \v{B}}{\dd t},\\
+        (ii)\quad \nabla \cdot \v{B} = 0, & (iv)\quad \nabla \times \v{B} = μσ\v{E} + μ\epsilon \frac{\dd \v{E}}{\dd t}.
+    \end{rcases} \eq{9.120} 
+\end{align*}
+
+The continuity equation for free charge becomes: 
+\begin{align*}
+    \nabla \cdot \v{J}_f = -\frac{\dd ρ_f}{\dd t}, \eq{9.121}
+\end{align*}
+which, toghether with Ohm's law and Gauss's law, gives: 
+\begin{align*}
+    ρ_f(t) = \e{-(σ/\epsilon)t} ρ_f(0). \eq{9.122}
+\end{align*}
+
+This gives that the initial free charge disapears in a time $τ = \epsilon/σ$. 
+In normal problems this time is small and we will wait for the free charge to disapear, 
+which means (\ref{9.120}(i)) becomes $\nabla \cdot \v{E} = 0$.
+
+Having this current density will lead to the wavefunctions becomming: 
+\begin{align*}
+    \tilde{\v{E}}(z,t) = \tilde{E}_0\e{i(\tilde{k}z-ωt)}, \quad \tilde{\v{B}}(z,t) = \tilde{B}_0\e{i(\tilde{k}z-ωt)}, \eq{9.125}
+\end{align*}
+where the wave number $\tilde{k}$ is complex:
+\begin{align*}
+    \tilde{k}^2 &= μ\epsilon ω^2+ i μσω, \eq{9.126}\\
+    \tilde{k} &= k+iκ. \eq{9.127}
+\end{align*}
+The imaginary part of the wave number results in a decresing amlitude with increasing $z$. 
+The distance it takes to reduce the amplitude by a factor of $1/e$ is called the skin depth, 
+which is a measure of how far the wave penetrates into the conductor. 
+\begin{align*}
+    d=\frac{1}{κ}. \eq{9.130}
+\end{align*}
+$k$ determines the wavelength, propegation speed and index of refraction: 
+\begin{align*}
+    \lambda = \frac{2\pi}{k}, \quad v = \frac{\omega}{k}, \quad n = \frac{ck}{\omega}. \eq{9.131}
+\end{align*}
+
+The elctric and magnetic fields are: 
+\begin{align*}
+    \begin{rcases}
+        \v{E}(z,t) = E_0\e{-κz} \cos(kz-ωt+δ_E)\hat{\v{x}}, \\
+        \v{B}(z,t) = B_0\e{-κz} \cos(kz-ωt+δ_E+φ)\hat{\v{y}}. \\   
+    \end{rcases} \eq{9.140}
+\end{align*}
+We see that the magnetic field lacks behind by a factor: 
+\begin{align*}
+    φ = \tan^-1\br{\frac{κ}{k}}. \eq{9.136}
+\end{align*}
+
+When there is free charge (\ref{eq:9.75}) becomes: 
+\begin{align*}
+    \begin{rcases}
+        (i)\quad \epsilon_1E_1^{\perp} - \epsilon_2E_2^{\perp} = σ_f, & (iii)\quad \v{E}_1^{\parallel} = \v{E}_2^{\parallel},\\
+        (ii)\quad B_1^{\perp} = B_2^{\perp}, & (iv)\quad \frac{1}{μ_1}\v{B}_1^{\parallel} - \frac{1}{μ_2}\v{B}_2^{\parallel} = \v{K}_f\times \hat{\v{n}}.
+    \end{rcases} \eq{9.141}
+\end{align*}
+where $σ_f$ is free surface charge, $\v{K}_f$ is the free surface current and $\hat{\v{n}}$ is perpendicular to the surface. 
+
+When a wave enters a material where different frequencys move at different speeds, the material is said to be dispersive. 
+Like a raindrop that disperses white light into a rainbow. 
+The speed of the different frequencys is given by:
+\begin{align*}
+    v = \frac{ω}{k}, \eq{9.151}
+\end{align*}
+wheras the packet the moves with the group velocity is: 
+\begin{align*}
+    v_g = \frac{dω}{dk}. \eq{9.152}
+\end{align*}
+
+If we see the electrons, in a material, as charges on a spring, 
+it will have a binding force: 
+\begin{align*}
+    F_b = -k_spring x = -mω_0^2x, \eq{9.153}
+\end{align*}
+a dampning force: 
+\begin{align*}
+    F_{damp} = -mγ\frac{dx}{dt}, \eq{9.154}
+\end{align*}
+and, in the presence of an electromagnetic wave with frequency $ω$, a driving force: 
+\begin{align*}
+    F_d = qE = qE_0\cos(ωt), \eq{9.155}
+\end{align*}
+where $q$ is the charge of the electron and $E_0$ is the amplitude of the electric field, at the electron.
+Solving the differential equation stemming from Newton's second law, gives us a term for the system: 
+\begin{align*}
+    \tilde{x}(t) &= \tilde{x}_0 \e{-iωt}, \eq{9.158} \\
+    \tilde{x}_0 &= \frac{q/m}{ω_0^2-ω^2-iγω}E_0 \eq{9.169}
+\end{align*}
+where the resulting dipole moment is the real part of: 
+\begin{align*}
+    \tilde{p}(t) = q\tilde{x}(t). \eq{9.160}
+\end{align*}
+
+In general, differently situated electrons within a given molecule experience different natural frequencies and damping coefficients. 
+Let’s say there are $f_j$ electrons with frequency $\omega_j$ and damping $\gamma_j$ in each molecule. 
+If there are $N$ molecules per unit volume, the polarization $\mathbf{P}$ is given by the real part of
+\begin{equation}
+\tilde{\mathbf{P}} = \frac{N q^2}{m} \left( \sum_j \frac{f_j}{\omega_j^2 - \omega^2 - i \gamma_j \omega} \right) \tilde{\mathbf{E}}. \eq{9.161}
+\end{equation}
+
+Now $\v{P}$ and $\v{E}$ are no longer proportional, but the complex part is: 
+\begin{align*}
+    \tilde{P} \ep \tilde{χ}_e\tilde{\v{E}}. \eq{9.162}
+\end{align*}
+
+\textcolor{red}{Missing rest of 9.4 and 9.5}
+
+\chapter{Potentials and Fields}
+
+
 \chapter{Appendix}
 \section*{Tables}
 \bil{fig4.2}
 \bil{tab6.1}
 \bil{tab7.1}
+
+\chapter{To Do}
+Something about direction of induced electric field or emf
 
 \end{document}
