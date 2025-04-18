@@ -115,6 +115,121 @@
  
 %Skriv
 \chapter{Math}
+\section{Coordinates}
+\subsection*{Cartesian Coordinates}
+
+\[
+\mathrm{d}\v{l} = \mathrm{d}x\,\hat{\v{x}} + \mathrm{d}y\,\hat{\v{y}} + \mathrm{d}z\,\hat{\v{z}}, \quad
+\mathrm{d}\tau = \mathrm{d}x\,\mathrm{d}y\,\mathrm{d}z
+\]
+
+Gradient:
+\[
+\nabla t = \frac{\partial t}{\partial x} \hat{\v{x}} + \frac{\partial t}{\partial y} \hat{\v{y}} + \frac{\partial t}{\partial z} \hat{\v{z}}
+\]
+
+Divergence:
+\[
+\nabla \cdot \v{v} = \frac{\partial v_x}{\partial x} + \frac{\partial v_y}{\partial y} + \frac{\partial v_z}{\partial z}
+\]
+
+Curl:
+\[
+\nabla \times \v{v} =
+\left( \frac{\partial v_z}{\partial y} - \frac{\partial v_y}{\partial z} \right) \hat{\v{x}} +
+\left( \frac{\partial v_x}{\partial z} - \frac{\partial v_z}{\partial x} \right) \hat{\v{y}} +
+\left( \frac{\partial v_y}{\partial x} - \frac{\partial v_x}{\partial y} \right) \hat{\v{z}}
+\]
+
+Laplacian:
+\[
+\nabla^2 t = \frac{\partial^2 t}{\partial x^2} + \frac{\partial^2 t}{\partial y^2} + \frac{\partial^2 t}{\partial z^2}
+\]
+
+\subsection*{Spherical Coordinates}
+
+\[
+\mathrm{d}\v{l} = \mathrm{d}r\,\hat{\v{r}} + r\,\mathrm{d}\theta\,\hat{\v{\theta}} + r \sin \theta\,\mathrm{d}\phi\,\hat{\v{\phi}}, \quad
+\mathrm{d}\tau = r^2 \sin \theta\, \mathrm{d}r\,\mathrm{d}\theta\,\mathrm{d}\phi
+\]
+
+Gradient:
+\[
+\nabla t = \frac{\partial t}{\partial r} \hat{\v{r}} +
+\frac{1}{r} \frac{\partial t}{\partial \theta} \hat{\v{\theta}} +
+\frac{1}{r \sin \theta} \frac{\partial t}{\partial \phi} \hat{\v{\phi}}
+\]
+
+Divergence:
+\[
+\nabla \cdot \v{v} =
+\frac{1}{r^2} \frac{\partial}{\partial r} (r^2 v_r) +
+\frac{1}{r \sin \theta} \frac{\partial}{\partial \theta} (\sin \theta\, v_\theta) +
+\frac{1}{r \sin \theta} \frac{\partial v_\phi}{\partial \phi}
+\]
+
+Curl:
+\[
+\nabla \times \v{v} =
+\frac{1}{r \sin \theta} \left[
+\frac{\partial}{\partial \theta} (v_\phi \sin \theta) -
+\frac{\partial v_\theta}{\partial \phi}
+\right] \hat{\v{r}} +
+\left[
+\frac{1}{r \sin \theta} \frac{\partial v_r}{\partial \phi} -
+\frac{1}{r} \frac{\partial}{\partial r} (r v_\phi)
+\right] \hat{\v{\theta}} +
+\left[
+\frac{1}{r} \frac{\partial}{\partial r} (r v_\theta) -
+\frac{1}{r} \frac{\partial v_r}{\partial \theta}
+\right] \hat{\v{\phi}}
+\]
+
+Laplacian:
+\[
+\nabla^2 t =
+\frac{1}{r^2} \frac{\partial}{\partial r} \left( r^2 \frac{\partial t}{\partial r} \right) +
+\frac{1}{r^2 \sin \theta} \frac{\partial}{\partial \theta} \left( \sin \theta \frac{\partial t}{\partial \theta} \right) +
+\frac{1}{r^2 \sin^2 \theta} \frac{\partial^2 t}{\partial \phi^2}
+\]
+
+\subsection*{Cylindrical Coordinates}
+
+\[
+\mathrm{d}\v{l} = \mathrm{d}s\,\hat{\v{s}} + s\,\mathrm{d}\phi\,\hat{\v{\phi}} + \mathrm{d}z\,\hat{\v{z}}, \quad
+\mathrm{d}\tau = s\,\mathrm{d}s\,\mathrm{d}\phi\,\mathrm{d}z
+\]
+
+Gradient:
+\[
+\nabla t = \frac{\partial t}{\partial s} \hat{\v{s}} +
+\frac{1}{s} \frac{\partial t}{\partial \phi} \hat{\v{\phi}} +
+\frac{\partial t}{\partial z} \hat{\v{z}}
+\]
+
+Divergence:
+\[
+\nabla \cdot \v{v} =
+\frac{1}{s} \frac{\partial}{\partial s} (s v_s) +
+\frac{1}{s} \frac{\partial v_\phi}{\partial \phi} +
+\frac{\partial v_z}{\partial z}
+\]
+
+Curl:
+\[
+\nabla \times \v{v} =
+\left[ \frac{1}{s} \frac{\partial v_z}{\partial \phi} - \frac{\partial v_\phi}{\partial z} \right] \hat{\v{s}} +
+\left[ \frac{\partial v_s}{\partial z} - \frac{\partial v_z}{\partial s} \right] \hat{\v{\phi}} +
+\frac{1}{s} \left[ \frac{\partial}{\partial s}(s v_\phi) - \frac{\partial v_s}{\partial \phi} \right] \hat{\v{z}}
+\]
+
+Laplacian:
+\[
+\nabla^2 t = \frac{1}{s} \frac{\partial}{\partial s} \left( s \frac{\partial t}{\partial s} \right) +
+\frac{1}{s^2} \frac{\partial^2 t}{\partial \phi^2} +
+\frac{\partial^2 t}{\partial z^2}
+\]
+
 \section{Vectors}
 \begin{align*}
     &a(\v{A}+ \v{B}) = a\v{A} + a\v{B} \\
@@ -184,8 +299,6 @@ We also have the following identities:
     &\int_{-\infty}^{\infty}f(x)δ(g(x))dx = \sum_{x_i}\frac{f(x_i)}{\br[5]{g′(x_i)}} \\
     &δ(x^2-a^2) = \frac{δ(x-a)+δ(x+a)}{2\br[5]{a}}
 \end{align*}
-
-
 
 \section{Fundamental theorem of calculus}
 Gradient: 
@@ -393,7 +506,7 @@ the energy required to do this is:
     W = \frac{1}{2}CV^2 = \frac{1}{2}QV = \frac{1}{2}\frac{Q^2}{C}. \eq{2.55}
 \end{align*}
 
-\newpage 
+
 \chapter{Potential}
 \section{Laplace's equation}
 To easily calculate the potential in a region, we can use Laplace's equation:
@@ -517,6 +630,7 @@ The electric field of a dipole is:
 \begin{align*}
     \v{E}_{dip}(r,θ) = \frac{p}{4π\ep r^3}\br{2\cos(θ)\hat{\v{r}}+\sin(θ)\hat{\v{θ}}}. \eq{3.103}
 \end{align*}
+
 
 \chapter{Electric Fields in Matter}
 \section{Dielectrics}
@@ -660,6 +774,7 @@ Say we have a dielectric in a capacitor, the force required to remove the dielec
     &= -\frac{\ep χ_e w}{2d}V^2, \eq{4.65}
 \end{align*}
 where $d$ is the distance between the plates, and $w$ is the width of the plate, perpendicular to the force.
+
 
 \chapter{Magnetostatics}
 \section{Magnetic Forces}
@@ -873,6 +988,7 @@ The magnetic field of a magnetic dipole is:
     \v{B}(\v{r}) = \frac{μ_0}{4\pi r^3}\br[2]{3(\v{m}\cdot\hat{\v{r}})\hat{\v{r}}-\v{m}}. \eq{5.89}
 \end{align*}
 
+
 \chapter{Magnetic Fields in Matter}
 \section{Magnetization}
 Magnetic material, are magnetic because the electrons spin around their core. this creates magnetic dipoles. 
@@ -986,6 +1102,7 @@ We split the material up into domains, which can have different alignmenets,
 which explains why not all iron tools are magnetic. 
 When a magnetic field is applied, the domains will compete and move their bounderies, 
 so the domains with dipoles facing parallel to the field will grow. 
+
 
 \chapter{Electrodynamics}
 \section{Electromotive Force}
@@ -1166,6 +1283,7 @@ where
     &\varepsilon = \varepsilon_0(1+χ_e) \quad \text{and} \quad μ = μ_0(1+χ_m). 
 \end{align*}
 
+
 \chapter{Conservation Laws}
 \section{Charge and energy}
 Because of local charge conservation, charge must flow through a surface to leave a system: 
@@ -1289,6 +1407,7 @@ There can also be an angular momentum stored in the field, the angular momentum 
 \begin{align*}
     \v{l} = \v{r} \times \v{g} = \ep \br[2]{\v{r}\times (\v{E}\times\v{B})}. \eq{8.33}
 \end{align*}
+
 
 \chapter{Electromagnetic Waves}
 \section{Waves in One Dimension}
@@ -1630,7 +1749,6 @@ The index of refraction is:
     n= &\frac{ck}{ω}, \eq{9.170}\\
     &\approx 1+\frac{N q^2}{2m\ep} \sum_j \frac{f_j(ω_j^2-ω^2)}{(\omega_j^2 - \omega^2)^2 + \gamma_j^2 \omega^2}. \eq{9.172}
 \end{align*}
-
 
 
 \chapter{Potentials and Fields}
