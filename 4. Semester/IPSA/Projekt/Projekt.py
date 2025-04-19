@@ -3,7 +3,7 @@ import gzip
 import time
 import matplotlib.pyplot as plt
 
-# Time_it decorator from lectures, used to time the file reading times. 
+# Time_it decorator from lectures, used to time functions. 
 def time_it(f):
     def wrapper(*args, **kwargs):
         t_start = time.time()
@@ -78,15 +78,17 @@ def plot_images(images, labels):
         plt.show()
         
     
-#%% Function Run Cell (Slow! - 60 sec)
+#%% Read files Cell (30 sec)
 test_labels = read_labels("mnist-master\\t10k-labels-idx1-ubyte.gz")
 test_images = read_images("mnist-master\\t10k-images-idx3-ubyte.gz")
 
-# %% Test Cell
+train_labels = read_labels("mnist-master\\train-labels-idx1-ubyte.gz")
+train_images = read_images("mnist-master\\train-images-idx3-ubyte.gz")
+
+#%% 1st Test Cell
 print(f"Number of labels in Test Labels: {len(test_labels)}")
 print(f"Test Images: \n Images: {len(test_images)} \n Rows: {len(test_images[0])} \n Col: {len(test_images[0][0])}")
 
-# %%
 # Number of pictures to plot. 
 n = 1
 # Plots the first n pictures in the test_images file. 
@@ -117,7 +119,7 @@ def image_to_vector(image):
     Function that turns a 2D images matrix with max value 255,
     into a normalized row vector. 
     '''
-    return [n/255 for row in image for n in row]
+    return [n/255 for rows in image for n in rows]
 
 def add(V, U): 
     '''
@@ -132,7 +134,7 @@ def sub(V, U):
     Subtracts to vectors
     Returns vector
     '''
-    assert len(V) == len(U), "V and U not same length"
+    assert len(V) == len(U), f"V and U not same length, len(V)={len(V)}, len(U)={len(U)}"
     return [v-u for v, u in zip(V, U)] 
 
 def scalar_multiplication(scalar, V): 
@@ -150,8 +152,7 @@ def multiply(V, M):
     '''
     assert len(V) == len(M), f"Multiplication not possible, len(V)={len(V)}, len(M[0])={len(M)}"
     return [sum(v * row[i] for v, row in zip(V, M))
-    for i in range(len(M[0])) 
-    ]   
+            for i in range(len(M[0]))]   
 
 def transpose(M):
     '''
@@ -165,7 +166,7 @@ def mean_square_error(V, U):
     Calculates mean square error of two vectors of same length
     Returns Float
     '''
-    assert len(V) == len(U), "Vectors are not same length"
+    assert len(V) == len(U), f"Vectors are not same length, len(V)={len(V)}, len(U)={len(U)}"
     return sum([(v-u)**2 for v,u in zip(V,U)])/len(V)
 
 def argmax(V): 
@@ -183,6 +184,8 @@ def categorical(label, classes=10):
     Takes label and classes, and returns a vector of length classes, 
     where all entries are 0 except at the index label, where it is 1.
     '''
+    assert isinstance(label, int)
+    assert isinstance(classes, int)
     list = [0]*classes
     list[label] = 1
     return list
@@ -254,20 +257,19 @@ def image_animation(images, labels, predictions):
     plt.close(fig)
     return ani
         
-        
 
 #%% 2nd Test Cell 
 # Tests linear_load by loading the given network file, 
 # and linear_save, by saving it to a new file. 
-network = linear_load("mnist_linear.weights")
-linear_save("my_network.json", network)
+mnist = linear_load("mnist_linear.weights")
+linear_save("save_test.json", mnist)
 
 # Image to vector test
 print(f" Image to vector test, \n ", 
       f"len: {len(image_to_vector(test_images[0]))}")
 
 # Evaluate test (Slow! - 120 sec)
-eval = evaluate(network, test_images, test_labels)
+eval = evaluate(mnist, test_images, test_labels)
 print(f"Evaluate test \n Cost: {eval[1]}, Accuracy: {eval[2]}")
 
 # Make animation of the first n images
@@ -281,15 +283,19 @@ def reshape(V, rows, columns):
     Takes a vector, and two integers, and then returns the 2D matrix
     with shape rows x columns
     '''
+    assert isinstance(V, list), "V is not a list"
+    assert isinstance(rows, int)
+    assert isinstance(columns, int)
     return [V[i*columns:(i+1)*columns] for i in range(rows)]
 
 def visualize_A(A): 
     '''
-    Takes a network matrix A of shape 784 x 10, visualizes the vector for each number,
-    in a subfig imshow 
+    Takes a network matrix A of shape 784 x 10, 
+    visualizes the vector for each number in a subfig imshow.
     Returns figure object
     '''
-    assert len(A) == 784, "Shape of A wrong"
+    assert len(A) == 784 and len(A[0]) == 10, "Shape of A wrong"
+    
     A_T = transpose(A)  # Transpose A so columns are first layer
     # Make sufig
     fig, axes = plt.subplots(2, 5, figsize=(8, 4), sharex=True, sharey=True)
@@ -316,7 +322,7 @@ def visualize_A(A):
 
 # Make the visualization of A
 print("Visualization of mnist_linear.weights")        
-a = visualize_A(network[0])
+a = visualize_A(mnist[0])
 
 
 #%% 3rd Function Cell
@@ -341,13 +347,7 @@ def update(network, images, labels):
     Returns a new network 
     '''
     A, b = network
-    #print(f"A, b: {len(A)}, {len(b)}")
-
     n = len(images)
-
-    # Empty lists with shape of A and b, for calculating sum
-    dA = [[0 for _ in range(len(A[0]))] for _ in range(len(A))]
-    db = [0 for _ in range(len(b))]
 
     for im, lab in zip(images, labels): 
         x = image_to_vector(im)
@@ -357,16 +357,11 @@ def update(network, images, labels):
         σ = 0.1 
         
         # Calculate the sums by adding dA and db for each image
-        delta = scalar_multiplication(2/10, sub(a, y))
-        db = add(db, delta)
+        delta = scalar_multiplication(σ/n*2/10, sub(a, y))
+        b = sub(b, delta)
         for j in range(len(b)): 
             for i in range(len(A)):
-                dA[i][j] += x[i]*delta[j]
-        
-
-    # Take average over all images
-    A = [scalar_multiplication(σ/n, row) for row in dA]   
-    b = scalar_multiplication(σ/n, db)
+                A[i][j] -= x[i]*delta[j]
 
     return [A, b]
 
@@ -396,16 +391,12 @@ def learn(images, labels, epochs, batch_size):
 
 
 #%% 3rd Test Cell
-#print(create_batches(list(zip([1,2,3,4], [1,2,3,4])), 2))
+print(f"Create_batch test: \n {create_batches(list(zip([1,2,3,4], [1,2,3,4])), 2)}")
 
-#print(update([[[0] * 10]*784, [0] * 10], test_images[:1000], test_labels[:1000]))
-
-train_images = read_images("mnist-master\\train-images-idx3-ubyte.gz")
-train_labels = read_labels("mnist-master\\train-labels-idx1-ubyte.gz")
 
 #%% Learning Cell - Learning full training takes 3 min per epoch at batch size 100
-n = len(train_images) # Learn from n first images
-network = learn(train_images[:n], train_labels[:n], 3, 10)
+n = 1000 # Learn from n first images
+network = learn(train_images[:n], train_labels[:n], 5, 100)
 vis = visualize_A(network[0])
 eval = evaluate(network, test_images[:n//2], test_labels[:n//2])
 print(f"Evaluate test \n Cost: {eval[1]:.2f}, Accuracy: {eval[2]*100:.2f}%")
