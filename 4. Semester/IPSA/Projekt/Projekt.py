@@ -58,10 +58,10 @@ def read_images(filename):
         # Makes the 3D list with list comprehension
         images = [  # Outer list comprehension (for each image)
         [  # Middle list comprehension (for each row in an image)
-        [next(data) for c in range(columns)]  # Inner list comprehension (for each pixel in a column)
-        for r in range(rows)
+        [next(data) for _ in range(columns)]  # Inner list comprehension (for each pixel in a column)
+        for _ in range(rows)
         ]
-        for i in range(size)
+        for _ in range(size)
         ]
         
     return images
@@ -370,6 +370,8 @@ def learn(images, labels, epochs, batch_size):
     A = [[random.uniform(0, 1/784) for _ in range(10)] for _ in range(784)]
     b = [random.uniform(0, 1) for _ in range(10)]
 
+    acc = (0, 0, 0)
+
     network = [A, b]
 
     for e in range(epochs): 
@@ -381,11 +383,18 @@ def learn(images, labels, epochs, batch_size):
             im, lab = zip(*batch)
             network = update(network, im, lab)
 
+        # In each epoch, test the network and save it if it is better
+        eval = evaluate(network, test_images, test_labels)
+
+        if eval[2] > acc[2]: 
+            acc = eval
+            linear_save("my_network.json", network)
+
         # Save after each epoch
         t_end = time.time()
         t = t_end - t_start
-        print(f"\nEpoch {e+1} done took {t:.2f} seconds")
-        linear_save("my_network.json", network)
+        print(f"Epoch {e+1} done took {t:.2f} seconds, Accuracy: {acc[2]*100:.2f}%\n")
+        
 
     return network
 
@@ -396,7 +405,5 @@ print(f"Create_batch test: \n {create_batches(list(zip([1,2,3,4], [1,2,3,4])), 2
 
 #%% Learning Cell - Learning full training takes 3 min per epoch at batch size 100
 n = 1000 # Learn from n first images
-network = learn(train_images[:n], train_labels[:n], 5, 100)
+network = learn(train_images, train_labels, 5, 100)
 vis = visualize_A(network[0])
-eval = evaluate(network, test_images[:n//2], test_labels[:n//2])
-print(f"Evaluate test \n Cost: {eval[1]:.2f}, Accuracy: {eval[2]*100:.2f}%")
