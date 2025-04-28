@@ -6,7 +6,7 @@
 \usepackage[T1]{fontenc}  % Korrekt håndtering af æ, ø og å
 \usepackage{microtype}  % Typografisk magi! Giver bl.a. pænere orddeling
 \usepackage{graphicx}  % Gør det muligt at indsætte billeder
-\usepackage{amsmath}  % Giver adgang til uundværlige matematikting
+\usepackage{amsmath, amssymb}  % Giver adgang til uundværlige matematikting
 \usepackage{mathtools}  % Retter ting i ams og giver ekstra muligheder
 \usepackage[danish]{babel}  % Danske betegnelser og orddeling
 \usepackage{lmodern}
@@ -21,6 +21,7 @@
 \usepackage{subfig} % For at have to billeder ved siden af hinanden
 \usepackage{unicode-math}
 \usepackage{bm}
+
 
 
 % Pænere toc indents 
@@ -1773,11 +1774,91 @@ which leads to:
 \begin{align*}
     \v{E} = -\nabla V - \frac{\dd \v{A}}{\dd t}. \eq{10.3}
 \end{align*}
-With this new potential changes Ampère's and Gauss's law: 
+With this new potential we can change Ampère's and Gauss's law: 
 \begin{align*}
     &\nabla^2V +\frac{\dd}{\dd t} (\nabla\cdot\v{A}) = -\frac{ρ}{\ep}, \eq{10.4} \\
     &(\nabla^2 \mathbf{A} - \mu_0 \epsilon_0 \frac{\partial^2 \mathbf{A}}{\partial t^2} ) - \nabla ( \nabla \cdot \mathbf{A} + \mu_0 \epsilon_0 \frac{\partial V}{\partial t} ) = - \mu_0 \mathbf{J}. \eq{10.5}
 \end{align*}
+
+For these equations we can change $\v{A}$ and $V$ with a gauge transformation, which does not affect the physical quantities of $\v{E}$ or $\v{B}$, 
+\begin{align*}
+    \begin{rcases*}
+        \v{A}' = \v{A} + \nabla λ(\v{r},t), \\
+        V' = V - \frac{\dd}{\dd t}λ(\v{r},t).
+    \end{rcases*} \eq{10.7}
+\end{align*}
+
+There are different kinds of gauge methods. The Columb gauge uses: 
+\begin{align*}
+    \nabla \cdot \v{A} = 0, \eq{10.8}
+\end{align*}
+which leads (\ref{eq:10.4}) to become: 
+\begin{align*}
+    \nabla^2V = -\frac{ρ}{\ep}. \eq{10.9}
+\end{align*}
+This is Poisson's equation which we can solve by: 
+\begin{align*}
+    V(\v{r}, t) = \frac{1}{4\pi\ep} \int \frac{ρ(\v{r'}, t)}{\r}dτ', \eq{10.10}
+\end{align*}
+setting $V=0$ at infinity.  
+For equation (\ref{eq:10.5}) we get: 
+\begin{align*}
+    \nabla^2 \v{A} - μ_0\ep \frac{\dd^2 \v{A}}{\dd t^2} = -\mu_0 \v{J} + μ_0\ep \nabla \frac{\dd V}{\dd t}. \eq{10.11}
+\end{align*}
+But this is not easier to calculate, so we use the Lorenz gauge:
+\begin{align*}
+    \nabla \cdot \v{A} = - μ_0\ep \frac{\dd V}{\dd t}. \eq{10.12}
+\end{align*}
+With this we get the equations to be: 
+\begin{align*}
+    \nabla^2 \v{A} - μ_0\ep \frac{\dd^2 \v{A}}{\dd t^2} = -\mu_0 \v{J}, \eq{10.13} \\
+    \nabla^2V - μ_0\ep \frac{\dd^2 V}{\dd t^2} = -\frac{ρ}{\ep}. \eq{10.14} 
+\end{align*}
+
+Here we introduce the d'Alembertian (or box) operator: 
+\begin{align*}
+    \Box^2 = \nabla^2 - \frac{1}{c^2}\frac{\dd^2}{\dd t^2}, \eq{10.15}
+\end{align*}
+which leads to the equations to become: 
+\begin{align*}
+    \begin{rcases*}
+        \Box^2 V = -\frac{ρ}{\ep}, \\
+        \mdlgwhtsquare^2 \v{A} = -\mu_0 \v{J}.
+    \end{rcases*} \eq{10.16}
+\end{align*}
+
+No we can calculate the fields with Jefimenko's equations: 
+\begin{align*}
+    \v{E}(\v{r},t) &= \frac{1}{4\pi\ep} \int \br[2]{\frac{ρ(\v{r'},t_r)}{\r^2}\hat{\pmb{\r}} + \frac{\dot{ρ}(\v{r'},t_r)}{c\r}\hat{\pmb{\r}} + \frac{\dot{\v{J}}(\v{r'},t_r)}{c^2\r}}dτ', \eq{10.36} \\
+    \v{B}(\v{r},t) &= \frac{μ_0}{4\pi} \int \br[2]{\frac{\v{J}(\v{r'},t_r)}{\r^2} + \frac{\dot{\v{J}}(\v{r'},t_r)}{c\r}}\times \hat{\pmb{\r}}dτ'. \eq{10.38}
+\end{align*}
+Where $t_r = t - \frac{\r}{c}$ is the retarded time. 
+
+\section*{Liénard-Wiechert Potentials}
+Now we can calculate the Liénard-Wiechert potentials $V$ and $\v{A}$, for a point charge $q$ moving on a specified trajectory $w(t)$, which is the posistion of the charge. 
+Because of special relativity, the charge will move before we observe it, therefore we have a retarded time: 
+\begin{align*}
+    \br[5]{\v{r} - \v{w}(t_r)} = c(t-t_r), \eq{10.44}
+\end{align*}
+where $\v{r}$ is the opservation point, and $\pmb{\r}$ is the vector from the retarded point to the observation point, 
+\begin{align*}
+    \pmb{\r} = \v{r} - \v{w}(t_r). \eq{10.45}
+\end{align*}
+
+\bil{fig10.8}
+
+This leads to the potential:
+\begin{align*}
+    V(\v{r}, t) = \frac{1}{4\pi\ep}\frac{qc}{(\r c-\pmb{\r}\cdot \v{v})}, \eq{10.46}
+\end{align*}
+where $\v{v}$ is the velocity of the charge at the retarded time. The vector potential is: 
+\begin{align*}
+    \v{A}(\v{r}, t) = \frac{μ_0}{4\pi}\frac{qc\v{v}}{(\r c-\pmb{\r}\cdot \v{v})} = \frac{\v{v}}{c^2}V(\v{r},{t}). \eq{10.47}
+\end{align*}
+
+
+
+
 
 \chapter{Appendix}
 \section*{Tables}
