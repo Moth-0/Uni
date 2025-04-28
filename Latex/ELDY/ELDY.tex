@@ -1239,10 +1239,10 @@ If we start at $I(0)=0$and work up to $I$, we get:
     &= \frac{1}{2μ_0} \int_{\text{all space}} B^2dτ. \eq{7.44}
 \end{align*}
 
-\section{Maxwell's Equations}
+\section{Maxwell's Equations} \label{sec:maxwell}
 So far we have 4 equations: 
-\begin{align*}
-    (i)\quad &\nabla \cdot \v{E} = \frac{ρ}{\ep} & (\text{Gauss's law}), \\
+\begin{align*} 
+    (i)\quad &\nabla \cdot \v{E} = \frac{ρ}{\ep} & (\text{Gauss's law}),\\
     (ii)\quad &\nabla \cdot \v{B} = 0 & (\text{No name}), \\
     (iii)\quad &\nabla \times \v{E} = -\frac{\dd \v{B}}{\dd t} & (\text{Faraday's law}), \\
     (iv)\quad &\nabla \times \v{B} = μ_0\v{J} & (\text{Ampère's law}).
@@ -1485,7 +1485,8 @@ Since these are wave equations, we find that:
 Electromagnetic waves are transverse waves, the magnetic and electric parts are perpendicular, 
 therefore we get the relation: 
 \begin{align*}
-    B_0 = \frac{k}{ω}E_0=\frac{1}{c}E_0 \eq{9.48}
+    \tilde{\v{B}}_0 = \frac{k}{ω}\hat{\v{k}}\times\tilde{\v{E}}_0, \eq{9.47} \\
+    B_0 = \frac{k}{ω}E_0=\frac{1}{c}E_0. \eq{9.48}
 \end{align*}
 
 We can generalize the equations for $B$ and $E$: 
@@ -1556,8 +1557,8 @@ When a wave travels from one material to another, it has to satisfy these condit
 
 If we use that $μ_1 = μ_2 = μ$ we can see that the intensity of the electric field, when it goes from one medium to another, is:
 \begin{align*}
-    E_R &= \br[5]{\frac{v_2-v_1}{v_2+v_1}}E_I. E_T=\br{\frac{2v_2}{v_2+v_1}}E_I \eq{9.85}, \\
-    &= \br[5]{\frac{n_1-n_2}{n_2+n_1}}E_I. E_T=\br{\frac{2n1}{n_2+n_1}}E_I \eq{9.86}.
+    E_R &= \br[5]{\frac{v_2-v_1}{v_2+v_1}}E_I, \quad E_T=\br{\frac{2v_2}{v_2+v_1}}E_I \eq{9.85}, \\
+    E_R &= \br[5]{\frac{n_1-n_2}{n_2+n_1}}E_I, \quad E_T=\br{\frac{2n_1}{n_2+n_1}}E_I \eq{9.86}.
 \end{align*}
 and the intensity of the wave is: 
 \begin{align*}
@@ -1646,7 +1647,14 @@ Having this current density will lead to the wavefunctions becomming:
 where the wave number $\tilde{k}$ is complex:
 \begin{align*}
     \tilde{k}^2 &= μ\epsilon ω^2+ i μσω, \eq{9.126}\\
-    \tilde{k} &= k+iκ. \eq{9.127}
+    \tilde{k} &= k+iκ, \eq{9.127}
+\end{align*}
+where 
+\begin{align*}
+    \begin{rcases}
+        k = \omega \sqrt{\frac{\epsilon \mu}{2}} \left[ \sqrt{1 + \left( \frac{\sigma}{\epsilon \omega} \right)^2} + 1 \right]^{1/2} \\
+        \kappa = \omega \sqrt{\frac{\epsilon \mu}{2}} \left[ \sqrt{1 + \left( \frac{\sigma}{\epsilon \omega} \right)^2} - 1 \right]^{1/2}
+    \end{rcases} \eq{9.128}
 \end{align*}
 The imaginary part of the wave number results in a decresing amlitude with increasing $z$. 
 The distance it takes to reduce the amplitude by a factor of $1/e$ is called the skin depth, 
@@ -1752,7 +1760,24 @@ The index of refraction is:
 
 
 \chapter{Potentials and Fields}
-
+When working with the general form of Faraday's law (\hyperref[sec:maxwell]{iii}), the curl of $\v{E}$ is not zero, 
+therfor $\v{E}\neq -\nabla V$. But since we have 
+\begin{align*}
+    \v{B} = \nabla \times \v{A}, \eq{10.2}
+\end{align*}
+we can write Faraday's law as 
+\begin{align*}
+    \nabla \times \br{\v{E}+\frac{\dd \v{A}}{\dd t}} = \v{0}, 
+\end{align*}
+which leads to: 
+\begin{align*}
+    \v{E} = -\nabla V - \frac{\dd \v{A}}{\dd t}. \eq{10.3}
+\end{align*}
+With this new potential changes Ampère's and Gauss's law: 
+\begin{align*}
+    &\nabla^2V +\frac{\dd}{\dd t} (\nabla\cdot\v{A}) = -\frac{ρ}{\ep}, \eq{10.4} \\
+    &(\nabla^2 \mathbf{A} - \mu_0 \epsilon_0 \frac{\partial^2 \mathbf{A}}{\partial t^2} ) - \nabla ( \nabla \cdot \mathbf{A} + \mu_0 \epsilon_0 \frac{\partial V}{\partial t} ) = - \mu_0 \mathbf{J}. \eq{10.5}
+\end{align*}
 
 \chapter{Appendix}
 \section*{Tables}
