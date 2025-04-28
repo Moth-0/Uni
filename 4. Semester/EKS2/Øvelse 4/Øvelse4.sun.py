@@ -2,7 +2,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import os
-from Lib.mypylib import ez_curve_fit
 
 
 # Plot settings
@@ -41,6 +40,7 @@ for filename in os.listdir(directory):
     x_lin = np.linspace(200, 1000, 1000)
     plt.plot(x_lin, planck(x_lin*1e-9, 5772), "g:", label="Sun spectrum")
     plt.legend()
+    plt.title(filename)
     plt.show()
 
 
