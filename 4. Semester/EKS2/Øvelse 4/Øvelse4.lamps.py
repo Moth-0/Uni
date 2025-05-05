@@ -38,9 +38,14 @@ for folder in os.listdir(directory):
         for peak in p: 
             print(x[peak])
 
+        y_p, x_p = (list(t) for t in zip(*sorted(zip(y[p], x[p]))))
+
         plt.plot(x, y, "-", label="Data")
-        plt.plot(x[p], y[p], "o", label="Peaks")
+        plt.plot(x_p, y_p, "o", label="Peaks")
+        plt.plot(x_p[-2:], y_p[-2:], ".")
 
         plt.title(folder)
+        plt.xlabel(f"Wavelength (nm)")
+        plt.ylabel("Intensity (counts)")
         plt.legend()
         plt.show()

@@ -596,7 +596,7 @@ so we asume the potential can be written as:
 which we can then solve from the boundary conditions of the problem, with the help of Fouriers trick. 
 \n
 In chapter 3.3.2 we find a genreral soultion for the potential in sperical coordinates, 
-with symmetry in $φ$: 
+with symmetry in $\phi$: 
 \begin{align*}
     V(r,θ) = \sum_{l=0}^{\infty}\br{A_lr^l+\frac{B_l}{r^{l+1}}}P_l(\cos(θ)), \eq{3.65}
 \end{align*}
@@ -934,7 +934,7 @@ Field of a toroidal coil (\hyperref[fig:fig5.37]{Fig 5.37}) with $n$ turns a dis
 \begin{align*}
     \v{B}(\v{r}) = 
     \begin{cases}
-        \frac{μ_0nI}{2\pi s}\hat{\v{φ}} & \text{inside coil}, \\
+        \frac{μ_0nI}{2\pi s}\hat{\v{\phi}} & \text{inside coil}, \\
         \v{0} & \text{outside coil}.
     \end{cases} \eq{5.60}
 \end{align*}
@@ -966,7 +966,7 @@ which gives us a direct term for $\v{A}$, if $\v{J}$ goes to zero at infinity:
 
 If $\v{J}$ doesn't go to zero at infinity we can use: 
 \begin{align*}
-    \oint \v{A}\cdot d\v{l} = \int \v{B}\cdot d\v{a} = Φ. \eq{5.71}
+    \oint \v{A}\cdot d\v{l} = \int \v{B}\cdot d\v{a} = \phi. \eq{5.71}
 \end{align*}
 
 Figure 5.51 shows the calculations between J, B and A.
@@ -1167,21 +1167,21 @@ This leads to the work done by unit charge:
 \end{align*}
 The flux of $\v{B}$ through a loop is: 
 \begin{align*}
-    Φ = \int \v{B}\cdot d\v{a}. \eq{7.12}
+    \phi = \int \v{B}\cdot d\v{a}. \eq{7.12}
 \end{align*}
 
 Instead of calculating for each charge, we use the flux through the loop:
 \begin{align*}
-    Φ = & xBh, \quad
-    \frac{dΦ}{dt} = -vBh, \\
-    &\Rightarrow \mathscr{E} = -\frac{dΦ}{dt}. \eq{7.13}
+    \phi = & xBh, \quad
+    \frac{d\phi}{dt} = -vBh, \\
+    &\Rightarrow \mathscr{E} = -\frac{d\phi}{dt}. \eq{7.13}
 \end{align*}
 
 \section{Electromagnetic Induction}
 Faraday found that if he moved the magnetic field instead of the loop, current would still run through the loop.
 But it can't be the magnetic field moving the charges, instead it is an induced electric field. 
 \begin{align*}
-    \mathscr{E} = \oint \v{E}\cdot d\v{l} = -\frac{dΦ}{dt}, \eq{7.23}
+    \mathscr{E} = \oint \v{E}\cdot d\v{l} = -\frac{d\phi}{dt}, \eq{7.23}
 \end{align*}
 this leads to Faraday's law: 
 \begin{align*}
@@ -1196,14 +1196,14 @@ If $\v{E}$ is a pure Faraday field, due only to the change in $\v{B}$, then the 
 \end{align*}
 and if we have symmetry we can use Amperes law: 
 \begin{align*}
-    \oint \v{E}\cdot d\v{l} = -\frac{dΦ}{dt}. \eq{7.28}
+    \oint \v{E}\cdot d\v{l} = -\frac{d\phi}{dt}. \eq{7.28}
 \end{align*}
 
 \subsection{Inductance}
 If we have two loops of wire, and a current runs in one of the wires, this creates a magnetic field.
 This magnetic field will have a flux through the other loop, which is proportional to the current: 
 \begin{align*}
-    Φ = MI, \eq{7.31}
+    \phi = MI, \eq{7.31}
 \end{align*}
 where $M$ is the mutual inductance. $M$ is a geometrical property, and is the same for if the current was running in loop 2. 
 \begin{align*}
@@ -1211,12 +1211,12 @@ where $M$ is the mutual inductance. $M$ is a geometrical property, and is the sa
 \end{align*}
 If the current is not steady we see that an emf is induced in the other loop: 
 \begin{align*}
-    \mathscr{E}_2 = -\frac{dΦ_2}{dt} = -M\frac{dI_1}{dt}. \eq{7.34}
+    \mathscr{E}_2 = -\frac{d\phi_2}{dt} = -M\frac{dI_1}{dt}. \eq{7.34}
 \end{align*}
 
 On top of that it also induces an emf in itself: 
 \begin{align*}
-    Φ = LI, \eq{7.35}
+    \phi = LI, \eq{7.35}
 \end{align*}
 where $L$ is the self-inductance, or just inductance. If the current is changing we get: 
 \begin{align*}
@@ -1672,12 +1672,12 @@ The elctric and magnetic fields are:
 \begin{align*}
     \begin{rcases}
         \v{E}(z,t) = E_0\e{-κz} \cos(kz-ωt+δ_E)\hat{\v{x}}, \\
-        \v{B}(z,t) = B_0\e{-κz} \cos(kz-ωt+δ_E+φ)\hat{\v{y}}. \\   
+        \v{B}(z,t) = B_0\e{-κz} \cos(kz-ωt+δ_E+\phi)\hat{\v{y}}. \\   
     \end{rcases} \eq{9.140}
 \end{align*}
 We see that the magnetic field lacks behind by a factor: 
 \begin{align*}
-    φ = \tan^-1\br{\frac{κ}{k}}. \eq{9.136}
+    \phi = \tan^-1\br{\frac{κ}{k}}. \eq{9.136}
 \end{align*}
 
 When there is free charge (\ref{eq:9.75}) becomes: 
@@ -1828,8 +1828,10 @@ which leads to the equations to become:
     \end{rcases*} \eq{10.16}
 \end{align*}
 
-No we can calculate the fields with Jefimenko's equations: 
+No we can calculate the potentials and fields with Jefimenko's equations: 
 \begin{align*}
+    V(\v{r}, t) &= \frac{1}{4\pi\ep}\int \frac{ρ(\v{r}', t_r)}{\r}dτ', \\
+    \v{A}(\v{r}, t) &= \frac{μ_0}{4\pi}\int \frac{\v{J}(\v{r}', t_r)}{\r}dτ', \eq{10.26} \\
     \v{E}(\v{r},t) &= \frac{1}{4\pi\ep} \int \br[2]{\frac{ρ(\v{r'},t_r)}{\r^2}\hat{\pmb{\r}} + \frac{\dot{ρ}(\v{r'},t_r)}{c\r}\hat{\pmb{\r}} + \frac{\dot{\v{J}}(\v{r'},t_r)}{c^2\r}}dτ', \eq{10.36} \\
     \v{B}(\v{r},t) &= \frac{μ_0}{4\pi} \int \br[2]{\frac{\v{J}(\v{r'},t_r)}{\r^2} + \frac{\dot{\v{J}}(\v{r'},t_r)}{c\r}}\times \hat{\pmb{\r}}dτ'. \eq{10.38}
 \end{align*}
@@ -1857,9 +1859,127 @@ where $\v{v}$ is the velocity of the charge at the retarded time. The vector pot
     \v{A}(\v{r}, t) = \frac{μ_0}{4\pi}\frac{qc\v{v}}{(\r c-\pmb{\r}\cdot \v{v})} = \frac{\v{v}}{c^2}V(\v{r},{t}). \eq{10.47}
 \end{align*}
 
+Using these potentials we can calculate the fields: 
+\begin{align*}
+    \v{E}(\v{r}, t) &= \frac{q}{4π\ep}\frac{\r}{(\pmb{\r}\cdot\v{u})^3}\br[2]{(c^2-v^2)\v{u}+\pmb{\r}\times(\v{u}\times\v{a})}, \eq{10.72} \\
+    \v{B}(\v{r},t) &= \frac{1}{c}\hat{\pmb{\r}}\times \v{E}(\v{r},t) = \frac{q}{4π}\frac{\v{u}\times\v{a}}{(\pmb{\r}\cdot\v{u})^3}, \eq{10.73}
+\end{align*}
+where $\v{u} = c\hat{\pmb{\r}}-\v{v}$ and $\v{a} = \frac{\dd \v{v}}{\dd t}$ (acceleration of the particle at the retarded time).
 
+\chapter{Radiation}
+\section{Dipole Radiation}
+When charges accelerate their fields transport energy out to infinity, we call it radiation. 
+The power radiated from a sphere, of radius $r$, is the is the integral of the pointing vector, passing through the surface area. 
+\begin{align*}
+    P(r,t) = \oint \v{S}\cdot d\v{a}, \eq{11.1}
+\end{align*}
+because of retardation the radiated power is: 
+\begin{align*}
+    P_{rad}(t_0)= \lim_{r\rightarrow\infty} P(r, t_0+\frac{r}{c}). \eq{11.2}
+\end{align*}
+Because of Jefimenko's equations, we know that only time-dependant fields that go like $1/r$ 
+are responsible for the radiation. 
 
+For an electric dipole where the charge moves back and forth with angular frequency $ω$, 
+we have the charge: 
+\begin{align*}
+    q(t) = q_0\cos(ωt), \eq{11.3}
+\end{align*}
+and the dipole moment: 
+\begin{align*}
+    \v{p}(t) = q_0d\cos(ωt)\hat{\v{z}}, \eq{11.4}
+\end{align*}
+where $d$ is the distance between the two charges. 
+From equation (\ref{eq:10.26}) we can see that the potential is:
+\begin{align*}
+    V(\v{r}, t) = \frac{1}{4\pi\ep}\br[4]{\frac{q_0\cos\br[2]{ω(t-\r_+/c)}}{\r_+}-\frac{q_0\cos\br[2]{ω(t-\r_-/c)}}{\r_-}}, \eq{11.5}
+\end{align*}
+we can approximate this with the assumtions: 
+\begin{align*}
+    d \ll \frac{c}{\omega} \ll r, 
+\end{align*}
+\begin{align*}
+    \Rightarrow V(r, θ, t) = -\frac{p_0ω}{4\pi\ep c}\br{\frac{\cosθ}{r}}\sin\br[2]{ω(t-r/c)}, \eq{11.14}
+\end{align*}
+and the vector potential can be approximated to: 
+\begin{align*}
+    \v{A}(r, θ, t) = -\frac{μ_0p_0ω}{4\pi r}\sin\br[2]{ω(t-r/c)}\hat{\v{z}}. \eq{11.17}
+\end{align*}
+From this we can also calculate the fields: 
+\begin{align*}
+    \v{E} &= -\nabla V-\frac{\dd \v{A}}{\dd t} = -\frac{μ_0p_0ω^2}{4\pi}\br{\frac{\sinθ}{r}}\cos\br[2]{ω(t-r/c)}\hat{\v{θ}}, \eq{11.18} \\
+    \v{B} &= \nabla\times\v{A} = -\frac{μ_0p_0ω^2}{4\pi c}\br{\frac{\sinθ}{r}}\cos\br[2]{ω(t-r/c)}\hat{\v{\phi}}. \eq{11.19}
+\end{align*}
+The energy radiated by an oscilation is determined by the pointing vector: 
+\begin{align*}
+    \v{S}(\v{r}, t) = \frac{1}{μ_0}(\v{E}\times\v{B}) = \frac{μ_0}{c}\br[4]{\frac{p_0ω^2}{4\pi}\br{\frac{\sinθ}{r}}\cos\br[2]{ω(t-r/c)}}^2\hat{\v{r}}, \eq{11.20}
+\end{align*}
+the intensity is: 
+\begin{align*}
+    \br[3]{\v{S}} = \br{\frac{μ_0p_0^2ω^4}{32π^2c}}\frac{\sin^2θ}{r^2}\hat{\v{r}}, \eq{11.21}
+\end{align*}
+notice that the intensity takes the from of a donut, as there is no radiation along the axis of the dipol. 
+The total power radiated is:
+\begin{align*}
+    \br[3]{P} = \int \br[3]{\v{S}}\cdot d\v{a} = \frac{μ_0p_0^2ω^4}{12πc}. \eq{11.22}
+\end{align*}
 
+If we make a magnetic dipole, be sending a current through a wire loop, of radius $b$, 
+we get the magnetic dipole moment:
+\begin{align*}
+    \v{m}(t)=πb^2I(t)\hat{\v{z}} = m_0\cos(ωt)\hat{\v{z}}, \eq{11.24}
+\end{align*}
+we get the vector potential, and fields, be making likewise approximations: 
+\begin{align*}
+    \v{A}(r, θ, t) &= -\frac{μ_0m_0ω}{4\pi c}\br{\frac{\sinθ}{r}}\sin\br[2]{ω(t-r/c)}\hat{\v{\phi}}, \eq{11.35} \\
+    \v{E}(r, θ, t) = -\frac{\dd\v{A}}{\dd t} &= \frac{μ_0m_0ω^2}{4\pi c}\br{\frac{\sinθ}{r}}\cos\br[2]{ω(t-r/c)}\hat{\v{\phi}}, \eq{11.36} \\
+    \v{B}(r, θ, t) = \nabla\times\v{A} &= -\frac{μ_0m_0ω^2}{4\pi c^2}\br{\frac{\sinθ}{r}}\cos\br[2]{ω(t-r/c)}\hat{\v{θ}}. \eq{11.37}
+\end{align*}
+We see now that the intensity and power is: 
+\begin{align*}
+    \v{S}(\v{r}, t) &= \frac{μ_0}{c}\br[4]{\frac{m_0ω^2}{4\pi c}}\br{\frac{\sinθ}{r}}\cos\br[2]{ω(t-r/c)}^2\hat{\v{r}}, \eq{11.38} \\
+    \br[3]{\v{S}} &= \br{\frac{μ_0m_0^2ω^4}{32π^2c^3}}\frac{\sin^2θ}{r^2}\hat{\v{r}}, \eq{11.39} \\
+    \br[3]{P} &= \frac{μ_0m_0^2ω^4}{12πc^3}. \eq{11.40}
+\end{align*}
+If we compare the two radiated powers from the electric and magnetic dipole, we see that the electric fields radiation is dominant.
+
+\section{Power Radiated by a Point Charge}
+Equation (\ref{eq:10.72}) and (\ref{eq:10.73}) gives us the fields of a charged particle in motion. 
+The pointing vector is:
+\begin{align*}
+    \v{S} = \frac{1}{μ_0c}\br[2]{E^2\hat{\pmb{\r}}-(\hat{\pmb{\r}}\cdot\v{E})\v{E}}. \eq{11.64}
+\end{align*}
+Not all of the fields contribute to the radiation, some moves with the particle. 
+To calculate the radiated power, we integrate the pointing vector over a sphere of radius $\r$, centered at the particle at time $t$. 
+Since the surface area is proportional to $\r^2$, only these parts contribute to the radiation. 
+\begin{align*}
+    \v{E}_{rad} = \frac{q}{4π\ep}\frac{\r}{(\pmb{\r}\cdot\v{u})^3}\br[2]{\pmb{\r}\times(\v{u}\times\v{a})}, \eq{11.66}
+\end{align*}
+since $\v{E}_{rad}$ is perpendicular to $\hat{\pmb{\r}}$, we can write the pointing vector as:
+\begin{align*}
+    \v{S} = \frac{1}{μ_0c}E_{rad}^2\hat{\pmb{\r}}. \eq{11.67}
+\end{align*}
+If a particle is initially at rest, with instant acceleration $\v{a}$, we can write the power radiated as:
+\begin{align*}
+    P = \frac{μ_0q^2a^2}{6\pi c}. \eq{11.70}
+\end{align*}
+
+When the particle is moving with a velocity $v$, an effect like the doppler effect urcurs. 
+The radiated power then becomes: 
+\begin{align*}
+    P = \frac{μ_0q^2γ^6}{6\pi c}\br{\v{a}^2-\br[5]{\frac{\v{v}\times\v{a}}{c}}^2}, \eq{11.73}
+\end{align*}
+where $γ = 1/\sqrt{1-v^2/c^2}$. This is the Liénard generalization of the Larmor formula (\ref{eq:11.70}). 
+The $γ^6$ means that the radiation increases with velocity. 
+
+\section{The Radiation Reaction}
+Because of energy conservation, when a particle radiates energy, the energy lost must correspond to an opposing force.
+But because of interaction of with non radiating fields, the energy lost is not strictly $\v{F}\cdot\v{v}=-P$. 
+If we say that this is the average, we can find the radiation reaction force is: 
+\begin{align*}
+    \v{F}_{rad} = \frac{μ_0q^2}{6\pi c}\dot{\v{a}}, \eq{11.80}
+\end{align*}
+this is the Abraham-Lorentz formula. 
 
 \chapter{Appendix}
 \section*{Tables}
@@ -1868,6 +1988,11 @@ where $\v{v}$ is the velocity of the charge at the retarded time. The vector pot
 \bil{tab7.1}
 
 \chapter{To Do}
-Something about direction of induced electric field or emf
+\begin{itemize}
+    \item Something about direction of induced electric field or emf
+    \item section 11.1.4 if covered in lecture 23
+\end{itemize}
+
+
 
 \end{document}

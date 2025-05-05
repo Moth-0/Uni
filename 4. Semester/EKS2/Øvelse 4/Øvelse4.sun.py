@@ -2,6 +2,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import os
+from scipy.signal import find_peaks
 
 
 # Plot settings
@@ -13,7 +14,7 @@ plt.rc("legend", fontsize=12)
 print("\n\n\n-------------------------------")
 
 # Directory containing the files
-directory = "sun"
+directory = "sun/sun"
 
 # Normalized Planck's Law
 def planck(x, T):
@@ -25,6 +26,7 @@ def planck(x, T):
 
 # Iterate through all files in the directory
 for filename in os.listdir(directory):
+    print(filename[:-4])
     filepath = os.path.join(directory, filename)
     
     # Load data from the file
@@ -39,15 +41,26 @@ for filename in os.listdir(directory):
     plt.plot(x, y_scaled, "-", label="Data")
     x_lin = np.linspace(200, 1000, 1000)
     plt.plot(x_lin, planck(x_lin*1e-9, 5772), "g:", label="Sun spectrum")
-    plt.legend()
-    plt.title(filename)
-    plt.show()
 
-
-    # Find peak wavelength
+    # Find max wavelength
     peak_index = np.argmax(y)
     lambda_peak_m = x[peak_index] * 1e-9  # in meters
 
     # Calculate temperature
     T_wien = 2.897e-3 / lambda_peak_m
     print(f"Estimated temperature via Wien's law: {T_wien:.1f} K")
+
+    # Find Dips
+    height = 1
+    dist = 20
+    prom = 600
+    p = find_peaks(-y, distance=dist, prominence=prom)[0]  
+
+    print(f"Peaks {x[p]}")
+    plt.plot(x[p], y_scaled[p], ".", label="Dip")    
+
+    plt.title(filename[:-4])
+    plt.xlabel(f"Wavelength (nm)")
+    plt.ylabel("Intensity (counts)")
+    plt.legend()
+    plt.show()
