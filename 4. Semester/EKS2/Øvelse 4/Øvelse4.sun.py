@@ -35,8 +35,13 @@ for filename in os.listdir(directory):
     # Extract x and y data
     x, y = data.T
 
+    
+    kernel = np.ones(8)   # Simple moving average kernel
+    y = np.convolve(y, kernel, mode='same')
+
     # Normalize your y data
     y_scaled = y / np.max(y)
+
 
     plt.plot(x, y_scaled, "-", label="Data")
     x_lin = np.linspace(200, 1000, 1000)
@@ -48,12 +53,12 @@ for filename in os.listdir(directory):
 
     # Calculate temperature
     T_wien = 2.897e-3 / lambda_peak_m
-    print(f"Estimated temperature via Wien's law: {T_wien:.1f} K")
+    print(f"Estimated temperature via Wien's law: {T_wien:.1f} K, with peak {x[peak_index]}")
 
     # Find Dips
     height = 1
-    dist = 20
-    prom = 600
+    dist = 1
+    prom = 3000
     p = find_peaks(-y, distance=dist, prominence=prom)[0]  
 
     print(f"Peaks {x[p]}")

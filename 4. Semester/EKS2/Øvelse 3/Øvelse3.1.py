@@ -91,6 +91,12 @@ print(f"Δn/Δp = {a:.3e} ± {a_err:.3e}")
 plt.errorbar(Δp, Δn, xerr=p_uns, yerr=n_uns, fmt='.', capsize=3, label="Data")
 plt.plot(Δp, lin_func(Δp, *popt), label="Curve_fit")
 
+# Teori
+lin = np.linspace(min(Δp), max(Δp), 1000)
+n_t = (1.000293 - 1)/1.01325
+print(f"n_t = {n_t}")
+plt.plot(lin, lin_func(lin, n_t), label="Theory")
+
 #plt.title("Title")
 plt.xlabel("Δp (bar)")
 plt.ylabel("Δn")

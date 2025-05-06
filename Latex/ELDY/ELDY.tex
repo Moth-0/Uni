@@ -301,6 +301,12 @@ We also have the following identities:
     &δ(x^2-a^2) = \frac{δ(x-a)+δ(x+a)}{2\br[5]{a}}
 \end{align*}
 
+\begin{align*}
+    \nabla\cdot \br{\frac{\hat{\pmb{\r}}}{\r^2}} = 4\pi δ^3(\pmb{\r}), \eq{1.100}\\
+    \nabla\br{\frac{1}{\r}} = -\frac{\hat{\pmb{\r}}}{\r^2}, \eq{1.101} \\
+    \nabla^2\frac{1}{\r}=-4πδ^3(\pmb{\r}). \eq{1.102}
+\end{align*}
+
 \section{Fundamental theorem of calculus}
 Gradient: 
 \begin{align*}
@@ -1980,6 +1986,118 @@ If we say that this is the average, we can find the radiation reaction force is:
     \v{F}_{rad} = \frac{μ_0q^2}{6\pi c}\dot{\v{a}}, \eq{11.80}
 \end{align*}
 this is the Abraham-Lorentz formula. 
+
+\chapter{The Special Theory of Relativity}
+\section{Relativistic Mechanics}
+From Speciel relativity we have time dialation which is noted by: 
+\begin{align*}
+    Δ\bar{t} = \sqrt{1-\frac{v^2}{c^2}}Δt, \eq{12.5}
+\end{align*}
+which gives us the factor:
+\begin{align*}
+    γ = \frac{1}{\sqrt{1-\frac{v^2}{c^2}}}. \eq{12.6}
+\end{align*}
+We also have length contraction: 
+\begin{align*}
+    Δ\bar{x} = γΔx. \eq{12.9}
+\end{align*}
+
+With these two phenomenons we can see that the Lorentz transformation is:
+\begin{align*}
+    \begin{rcases}
+        \bar{x} = γ(x-vt), \\
+        \bar{y} = y, \\
+        \bar{z} = z, \\
+        \bar{t} = γ\br{t-\frac{v}{c^2}x}.
+    \end{rcases} \eq{12.18}
+\end{align*}
+And the other way around:
+\begin{align*}
+    \begin{rcases}
+        x = γ(\bar{x}+v\bar{t}), \\
+        y = \bar{y}, \\
+        z = \bar{z}, \\
+        t = γ\br{\bar{t}+\frac{v}{c^2}\bar{x}}.
+    \end{rcases} \eq{12.19} 
+\end{align*}
+
+\subsubsection{Four-Vector}
+This can be written on vector form by saying that $x^0=ct$, $β=v/c$ and 
+\begin{align*}
+    x^1 = x, \quad x^2 = y, \quad x^3 = z, \eq{12.22}
+\end{align*}
+and therefore we can write the Lorentz transformation as:
+\begin{align*}
+    \mat{\bar{x}^0 \\ \bar{x}^1 \\ \bar{x}^2 \\ \bar{x}^3} = \mat{γ & -γβ & 0 & 0 \\ -γβ & γ & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1}\mat{x^0 \\ x^1 \\ x^2 \\ x^3}. \eq{12.24}
+\end{align*}
+Or in a single line: 
+\begin{align*}
+    \bar{x}^μ = Λ^μ_νx^ν, \eq{12.25}
+\end{align*}
+
+The dot product of two four-vectors is:
+\begin{align*}
+    \v{a}\cdot\v{b} = a_μb^μ =- a^0b^0+a^1b^1+a^2b^2+a^3b^3, \eq{12.28}
+\end{align*}
+where the subscribt $μ$ means covariant vector $a_μ = (-a^0,a^1,a^2,a^3)$.
+
+Special relativity also brings a relativistic momentum and energy: 
+\begin{align*}
+    \v{p} = m\v{η} = γm\v{v}, \eq{12.47}
+\end{align*}
+where $\v{η}$ is the relitavistic velocity
+\begin{align*}
+    \v{η} = γ\v{v}. \eq{12.40}
+\end{align*}
+And the relativistic energy is:
+\begin{align*}
+    E = γmc^2. \eq{12.50}
+\end{align*}
+Toghether we get the result: 
+\begin{align*}
+    E^2 - p^2c^2 = m^2c^4. \eq{12.55}
+\end{align*}
+
+There is also a relativistic force:
+\begin{align*}
+    \bar{\v{F}}_\perp \frac{1}{γ}\v{F}_\perp, \quad \bar{F}_\parallel = F_\parallel. \eq{12.68}
+\end{align*}
+
+\section{Relativistic Electrodynamics}
+If we have a vire carrying a current, with charges moving to the right and left at a speed $v$, 
+so we have a continuous line charge $λ$, then we have the current $I=2λv$. 
+A distnace $s$ away from the wire we have a moving point charge $q$ with velocity $u$. 
+This means that in the stationary frame $(\mathcal{S})$ there is not electrical force on $q$. 
+In the moving frame $(\bar{\mathcal{S}})$, where $q$ is stationary, we have a force on $q$ because of the electric field from the wire.
+
+\bil{fig12.34}
+
+Here the velocities of the charges in the wire are: 
+\begin{align*}
+    v_\pm = \frac{v\mp u}{1 \mp vu/c^2}, \eq{12.79}
+\end{align*}
+but because the velocity of the charges moving in opposide directions are different, the wire is carrying a net negative charge. 
+\begin{align*}
+    λ_\pm=\pm (γ_\pm)λ_0, \eq{12.80}
+\end{align*}
+where
+\begin{align*}
+    γ_\pm = \frac{1}{\sqrt{1-\frac{v_\pm^2}{c^2}}}. \eq{12.81}
+\end{align*}
+Which means that the net line charge is: 
+\begin{align*}
+    λ_{tot} = λ_+ + λ_- = \frac{-2λuv}{c^2\sqrt{1-u^2/c^2}}. \eq{12.85}
+\end{align*}
+This net line charge means that there is an electric force on the charge in $\bar{\mathcal{S}}$: 
+\begin{align*}
+    \bar{F} = qE = q \frac{λ_{tot}}{2\pi\ep s} = \frac{-qλuv}{\pi\ep c^2s\sqrt{1-u^2/c^2}}. \eq{12.86}
+\end{align*}
+But if there is a force on $q$ in $\bar{\mathcal{S}}$, there must be a force on the wire in $\mathcal{S}$,
+which we can get by using equation (\ref{eq:12.68}):
+\begin{align*}
+    F = \frac{1}{γ}\bar{F} = \frac{qλuv}{\pi\ep c^2s}, \eq{12.87}
+\end{align*}
+this force is a magnetic force. 
 
 \chapter{Appendix}
 \section*{Tables}
