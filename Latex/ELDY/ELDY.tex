@@ -2058,10 +2058,11 @@ Toghether we get the result:
     E^2 - p^2c^2 = m^2c^4. \eq{12.55}
 \end{align*}
 
-There is also a relativistic force:
+There is also a relativistic force,:
 \begin{align*}
-    \bar{\v{F}}_\perp \frac{1}{γ}\v{F}_\perp, \quad \bar{F}_\parallel = F_\parallel. \eq{12.68}
+    \bar{\v{F}}_\perp = \frac{1}{γ}\v{F}_\perp, \quad \bar{F}_\parallel = F_\parallel, \eq{12.68}
 \end{align*}
+where $\perp$ means the force is perpendicular to the direction of motion, and $\parallel$ means it is parallel to the direction of motion.
 
 \section{Relativistic Electrodynamics}
 If we have a vire carrying a current, with charges moving to the right and left at a speed $v$, 
@@ -2098,6 +2099,122 @@ which we can get by using equation (\ref{eq:12.68}):
     F = \frac{1}{γ}\bar{F} = \frac{qλuv}{\pi\ep c^2s}, \eq{12.87}
 \end{align*}
 this force is a magnetic force. 
+
+When a charged object moves, the effect on the electric field comes from length contraction, since the charge density changes. 
+This changes the electric field, only perpendicular to the direction of motion. 
+\begin{align*}
+    σ &= γ_0σ_0, \eq{12.92} \\
+    \v{E}_\perp &= γ_0\v{E}_0, \eq{12.93} \\
+    \v{E}_\parallel &= \v{E}_0. \eq{12.94}
+\end{align*}
+Because of time dialation the magnetic field changes since current is charge per unit time. 
+This means we can write a general transformation of the electric and magnetic fields:
+\begin{align*}
+    \begin{rcases}
+        \bar{E_x} = E_x, \quad \bar{E_y} = γ(E_y - vB_z), \quad \bar{E_z} = γ(E_z + vB_y), \\
+        \bar{B_x} = B_x, \quad \bar{B_y} = γ\br{B_y + \frac{v}{c^2}E_z}, \quad \bar{B_z} = γ\br{B_z - \frac{v}{c^2}E_y},
+    \end{rcases} \eq{12.111}
+\end{align*}
+or 
+\begin{align*}
+    \begin{rcases}
+        \bar{\v{E}}_\parallel = \v{E}_\parallel, \quad \bar{\v{E}}_\perp = γ\br{\v{E}_\perp + \v{v}x\v{B}_\perp}, \\
+        \bar{\v{B}}_\parallel = \v{B}_\parallel, \quad \bar{\v{B}}_\perp = γ\br{\v{B}_\perp - \frac{\v{v}}{c^2}\times\v{E}_\perp}.
+    \end{rcases} \eq{12.112}
+\end{align*}
+From this we see two simple relations if $\v{B} = 0$ or $\v{E} = 0$ in $\mathcal{S}$, then we have:
+\begin{align*}
+    \bar{\v{B}} &= -\frac{1}{c^2}(\v{v}\times\v{E}), \eq{12.113} \\
+    \bar{\v{E}} &= \v{v}\times\v{B}. \eq{12.114}
+\end{align*}
+
+\subsection{Field Tensor}
+The transformations for the fields do not follow the transformations for the spartial parts. 
+We can therefore not use a normal 4-vector transformation matrix, but instead they transform with a antisymetric second-rank tensor. 
+A second-rank tensor means that it transform with two factors: 
+\begin{align*}
+    \bar{t}^{μν} = Λ^μ_λ Λ_σ^ν t^{λσ}, \eq{12.118}	
+\end{align*}
+and antisymetric means that $t^{μν} = -t^{νμ}$: 
+\begin{align*}
+    t^{μν} = \begin{bmatrix}
+        0 & t^{01} & t^{02} & t^{03} \\
+        -t^{01} & 0 & t^{12} & t^{13} \\
+        -t^{02} & -t^{12} & 0 & t^{23} \\
+        -t^{03} & -t^{13} & -t^{23} & 0
+    \end{bmatrix}. \eq{12.120}
+\end{align*}
+So using (\ref{eq:12.118}) we get: 
+\begin{align*}
+    \bar{t}^{01} = Λ^0_0 Λ^1_0 t^{00} + Λ^0_0 Λ^1_1 t^{01} + Λ^0_1 Λ^1_0 t^{10} + Λ^0_1 Λ^1_1 t^{11}, 
+\end{align*}
+which can be done for all parts of the matrix, giving us the final transformations: 
+\begin{align*}
+    \begin{rcases}
+        \bar{t}^{01} = t^{01}, \quad \bar{t}^{02} = \gamma (t^{02} - \beta t^{12}), \quad \bar{t}^{03} = \gamma (t^{03} + \beta t^{13}), \\
+        \bar{t}^{23} = t^{23}, \quad \bar{t}^{13} = \gamma (t^{13} + \beta t^{03}), \quad \bar{t}^{12} = \gamma (t^{12} - \beta t^{02}).
+    \end{rcases} \eq{12.121}
+\end{align*}
+
+With these transformation rules we get the field tensor: 
+\begin{align*}
+    F^{μν} = \begin{bmatrix}
+        0 & E_x/c & E_y/c & E_z/c \\
+        -E_x/c & 0 & B_z & B_y \\
+        -E_y/c & -B_z & 0 & B_x \\
+        -E_z/c & B_y & -B_x & 0
+    \end{bmatrix}, \eq{12.122}
+\end{align*}
+or you can write it as the dual tensor which gives the same transformations: 
+\begin{align*}
+    G^{μν} = \begin{bmatrix}
+        0 & B_x & B_y & B_z \\
+        -B_x & 0 & -E_z/c & E_y/c \\
+        -B_y & E_z/c & 0 & -E_x/c \\
+        -B_z & -E_y/c & E_x/c & 0
+    \end{bmatrix}. \eq{12.123}
+\end{align*}
+With these tensors we can rewrite everything we have learnt so far. 
+\begin{align*}
+    ρ = γρ_0, \quad \v{J} = \v{v}γρ_0, \eq{12.124}
+\end{align*}
+we make charge and current density a 4-vector: 
+\begin{align*}
+    J^μ = ρ_0η^μ = (cp, J_x, J_y, J_z), \eq{12.127}
+\end{align*}
+which is divergenless:
+\begin{align*}
+    \frac{\dd J^μ}{\dd x^μ} = 0. \eq{12.129}
+\end{align*}
+Maxwell's equations can be written as: 
+\begin{align*}
+    \frac{\dd F^{μν}}{x^ν} = μ_0J^μ, \quad \frac{\dd G^{μν}}{\dd x^ν} = 0. \eq{12.130}
+\end{align*}
+with summation over $ν$. 
+The Minkowski force on a charge $q$ is: 
+\begin{align*}
+    K^{μ} = q η_νF^{μν}. \eq{12.131}
+\end{align*}
+
+We can also express the potentials in 4-vector notation. 
+\begin{align*}
+    A^μ = (V/c, A_x, A_y, A_z), \eq{12.135} \\
+    F^{μν} = \frac{\dd A^ν}{\dd x_μ} - \frac{\dd A^μ}{\dd x_ν}. \eq{12.136}
+\end{align*}
+Remember that the subscribt means that $x_0 = -ct$. 
+Gauge transformations also work: 
+\begin{align*}
+    A^{μ'} = A^μ + \frac{\dd λ}{\dd x^μ}, \eq{12.138}
+\end{align*}
+we can therefore use the Lorentz gauge and get the ultimate electrodynamic equation: 
+\begin{align*}
+    \square^2 A^μ = -μ_0J^μ, \eq{12.140}
+\end{align*}
+where 
+\begin{align*}
+    \square^2 = \frac{\dd}{\dd x_ν}\frac{\dd}{\dd x^ν} = \nabla^2 - \frac{1}{c^2}\frac{\dd^2}{\dd t^2}. \eq{12.141}
+\end{align*}
+
 
 \chapter{Appendix}
 \section*{Tables}
