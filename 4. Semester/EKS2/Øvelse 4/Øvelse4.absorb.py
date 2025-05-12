@@ -20,6 +20,7 @@ for folder in os.listdir(directory):
     print(folder)
     path = os.path.join(directory, folder)
     a = 0.2
+    sum_list = []
     for file in os.listdir(path):
         filepath = os.path.join(path, file)
 
@@ -28,13 +29,19 @@ for folder in os.listdir(directory):
         
         # Extract x and y data
         x, y = data.T
-
+        
         # Remove points where y <= 0
         mask = y > 0
         x, y = x[mask], y[mask]
 
+        sum_list.append(sum(y))
+
         plt.plot(x, y, "-", label=file[:2], color=str(folder), alpha=a)
         a += 0.2
+
+    # Find relative concentration 
+    for i, file in zip(sum_list, os.listdir(path)): 
+        print(f"{file[:2]}: {i/sum_list[0]}")
 
     plt.title(folder)
     plt.xlabel(f"Wavelength (nm)")

@@ -53,7 +53,7 @@ for filename in os.listdir(directory):
 
     # Calculate temperature
     T_wien = 2.897e-3 / lambda_peak_m
-    print(f"Estimated temperature via Wien's law: {T_wien:.1f} K, with peak {x[peak_index]}")
+    print(f"Estimated temperature via Wien's law: {T_wien:.1f} K, with peak {x[peak_index]}±{x[peak_index]-x[peak_index+10]}")
 
     # Find Dips
     height = 1
