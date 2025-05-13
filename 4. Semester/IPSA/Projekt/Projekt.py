@@ -328,16 +328,15 @@ def visualize_A(A):
 print("Visualization of mnist_linear.weights")        
 a = visualize_A(mnist[0])
 
-def A_animation(network_list):
+def A_animation(a_list):
     '''
-    Makes animation going throug all images with their respective label and prediction
-    Returns animation object
+    Makes animation going through all images with their respective label and prediction.
+    Returns animation object.
     '''
-    a_list = [net[0] for net in network_list]
     assert len(a_list[0]) == 784 and len(a_list[0][0]) == 10, "Shape of A wrong"
     
     aT_list = [transpose(A) for A in a_list]  # Transpose A so columns are first layer
-    # Make sufig
+    # Make subfig
     fig, axes = plt.subplots(2, 5, figsize=(8, 4), sharex=True, sharey=True)
     axes = axes.flatten()
     
@@ -346,17 +345,17 @@ def A_animation(network_list):
     # Go through all vectors and axes, reshapes the vector, and plots the image
     for a, ax, n in zip(aT_list[0], axes, range(10)): 
         image = reshape(a, 28, 28)
-        c_int = max([abs(n) for n in a]) # For cmap range
+        c_int = max([abs(n) for n in a])  # For cmap range
         im = ax.imshow(image, cmap="coolwarm", vmin=-c_int, vmax=c_int)
-        ax.set_title(str(n)) # Title of every number
+        ax.set_title(str(n))  # Title of every number
         ax.axis('off')  # Remove ticks for cleaner look
         artists.append(im)
 
-    fig.suptitle("Visualization of A", fontsize=20) # Main title
+    fig.suptitle("Visualization of A", fontsize=20)  # Main title
 
     # Add colorbar 
     cbar_ax = fig.add_axes([0.92, 0.15, 0.02, 0.7])
-    fig.colorbar(im, cax=cbar_ax)
+    fig.colorbar(artists[0], cax=cbar_ax)
 
     # Show plot
     plt.subplots_adjust(wspace=0.1, hspace=0.1, top=0.85)
@@ -364,9 +363,10 @@ def A_animation(network_list):
     def update(frame):
         for a, art in zip(aT_list[frame], artists):
             image = reshape(a, 28, 28)
-        c_int = max([abs(n) for n in a]) # For cmap range
-        im = ax.imshow(image, cmap="coolwarm", vmin=-c_int, vmax=c_int)
-        return im
+            c_int = max([abs(n) for n in a])  # For cmap range
+            art.set_data(image)  # Update the image data
+            art.set_clim(vmin=-c_int, vmax=c_int)  # Update the color limits
+        return artists
 
     ani = FuncAnimation(fig, update, frames=len(aT_list), interval=1000, repeat=True)
     plt.close(fig)
@@ -375,7 +375,6 @@ def A_animation(network_list):
 
 #%% 3rd Function Cell
 import random 
-from copy import deepcopy  # Import deepcopy for making deep copies
 
 def create_batches(values, batch_size): 
     '''
@@ -419,6 +418,7 @@ def learn(images, labels, epochs, batch_size):
     A = [[random.uniform(0, 1/784) for _ in range(10)] for _ in range(784)]
     b = [random.uniform(0, 1) for _ in range(10)]
 
+    # Starting accuracy
     acc = (0, 0, 0)
 
     network = [A, b]
@@ -430,10 +430,10 @@ def learn(images, labels, epochs, batch_size):
 
         # For each batch, the list(zip()) is so the images stays with its label when it is permuted
         for batch in create_batches(list(zip(images, labels)), batch_size):
-            # Then unsips the list 
-            im, lab = zip(*batch)
-            network = update(network, im, lab)
-            A_list.append(network[0])  # Append a deep copy of the network
+            im, lab = zip(*batch)               # Then unsips the list 
+            network = update(network, im, lab)  # Then updates
+            # Append a copy of network[0] using list comprehension to be used for animation
+            A_list.append([row[:] for row in network[0]])
 
         # In each epoch, test the network and save it if it is better
         eval = evaluate(network, test_images, test_labels)
@@ -455,14 +455,11 @@ print(f"Create_batch test: \n {create_batches(list(zip([1,2,3,4], [1,2,3,4])), 2
 
 
 #%% Learning Cell - Learning full training takes 3 min per epoch at batch size 100
-n = 10 # Learn from n first images
-network, A_list = learn(train_images, train_labels, 2, 2)
-
+network, A_list = learn(train_images, train_labels, 5, 100)
 vis = visualize_A(network[0])
 
-# %%
-vis1 = visualize_A(A_list[0])
-vis2 = visualize_A(A_list[-1])
-ani = A_animation(A_list[:100])
+# %% Make a GIF of the evolution of the A matrix from the network
+print(len(A_list))
+ani = A_animation(A_list)
 ani.save("A_visualization.gif", writer='ffmpeg', fps=60)
 # %%
