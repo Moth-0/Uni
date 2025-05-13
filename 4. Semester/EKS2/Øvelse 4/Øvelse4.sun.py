@@ -64,6 +64,11 @@ for filename in os.listdir(directory):
     print(f"Peaks {x[p]}")
     plt.plot(x[p], y_scaled[p], ".", label="Dip")    
 
+    # Mark dips 
+    plt.axvline(x=656.281, color='r', linestyle='--', lw=1, alpha=0.6, label='H')
+    plt.axvline(x=587.5618, color='g', linestyle='--', lw=1, alpha=0.6, label='He')
+
+
     plt.title(filename[:-4])
     plt.xlabel(f"Wavelength (nm)")
     plt.ylabel("Intensity (counts)")

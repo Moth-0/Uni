@@ -14,7 +14,7 @@ plt.rc("legend", fontsize=12)
 
 print("\n\n\n-------------------------------")
 
-directory = "lamps/Diode"
+directory = "lamps/HeNe"
 
 # Iterate through all files in the directory
 for filename in os.listdir(directory):
@@ -26,7 +26,15 @@ for filename in os.listdir(directory):
     # Extract x and y data
     x, y = data.T
 
+
+    height = abs(max(y)-min(y)) * 0.3
+    dist = 10
+    prom = 500
+    p = find_peaks(y, height, distance=dist, prominence=prom)[0][0]  
+
+    print(x[p-5:p+5])
     plt.plot(x, y, "-", label="Data")
+    plt.plot(x[p-5:p+5], y[p-5:p+5], "-", label="Peaks")
 
     plt.title(filename)
     plt.xlabel(f"Wavelength (nm)")

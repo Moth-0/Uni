@@ -14,7 +14,7 @@ def time_it(f):
         return result
     return wrapper
 
-#%% Functions Cell
+#%% First Functions Cell
 # Read Labels Function  
 @time_it
 def read_labels(filename): 
@@ -78,7 +78,7 @@ def plot_images(images, labels):
         plt.show()
         
     
-#%% Read files Cell (30 sec)
+#%% Read files Cell (15 sec)
 test_labels = read_labels("mnist-master\\t10k-labels-idx1-ubyte.gz")
 test_images = read_images("mnist-master\\t10k-images-idx3-ubyte.gz")
 
@@ -90,7 +90,7 @@ print(f"Number of labels in Test Labels: {len(test_labels)}")
 print(f"Test Images: \n Images: {len(test_images)} \n Rows: {len(test_images[0])} \n Col: {len(test_images[0][0])}")
 
 # Number of pictures to plot. 
-n = 1
+n = 5
 # Plots the first n pictures in the test_images file. 
 plot_images(test_images[:n], test_labels[:n])
 
@@ -104,13 +104,15 @@ def linear_load(filename):
     '''
     with open(filename, "r") as f: 
         network = json.load(f)
+        assert len(network) == 2, "Could not read a 2D list"
         return network
         
 def linear_save(filename, network): 
     '''
-    Function for writing a network to a file
+    Function for writing a 2D network to a file
     Returns nothing
     '''
+    assert len(network) == 2, "Given network is not a 2D list"
     with open(filename, "w") as f: 
         json.dump(network, f)
         
@@ -159,7 +161,8 @@ def transpose(M):
     Takes a Matrix
     Returns the transposed matrix
     '''
-    return [[M[j][i] for j in range(len(M))] for i in range(len(M[0]))]
+    return [[M[j][i] for j in range(len(M))] 
+            for i in range(len(M[0]))]
 
 def mean_square_error(V, U):
     '''
@@ -175,7 +178,8 @@ def argmax(V):
     Returns int of index
     '''
     i = 0
-    while V[i] != max(V):
+    max_V = max(V)
+    while V[i] != max_V:
         i += 1
     return i
 
@@ -200,8 +204,8 @@ def predict(network, image):
     A, b = network
     x = image_to_vector(image)
     mult = multiply(x,A)
-    res = add(mult,b)
-    return res
+    result = add(mult,b)
+    return result
 
 @time_it
 def evaluate(network, images, labels): 
@@ -221,8 +225,8 @@ def evaluate(network, images, labels):
 
 def plot_images(images, labels, prediction=False): 
     '''
-    Function for plotting images, takes a 3D list of images, and a list of their correct labels
-    Plots each picture with the correct number as title. 
+    Rewrites the plot_images to include the prediction value 
+    in the title if it is given.  
     '''
     if prediction:
         for data, l, p in zip(images, labels, prediction):
@@ -324,9 +328,54 @@ def visualize_A(A):
 print("Visualization of mnist_linear.weights")        
 a = visualize_A(mnist[0])
 
+def A_animation(network_list):
+    '''
+    Makes animation going throug all images with their respective label and prediction
+    Returns animation object
+    '''
+    a_list = [net[0] for net in network_list]
+    assert len(a_list[0]) == 784 and len(a_list[0][0]) == 10, "Shape of A wrong"
+    
+    aT_list = [transpose(A) for A in a_list]  # Transpose A so columns are first layer
+    # Make sufig
+    fig, axes = plt.subplots(2, 5, figsize=(8, 4), sharex=True, sharey=True)
+    axes = axes.flatten()
+    
+    artists = []
+
+    # Go through all vectors and axes, reshapes the vector, and plots the image
+    for a, ax, n in zip(aT_list[0], axes, range(10)): 
+        image = reshape(a, 28, 28)
+        c_int = max([abs(n) for n in a]) # For cmap range
+        im = ax.imshow(image, cmap="coolwarm", vmin=-c_int, vmax=c_int)
+        ax.set_title(str(n)) # Title of every number
+        ax.axis('off')  # Remove ticks for cleaner look
+        artists.append(im)
+
+    fig.suptitle("Visualization of A", fontsize=20) # Main title
+
+    # Add colorbar 
+    cbar_ax = fig.add_axes([0.92, 0.15, 0.02, 0.7])
+    fig.colorbar(im, cax=cbar_ax)
+
+    # Show plot
+    plt.subplots_adjust(wspace=0.1, hspace=0.1, top=0.85)
+
+    def update(frame):
+        for a, art in zip(aT_list[frame], artists):
+            image = reshape(a, 28, 28)
+        c_int = max([abs(n) for n in a]) # For cmap range
+        im = ax.imshow(image, cmap="coolwarm", vmin=-c_int, vmax=c_int)
+        return im
+
+    ani = FuncAnimation(fig, update, frames=len(aT_list), interval=1000, repeat=True)
+    plt.close(fig)
+    return ani
+        
 
 #%% 3rd Function Cell
 import random 
+from copy import deepcopy  # Import deepcopy for making deep copies
 
 def create_batches(values, batch_size): 
     '''
@@ -374,6 +423,8 @@ def learn(images, labels, epochs, batch_size):
 
     network = [A, b]
 
+    A_list = []
+
     for e in range(epochs): 
         t_start = time.time()
 
@@ -382,6 +433,7 @@ def learn(images, labels, epochs, batch_size):
             # Then unsips the list 
             im, lab = zip(*batch)
             network = update(network, im, lab)
+            A_list.append(network[0])  # Append a deep copy of the network
 
         # In each epoch, test the network and save it if it is better
         eval = evaluate(network, test_images, test_labels)
@@ -395,8 +447,7 @@ def learn(images, labels, epochs, batch_size):
         t = t_end - t_start
         print(f"Epoch {e+1} done took {t:.2f} seconds, Accuracy: {acc[2]*100:.2f}%\n")
         
-
-    return network
+    return network, A_list
 
 
 #%% 3rd Test Cell
@@ -404,6 +455,14 @@ print(f"Create_batch test: \n {create_batches(list(zip([1,2,3,4], [1,2,3,4])), 2
 
 
 #%% Learning Cell - Learning full training takes 3 min per epoch at batch size 100
-n = 1000 # Learn from n first images
-network = learn(train_images, train_labels, 5, 100)
+n = 10 # Learn from n first images
+network, A_list = learn(train_images, train_labels, 2, 2)
+
 vis = visualize_A(network[0])
+
+# %%
+vis1 = visualize_A(A_list[0])
+vis2 = visualize_A(A_list[-1])
+ani = A_animation(A_list[:100])
+ani.save("A_visualization.gif", writer='ffmpeg', fps=60)
+# %%
