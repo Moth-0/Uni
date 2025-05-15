@@ -207,7 +207,7 @@ def predict(network, image):
     result = add(mult,b)
     return result
 
-@time_it
+#@time_it # 5 sec for evaluate of full test images
 def evaluate(network, images, labels): 
     '''
     Takes a network, images and their labels,
@@ -371,10 +371,51 @@ def A_animation(a_list):
     ani = FuncAnimation(fig, update, frames=len(aT_list), interval=1000, repeat=True)
     plt.close(fig)
     return ani
+
+def Eval_animation(eval_list): 
+    '''
+    Takes a list of (cost,accuracy) tuple. 
+    Crate animation of evaluation of cost and accuracy of the network testet on 100 random test images.
+    Returns animation object.
+    '''
+    # Create lists
+    cost = [c[0] for c in eval_list]
+    acc = [a[1] for a in eval_list]
+
+    # Make two figures 
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 6))
+
+    x = np.arange(len(cost))
+
+    # Cost figure 
+    line1, = ax1.plot([], [], 'b-')
+    ax1.set_xlim(0, len(cost))
+    ax1.set_ylim(min(cost), max(cost))
+    ax1.set_ylabel('Cost')
+    ax1.set_title('Cost and Accuracy over time taken on a random 100 test images')
+
+    # Accuracy figure 
+    line2, = ax2.plot([], [], 'g-')
+    ax2.set_xlim(0, len(acc))
+    ax2.set_ylim(min(acc), max(acc))
+    ax2.set_ylabel('Accuracy')
+    ax2.set_xlabel('Number of updates')
+
+    # Update figure
+    def update(frame):
+        line1.set_data(x[:frame+1], cost[:frame+1])
+        line2.set_data(x[:frame+1], acc[:frame+1])
+        return line1, line2
+
+    ani = FuncAnimation(fig, update, frames=len(cost), interval=200, blit=True)
+    plt.tight_layout()
+    plt.close(fig)
+    return ani
         
 
 #%% 3rd Function Cell
 import random 
+import numpy as np
 
 def create_batches(values, batch_size): 
     '''
@@ -424,6 +465,7 @@ def learn(images, labels, epochs, batch_size):
     network = [A, b]
 
     A_list = []
+    eval_list = []
 
     for e in range(epochs): 
         t_start = time.time()
@@ -432,12 +474,16 @@ def learn(images, labels, epochs, batch_size):
         for batch in create_batches(list(zip(images, labels)), batch_size):
             im, lab = zip(*batch)               # Then unsips the list 
             network = update(network, im, lab)  # Then updates
+            
             # Append a copy of network[0] using list comprehension to be used for animation
             A_list.append([row[:] for row in network[0]])
 
+            # Evaluate batch with 100 random test images also for use in animation
+            im, lab = zip(*create_batches(list(zip(test_images, test_labels)), 300)[0])
+            eval_list.append(evaluate(network, im, lab)[1:])
+
         # In each epoch, test the network and save it if it is better
         eval = evaluate(network, test_images, test_labels)
-
         if eval[2] > acc[2]: 
             acc = eval
             linear_save("my_network.json", network)
@@ -447,19 +493,23 @@ def learn(images, labels, epochs, batch_size):
         t = t_end - t_start
         print(f"Epoch {e+1} done took {t:.2f} seconds, Accuracy: {acc[2]*100:.2f}%\n")
         
-    return network, A_list
+    return network, (A_list, eval_list)
 
 
 #%% 3rd Test Cell
 print(f"Create_batch test: \n {create_batches(list(zip([1,2,3,4], [1,2,3,4])), 2)}")
-
+print(len(train_images))
 
 #%% Learning Cell - Learning full training takes 3 min per epoch at batch size 100
-network, A_list = learn(train_images, train_labels, 5, 100)
+network, ani_list = learn(train_images, train_labels, 5, 2000)
 vis = visualize_A(network[0])
 
-# %% Make a GIF of the evolution of the A matrix from the network
-print(len(A_list))
-ani = A_animation(A_list)
+#%% Make a GIF of the evolution of the A matrix from the network
+print(len(ani_list))
+ani = A_animation(ani_list[0])
 ani.save("A_visualization.gif", writer='ffmpeg', fps=60)
+
+#%% Make a Gif of the evolution of the cost and accuracy from the network 
+ani2 = Eval_animation(ani_list[1])
+ani2.save("Eval_visualization.gif", writer='ffmpeg', fps=60)
 # %%
