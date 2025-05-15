@@ -1,4 +1,5 @@
-#%% Imports Cell
+#%% 
+# Imports Cell
 import gzip
 import time
 import matplotlib.pyplot as plt
@@ -14,7 +15,8 @@ def time_it(f):
         return result
     return wrapper
 
-#%% First Functions Cell
+#%% 
+# First Functions Cell
 # Read Labels Function  
 @time_it
 def read_labels(filename): 
@@ -78,14 +80,16 @@ def plot_images(images, labels):
         plt.show()
         
     
-#%% Read files Cell (15 sec)
+#%% 
+# Read files Cell (15 sec)
 test_labels = read_labels("mnist-master\\t10k-labels-idx1-ubyte.gz")
 test_images = read_images("mnist-master\\t10k-images-idx3-ubyte.gz")
 
 train_labels = read_labels("mnist-master\\train-labels-idx1-ubyte.gz")
 train_images = read_images("mnist-master\\train-images-idx3-ubyte.gz")
 
-#%% 1st Test Cell
+#%% 
+# 1st Test Cell
 print(f"Number of labels in Test Labels: {len(test_labels)}")
 print(f"Test Images: \n Images: {len(test_images)} \n Rows: {len(test_images[0])} \n Col: {len(test_images[0][0])}")
 
@@ -94,7 +98,8 @@ n = 5
 # Plots the first n pictures in the test_images file. 
 plot_images(test_images[:n], test_labels[:n])
 
-#%% 2nd part Functions Cell
+#%% 
+# 2nd part Functions Cell
 import json 
 
 def linear_load(filename):
@@ -262,7 +267,8 @@ def image_animation(images, labels, predictions):
     return ani
         
 
-#%% 2nd Test Cell 
+#%% 
+# 2nd Test Cell 
 # Tests linear_load by loading the given network file, 
 # and linear_save, by saving it to a new file. 
 mnist = linear_load("mnist_linear.weights")
@@ -281,7 +287,8 @@ n = 10
 ani = image_animation(test_images[:n], test_labels[:n], eval[0][:n])
 HTML(ani.to_jshtml())
 
-#%% A visualization Cell
+#%% 
+# A visualization Cell
 def reshape(V, rows, columns): 
     '''
     Takes a vector, and two integers, and then returns the 2D matrix
@@ -385,14 +392,14 @@ def Eval_animation(eval_list):
     # Make two figures 
     fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 6))
 
-    x = np.arange(len(cost))
+    x = range(len(cost))
 
     # Cost figure 
     line1, = ax1.plot([], [], 'b-')
     ax1.set_xlim(0, len(cost))
     ax1.set_ylim(min(cost), max(cost))
     ax1.set_ylabel('Cost')
-    ax1.set_title('Cost and Accuracy over time taken on a random 100 test images')
+    ax1.set_title('Cost and Accuracy over time taken on a random 300 test images')
 
     # Accuracy figure 
     line2, = ax2.plot([], [], 'g-')
@@ -413,9 +420,9 @@ def Eval_animation(eval_list):
     return ani
         
 
-#%% 3rd Function Cell
+#%% 
+# 3rd Function Cell
 import random 
-import numpy as np
 
 def create_batches(values, batch_size): 
     '''
@@ -496,20 +503,27 @@ def learn(images, labels, epochs, batch_size):
     return network, (A_list, eval_list)
 
 
-#%% 3rd Test Cell
+#%% 
+# 3rd Test Cell
 print(f"Create_batch test: \n {create_batches(list(zip([1,2,3,4], [1,2,3,4])), 2)}")
 print(len(train_images))
 
-#%% Learning Cell - Learning full training takes 3 min per epoch at batch size 100
+#%% 
+# Learning Cell - Learning full training takes 3 min per epoch at batch size 100
 network, ani_list = learn(train_images, train_labels, 5, 2000)
 vis = visualize_A(network[0])
 
-#%% Make a GIF of the evolution of the A matrix from the network
+#%% 
+# Make a GIF of the evolution of the A matrix from the network
 print(len(ani_list))
 ani = A_animation(ani_list[0])
 ani.save("A_visualization.gif", writer='ffmpeg', fps=60)
 
-#%% Make a Gif of the evolution of the cost and accuracy from the network 
+#%% 
+# Make a Gif of the evolution of the cost and accuracy from the network 
 ani2 = Eval_animation(ani_list[1])
 ani2.save("Eval_visualization.gif", writer='ffmpeg', fps=60)
+# %%
+visualize_A(linear_load("my_network.json")[0])
+
 # %%

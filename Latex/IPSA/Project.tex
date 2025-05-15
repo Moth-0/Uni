@@ -169,7 +169,7 @@ Declaration on Generative Artificial Intelligence (see \url{https://studerende.a
 \textbf{I used generative artificial intelligence (GAI) to complete this project. }
 I used ChatGPT and Copilot to help with bugfixing and to get a better understanding of the processes of machine learning. 
 
-I have stated what i have used GAI for in the report. I have not coppied code just used it for inspiration. 
+I have stated what GAI have been used for in the report. I have not coppied code just used it for inspiration. 
 \\[3cm]
 \hline 
 \end{tabularx}
@@ -191,22 +191,22 @@ For this project I had to look at Image Classification, by creating a simple neu
 This neural network is used to classify images of handwritten difgits from the MNIST database. 
 These images are given in 28x28 grayscale images, where each pixel is a number between 0 and 255. 
 I then use linear classification using a 784x10 matrix and a bias vector of size 10, to guess the number. 
-From this guess we can calulate a cost, which is the mean square error of the guess and the actual number.
-By minimizing this cost function using linear algebra, we can update the weght matrix and bias vector. 
+A cost can be calculated from this guess, which is the mean square error of the guess and the actual number.
+By minimizing this cost function using linear algebra, the weight matrix, and bias vector, can be updated using back propegation. 
 The weights can then be visualized and the cost and accuracy can be plotted, to show how the neural network evolves. 
 
 \chapter{Code}
-Thoughout the code i have used the decorator \code{@time_it}, that we have from the lectures, to time the functions used. 
+Thoughout the code I have used the decorator \code{@time_it}, that we have from the decorators lecture, to time the functions used. 
 \section{Reading Data}
 For getting the raw data out of the MNIST files I had to first understand the format of the .gz files. 
 For this I have used ChatGPT to help me understand  how to read the bytes in the file, to get the magic numbers. 
-Then as we can see at \url{https://github.com/sunsided/mnist} the first 4 bytes of the files are the magic number, 
+As can be see at \url{https://github.com/sunsided/mnist} the first 4 bytes of the files are the magic number, 
 which is $2049$ for label files and $2051$ for images files. 
 Then the files contains 4 bytes decriping the size of the file, additionally the image files contains 8 bytes for the size the images. 
-After that we can read the raw data. 
+After that comes the raw data which is a byte per label or pixel. 
 
 To read the bytes I open the files with \code{gzip.open} then read the files with \code{.read}. 
-Then we can plot the images with their correct label, to see that we have read the data correctly, since the first 5 numbers of 
+Then I plot the images with their correct label, to see that the data have been read correctly, since the first 5 numbers of 
 \code{t10k-labels.idx1-ubyte.gz} are \code{[7, 2, 1, 0, 4]} as seen in figure \ref{fig:im1}. 
 
 \begin{figure}[H]
@@ -217,7 +217,7 @@ Then we can plot the images with their correct label, to see that we have read t
 \end{figure}
 
 I also coded a way to read and write JSON files so that the weight matrix and bias vector can be saved. 
-This is done with the json library. By doing this we can visualize the weights and biases from MNIST as seen in figure \ref{fig:MNIST}.
+This is done with the json library. By doing this the weights and biases from MNIST can be visualized, as seen in figure \ref{fig:MNIST}.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\linewidth]{Billeder/MNIST.png}
@@ -227,6 +227,54 @@ This is done with the json library. By doing this we can visualize the weights a
 
 \section{Linear Algebra}
 Since numpy is not allowed in the project, I had to write linear algebra functions to use on list vectors and matrices.
-These include vector addition, subtraction, and scalar multplication. For these I wrote assertation tests to check if the given vectors are the same length, and that the scalar is actually a number. 
+These include vector addition, subtraction, and scalar multplication. 
+For these I wrote assertation tests to check if the given vectors are the same length, and that the scalar is actually a number. 
+These test are the main test that run throughout the code, and have helped if there were problems with the format of the weights matrix. 
+I also wrote transpose and vector-matrix multiplication functions. 
+
+The linear algebra used states that the guess for a number is found by calculating: 
+\begin{align*}
+    a = xA+b, 
+\end{align*}
+where $x$ is the image (in a 1x784 vector), $A$ is the weight matrix (784x10) and $b$ is the bias vector (1x10). 
+With this the guess for the number is the index of the largest number in the vector $a$. 
+From this guess the cost can be calculated as:
+\begin{align*}
+    \text{cost}(a, y) = \sum_i\frac{(a_i-y_i)^2}{10}. 
+\end{align*}
+So I have written functions to calculate these values and find the max index. 
+
+For all the linear algebra functions i have used list comprhension as I find it easier write and understand. 
+The \code{evaluate} functionn also calculates, which calculates the predictions and cost, also calculates the accuracy,
+which is the number of correct guesses divided by the total number of guesses.
+I have then rewritten the \code{plot_images} function so it takes the optional argument \code{predictions}, which plots the images with their predicted labels.
+
+\section{Machine learning}
+To make the neural network, Stochastic Gradient Descent is used. This means that the given training images are split up into random batches, 
+for this the \code{create_batches} function is used, which uses the \code{random} library to shuffel the images. 
+Then the network can be updated using formulas: 
+\begin{align*}
+    b_j &\text{ -= } σ \frac{1}{n} \sum_j 2\frac{a_j-y_j}{10}, \\
+    A_{ij} &\text{ -= } σ \frac{1}{n} \sum_{i,j} 2x_i\frac{a_j-y_j}{10},
+\end{align*}
+where $σ$ is the step length which is set to $0.1$. Notice the -= because I did not, and i spend a lot of time not understanding why thing didn't work. 
+Here I used ChatGPT to help me understand the problem, and it told me i was updating the weights and biases instead of subtracting the values. 
+In the code i first calculate the derivitive of the cost function using the linear algebra functions. 
+I then use a nestet for loop to calculate every index of $A$. 
+
+After that is the actual training of the network in the \code{learn} function. Here I first create a uniformly random network, 
+I then run it for an amount of epochs, where in each epoch the training set is split up into random batches of a set size. 
+For every batch i run the \code{update} function, i then make a save the weights matrix and evaluation of the network, to be used in animations. 
+For each epoch the time taken is recorded, and the network is evaluated on the full test set, and saved using \code{lineal_save} if it is more accurate then the last. 
+
+\chapter{Evaluation}
+Along with these function I have written functions to plot and animate the evolution of the weights matrix, and the cost/accuracy of the network. 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{Billeder/A.png}
+    \caption{Visualization of the weights matrix at 5 epochs with batches of size 2000.}
+    \label{fig:A}
+\end{figure}
+
 
 \end{document}
