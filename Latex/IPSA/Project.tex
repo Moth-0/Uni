@@ -169,7 +169,7 @@ Declaration on Generative Artificial Intelligence (see \url{https://studerende.a
 \textbf{I used generative artificial intelligence (GAI) to complete this project. }
 I used ChatGPT and Copilot to help with bugfixing and to get a better understanding of the processes of machine learning. 
 
-I have stated what GAI have been used for in the report. I have not coppied code just used it for inspiration. 
+I have stated examples of what GAI have been used for in the report.  
 \\[3cm]
 \hline 
 \end{tabularx}
@@ -269,12 +269,33 @@ For each epoch the time taken is recorded, and the network is evaluated on the f
 
 \chapter{Evaluation}
 Along with these function I have written functions to plot and animate the evolution of the weights matrix, and the cost/accuracy of the network. 
+In figure \ref{fig:A} the traines weights matrix is shown. We can see a similar style to the MNIST weights, exept here we have more possitive weights. 
+The accuracy is calculated after each batch, and after 3rd batch the accuracy maxes out at $85.3\%$ \textcolor{red}{cost}. 
+We can also see the cost and accuracy as a function uf number of updates in figure \ref{fig:cost}. 
+
+The animations have been uploaded to brightspace and can be seen here \url{Here}. 
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\linewidth]{Billeder/A.png}
-    \caption{Visualization of the weights matrix at 5 epochs with batches of size 2000.}
+    \caption{Visualization of the weights matrix at 5 epochs with batches of size 100.}
     \label{fig:A}
 \end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{Billeder/cost_long.png}
+    \caption{Cost and accuracy as a function of number of updates.}
+    \label{fig:cost}
+\end{figure}
+
+The time taken to learn the neural network is around 3 minutes, at a batch size of 100, per epoch (on laptop). 
+To make the grahps I had to append a copy of every weight matrix to a list, and evaluate the network after every batch. 
+This added a lot of execution time to the code, created an option to not save this data, and only evaluated on 300 random images. 
+When running this on PC where it would normally take 1 minute per epoch, it instead takes 2.5 minutes and 6.5 minutes on laptop. 
+I also tried to play with the batch size, and found that a size of 2000 would runt the full function in 1 minute per epoch, but the accuracy only reaches around $83\%$ at 5 epochs. 
+
+\chapter{Conclusion}
 
 
 \end{document}

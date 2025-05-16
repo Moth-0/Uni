@@ -499,7 +499,7 @@ def learn(images, labels, epochs, batch_size, save_animation=True):
         # Save after each epoch
         t_end = time.time()
         t = t_end - t_start
-        print(f"Epoch {e+1} done took {t:.2f} seconds, Accuracy: {acc[2]*100:.2f}%\n")
+        print(f"Epoch {e+1} done took {t:.2f} seconds, Accuracy: {acc[2]*100:.2f}%, Cost: {acc[1]*100:.2f}\n")
         
     return network, (A_list, eval_list)
 
@@ -510,8 +510,8 @@ print(f"Create_batch test: \n {create_batches(list(zip([1,2,3,4], [1,2,3,4])), 2
 print(len(train_images))
 
 #%% 
-# Learning Cell - Learning full training takes 3 min per epoch at batch size 100
-network, ani_list = learn(train_images, train_labels, 5, 100, True)
+# Learning Cell 
+network, ani_list = learn(train_images, train_labels, 1, 100, True)
 vis = visualize_A(network[0])
 
 #%% 
