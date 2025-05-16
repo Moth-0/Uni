@@ -462,7 +462,7 @@ def update(network, images, labels):
     return [A, b]
 
 @time_it
-def learn(images, labels, epochs, batch_size): 
+def learn(images, labels, epochs, batch_size, save_animation=True): 
     A = [[random.uniform(0, 1/784) for _ in range(10)] for _ in range(784)]
     b = [random.uniform(0, 1) for _ in range(10)]
 
@@ -482,12 +482,13 @@ def learn(images, labels, epochs, batch_size):
             im, lab = zip(*batch)               # Then unsips the list 
             network = update(network, im, lab)  # Then updates
             
-            # Append a copy of network[0] using list comprehension to be used for animation
-            A_list.append([row[:] for row in network[0]])
+            if save_animation:
+                # Append a copy of network[0] using list comprehension to be used for animation
+                A_list.append([row[:] for row in network[0]])
 
-            # Evaluate batch with 100 random test images also for use in animation
-            im, lab = zip(*create_batches(list(zip(test_images, test_labels)), 300)[0])
-            eval_list.append(evaluate(network, im, lab)[1:])
+                # Evaluate batch with 100 random test images also for use in animation
+                im, lab = zip(*create_batches(list(zip(test_images, test_labels)), 300)[0])
+                eval_list.append(evaluate(network, im, lab)[1:])
 
         # In each epoch, test the network and save it if it is better
         eval = evaluate(network, test_images, test_labels)
@@ -510,7 +511,7 @@ print(len(train_images))
 
 #%% 
 # Learning Cell - Learning full training takes 3 min per epoch at batch size 100
-network, ani_list = learn(train_images, train_labels, 5, 2000)
+network, ani_list = learn(train_images, train_labels, 5, 100, True)
 vis = visualize_A(network[0])
 
 #%% 
@@ -523,7 +524,5 @@ ani.save("A_visualization.gif", writer='ffmpeg', fps=60)
 # Make a Gif of the evolution of the cost and accuracy from the network 
 ani2 = Eval_animation(ani_list[1])
 ani2.save("Eval_visualization.gif", writer='ffmpeg', fps=60)
-# %%
-visualize_A(linear_load("my_network.json")[0])
 
-# %%
+#%%
