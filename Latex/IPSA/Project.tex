@@ -109,14 +109,10 @@
 
 \newcommand{\code}[1]{\lstinline|#1|}
  
- 
-% Lav ny pagestyle (kun odd fordi enkeltsidet)
-\makepagestyle{Title}
-\pagestyle{Title}
-%\makeoddhead{Title}{\footnotesize\color{gray}{\theauthor}}{}{\textcolor{gray}{\thedate}}
-\makeoddfoot{Title}{}{\footnotesize\color{gray}{\thepage{} / \thelastpage}}{}
-% Også fod på siden med \maketitle
-\makeoddfoot{plain}{}{\footnotesize\color{gray}{\thepage{} / \thelastpage}}{}
+\author{Mikkel Moth Billing \\ 202307989}
+\title{Elektrodynamik Formelsamling}
+\date{\today} 
+
 \newpage
  
 %Skriv
@@ -181,6 +177,14 @@ I have stated examples of what GAI have been used for in the report.
 \\[2ex]
 Since the evaluation of the project report and code will be part of the final grade in the course, \textbf{plagiarism in your project handin will be considered cheating at the exam}. Whenever adopting code or text from elsewhere you must state this and give a reference/link to your source. It is perfectly fine to search information and adopt partial solutions from the internet -- actually, this is encouraged -- but always state your source in your handin. Also discussing your problems with your project with other students is perfectly fine, but remember each group should handin their own solution. If you are in doubt if you solution will be very similar to another group because you discussed the details, please put a remark that you have discussed your solution with other groups. For more Aarhus University information on plagiarism, please visit \url{http://library.au.dk/en/students/plagiarism/}.
 
+% Lav ny pagestyle (kun odd fordi enkeltsidet)
+\makepagestyle{Title}
+\pagestyle{Title}
+%\makeoddhead{Title}{\footnotesize\color{gray}{\theauthor}}{}{\textcolor{gray}{\thedate}}
+\makeoddfoot{Title}{}{\footnotesize\color{gray}{\thepage{} / \thelastpage}}{}
+% Også fod på siden med \maketitle
+\makeoddfoot{plain}{}{\footnotesize\color{gray}{\thepage{} / \thelastpage}}{}
+
 \newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -196,7 +200,8 @@ By minimizing this cost function using linear algebra, the weight matrix, and bi
 The weights can then be visualized and the cost and accuracy can be plotted, to show how the neural network evolves. 
 
 \chapter{Code}
-Thoughout the code I have used the decorator \code{@time_it}, that we have from the decorators lecture, to time the functions used. 
+Thoughout the code I have used the decorator \code{@time_it} (which uses the \code{time} library), that we have from the decorators lecture, to time the functions used. 
+I use Visual Studio Code interactive mode to run the code, so i can use code cells to run parts of the code at a time. 
 \section{Reading Data}
 For getting the raw data out of the MNIST files I had to first understand the format of the .gz files. 
 For this I have used ChatGPT to help me understand  how to read the bytes in the file, to get the magic numbers. 
@@ -205,22 +210,22 @@ which is $2049$ for label files and $2051$ for images files.
 Then the files contains 4 bytes decriping the size of the file, additionally the image files contains 8 bytes for the size the images. 
 After that comes the raw data which is a byte per label or pixel. 
 
-To read the bytes I open the files with \code{gzip.open} then read the files with \code{.read}. 
+To read the bytes I open the files with \code{gzip.open} (from \code{gzip} library) then read the files with \code{.read}. 
 Then I plot the images with their correct label, to see that the data have been read correctly, since the first 5 numbers of 
 \code{t10k-labels.idx1-ubyte.gz} are \code{[7, 2, 1, 0, 4]} as seen in figure \ref{fig:im1}. 
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.55\linewidth]{Billeder/im1.png}
+    \includegraphics[width=0.5\linewidth]{Billeder/im1.png}
     \caption{The first 5 images of the MNIST test set.}
     \label{fig:im1}
 \end{figure}
 
 I also coded a way to read and write JSON files so that the weight matrix and bias vector can be saved. 
-This is done with the json library. By doing this the weights and biases from MNIST can be visualized, as seen in figure \ref{fig:MNIST}.
-\begin{figure}[H]
+This is done with the \code{json} library. By doing this the weights and biases from MNIST can be visualized, as seen in figure \ref{fig:MNIST}.
+\begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.7\linewidth]{Billeder/MNIST.png}
+    \includegraphics[width=0.6\linewidth]{Billeder/MNIST.png}
     \caption{The weights of the MNIST neural network.}
     \label{fig:MNIST}
 \end{figure}
@@ -228,10 +233,7 @@ This is done with the json library. By doing this the weights and biases from MN
 \section{Linear Algebra}
 Since numpy is not allowed in the project, I had to write linear algebra functions to use on list vectors and matrices.
 These include vector addition, subtraction, and scalar multplication. 
-For these I wrote assertation tests to check if the given vectors are the same length, and that the scalar is actually a number. 
-These test are the main test that run throughout the code, and have helped if there were problems with the format of the weights matrix. 
 I also wrote transpose and vector-matrix multiplication functions. 
-
 The linear algebra used states that the guess for a number is found by calculating: 
 \begin{align*}
     a = xA+b, 
@@ -245,57 +247,76 @@ From this guess the cost can be calculated as:
 So I have written functions to calculate these values and find the max index. 
 
 For all the linear algebra functions i have used list comprhension as I find it easier write and understand. 
-The \code{evaluate} functionn also calculates, which calculates the predictions and cost, also calculates the accuracy,
-which is the number of correct guesses divided by the total number of guesses.
+The \code{evaluate} function calculates this cost along with the predictions and the accuracy of the predictions. 
+The accuracy the number of correct predictions divided by the total number of predictions.
 I have then rewritten the \code{plot_images} function so it takes the optional argument \code{predictions}, which plots the images with their predicted labels.
 
+I wrote assertation tests to check that the inputs to these function are the correct shape, which then makes sure the matrices stay the corrrect shape throuhout the code.
+I also wrote assertation test to check that the output of the linear algebra functions are correctly calculated, and also added test to all othe function, 
+to check that the inputs given are the expected type and size. 
+
+\newpage
 \section{Machine learning}
 To make the neural network, Stochastic Gradient Descent is used. This means that the given training images are split up into random batches, 
-for this the \code{create_batches} function is used, which uses the \code{random} library to shuffel the images. 
+for this the \code{create_batches} function is used, which uses the \code{random} library to shuffle the images. 
 Then the network can be updated using formulas: 
+
 \begin{align*}
     b_j &\text{ -= } σ \frac{1}{n} \sum_j 2\frac{a_j-y_j}{10}, \\
     A_{ij} &\text{ -= } σ \frac{1}{n} \sum_{i,j} 2x_i\frac{a_j-y_j}{10},
 \end{align*}
-where $σ$ is the step length which is set to $0.1$. Notice the -= because I did not, and i spend a lot of time not understanding why thing didn't work. 
+where $σ$ is the step length which is set to $0.1$. Notice the -= because I did not, and i spend a lot of time not understanding why things didn't work. 
 Here I used ChatGPT to help me understand the problem, and it told me i was updating the weights and biases instead of subtracting the values. 
 In the code i first calculate the derivitive of the cost function using the linear algebra functions. 
 I then use a nestet for loop to calculate every index of $A$. 
 
-After that is the actual training of the network in the \code{learn} function. Here I first create a uniformly random network, 
+After that is the actual training of the network in the \code{learn} function. Here I first create a uniformly random network (using the \code{random} library), 
 I then run it for an amount of epochs, where in each epoch the training set is split up into random batches of a set size. 
-For every batch i run the \code{update} function, i then make a save the weights matrix and evaluation of the network, to be used in animations. 
-For each epoch the time taken is recorded, and the network is evaluated on the full test set, and saved using \code{lineal_save} if it is more accurate then the last. 
+For every batch i run the \code{update} function, i then save the weights matrix and evaluation of the network, to be used in animations. 
+For each epoch the time taken is recorded, and the network is evaluated on the full test set, and saved using \code{linear_save} if it is more accurate then the last. 
 
 \chapter{Evaluation}
 Along with these function I have written functions to plot and animate the evolution of the weights matrix, and the cost/accuracy of the network. 
-In figure \ref{fig:A} the traines weights matrix is shown. We can see a similar style to the MNIST weights, exept here we have more possitive weights. 
-The accuracy is calculated after each batch, and after 3rd batch the accuracy maxes out at $85.3\%$ \textcolor{red}{cost}. 
+To do this i have used the \code{matplotlib.pyplot} library and \code{matplotlib.animation.FuncAnimation} function. 
+In figure \ref{fig:A} the trained weight matrix is shown. We can see a similar style to the MNIST weights, exept here we have more possitive weights. 
+The accuracy is calculated after each batch, and after 4rd batch the accuracy maxes out at $86.67\%$, with a cost of $3.89$. 
 We can also see the cost and accuracy as a function uf number of updates in figure \ref{fig:cost}. 
 
-The animations have been uploaded to brightspace and can be seen here \url{Here}. 
+The animations have been uploaded to brightspace and can be seen here. They show the time taken to run the code in around double speed. 
+\begin{itemize}
+    \item Evolution of weight matrix: \url{https://imgur.com/a/bOCeh4r}. 
+    \item Evolution of cost and accuracy: \url{https://imgur.com/a/XzYHjzl}.
+\end{itemize}
 
-\begin{figure}[H]
+
+The time taken to learn the neural network is around 3 minutes, at a batch size of 100, per epoch (on laptop). 
+To make the grahps I had to append a copy of every weight matrix to a list, and evaluate the network on 300 random images after every batch. 
+This added a lot of execution time to the code, so I added an option to not save this data. 
+When running this on PC, where it would normally take 1 minute per epoch, it instead takes 2.5 minutes and 6.5 minutes on laptop. 
+I also tried to play with the batch size, and found that a size of 2000 would run the full function in 1 minute per epoch, but the accuracy only reaches around $83\%$ at 5 epochs. 
+
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\linewidth]{Billeder/A.png}
     \caption{Visualization of the weights matrix at 5 epochs with batches of size 100.}
     \label{fig:A}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.7\linewidth]{Billeder/cost_long.png}
+    \includegraphics[width=0.5\linewidth]{Billeder/cost_long.png}
     \caption{Cost and accuracy as a function of number of updates.}
     \label{fig:cost}
 \end{figure}
 
-The time taken to learn the neural network is around 3 minutes, at a batch size of 100, per epoch (on laptop). 
-To make the grahps I had to append a copy of every weight matrix to a list, and evaluate the network after every batch. 
-This added a lot of execution time to the code, created an option to not save this data, and only evaluated on 300 random images. 
-When running this on PC where it would normally take 1 minute per epoch, it instead takes 2.5 minutes and 6.5 minutes on laptop. 
-I also tried to play with the batch size, and found that a size of 2000 would runt the full function in 1 minute per epoch, but the accuracy only reaches around $83\%$ at 5 epochs. 
-
 \chapter{Conclusion}
+In this project, I implemented a simple neural network from scratch to classify handwritten digits from the MNIST dataset, 
+without relying on external math libraries like \code{numpy}. To train the network I used stochastic gradient descent formulas for updating the weight matrix and bias vector. 
 
+The network achieved an accuracy of up to 86.67\% after several epochs, demonstrating the effectiveness of a basic model for image classification. 
+Additionally, visualizing the evolution of the weights, cost and accuracy provided valuable insights into the learning dynamics. 
+
+Overall, this project enhanced my practical skills in programming and gave a good introduction to machine learning, 
+it also highlighted the importance of careful implementation and debugging when building models from the ground up.
 
 \end{document}
