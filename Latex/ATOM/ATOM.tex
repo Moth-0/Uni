@@ -291,7 +291,7 @@ Men denne løsning er kun for stimuleret emmison of absorbtion, og vi har derfor
 \end{align*}
 For at medtage spontan emission vedtager vi en dæmpnings factor i populationen af de exiterede tilstande
 \begin{align*}
-    \dot{ρ}_{22} = Ω\frac{v}{2} \rightarrow = -Γρ_{22}+Ω\frac{v}{2},
+    \dot{ρ}_{22} = Ω\frac{v}{2} \rightarrow -Γρ_{22}+Ω\frac{v}{2},
 \end{align*}
 dette giver en exponentielt dæmpning, som medfører at vi skal skrive Bloch vectoren som: 
 \begin{align*}
@@ -315,7 +315,7 @@ hvor
         w-1
     \end{pmatrix}
 \end{align*}
-\textcolor{red}{Hvorfor eksopentiel måske mere om normal Bloch udledning.}
+\textcolor{red}{Hvorfor eksopentiel måske mere om normal Bloch udledning. Hvad er Γ}
 
 \newpage
 \section*{Spørgsmål 4}
@@ -324,6 +324,261 @@ hvor
     emission. Explain the absorption of light in a medium of many atoms using the
     absorption cross-section.
 \end{itemize}
+\textcolor{red}{Hvor har vi Bloch ligningen fra. }
 
+Ved hjælp af den fulde version af Bloch vektoren, 
+altså den med både stimulteret emission, absorbtion og spontant emission, 
+\begin{align*}
+    \frac{d}{dt}\begin{pmatrix}
+        u\\v\\w
+    \end{pmatrix} 
+    &= \begin{pmatrix}
+        u\\v\\w
+    \end{pmatrix} 
+    \times \begin{pmatrix}
+        Ω\\0\\δ
+    \end{pmatrix}
+    - Γ \begin{pmatrix}
+        u/2 \\
+        v/2 \\
+        w-1
+    \end{pmatrix}\\ 
+    \dot{\v{R}} &= \v{R} \times \v{W} - Γ\v{A}. 
+\end{align*}
+Denne Har vi fået ved hjælp af dipol- og rotating wave aproximationerne. 
+
+Ud fra denne kan vi finde stedy state løsningen, det vil sige der hvor atomet har nået en ligevægt og dermed $\dot{\v{R}} = \v{0}$. 
+Hvis vi bare kigger på $\dot{w} = 0$, ser vi at: 
+\begin{align*}
+    &\v{R} \times \v{W} - Γ\v{A} = \v{0}, \\
+    \Rightarrow w &= \frac{δ^2+Γ^2/4}{δ^2+Ω^2/2+Γ^2/4}.
+\end{align*}
+Ud fra $w$ kan vi finde populationen af de exiterede tilstande. 
+\begin{align*}
+    ρ_{22} = \frac{1-w}{2} = \frac{Ω^2/4}{δ^2+Ω^2/2+Γ^2/4}.
+\end{align*}
+\bil{4.1}
+
+Til spektroskopi bruger man en laser som man kan sende igennem et materiale. 
+I dette materiale vil nogle fotoner blive absorberet, 
+så intensiteten af laseren aftager som en eksponentiel funktion igennem materialet
+\begin{align*}
+    I(z) = I(0)\e{-nσz},
+\end{align*}
+hvor $n$ er partikeltætheden og $σ$ er absorbtionstversnittet. Dette er Beer's absorbtions lov. 
+For at finde $σ$ kan vi sammenligne effekten af det absorberede og emiterede lys, da disse må være lig hinanden. 
+Effekten for stimuleret absorbtion og emission er afhængig af antallet af atomer i grundtilstand og exiteret tilstand, $σ$ og intensiteten. 
+\begin{align*}
+    P_A = (n_1-n_2)σI. 
+\end{align*}
+Effekten af spontan emission er givet ved: 
+\begin{align*}
+    P_E = n_2Γ\h ω. 
+\end{align*}
+Ud fra dette kan vi isolere $σ$: 
+\begin{align*}
+    P_A = P_E \Rightarrow σ = \frac{n_2}{n_1-n_2}\frac{Γ\h ω}{I},
+\end{align*}
+og hvis vi bruger $w$ fra steady state løsningen kan vi sige at 
+\begin{align*}
+    w &= \frac{n_1-n_2}{n}, \\
+    \Rightarrow σ(ω) &= \frac{Ω^2/4}{δ^2+Γ^2/4}\frac{Γ\h ω}{I}.
+\end{align*}
+
+\newpage
+\chapter{Hydrogen atomet}
+\section*{Spørgsmål 5.}
+\begin{itemize}
+    \item Briefly outline the solution of the Schrödinger equation for hydrogen and explain
+    the physical interpretation of the separation constants l and $m_l$. Discuss the
+    correction to this result due to the relativistic kinetic energy of the electron.
+\end{itemize}
+\textcolor{red}{Hvor meget skal forklares? }
+For hydrogen atomet ved vi, fra Columbs lov, at potentialet for elektronen er 
+\begin{align*}
+    V(r) = -\frac{e^2}{4π\ep}\frac{1}{r}
+\end{align*}
+Nu kan man løse Shrödingers	ligning i sfæriske koordinater
+\begin{align*}
+    \br{\frac{-\h^2}{2m}\nabla^2+V(r)}Ψ = EΨ
+\end{align*}
+Ud fra dette får man at bølgeligningen kan deles op i en radiel og en angulær del. 
+Den radielle og angulære del af Schrödinger ligningen er konstant, og den konstant vælges til $l(l-1)$. 
+Den angulære del kan yderligere deles op i $θ$ og $φ$ led, som også skal være konstant, så her indføres konstanten $m_l$. 
+
+Disse konstanter har fysisk betydning for hydrogen atomet, hvor $\h l(l-1)$ siger noget om størrelsen af elektronens orbitale impulsmoment, 
+og kan være positive heltalsværdier op til $n-1$. 
+$m_l$ har en tæt knytning til $l$ da det siger noget om projektionen af impulsmomentet på en akse. 
+$m_l$ kan antage værdier fra $-l\rightarrow l$ i heltals spring. 
+
+Bølgeligningen for hydrogen kan nu udtrykkes i en radiel og angulær del som er afhængige af disse kvantetal 
+\begin{align*}
+    Ψ_{nlm}(r, θ, φ) = R_{nl}(r)Y_l^m(θ, φ), 
+\end{align*}
+og vi får at energien kan regnes som: 
+\begin{align*}
+    E_n = \frac{R}{n^2},
+\end{align*}
+hvor $R$ er Rydbergenergien. 
+
+Men denne løsning tager ikke højde for at elektronen bevæger sig med relativistisk energi, 
+og vi laver derfor energien om til at tage højde for dette ved hjælp af en aproximantion af den relativistiske kinetiske energi: 
+\begin{align*}
+    E = c\sqrt(p^2+m_0^2c^2)-m_oc^2 + V,
+\end{align*}
+som vi kan lave en Taylor-udvikling på: 
+\begin{align*}
+    E \approx \br{\frac{p^2}{2m} + V} - \frac{p^4}{8m_0^3c^2},
+\end{align*}
+hvor den første del er det vi allerede har løst, hvilket vil sige at den anden del er en perturbation. 
+Denne perturbation kan vi løse og vi får 
+\begin{align*}
+    E_{n,l} = -R\frac{z^2}{n^2}\br{1-\frac{z^2α^2}{n}\br{\frac{3}{4n}-\frac{1}{l+1/2}}},
+\end{align*}
+hvor $z=1$ er kerneladningen of $α$ er finstruktur kvantetallet:
+\begin{align*}
+    α = \frac{e^2}{4π\ep\h c}
+\end{align*}
+
+\newpage
+\section*{Spørgsmål 6.}
+\begin{itemize}
+    \item Outline how the spin-orbit coupling arises. Discuss the resulting fine structure
+    splitting of the excited $2^2P$ states of hydrogen.
+\end{itemize}
+Fra Stein-Gerlach experimentet ved vi at elektroner har spin, og med dette spin har de derfor også et angulært moment, 
+der er anderledes end det angulære moment der kommer fra at elektronen roterer om kernen. 
+Vi vil gerne koble disse angulære momenter, for at gøre dette kigger vi på Bhor atomet fra elektronens hvilesystem. 
+\bil{6.1}
+Det orbitære angulær moment skaber et internt magnetfelt $\v{B}_l = \frac{μ_0z_e}{4πr^3m_e}\v{l}$ 
+(det er det klassiske tilfælde og vi skal tilføje den relativistiske $1/2$ Thomas factor), 
+som sammen med det angulære moment fra spin $μ_s = g_sμ_b/\h\v{s}$ giver et energiskift
+\begin{align*}
+    H_{sl}'=-\v{μ}_s\cdot \v{B}_l. 
+\end{align*}
+
+Men vi ved ikke hvordan vi skal håndtere prikproduktet $\v{s}\cdot \v{l}$, 
+så vi indfører et nyt angulær momentum 
+\begin{align*}
+    \v{j} = \v{s} + \v{l}. 
+\end{align*}
+Siden det er et angulært moment overholder det regneregler for angulær moment operatorer, 
+og det kan antage værdier $\br[5]{l-s}\leq j \leq l+s$ i heltals skridt. 
+Med dette har vi nu indført et nyt kvantetal, og vi laver vores base om fra $l, m_l, s, m_s$ til $l, s, j, m_j$. 
+Vi ser at 
+\begin{align*}
+    j^2 &= l^2 + s^2 + 2\v{s}\cdot\v{l}, \\
+    \Rightarrow \v{s}\cdot\v{l} &= \frac{1}{2}\br{j^2-s^2-l^2},
+\end{align*}
+og dermed kan vi lave perturbationsregning på energiskiftet. 
+\begin{align*}
+    H' &= \frac{μ_0ze^2\h^2}{16πm_e^2r^3}\v{s}\cdot\v{l}, \\
+    \Rightarrow ΔE &= E_n \frac{\br[3]{a}}{2}\br{j(j+1)-l(l+1)-s(s+1)}, 
+\end{align*}
+hvor 
+\begin{align*}
+    \br[3]{a} &= -E_n\frac{z^2α^2}{nl(l+1)(l+1/2)}, \\
+    α &= \frac{μ_0ce^2}{4π\h}. 
+\end{align*}
+Dette er fin struktur korrektionen. 
+
+For $2^2P$ ved vi at $n=2$, $j=1$, $2\cdot s+1=2 \Rightarrow s=1/2$ og dermed $1-1/2 \leq j \leq 1+1/2$. 
+Siden vi har 2 niveauer for $j$ er der en fin struktur korrektion. 
+\begin{align*}
+    ΔE_- &= E_2 \frac{\br[3]{a}}{2}\br{\frac{1}{2}(\frac{1}{2}+1)-1(1+1)-\frac{1}{2}(\frac{1}{2}+1)}, \\
+    &= E_2 \frac{\br[3]{a}}{2}\cdot(-2), \\
+    ΔE_+ &= E_2 \frac{\br[3]{a}}{2}\cdot(1).
+\end{align*}
+\textcolor{red}{Måske er beregning ikke vigtig}
+
+\newpage
+\section*{Spørgsmål 7.}
+\begin{itemize}
+    \item Discuss the origin of the hyperfine structure. What are the assumptions made for
+    the nucleus? Discuss the resulting splitting of the energy states.
+\end{itemize}
+For fin struktur og relativistisk korrektioner, har vi antaget at kernen er en punktladning med masse. 
+Men vi antager nu at kernen har et angulært impulsmoment $\v{I}$, hvilket leder til et dipolmoment
+\begin{align*}
+    \v{μ}_I = g_N\frac{μ_k}{\h}\v{I}, 
+\end{align*}
+hvor $μ_k = \frac{e}{2m_p}\h$ er kernemagnatonen. Vi ved at et dipolmoment i et magnetfelt giver anledning til en energi. 
+Og fra elektronens spin-orbit coupling har vi et internt magnetfelt.
+Dette energiskift regner vi med perturbationsregning. 
+\begin{align*}
+    H_{HFS}' = -\v{μ}_I\cdot \v{B}_J.
+\end{align*} 
+Vi antager at $\v{B}_J = -B_J\hat{\v{J}}$ ($-$ fra elektronens ladning), og siden vi nu har et prikprodukt vi ikke kan sige noget om, 
+indfører vi et nyt angulært moment ligesom vi gjorde med spin orbit coupling. 
+\begin{align*}
+    \v{F} = \v{I}+\v{J}, 
+\end{align*}
+som opholder vores regler for angulært moment og kan antage værdier i heltalspring $\br[5]{I-J}\leq F \leq I+J$. 
+Nu kan vi bruge: 
+\begin{align*}
+    \v{F}^2 &= \v{J}^2+\v{I}^2+2\v{I}\cdot\v{J}, \\
+    \Rightarrow \v{I}\cdot\v{J} &= \frac{1}{2}(F^2-I^2-J^2).
+\end{align*}
+Så energiskiftet findes som: 
+\begin{align*}
+    ΔE_{HFS} = &\br[3]{H_{HFS}'} = \frac{g_Nμ_kB_J}{\h}\br[3]{\frac{\v{I}\cdot\v{J}}{\hat{\v{J}}}}, \\
+    &= \frac{g_Nμ_kB_J}{\h\sqrt{J(J+1)}}\frac{1}{2}\br[2]{F(F+1)-J(J+1)-I(I+1)}, 
+\end{align*}
+frontfactoren kaldes $A$, hyperfin konstanten. 
+\textcolor{red}{forlæsning 9}
+
+\newpage
+\chapter{Større Atomer}
+\section*{Spørgsmål 8.}
+\begin{itemize}
+    \item Discuss the variational principle and use it to show approximate solutions of the
+    ground state of He.
+\end{itemize}
+For Helium atomet kan vi ikke løse Schrödinger liningen, 
+\begin{align*}
+    H = -\frac{\h^2}{2m}\br{\nabla_1^2+\nabla_2^2}- \frac{e^2}{4π\ep}\br{\frac{z}{r_1}+\frac{z}{r_2}-\frac{1}{r_{12}}}
+\end{align*}
+så vi må lave approximationer for at regne energi-niveauerne ud. 
+\bil{8.1}
+En approximation kan være at se på Helium atomet som 2 Hydrogen atomer, 
+og dermed får man at løsningen er $-2z^2E_H$, men det giver en for lav energi. 
+Man ser at der er en shielding effekt, da $z=(2-0.65)e$ ville give den rigtige værdi. 
+
+En anden aproximantion er at se på $1/r_{12}$ som en perturbation, som gør at vi kommer tættere på det rigtige resultat, 
+men det ender med et stort energi skift, som ikke normalt er tilfældet for perturbationsregning. 
+
+Så en tredje metode er at bruger variationsprincippet. 
+Variationsprincippet bygger på at man gætter en bølgefunction, hvor der indgår en variabel, og denne bølgefunction kan aldrig give en lavere grundtilstandsenergi and den rigtige. 
+Hvis man så minimere energien af denne bølgefunction ud fra denne variabel kommer gættet tættere på den rigtige bølgefunction. 
+
+Så hvis $Ψ$ er vores gæt så gælder det at
+\begin{align*}
+    E_g\leq\hv[Ψ]{HΨ}, 
+\end{align*}
+og vores gær kan skrives som en lineærkombination af reelle løsninger til Schrödinger ligningen
+\begin{align*}
+    Ψ = \sum c_nΨ_n, \text{ hvor } HΨ_n = E_nΨ_n. 
+\end{align*}
+Hvis bølgefunktionerne er normerede kan vi bevise at variationsprincippet gælder: 
+\begin{align*}
+    \hv[Ψ]{Ψ} &= 1, \\
+    &= \hv[\sum c_nΨ_n]{\sum c_mΨ_m}, \\
+    &= \sum_{n,m}c_nc_mδ_{n,m} = \sum \br[5]{c_n}^2,
+\end{align*}
+hvilket leder til at energien bliver 
+\begin{align*}
+    \hv[Ψ]{HΨ} = \sum_{n,m}c_n^*E_mc_m \hv[Ψ_n]{Ψ_m} = \sum E_n\br[5]{c_n}^2, 
+\end{align*}
+og siden $E_n$ alle sammen er større end grundenergien, er variationsprincippet bevist. 
+
+Så dette kan vi nu gøre for Helium vi gætter på at bølgefunktionen er 
+\begin{align*}
+    Ψ_g(r_1,r_2) = \frac{Χ^3}{πa^2}\e{-Χ(r_1+r_2)/a}, 
+\end{align*}
+dette er produktet af to Hydrogen atomer hvor $Χ=z$, så energien bliver
+\begin{align*}
+    \br[3]{E}(Χ) = \hv[Ψ_g]{HΨ_g}, 
+\end{align*}
+og så kan vi minimere denne energi, og så får man $Χ=1.69$ og $E=-77.5$eV som er tæt på den experimentelt fundne $-78,98$eV. 
 
 \end{document}
