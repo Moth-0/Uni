@@ -573,12 +573,59 @@ og siden $E_n$ alle sammen er større end grundenergien, er variationsprincippet
 
 Så dette kan vi nu gøre for Helium vi gætter på at bølgefunktionen er 
 \begin{align*}
-    Ψ_g(r_1,r_2) = \frac{Χ^3}{πa^2}\e{-Χ(r_1+r_2)/a}, 
+    Ψ_g(r_1,r_2) = \frac{χ^3}{πa^2}\e{-χ(r_1+r_2)/a}, 
 \end{align*}
-dette er produktet af to Hydrogen atomer hvor $Χ=z$, så energien bliver
+dette er produktet af to Hydrogen atomer hvor $χ=z$, så energien bliver
 \begin{align*}
-    \br[3]{E}(Χ) = \hv[Ψ_g]{HΨ_g}, 
+    \br[3]{E(χ)} = \hv[Ψ_g]{HΨ_g}, 
 \end{align*}
-og så kan vi minimere denne energi, og så får man $Χ=1.69$ og $E=-77.5$eV som er tæt på den experimentelt fundne $-78,98$eV. 
+og så kan vi minimere denne energi, og så får man $χ=1.69$ og $E=-77.5$eV som er tæt på den experimentelt fundne $-78,98$eV. 
+
+\newpage
+\section*{Spørgsmål 9.}
+\begin{itemize}
+    \item Discuss the symmetry properties of the He wave functions and show which
+    states are possible due to the Pauli principle. Briefly describe the resulting
+    spectrum of He.
+\end{itemize}
+I Helium atomet kan der kun være en af elektronerne i en eksiteret tildstand, da hvis de begge var, ville en kunne hendfalde og sende den anden ud, og dermed skabe en helium ion. 
+Pauli's principle siger at et hvert atom med mere end en elektron altid skal have en antisymetrisk bølgefunktion. 
+Vi kan beskrive bølgefuntionen som en rumlig og en spin del 
+\begin{align*}
+    Ψ(\v{r}_1, \v{r}_2) = ψ^a(\v{r}_1, \v{r}_2)χ^s, \text{ eller } = ψ^s(\v{r}_1, \v{r}_2)χ^a. 
+\end{align*}
+Siden elektroner er spin-halv partikler, kan vi betegne dem med spin op eller spin ned, 
+hvilket vil sige at vi kan skrive spin-bølgefunktionen kan skrives på 4 forskellige måder 
+\begin{align*}
+    χ = \begin{cases}
+        \hv{\uparrow\uparrow}\\
+        \hv{\downarrow\downarrow}\\
+        \frac{1}{\sqrt(2)}(\hv{\uparrow\downarrow} + \hv{\downarrow\uparrow})\\
+        \frac{1}{\sqrt(2)}(\hv{\uparrow\downarrow} - \hv{\downarrow\uparrow})
+    \end{cases}
+\end{align*}
+hvor de 3 første er symetriske og den sidste er antisymetrisk. 
+Af denne grund kaldes bølgefunktioner med symmetriske spin funktioner for triplets, og antisymetrisk bølgefunktion for singlet. 
+
+\newpage
+\section*{Spørgetime 1}
+\begin{itemize}
+    \item Til spøgrsmål 3, kommer $Γ$ at tilføje plancks strålingslov, og det er også det einstein gør med spontan emission. 
+    Så det er derfor det er den samme, de er fundet på samme måde, det er ikke fordi $Γ$ er fundet fra Einstein koefficienten. 
+    \item Til spørgsmål 4, kapitel 7.6.1
+    \item Til spørgsmål 5, bare i dele, at den kan deles op i angulær og radiel, og hvordan $m$ og $l$ påvirker den angulære del, og at begrænsninger for m kommer fra l.
+    Fra kvant ved vi at $l$ giver en energi som ligner angulær momentum, og det er derfor vi betegner det sådan. 
+    \item Til spørgsmål 7, assumptions er at kernen er en punktladning med spin, og at bagnetfeltet skabt af elektronen er parralelt med $J$. 
+    \item Til spørgsmål 8, til variationsprincippet behøver det måske ikke bevises så meget. 
+    \item Til spørgsmål 9, måske forklar hvad symetrisk og antisymetrisk er. Elektroner skal opfylde paritet, og skal derfor være anten symmetrisk eller anti. 
+    \item Til spørgsmål 10, da spørgsmålet ikke er så dybt, burde man også snakke om Hund's regler da de giver os term symboler, som vi skal snakke om. 
+    Et godt eksempel at bruger er at lave kasserne fra Hund's regler, den til TØ er god $(np)^2$. 
+    \item Til spørgsmål 11, ikke udled i forhold til bevis, men $H=-μB$, det er nok ikke vigtigt at kigge på hyperfin, men det er godt at komme ind på forskellen mellem normal og anormal, 
+    og hvis man ikke selv kommer ind på det, så spørger han nok til det. 
+    \item Det er ok at bruge $\propto$ i mange tilfælde. 
+    \item Pauli har udledt hans princip på at paritets operatoren kommutere med Hamilton operatoren, så en bølgefunktion skal opfylde paritet. 
+\end{itemize}
+
+
 
 \end{document}
