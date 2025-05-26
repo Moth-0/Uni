@@ -594,6 +594,36 @@ Vi kan beskrive bølgefuntionen som en rumlig og en spin del
 \begin{align*}
     Ψ(\v{r}_1, \v{r}_2) = ψ^a(\v{r}_1, \v{r}_2)χ^s, \text{ eller } = ψ^s(\v{r}_1, \v{r}_2)χ^a. 
 \end{align*}
+
+For den rumlige del kan vi yderligere dele bølgefunktionen op så den har en del for hver elektron. 
+\begin{align*}
+    ψ &= u_{1s}(1)u_{nl}(2), \\
+    &=u_{1s}(2)u_{nl}(1),
+\end{align*}
+men de to bølgefunktioner har samme energi og vi skal derfor lave degeneret perturbationsteori, for at regne effekten af frastødningen mellem de to elektroner.
+På matrix notation får man 
+\begin{align*}
+    \begin{bmatrix}
+        J & K \\ K & J
+    \end{bmatrix}
+    \begin{pmatrix}
+        a \\ b
+    \end{pmatrix}
+    = ΔE\begin{pmatrix}
+        a \\ b 
+    \end{pmatrix},
+\end{align*}
+hvor $J$ er de direkte integraler og $K$ er exchange. 
+Når man finder egenværdierne får man $ΔE = J \pm K$, 
+hvor $+$ er for den symmetriske bølgefunktion og $-$ er for antisymetrisk. 
+Dette giver et energiskift: 
+\bil{9.2}
+
+Pauli's principle siger at et hvert atom med mere end en elektron altid skal have en antisymetrisk bølgefunktion. 
+Vi kan beskrive bølgefuntionen som en rumlig og en spin del 
+\begin{align*}
+    Ψ(\v{r}_1, \v{r}_2) = ψ^a(\v{r}_1, \v{r}_2)χ^s, \text{ eller } = ψ^s(\v{r}_1, \v{r}_2)χ^a. 
+\end{align*}
 Siden elektroner er spin-halv partikler, kan vi betegne dem med spin op eller spin ned, 
 hvilket vil sige at vi kan skrive spin-bølgefunktionen kan skrives på 4 forskellige måder 
 \begin{align*}
@@ -606,6 +636,126 @@ hvilket vil sige at vi kan skrive spin-bølgefunktionen kan skrives på 4 forske
 \end{align*}
 hvor de 3 første er symetriske og den sidste er antisymetrisk. 
 Af denne grund kaldes bølgefunktioner med symmetriske spin funktioner for triplets, og antisymetrisk bølgefunktion for singlet. 
+
+For singlet har vi $S=0$ og får triplets har vi $S=1$, 
+hvilket vil sige at der bliver endnu en opsplitning for triplet tilstande da 
+$-S \leq m_s \leq S$ så $m_s = -1,0,1$. 
+\bil{9.1}
+\bil{9.3}
+
+\newpage
+\section*{Spørgsmål 10.}
+\begin{itemize}
+    \item Explain the “Aufbau Principle” and discuss the general structure of the periodic
+    table of elements. Provide an example of the term symbol (assuming L-S
+    coupling).
+\end{itemize}
+Aufbau princippet siger noget om hvordan man skal fylde “skallerne” i et 
+\newline grundtilstands atom op. 
+Atomet vil gå efter at have den mindste toale energi mulig, og som regel betyder det at have lavest $n+l$, 
+og hvis to tilstande har samme $n+l$ så lavest $n$ først. 
+Vi kan se rækkefølgen skallerne bliver fyldt op på ved
+\bil{10.1}
+Ud fra dette kan vi opbygge det periodiske system. De to første kolloner er der hvor vi har $ns$ i den yderste skal. 
+De næste 3-12 er det $nd$ i den yderste skal, 13-18 har typisk $np$ i den yderste skal. 
+
+Nu har vi en general opbygning af atomerne, men vi har ikke sagt noget om spinnet af elektronerne. 
+Her kommer Hund's regler ind for at sige hvordan vi skal opbygge atomet og dermed komme frem til termsymbolet. 
+\bil{10.2}
+For at fylde atomer op, skal vi først følge aufbau princippet for at finde ud af hvilken skal vi er i. 
+Derefter følger vi Hund's regler, når vi fylder op skal vi maksimere det totale spin $S$. 
+Derefter skal vi maksimere det totale orbit impulsmoment $L$. Den tredje regel siger hvordan man skriver $J$, da det afhænger af opbygningen. 
+Hvis atomet er mere end halv fyldt er $J=L+S$ ellers $J=\br[5]{S-L}$. 
+\bil{10.3}
+
+\newpage
+\chapter{The Atom in a External Magnetic Field}
+\section*{Spørgsmål 11.}
+\begin{itemize}
+    \item Describe how the Stern-Gerlach experiment led to the discovery of the spin of
+    the electron. Relate the Stern-Gerlach experiment to the Zeeman effect and
+    derive its main result for this case.
+\end{itemize}
+Stein-Gerlach experimentet gik ud på at sende sølv-atomer i grundtilstand igennem et inhomogent magnetfelt. 
+Sølv har termsymbolet $5^2S_{1/2}$, men Stein og Gerlach troede at det toale orbitale-impulsmoment var $1$, 
+hvilket ville gøre at der var 3 mulige opsplitninger når det kom igennem magnetfeltet, $m_L=-1,0,1$. 
+Men da de gennemføre experimentet var der kun to, hvilket viste at $L=0$, men der var noget andet der blev påvirket. 
+Vi kan regne på opsplitningen ved hjælp af den Anormale Zeeman effekt, da vi har et atom i et eksternt magnetfelt. 
+Magnetfeltet er stærkere tæt på nordpolen end ved sydpolen, og vi har derfor at: 
+\begin{align*}
+    \v{B} = B(z)\hat{\v{z}}.
+\end{align*} 
+Zeeman effekten siger at der er et energiskift der kommer af det eksterne magnetfelt, på atomets impulsmoment.
+Denne perturbation regnes som: 
+\begin{align*}
+    H' = - \v{μ}_s\cdot \v{B},
+\end{align*}
+hvor $\v{μ}_s = -g_s μ_B/\h\v{s}$ kommer fra at vi antager at spin er et angulært moment og derfor opfylder de kvantemekaniske regneregler, 
+\begin{align*}
+    S^2 Ψ = s(s+1)\h^2Ψ, \\ 
+    S_z Ψ = m_s\h Ψ, \\
+    -s\leq m_s \leq s. 
+\end{align*}
+Hvilket nu giver et energiskift på $ΔE = g_s μ_b m_s B_z(z)$, men fra Stein-Gerlach experimentet ved vi at der kun er to skift, 
+hvilket vil sige at $m_s = \pm 1/2$ og dermed $s=1/2$. 
+
+\textcolor{red}{Måske noget om normal zeeman}
+
+\newpage
+\section*{Spørgsmål 12.}
+\begin{itemize}
+    \item Discuss the Zeeman effect in the presence of hyperfine structure. Outline the
+    structure of the energy levels in the weak and strong field cases.
+\end{itemize}
+Zeeman effekten siger at der er et energiskift når et atom er i et eksternt magnetfelt. 
+Da vi ser på orbital angulært moment, spin angulært moment, og med hyperfin struktur, også et kerne-spin angulær moment, 
+giver dette eksterne magnetfelt andledning til en perturbation 
+\begin{align*}
+    H' = - \v{μ}\cdot \v{B}, 
+\end{align*}
+hvor $μ$ er det samlede magnetiske dipolmoment 
+\begin{align*}
+    \v{μ} &= \v{μ}_L + \v{μ}_S + \v{μ}_I, \\
+    &= -g_J μ_B\h \v{J} + g_N μ_N/\h \v{I}, \\
+\end{align*}
+\begin{align*}
+    g_J = \frac{3}{2} + \frac{S(S+1)-L(L-1)}{2J(J+1)}.
+\end{align*}
+Men vi kan have tilfæde hvor $μ_BB_{ex} \gg A$, så Zeeman effekten er større end hyperfinstruktur effekten. 
+
+For hyperfin struktur indførte vi et nyt angulært moment $\v{F} = \v{J} + \v{I}$, 
+hvis vi så laver en projektion af $μ$ på $F$ får vi 
+\begin{align*}
+    \v{μ}_F = \frac{1}{\h\br[5]{\v{F}}^2}\br{g_Nμ_N\v{I}\cdot\v{F}-g_Sμ_B\v{J}\cdot\v{F}}\v{F},
+\end{align*}
+som medførere et energiskift på 
+\begin{align*}
+    ΔE = m_fg_Fμ_BB_{ex}, 
+\end{align*}
+hvor 
+\begin{align*}
+    g_F = -g_N\frac{μ_N}{μ_B}\frac{F(F+1)+I(I+1)-J(J+1)}{2F(F+1)}+g_J\frac{F(F+1)+J(J+1)-I(I+1)}{2F(F+1)},
+\end{align*}
+hvilket er opsplitningen for små magnetfelter, og vi kan se at det ligner resultatet for de andre zeemaneffekt beregninger.
+
+Når vi kigger på stærke magnetfelter, retter de angulære momenter sig individuelt efter magnetfeltet, og kobler sig derfor ikke sammen til at danne $F$. 
+Vi regner derfor energiskiftet fra magnetfeltets påvirkning på elektronen, som bare er zeemaneffekten vi kender
+\begin{align*}
+    ΔE_a = m_Jg_Jμ_BB_{ex}, 
+\end{align*}
+men for kernen kan vi ikke bare sige at det er zeeman effekten vi regnede, i stedet kigger vi på perturbationen fra de interne magnetfelt: 
+\begin{align*}
+    H' = -\v{μ}_I\cdot\v{B}_J = - g_Nμ_N/\h \v{I}\cdot B_J\frac{\v{J}}{\hat{\v{J}}}. 
+\end{align*}
+hvilket giver et energiskift på 
+\begin{align*}
+    ΔE_b = - \frac{g_Nμ_NB_J}{\sqrt{J(J+1)}}m_Im_J. 
+\end{align*}
+Så når vi lægger dem sammen at opsplitningen er afhængig af $m_I$ og $m_J$. 
+Når vi tegner Zemmaneffekten for hyperfinstruktu, ser vi: 
+\bil{12.1}
+
+
 
 \newpage
 \section*{Spørgetime 1}
@@ -625,6 +775,13 @@ Af denne grund kaldes bølgefunktioner med symmetriske spin funktioner for tripl
     \item Det er ok at bruge $\propto$ i mange tilfælde. 
     \item Pauli har udledt hans princip på at paritets operatoren kommutere med Hamilton operatoren, så en bølgefunktion skal opfylde paritet. 
 \end{itemize}
+
+\newpage
+\section*{Spørgetime 2}
+\begin{itemize}
+    \item Til spørgsmål 12, hvorfor er det kun det interne magnetfelt der påvirker kernen?
+\end{itemize}
+
 
 
 
