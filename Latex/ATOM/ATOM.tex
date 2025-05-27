@@ -763,6 +763,55 @@ Når vi tegner Zemmaneffekten for hyperfinstruktu, ser vi:
     between atoms. Which type of molecular potentials can be expected? Discuss
     approximations to these potentials.
 \end{itemize}
+For at skabe molekyle kan der forkomme flere forskellige slags bindinger. 
+Den mest almindelige slags er covalente bindinger, der er når atomer deler en eller flere valenselektroner. 
+Et eksempel på denne er $H_2^+$ ionen, hvor to protoner deler en elektron. 
+\bil{13.1}
+For denne opstilling kan vi regne coloumb potentialet 
+\begin{align*}
+    E_{pot} = -\frac{e^2}{4\pi\ep}\br{\frac{1}{r_A}+\frac{1}{r_b}-\frac{1}{R}}
+\end{align*}
+Hvis vi siger at $R$ er en konstant afstand, kan vi løse Schrödinger ligningen ved separation af variabler. 
+Når man løser dette får man nogle energier, som så er funktion af denne faste afstand $R$, hvor vi kan se "brønde" med lavere energi, 
+og det er i disse afstande molekylebindingerne bliver skabet. 
+\bil{13.2}
+
+Men for dette har vi ikke fundet bølgeligningen, så for at approximere den, bruger vi variationsprincippet, 
+som siger at vi må gætte en grundtilstands bølgeligning, og jo lavere energi den har, jo bedre et gæt er det, 
+da energien aldrig kan blive lavere end den faktiske grundtilstands energi. 
+Så da $H_2^+$ ligner to brint atomer, gætter vi at bølgefuntionen er en \textbf{L}inear \textbf{C}ombination of \textbf{A}tomic \textbf{O}rbits
+\begin{align*}
+    Ψ_s(\v{r}, R) = A(R)\br{ψ_0(\v{r}_A) + ψ_0(\v{r}_B)}.
+\end{align*}
+Vi ved at denne bølgefunktion skal være normeret, så derfor finder vi 
+\begin{align*}
+    \int Ψ_s(\v{r}, R) = 1,
+\end{align*}
+hvilket medføre at vi får 
+\begin{align*}
+    A(R) &= \frac{1}{\sqrt{2+2I(R)}}, \\
+    I(R) &= \e{-\frac{R}{a}}\br{1+\frac{R}{a}+\frac{1}{3}\br{\frac{R}{a}}^2}.
+\end{align*}
+Hvilket vil sige at vi nu kan finde energien 
+\begin{align*}
+    E &= E_1-2\br[5]{A}^2\frac{e^2}{4\pi\ep}\br{\hv[ψ_0(\v{r}_A)]{\frac{1}{r_B}|ψ_0(\v{r}_B)} + \hv[ψ_0(\v{r}_A)]{\frac{1}{r_A}|ψ_0(\v{r}_B)}}, \\
+    &= E_1 \br{1+2\frac{D+X}{1+I}}.
+\end{align*}
+Dette er løsningen når vi lavede en symetrisk bølgefunktion, man kan også gøre det for en antisymetrisk, men her kan man se at der ikke kan ske bindinger. 
+\bil{13.3}
+
+En anden metode at to atomer kan bindes på er ved Van der Waals bindinger. 
+Her kan et neutralt atom, blive påvirket af for eksemepl et elektrisk felt, hvilket giver atomet et dipolmoment, 
+dette dipolemoment kan så påvirke et andet atom, som også får et dipolmoment, og så skaber de en svag binding til hinanden. 
+Dette inducerede dipolmoment kan regnes ud fra elektrodynamik, og fra dette kan energien regnes 
+\begin{align*}
+    E = - \v{p}_{ind}\v{E} \propto - \frac{1}{R^6}.
+\end{align*}
+Hvis man sætter dette sammen med en factor for kernernes frastødning får man Lenard-Jones potentialet
+\begin{align*}
+    E = \frac{c_12}{R^{12}}-\frac{c_6}{R^6}. 
+\end{align*}
+
 
 
 
