@@ -293,7 +293,8 @@ For at medtage spontan emission vedtager vi en dæmpnings factor i populationen 
 \begin{align*}
     \dot{ρ}_{22} = Ω\frac{v}{2} \rightarrow -Γρ_{22}+Ω\frac{v}{2},
 \end{align*}
-dette giver en exponentielt dæmpning, som medfører at vi skal skrive Bloch vectoren som: 
+hvor $Γ$ er den spontane henfaldsrate, som er den samme som Einstein koefficienten $A$. 
+Dette giver en exponentielt dæmpning, som medfører at vi skal skrive Bloch vectoren som: 
 \begin{align*}
     \tilde{ρ}_{jj} = ρ_{jj}, \quad \tilde{ρ}_{12} = ρ_{12}\e{-iδt}, \quad \tilde{ρ}_{21} = ρ_{21}\e{iδt}, 
 \end{align*}
@@ -347,7 +348,7 @@ altså den med både stimulteret emission, absorbtion og spontant emission,
 Denne Har vi fået ved hjælp af dipol- og rotating wave aproximationerne. 
 
 Ud fra denne kan vi finde stedy state løsningen, det vil sige der hvor atomet har nået en ligevægt og dermed $\dot{\v{R}} = \v{0}$. 
-Hvis vi bare kigger på $\dot{w} = 0$, ser vi at: 
+Så har vi 3 ligninger med 3 ubekendte og vi får derfor $w$: 
 \begin{align*}
     &\v{R} \times \v{W} - Γ\v{A} = \v{0}, \\
     \Rightarrow w &= \frac{δ^2+Γ^2/4}{δ^2+Ω^2/2+Γ^2/4}.
@@ -400,9 +401,10 @@ Nu kan man løse Shrödingers	ligning i sfæriske koordinater
 \begin{align*}
     \br{\frac{-\h^2}{2m}\nabla^2+V(r)}Ψ = EΨ
 \end{align*}
-Ud fra dette får man at bølgeligningen kan deles op i en radiel og en angulær del. 
-Den radielle og angulære del af Schrödinger ligningen er konstant, og den konstant vælges til $l(l-1)$. 
-Den angulære del kan yderligere deles op i $θ$ og $φ$ led, som også skal være konstant, så her indføres konstanten $m_l$. 
+Ud fra dette får man at bølgeligningen kan deles op i en radiel og en angulær del $Ψ=R(r)Y(θ,φ)$. 
+Hvis vi indsætter dette og isolere de radielle dele på en side og angulære på den anden, 
+og her indgår en konstant som er egenværdien til $\nabla^2Y$, og det viser sig at være $l(l+1)$. 
+Dan angulære del kan yderlige deles op i en $θ$ og $φ$ del, som skal være konstant, og denne konstant er $m_l$. 
 
 Disse konstanter har fysisk betydning for hydrogen atomet, hvor $\h l(l-1)$ siger noget om størrelsen af elektronens orbitale impulsmoment, 
 og kan være positive heltalsværdier op til $n-1$. 
@@ -521,8 +523,9 @@ Så energiskiftet findes som:
     ΔE_{HFS} = &\br[3]{H_{HFS}'} = \frac{g_Nμ_kB_J}{\h}\br[3]{\frac{\v{I}\cdot\v{J}}{\hat{\v{J}}}}, \\
     &= \frac{g_Nμ_kB_J}{\h\sqrt{J(J+1)}}\frac{1}{2}\br[2]{F(F+1)-J(J+1)-I(I+1)}, 
 \end{align*}
-frontfactoren kaldes $A$, hyperfin konstanten. 
-\textcolor{red}{forlæsning 9}
+frontfactoren kaldes $A$, hyperfin konstanten. Det giver anledning til et skift, men vi har ikke inkulderet det i termsymbolet. 
+For $1^2s_{1/2}$ har vi opsplitningen:
+\bil{7.1}
 
 \newpage
 \chapter{Større Atomer}
@@ -637,7 +640,7 @@ Af denne grund kaldes bølgefunktioner med symmetriske spin funktioner for tripl
 For singlet har vi $S=0$ og får triplets har vi $S=1$, 
 hvilket vil sige at der bliver endnu en opsplitning for triplet tilstande da 
 $-S \leq m_s \leq S$ så $m_s = -1,0,1$. 
-\bil{9.1}
+\bil{9.4}
 \bil{9.3}
 
 \newpage
@@ -674,9 +677,11 @@ Hvis atomet er mere end halv fyldt er $J=L+S$ ellers $J=\br[5]{S-L}$.
     derive its main result for this case.
 \end{itemize}
 Stein-Gerlach experimentet gik ud på at sende sølv-atomer i grundtilstand igennem et inhomogent magnetfelt. 
-Sølv har termsymbolet $5^2S_{1/2}$, men Stein og Gerlach troede at det toale orbitale-impulsmoment var $1$, 
+Stein og Gerlach troede at det toale orbitale-impulsmoment var $1$, 
 hvilket ville gøre at der var 3 mulige opsplitninger når det kom igennem magnetfeltet, $m_L=-1,0,1$. 
 Men da de gennemføre experimentet var der kun to, hvilket viste at $L=0$, men der var noget andet der blev påvirket. 
+\bil{11.2}
+
 Vi kan regne på opsplitningen ved hjælp af den Anormale Zeeman effekt, da vi har et atom i et eksternt magnetfelt. 
 Magnetfeltet er stærkere tæt på nordpolen end ved sydpolen, og vi har derfor at: 
 \begin{align*}
@@ -696,7 +701,12 @@ hvor $\v{μ}_s = -g_s μ_B/\h\v{s}$ kommer fra at vi antager at spin er et angul
 Hvilket nu giver et energiskift på $ΔE = g_s μ_b m_s B_z(z)$, men fra Stein-Gerlach experimentet ved vi at der kun er to skift, 
 hvilket vil sige at $m_s = \pm 1/2$ og dermed $s=1/2$. 
 
-\textcolor{red}{Måske noget om normal zeeman}
+Grunden til at vi ser denne opsplitning kommer fra 
+\begin{align*}
+    \v{F} &= -\nabla E ,\\
+    \Rightarrow F_z &= -g_sμ_Bm_s\frac{dB}{dz},  
+\end{align*}
+hvilket vil sige at $m_s=1/2$ er nederst på skærmen og $m_s=-1/2$ øverst. 
 
 \newpage
 \section*{Spørgsmål 12.}
@@ -837,15 +847,17 @@ Hvis man sætter dette sammen med en factor for kernernes frastødning får man 
     \item Til spørgsmål 1, skal man også snakke om l? 
     \item Til spørgsmål 2, 3 min for meget, kan man springe densitetsmatrix forklaring over?
     \item Til spørgsmål 3, mere om hvad $Γ$ er. 
-    \item Til spørgsmål 4, hvad er $\dot{w}$, for lang, måske mindre om Block Vektor 
-    \item Til spørsgmål 5, skal man huske den sidste energi? Mere om $m_l$.
+    \item Til spørgsmål 4, for lang, måske mindre om Block Vektor 
+    \item Til spørsgmål 5, skal man huske den sidste energi? Hvad er $m_l$ rent fysisk (noget med magnet, det kan vi se fra zeemaneffekten)?
     \item Til spørsgmål 6, er $\br[3]{a}$ vigtig i detalje?
-    \item Til spørsgmål 7, for kort, eksempel på energiskift? 
+    \item Til spørsgmål 7, måske for kort  
     \item Til spørsgmål 9, kan nok ikke nå at tegne spin vektorer, og forklare $m_S$ skift. 
-    \item Til spørgsmål 10, når man tegner aufbau skal man så tegne op til 6 eller er til 4 fint, lidt lang, kan godt gå hurtiger på eksempel. 
+    \item Til spørgsmål 10, lidt lang, kan godt gå hurtiger på eksempel. 
     \item Til spørgsmål 11, for kort, mere om zeeman eller mere om hvorfor partiklene bliver delt op i eksperimentet? 
-    \item Til spørgsmål 12, hvorfor er det kun det interne magnetfelt der påvirker kernen? for lang måske ikke skrive $g_F$ ud. 
-    \item Til spørgsmål 13. for lang skal man ikke snakke om van der waals så meget, måske bare nævne de tre sidste bindinger? 
+    \item Til spørgsmål 12, hvorfor er det kun det interne magnetfelt der påvirker kernen? (det har en stærkere påvirkning end det eksterne), for lang måske ikke skrive $g_F$ ud. 
+    \item Til spørgsmål 13, for lang, droppe udledning af bølgefuntion, bare forklar LCAO, kom ind på 3. binding
+    Born oppenheimer approx 
+    \item Spørgsmål fra Jan, $ ^{133}C_3$ antag $I=7/2$ hvad er hyperfin opsplitning
 \end{itemize}
 
 
