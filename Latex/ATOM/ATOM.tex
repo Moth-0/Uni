@@ -160,7 +160,7 @@ vi deler påvirkningen fra det elektriske felt op så
 \begin{align*}
     \v{r} = \frac{1}{r}\sinθ\cosφ\hat{\v{x}} + \sinθ\sinφ\hat{\v{y}} + \cosθ\hat{\v{z}}, 
 \end{align*} 
-og starter med at kigge på z-aksen. 
+og starter med at kigge på z-aksen, hvor lyset er lineært polariseret. 
 Her kan vi sige at $\v{r}\cdot\hat{\v{ε}} = \cosθ$ og dermed får vi integralet 
 \begin{align*}
     \mathcal{I}_{ang}^π &= \int_{0}^{2\pi} \int_{0}^{\pi} Y_{l_2,m_2}^* (\theta, \phi) \cos\theta Y_{l_1,m_1} (\theta, \phi) \sin\theta d\theta d\phi \\
@@ -173,6 +173,7 @@ Vi kan gøre det samme for xy-delen, hvilket giver mere komplicerede integraler,
     m_{l_1}-m_{l_2}\pm 1 = 0 \Rightarrow Δm = \pm 1.
 \end{align*}
 Dette svarer til at photonen er cirkulært polariseret, hvor $\pm$ er bestemt af retningen af polariseringen. 
+Så det er kun her hvor lyset påvirker det angulære moment i atomet. 
 
 \newpage
 \section*{Spørgsmål 2.}
@@ -225,7 +226,7 @@ Med dette kan vi indføre nye variabler
     \tilde{ρ}_{jj} = ρ_{jj}, \quad \tilde{ρ}_{12} = ρ_{12}\e{-iδt}, \quad \tilde{ρ}_{21} = ρ_{21}\e{iδt}, 
 \end{align*}
 hvor $δ = ω- ω_0$ og $ω$ er drivningsfrekvensen af det elektriske felt. 
-Ud fra disse opstiller vi yderligere 3 variabler som vi bruger til Block vectoren. 
+Ud fra disse opstiller vi yderligere 3 variabler som vi bruger til Bloch vectoren. 
 \begin{align*}
     u = \tilde{ρ}_{12}+\tilde{ρ}_{21}, \quad v = i(\tilde{ρ}_{12}-\tilde{ρ}_{21}), \quad w = \tilde{ρ}_{11}-\tilde{ρ}_{22}, 
 \end{align*}
@@ -278,7 +279,7 @@ rotating wave approximation. Ud fra det har vi opstillet Bloch vektoren som
 \end{align*}
 hvor $u$ og $v$ er bestemt ud fra de koherense dele af densitetsmatricen of $w$ er bestemt ud fra populationen. 
 $Ω$ er Rabi-frekvensen og $δ$ er detuning, som begge afhænger af det elektriske felt. 
-Men denne løsning er kun for stimuleret emmison of absorbtion, og vi har derfor ikke medtaget spontant emission. 
+Men denne løsning er kun for stimuleret emission of absorbtion, og vi har derfor ikke medtaget spontant emission. 
 \begin{align*}
     \hv{Ψ}\hv[Ψ]{} = \begin{bmatrix}
         \br[5]{c_1}^2 & c_1c_2^* \\
@@ -482,7 +483,7 @@ hvor
 \end{align*}
 Dette er fin struktur korrektionen. 
 
-For $2^2P$ ved vi at $n=2$, $j=1$, $2\cdot s+1=2 \Rightarrow s=1/2$ og dermed $1-1/2 \leq j \leq 1+1/2$. 
+For $2^2P$ ved vi at $n=2$, $l=1$, $2\cdot s+1=2 \Rightarrow s=1/2$ og dermed $1-1/2 \leq j \leq 1+1/2$. 
 Siden vi har 2 niveauer for $j$ er der en fin struktur korrektion. 
 \begin{align*}
     ΔE_- &= E_2 \frac{\br[3]{a}}{2}\br{\frac{1}{2}(\frac{1}{2}+1)-1(1+1)-\frac{1}{2}(\frac{1}{2}+1)}, \\
@@ -619,11 +620,6 @@ hvor $+$ er for den symmetriske bølgefunktion og $-$ er for antisymetrisk.
 Dette giver et energiskift: 
 \bil{9.2}
 
-Pauli's principle siger at et hvert atom med mere end en elektron altid skal have en antisymetrisk bølgefunktion. 
-Vi kan beskrive bølgefuntionen som en rumlig og en spin del 
-\begin{align*}
-    Ψ(\v{r}_1, \v{r}_2) = ψ^a(\v{r}_1, \v{r}_2)χ^s, \text{ eller } = ψ^s(\v{r}_1, \v{r}_2)χ^a. 
-\end{align*}
 Siden elektroner er spin-halv partikler, kan vi betegne dem med spin op eller spin ned, 
 hvilket vil sige at vi kan skrive spin-bølgefunktionen kan skrives på 4 forskellige måder 
 \begin{align*}
@@ -799,7 +795,177 @@ Hvis man sætter dette sammen med en factor for kernernes frastødning får man 
 Denne binding minder lidt om ionbindingen, da denne binding indeholder en ion, der har et dipolmoment, som igen inducere et dipolmoment i et neutralt atom.
 Der findes også hydrogenbindinger, hvor to atomer begge kan blive tiltrukket af en proton 
 
+\newpage
+\chapter{Dispositioner}
+\newpage
+\section*{Spørgsmål 1.}
+\begin{itemize}
+    \item Atom i Elektrisk felt \[\v{E}(\v{r}, t) = \hat{\v{ε}} E_0 \cos(ωt-\v{k}\cdot\v{r}), \] atom mindre end felt.
+    \item Perturbation $H'=-\v{p}\cdot\v{E}$.
+    \item To-nivaeu $\rightarrow$ Transition Dipole Moment. 
+    \item Angulær del z-akse $\rightarrow Δm = 0$, 
+    \item xy-akse $\rightarrow Δm = \pm 1$.  
+    \item Lysets polarisering og påvirkning på angulært moment. 
+\end{itemize}
+\bil{1.1}
 
+\newpage
+\section*{Spørgsmål 2.}
+\begin{itemize}
+    \item Tidsafhængig bølgeligning og perturbation. 
+    \item Schrödinger $\rightarrow$ Fouriers trick $\rightarrow$ Differentialligninger. \[i\h\dot{c_1} = c_1 \hv[ψ_1]{H'ψ_1} + c_2\e{-i(E_1-E_2)t/\h}\hv[ψ_1]{H'ψ_2}, \]
+    \item Dipol approximation, rotating wave approximation $\rightarrow$ koeffecient afhænger af $Ω$. 
+    \item Densitetsmatrix $\rightarrow \tilde{ρ} \rightarrow u,v,w$. 
+    \item Bloch vector $\v{R}$ konst. længde $w$ = population, rotere om $\v{W}$. 
+\end{itemize}
+\bil{2.1}
+
+\newpage
+\section*{Spørgsmål 3. }
+\begin{itemize}
+    \item Bloch vektor, $u,v,w$ fra densitetsmatrix. 
+    \item Spontan emission $\rightarrow$ dæmpnings factor i $ρ_{22}$ \[\dot{ρ}_{22} = -Γρ_{22}+Ω\frac{v}{2}. \]
+    \item Ny Bloch vector
+\end{itemize}
+\bil{2.1}
+
+\newpage
+\section*{Spørgsmål 4.}
+\begin{itemize}
+    \item Bloch med spontan emission, 
+    \item Steady-state løsning $\dot{\v{R}} \rightarrow w \rightarrow$ \[ρ_{22} = \frac{1-w}{2} = \frac{Ω^2/4}{δ^2+Ω^2/2+Γ^2/4}. \] 
+\end{itemize}
+\bil{4.1}
+\begin{itemize}
+    \item Spectroscopy, intensitet $I(z) = I(0)\e{-nσz}$, 
+    \item Absorbtionstværsnittet 
+    \item Effekt konst. $\rightarrow$ $σ(ω)$
+\end{itemize}
+
+\newpage
+\section*{Spørgsmål 5.}
+\begin{itemize}
+    \item Coloumb potentiale, Schrödinger ligning, 
+    \item Bølgefuntion, radiel og angulær del, 
+    \item Isoler $r$ og $(θ,φ) \rightarrow$ konst. $l(l+1)$, 
+    \item Angulær deles op $\rightarrow m_l$. 
+    \item $\h l(l+1)$ størrelse af orbitalt angulært moment, $m_l$ projektion på z-akse. 
+    \item Bølgeligning $ Ψ_{nlm}(r, θ, φ) = R_{nl}(r)Y_l^m(θ, φ)$ med energier $ E_n = \frac{R}{n^2}$.
+    \item Relativistisk korrektion af Kinetisk energi $\rightarrow$ perturbation $\rightarrow E_{n,l}$. 
+\end{itemize}
+
+\newpage
+\section*{Spørgsmål 6.}
+\begin{itemize}
+    \item Stein-Gerlach $\rightarrow$ Spin $\rightarrow$ angulært moment. 
+    \item Orbital angulær moment skaber magnetfelt, sammen med spin skaber perturbation \[H_{sl}'=-\v{μ}_s\cdot \v{B}_l.\]
+    \item Da $\v{s}\cdot \v{l}$ indfør nyt angulært moment $\v{j} = \v{s} + \v{l}$, regneregler. 
+    \item $ΔE = E_n \frac{\br[3]{a}}{2}\br{j(j+1)-l(l+1)-s(s+1)}$, finstruktur. 
+    \item For $2^2P$, $n=2$, $l=1$, $s=1/2$. 
+    \item $ΔE_- = E_2 \frac{\br[3]{a}}{2}\cdot(-2)$, $ΔE_+ = E_2 \frac{\br[3]{a}}{2}\cdot(1)$.
+\end{itemize}
+\bil{6.1}
+
+\newpage
+\section*{Spørgsmål 7.}
+\begin{itemize}
+    \item Punktladning, angulært moment $\v{I} \rightarrow$ dipolmoment. 
+    \item Dipolmoment i internt magnetfelt $\rightarrow$ energiskift. 
+    \item Da $\v{I}\cdot\v{J}$ indfør nyt angulært moment $\v{F} = \v{I}+\v{J}$, regneregler. 
+    \item Energiskift \begin{align*} ΔE_{HFS} &= \frac{g_Nμ_kB_J}{\h}\br[3]{\frac{\v{I}\cdot\v{J}}{\hat{\v{J}}}}, \\ 
+        &= A\frac{1}{2}\br[2]{F(F+1)-J(J+1)-I(I+1)}. \end{align*}
+    \item Hyperfinstrukur konstant, A. 
+    \item $1^2s_{1/2}$: 
+\end{itemize}
+\bil{7.1}
+
+\newpage
+\section*{Spørgsmål 8.}
+\begin{itemize}
+    \item Helium atomet, aproximantion 2 H-atomer, $z=(2-0.65)e$. 
+    \item aproximation perturbationsregneing, for stor. 
+    \item Variationsprincippet, gæt energi ikke lavere end $E_g$. \[\hv[Ψ]{H|Ψ} = \sum_{n,m}c_n^*E_mc_m \hv[Ψ_n]{Ψ_m} = \sum E_n\br[5]{c_n}^2, \]
+    \item For helium gæt $Ψ_g(r_1,r_2) = \frac{χ^3}{πa^2}\e{-χ(r_1+r_2)/a}$, minimer $\br[3]{E(χ)} = \hv[Ψ_g]{HΨ_g}$, 
+    \item $χ=1.69$ og $E=-77.5$eV tættere på experimentelt fundne $-78,98$eV. 
+\end{itemize}½½½½½½½½½½
+\bil{8.1}
+
+\newpage
+\section*{Spørgsmål 9.}
+\begin{itemize}
+    \item Helium kun 1 exiteret elektron, 
+    \item Pauli's princip: antisymetrisk bølgefuntion. 
+    \item Del rumlig bølgefunktion op, degeneret perturbationsregning 
+    \begin{align*}
+        \begin{bmatrix}
+            J & K \\ K & J
+        \end{bmatrix}
+        \begin{pmatrix}
+            a \\ b
+        \end{pmatrix}
+        = ΔE\begin{pmatrix}
+            a \\ b 
+        \end{pmatrix},
+    \end{align*}
+    \item Energiskift $ΔE = J \pm K$ 
+\end{itemize}
+\bil{9.2}
+\begin{itemize}
+    \item 4 Spin-bølgefuntioner, triplet, singlet. 
+    \item Opsplitning af triplet tilstande.
+\end{itemize}
+\bil{9.4}
+
+\newpage
+\section*{Spørgsmål 10.}
+\begin{itemize}
+    \item Aufbau, grundtilstand, $n+1$
+    \item Periodisk system $ns \rightarrow nd \rightarrow np$ 
+    \item Spin $\rightarrow$ Hund's regler, termsymbol
+\end{itemize}
+\bil{10.2}
+\begin{itemize}
+    \item Maksimer spin 
+    \item Maksimer totalt impulsoment 
+    \item $J = L+S$ ellers $J=\br[5]{S-L}$. 
+\end{itemize}
+\bil{10.3}
+
+\newpage
+\section*{Spørgsmål 11. }
+\begin{itemize}
+    \item Stein-Gerlach, troede 3 mulige 
+    \item Anormal Zeeman effekt $\v{B} = B(z)\hat{\v{z}}$. 
+    \item perturbation, antager spin angulært moment, regneregler,
+    \item energiskift $ΔE = g_s μ_b m_s B_z(z)$ viser $s=1/2$. 
+    \item $F_z = -g_sμ_Bm_s\frac{dB}{dz}$
+\end{itemize}
+\bil{11.2}
+
+\newpage
+\section*{Spørgsmål 12. }
+\begin{itemize}
+    \item Zeeman effekt, angulære momenter i magnetfelt, \[\v{μ} = \v{μ}_L + \v{μ}_S + \v{μ}_I, \]
+    \item Tilfæde hvor $μ_BB_{ex} \gg A$. 
+    \item For hyperfin $\v{F} = \v{J} + \v{I} \Rightarrow \v{μ}_F \rightarrow ΔE = m_fg_Fμ_BB_{ex}$, så små magnetfelter. 
+    \item Store, angulære momenter uafhængige, først energiskift zeemaneffekt på elektron \[ΔE_a = m_Jg_Jμ_BB_{ex}.\]
+    \item Så for kerne men $\v{I}, \v{J}$ uafhængige $\rightarrow ΔE_b = - Am_Im_J$. 
+\end{itemize}
+\bil{12.1}
+
+\newpage
+\section*{Spørgsmål 13. }
+\begin{itemize}
+    \item Covalente bindinger, $H_2^+$, Born-Oppenheimer approx. 
+    \item Schrödinger ligning, coloumb potentiale, variationsprincippet
+\end{itemize}
+\bil{13.2}
+\begin{itemize}
+    \item Van der Waals bindinger, neutralt atom, dipolmoment, svag, 
+    \item  $E \propto - \frac{1}{R^6}$, Lenard-Jones $ E = \frac{c_{12}}{R^{12}}-\frac{c_6}{R^6}$.
+    \item Ionbinding, dipolmoment. 
+    \item Hydrogenbinding $H^+$. 
+\end{itemize}
 
 
 \newpage
@@ -827,7 +993,7 @@ Der findes også hydrogenbindinger, hvor to atomer begge kan blive tiltrukket af
     \item Til spørgsmål 1, skal man også snakke om l? 
     \item Til spørgsmål 2, 3 min for meget, kan man springe densitetsmatrix forklaring over?
     \item Til spørgsmål 3, mere om hvad $Γ$ er. 
-    \item Til spørgsmål 4, for lang, måske mindre om Block Vektor 
+    \item Til spørgsmål 4, for lang, måske mindre om Bloch Vektor 
     \item Til spørsgmål 5, skal man huske den sidste energi? Hvad er $m_l$ rent fysisk (noget med magnet, det kan vi se fra zeemaneffekten)?
     \item Til spørsgmål 6, er $\br[3]{a}$ vigtig i detalje?
     \item Til spørsgmål 7, måske for kort  
