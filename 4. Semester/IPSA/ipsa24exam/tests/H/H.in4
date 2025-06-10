@@ -1,0 +1,20 @@
+C1 = Company('Solutions, Inc.')
+C2 = Company('Global water supply')
+C3 = Company('The Herring Company')
+
+employees = [
+    Employee('Delicia Raymund', C1),
+    Employee('Alene Sky', C2),
+    Employee('Eleanor Vianne', C3),
+    Employee('Freda Marylyn', C2),
+    Employee('Mariel Windsor', C1),
+    Employee('Kalysta Keaton', C3),
+    Employee('Buffy Olivia', C1),
+    Employee('Hardy Barclay', C1),
+    Employee('Kelsie Hyacinth', C3),
+    Employee('Joby Cherryl ', C2)
+]
+
+print(*employees, sep='\n')
+
+#eof

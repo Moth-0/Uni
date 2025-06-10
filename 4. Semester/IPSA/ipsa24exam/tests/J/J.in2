@@ -1,0 +1,2 @@
+print(''.join(alternator('ABC', 'DE', 'FGHIJKL')))
+#eof

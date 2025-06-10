@@ -1,0 +1,5 @@
+from itertools import islice, count, cycle
+
+print(list(islice(alternator(count(0, 1), count(0, 3), count(0, 5)), 1_000_000, 1_000_025)))
+
+#eof

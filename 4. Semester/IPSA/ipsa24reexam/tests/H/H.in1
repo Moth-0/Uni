@@ -1,0 +1,9 @@
+x = TextBlock('A')
+y = TextBlock('B')
+
+z = x | y | y | x    # z stores 'ABBA'
+w = z + z + z        # w stores 'ABBA\nABBA\nABBA'
+
+print(w)
+
+#eof

@@ -1,0 +1,5 @@
+h = window_average(7)(window_average(5)(lambda x: abs(x ** 3)))
+
+for i in range(-10, 10):
+    print(i, h(i))
+#eof

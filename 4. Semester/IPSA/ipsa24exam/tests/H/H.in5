@@ -1,0 +1,12 @@
+unknown = Company('The unknown')
+missing = Company('The missing')
+
+john = Employee('John Doe', unknown)
+jane = Employee('Jane Doe', unknown)
+ric = Employee('Richard Roe', unknown)
+
+john_doe = Employee('John Doe', missing)
+
+for x in (john, jane, ric, john_doe):
+    print(x)
+#eof

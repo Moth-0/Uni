@@ -1,0 +1,8 @@
+@localmin(1)
+def f(n):
+    return 7 + n % 5
+
+for x in range(15):
+    print(x, f(x))
+
+#eof
