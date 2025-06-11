@@ -1,0 +1,16 @@
+@add_power
+class MyFraction:
+    def __init__(self, numerator, denominator):
+        self.numerator = numerator
+        self.denominator = denominator
+
+    def __str__(self):
+        return f'MyFraction({self.numerator}, {self.denominator})'
+
+    def __mul__(self, other):
+    	return MyFraction(self.numerator * other.numerator,
+	                  self.denominator * other.denominator)
+
+print(MyFraction(2, 3) ** 3)
+
+#eof

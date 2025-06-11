@@ -31,7 +31,10 @@
 
 
 # insert code
-pass
+from itertools import zip_longest
+def alternator(*seq): 
+    return (y for x in zip_longest(*seq) for y in x if y != None)
+
 
 
 import sys

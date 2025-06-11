@@ -1,0 +1,6 @@
+board = Queens()
+board.set('A3')
+board.set('F4')
+board.set('C7')
+board.print()
+#eof

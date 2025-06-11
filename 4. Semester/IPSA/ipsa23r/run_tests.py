@@ -12,9 +12,7 @@
 
          or 
 
-          > python run_tests.py A B C
-
-         to test the programs A.py, B.py, and C.py.
+          > python run_tests.py A B C 
 
      (3) From your IDE (e.g. in IDLE shift-F5 allows you to provide arguments)
 

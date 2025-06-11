@@ -1,0 +1,4 @@
+x = String("abc")
+y = String("def")
+x * y * x = String("abcdefabc")
+x ** 10 = String("abcabcabcabcabcabcabcabcabcabc")

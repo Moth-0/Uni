@@ -1,0 +1,16 @@
+board = Queens()
+board.set('G8')
+board.set('C5')
+board.set('B6')
+board.set('E6')
+board.set('H8')
+board.set('E3')
+board.set('F5')
+board.set('D8')
+board.print()
+board.clear('H8')
+board.clear('B6')
+board.clear('E3')
+board.print()
+#eof
+

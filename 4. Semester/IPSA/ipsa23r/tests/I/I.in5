@@ -1,0 +1,6 @@
+from itertools import islice
+labels = [f'L{i}' for i in range(1, 101)]
+trees = binary_trees(labels)
+for tree in islice(trees, 1000, 1003):
+    print(tree)
+#eof

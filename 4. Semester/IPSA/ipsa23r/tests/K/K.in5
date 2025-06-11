@@ -1,0 +1,27 @@
+@add_power
+class Polynomial:
+    def __init__(self, *coefficients):
+        self.coefficients = coefficients
+
+    def __str__(self):
+        return f'Polynomial({", ".join(map(str, self.coefficients))})'
+
+    def __mul__(self, other):
+        coefficients = [0] * (len(self.coefficients) + len(other.coefficients) - 1)
+        for i, x in enumerate(self.coefficients):
+            for j, y in enumerate(other.coefficients):
+                coefficients[i + j] += x * y
+        return Polynomial(*coefficients)
+
+poly1 = Polynomial(1, 2, 3)
+poly2 = Polynomial(4, 5)
+
+print(f'poly1 = {poly1}')
+print(f'poly2 = {poly2}')
+print(f'poly1 * poly2 = {poly1 * poly2}')
+for power in range(1, 6):
+    print(f'poly1 ** {power} = {poly1 ** power}')
+power = 25
+print(f'poly2 ** {power} = {poly2 ** power}')
+
+#eof

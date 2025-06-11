@@ -29,4 +29,16 @@
 
 
 # insert code
-pass
+values = list(map(int, input().split()))
+n = len(values)
+
+lis = [1] * n  # lis[i] = longest increasing subsequence starting at i
+lds = [1] * n  # lds[i] = longest decreasing subsequence starting at i
+for i in reversed(range(n)):
+    for j in range(i + 1, n):
+        if values[i] < values[j]:
+            lis[i] = max(lis[i], 1 + lis[j])
+        elif values[i] > values[j]:
+            lds[i] = max(lds[i], 1 + lds[j])
+
+print(max([inc + dec - 1 for inc, dec in zip(lis, lds)], default=0))

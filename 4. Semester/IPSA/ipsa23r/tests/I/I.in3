@@ -1,0 +1,5 @@
+from itertools import islice
+trees = binary_trees(list('ABCDEFGHIJKL'))
+for tree in islice(trees, 0, None, 10000):
+    print(tree)
+#eof

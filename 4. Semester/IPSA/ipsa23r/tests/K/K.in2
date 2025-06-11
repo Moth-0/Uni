@@ -1,0 +1,20 @@
+@add_power
+class String:
+    def __init__(self, text):
+        self.text = text
+
+    def __str__(self):
+        return f'String("{self.text}")'
+
+    def __mul__(self, other):
+    	return String(self.text + other.text)
+
+x = String('abc')
+y = String('def')
+
+print(f'x = {x}')
+print(f'y = {y}')
+print(f'x * y * x = {x * y * x}')
+print(f'x ** 10 = {x ** 10}')
+
+#eof

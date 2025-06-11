@@ -1,0 +1,3 @@
+for tree in binary_trees(['A', 'B', 'C', 'D']):
+    print(tree)
+#eof

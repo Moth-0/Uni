@@ -1,0 +1,1 @@
+string_format('STRING', spacing=2, fill='_')

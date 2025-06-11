@@ -1,0 +1,1 @@
+string_format('STRING', spacing=1, width=25, alignment='left')

@@ -1,0 +1,9 @@
+tree1 = ((('A', 'B'), (((('C', 'D'), 'E'), ('F', 'G')), 'H')), ('I', 'J'))
+tree2 = (('J', 'I'), (('H', (('G', 'F'), (('C', 'D'), 'E'))), ('B', 'A')))
+tree3 = ('J', ('A', (('G', ('I', 'H')), ((('D', 'E'), 'F'), ('C', 'B')))))
+
+print(same(tree1, tree2))
+print(same(tree1, tree3))
+print(same(tree2, tree3))
+
+#eof

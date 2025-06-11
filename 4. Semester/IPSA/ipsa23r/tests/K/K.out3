@@ -1,0 +1,8 @@
+x = MyInt(6)
+y = MyInt(7)
+x * y = MyInt(42)
+x ** 1 = MyInt(6)
+x ** 2 = MyInt(36)
+x ** 3 = MyInt(216)
+x ** 4 = MyInt(1296)
+x ** 5 = MyInt(7776)
