@@ -1,0 +1,8 @@
+@localmin(2)
+def f(n):
+    return (n - 4) ** 2
+
+for x in range(10):
+    print(x, f(x))
+
+#eof

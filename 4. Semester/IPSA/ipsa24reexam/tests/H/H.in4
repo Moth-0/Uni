@@ -1,0 +1,10 @@
+x = TextBlock('X.\noo')
+e = TextBlock('..\n..')
+
+for _ in range(4):
+    x = (x + x) | (e + x)
+    e += e
+    e |= e
+    print(x)
+
+#eof

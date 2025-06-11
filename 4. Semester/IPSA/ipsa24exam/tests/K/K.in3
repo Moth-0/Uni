@@ -1,0 +1,8 @@
+@window_average(5)
+@window_average(3)
+def f(x):
+    return x ** 3
+
+for x in [0, 1, 2, 5, 10]:
+    print(x, f(x))
+#eof

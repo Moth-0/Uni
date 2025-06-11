@@ -1,0 +1,8 @@
+hp = Company('Hewlett-Packard')
+
+bill = Employee('William Redington Hewlett', hp)
+dave = Employee('David Packard', hp)
+
+print(str(bill) + '; ' + str(dave))
+
+#eof

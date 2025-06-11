@@ -1,0 +1,15 @@
+def test(f):
+    try:
+        f()
+    except ValueError:
+        print('ValueError')
+
+
+test(lambda : print(TextBlock('AB\nCD')))
+test(lambda : print(TextBlock('AB\nCDE')))
+test(lambda : print(TextBlock('AB') + TextBlock('CD')))
+test(lambda : print(TextBlock('AB') + TextBlock('CDE')))
+test(lambda : print(TextBlock('A\nB') | TextBlock('C\nD')))
+test(lambda : print(TextBlock('A\nB') | TextBlock('C\nD\nE')))
+
+#eof

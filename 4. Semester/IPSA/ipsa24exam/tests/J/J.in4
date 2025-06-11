@@ -1,0 +1,5 @@
+from itertools import islice, count, cycle
+
+print(list(islice(alternator(count(), cycle(['a', 'b', 'c'])), 100, 110)))
+
+#eof

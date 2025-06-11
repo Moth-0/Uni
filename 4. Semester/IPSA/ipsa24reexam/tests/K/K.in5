@@ -1,0 +1,13 @@
+@localmin(2)
+@localmin(2)
+def f(n):
+    return (n - 3) ** 3
+
+@localmin(4)
+def g(n):
+    return (n - 3) ** 3
+
+for n in range(0, 10):
+    print(n, f(n), g(n))
+
+#eof

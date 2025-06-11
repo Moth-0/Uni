@@ -1,0 +1,3 @@
+print(TextBlock('ABC') | TextBlock('DE') | TextBlock('FGI'))
+
+#eof

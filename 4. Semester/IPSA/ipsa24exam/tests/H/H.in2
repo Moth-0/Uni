@@ -1,0 +1,15 @@
+apple = Company('Apple Computer, Inc.')
+microsoft = Company('Micro-Soft')
+
+steve = Employee('Steven Paul Jobs', apple)
+woz = Employee('Stephen Gary Wozniak', apple)
+
+bill = Employee('William Henry Gates III', microsoft)
+paul = Employee('Paul Gardner Allen', microsoft)
+
+print(steve)
+print(woz)
+print(paul)
+print(bill)
+
+#eof

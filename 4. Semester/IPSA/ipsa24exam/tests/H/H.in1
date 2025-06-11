@@ -1,0 +1,9 @@
+apple = Company('Apple Computer, Inc.')
+
+steve = Employee('Steven Paul Jobs', apple)
+woz = Employee('Stephen Gary Wozniak', apple)
+
+print(steve)
+print(woz)
+
+#eof
