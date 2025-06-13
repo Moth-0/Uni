@@ -1,0 +1,1 @@
+[restrict(dictionary, keys) for dictionary in [{'x': 7, 'y': 8}, {'x': 6, 'z':5}] for keys in [['x'], ['y'], ['z']]]

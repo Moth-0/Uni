@@ -1,0 +1,5 @@
+X = [x for x in range(1100000) if x % 11 != 5]
+remove_odd(X)
+print('length', len(X))
+print('sum', sum(X))
+#eof

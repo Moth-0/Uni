@@ -1,0 +1,6 @@
+S = [x for x in range(1000) if x % 7 != 3]
+for _ in range(10):
+    remove_odd(S)
+    S = [x // 2 for x in S]
+    print(S)
+#eof

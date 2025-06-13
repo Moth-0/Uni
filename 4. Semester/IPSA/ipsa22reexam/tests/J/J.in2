@@ -1,0 +1,8 @@
+@converge
+def f(x):
+    return  x // 2 + 15
+
+for x in range(28, 32):
+    print(x, f(x))
+
+#eof

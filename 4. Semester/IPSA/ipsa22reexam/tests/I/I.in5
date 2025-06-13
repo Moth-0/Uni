@@ -1,0 +1,5 @@
+path = Path()
+for i in range(11):
+    path.add(i, i ** 2)
+    print(f'{i} {path.distance():.3f}')
+#eof

@@ -1,0 +1,2 @@
+print(''.join(contract('parallel processing')))
+#eof

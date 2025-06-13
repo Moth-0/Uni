@@ -1,0 +1,1 @@
+plot(15, 10, lambda x, y: y == x or y == 5 or x == 2)

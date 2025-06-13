@@ -1,0 +1,5 @@
+print(list(diff([])))
+print(list(diff([42])))
+print(list(diff([7, 42])))
+#eof
+

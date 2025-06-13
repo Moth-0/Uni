@@ -1,0 +1,8 @@
+@periodic(3)
+@periodic(4, 10)
+def f(x):
+    return x ** 2
+
+print(*[f(x) for x in range(0, 20)])
+
+#eof

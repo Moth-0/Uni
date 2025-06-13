@@ -1,0 +1,7 @@
+@periodic(5)
+def f(x):
+    return -(x + 1)
+
+print([(x, f(x)) for x in range(-10, 10)])
+
+#eof

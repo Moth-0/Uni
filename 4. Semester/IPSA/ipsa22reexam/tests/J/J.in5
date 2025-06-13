@@ -1,0 +1,9 @@
+@converge
+def f(x):
+    return x ** 2 // 100 + 10
+
+print(f(0))
+print(f(10))
+print(f(25))
+
+#eof

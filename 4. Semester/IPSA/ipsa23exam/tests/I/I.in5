@@ -1,0 +1,6 @@
+D = diff([1, 4, 9])
+for x in D:
+    print(x)
+for x in D:
+    print(x)
+#eof

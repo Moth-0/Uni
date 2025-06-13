@@ -1,0 +1,7 @@
+P = Painting(50, 25, '_')
+for i in range(25):
+    x = (i * 27) % 50
+    y = (i ** 2 * 29) % 25
+    P.rectangle(x, y, x, y, '*')
+print(P)
+#eof
