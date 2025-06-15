@@ -1,0 +1,1 @@
+sum(label.count('a') for i, label in zip(range(1000000), labels('abcdefgh', 10, 5)))

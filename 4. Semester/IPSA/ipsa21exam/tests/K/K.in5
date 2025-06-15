@@ -1,0 +1,2 @@
+lambda n: sum(nonnegative(lambda x: x ** 2 - (x - 10) ** 3 - 111)(i) for i in range(n))
+[5, 10, 20, 100, 1000]

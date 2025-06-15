@@ -1,0 +1,1 @@
+lambda x: 42 if -713 <= x <= 645 else exec('raise Exception')

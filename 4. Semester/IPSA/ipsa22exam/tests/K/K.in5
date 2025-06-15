@@ -1,0 +1,8 @@
+@reversible
+def squared(v):
+    return tuple(e ** 2 for e in v)
+
+print(squared((1, 2, 3)))
+print(squared((5, 4, 3, 2, 1), reverse=True))
+
+#eof

@@ -1,0 +1,5 @@
+x = FragileValue(5)
+y = FragileValue(7)
+z = x + y
+print(z)
+#eof

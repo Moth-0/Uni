@@ -1,0 +1,4 @@
+x = FragileValue(5)
+while True:
+      print(x)
+#eof

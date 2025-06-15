@@ -1,0 +1,1 @@
+fresh((x % 3, x % 7) for x in range(10000))

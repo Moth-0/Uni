@@ -1,0 +1,1 @@
+[(100, 'income A'), (100, 'income C'), (100, 'income B'), (-100, 'expense A'), (-100, 'expense C'), (-100, 'expense B'), (-100, 'expense D')]

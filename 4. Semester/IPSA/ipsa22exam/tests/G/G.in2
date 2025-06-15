@@ -1,0 +1,5 @@
+x = FragileValue(7)
+print(x)
+print(x)
+print(x)
+#eof

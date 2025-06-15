@@ -1,0 +1,10 @@
+@forbidden(2, default=-1)
+@forbidden(5, default=-2)
+@forbidden(8, 10, default=-3)
+def f(n):
+    return n + 1
+
+for n in range(10):
+    print(n, f(n))
+#eof
+

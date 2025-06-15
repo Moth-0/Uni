@@ -1,0 +1,11 @@
+@reversible
+def say(who='', message=''):
+    return who + ' says ' + message
+
+print(say(message='hello', who='peter'))
+print(say(message='hello', who='peter', reverse=True))
+print(say(message='hello', who='peter', reverse=False))
+print(say(who='peter', message='syas retep', reverse=False))
+print(say(who='peter', message='syas retep', reverse=True))
+
+#eof

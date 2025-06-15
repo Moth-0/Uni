@@ -1,0 +1,11 @@
+counter = 0
+
+@forbidden(7)
+def count():
+    global counter
+    counter += 1
+    return counter
+
+for _ in range(10):
+    print(count())
+#eof

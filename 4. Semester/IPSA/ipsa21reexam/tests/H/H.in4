@@ -1,0 +1,1 @@
+peter = Student('Peter'); tom = Student('Tom', advisor=peter); simon = Student('Simon', advisor=peter); dora = Student('Dora', advisor=tom); eric = Student('Eric', advisor=tom); sharon = Student('Sharon', advisor=eric); michael = Student('Michael', advisor=eric); print(michael.ancestors()); print(tom.descendants())

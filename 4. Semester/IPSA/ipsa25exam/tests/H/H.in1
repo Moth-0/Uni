@@ -1,0 +1,13 @@
+turtle = Turtle()
+print(turtle.position())
+turtle.forward()
+print(turtle.position())
+turtle.left()
+turtle.forward()
+print(turtle.position())
+turtle.forward()
+print(turtle.position())
+turtle.right()
+turtle.forward()
+print(turtle.position())
+#eof

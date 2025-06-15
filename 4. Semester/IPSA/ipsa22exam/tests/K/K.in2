@@ -1,0 +1,8 @@
+@reversible
+def hello_world():
+    return 'Hello world'
+
+print(hello_world())
+print(hello_world(reverse=True))
+
+#eof

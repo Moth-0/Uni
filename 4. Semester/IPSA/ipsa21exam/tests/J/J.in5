@@ -1,0 +1,2 @@
+[next(g) for g in [labels('abcdef', 15)] for _ in range(10)]
+

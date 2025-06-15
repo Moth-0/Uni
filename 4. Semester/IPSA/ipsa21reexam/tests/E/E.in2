@@ -1,0 +1,1 @@
+capitalize('this is a test of the capitalize function', skip={'a', 'of', 'the', 'is'})

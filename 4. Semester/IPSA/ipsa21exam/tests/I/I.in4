@@ -1,0 +1,1 @@
+print(*[x for (v, w) in [(Vector(1.0, 0.0), Vector(1.0, 0.0))] for x in [v.mult(2.0), w.mult(3.0), v.rotate(), w.rotate(), w.rotate(), w.rotate(), str(v), str(w)] if x != None])

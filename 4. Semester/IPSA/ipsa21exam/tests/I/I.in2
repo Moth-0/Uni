@@ -1,0 +1,1 @@
+print(*[x for v in [Vector(2.0, 1.0)] for x in [str(v), v.rotate(), v.mult(1 / 3), str(v)]])

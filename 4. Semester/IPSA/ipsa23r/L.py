@@ -34,9 +34,6 @@ def limited_sum(values, limit):
     return max(sums)
 
 
-
-
-
 values = eval(input())
 limit = int(input())
 print(limited_sum(values, limit))

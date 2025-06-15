@@ -1,0 +1,1 @@
+len(list(labels('abcdefgh', 7, 3)))

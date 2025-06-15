@@ -1,0 +1,3 @@
+x = FragileValue(42)
+print(x)
+#eof

@@ -1,0 +1,6 @@
+@forbidden(*'AEIOUY', default='*')
+def upper(char):
+    return char.upper()
+
+print(''.join(upper(c) for c in 'This is a test of a decorator'))
+#eof

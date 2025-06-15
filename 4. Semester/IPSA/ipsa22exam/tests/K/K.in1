@@ -1,0 +1,8 @@
+@reversible
+def powers(L, power):
+    return [e ** power for e in L]
+
+print(powers(range(6), 3))
+print(powers(range(6), 3, reverse=True))
+
+#eof
