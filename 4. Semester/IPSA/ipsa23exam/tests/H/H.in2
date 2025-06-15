@@ -1,0 +1,7 @@
+P = Painting(9, 9, '#')
+P.rectangle(1, 1, 7, 7, 'A')
+P.rectangle(2, 2, 6, 6, '.')
+P.rectangle(3, 3, 5, 5, 'A')
+P.rectangle(4, 4, 4, 4, '.')
+print(P)
+#eof

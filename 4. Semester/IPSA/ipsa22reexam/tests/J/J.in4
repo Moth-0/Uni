@@ -1,0 +1,9 @@
+@converge
+def f(x):
+    return ''.join(chr(ord(c) - 1) if c > 'a' else c for c in x)
+    
+print(f('abekat'))
+print(f('zoo'))
+print(f('missionimpossible'))
+
+#eof

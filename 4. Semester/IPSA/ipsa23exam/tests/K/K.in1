@@ -1,0 +1,7 @@
+@periodic(10, 15)
+def f(x):
+    return 2 * x
+
+print(f(10), f(14), f(15), f(6), f(22), f(-4))
+
+#eof

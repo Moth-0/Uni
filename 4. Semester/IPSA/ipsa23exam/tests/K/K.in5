@@ -1,0 +1,7 @@
+@periodic(3, 10)
+def f(x):
+    return chr(ord('A') + x)
+
+print(''.join(f(i) for i in range(-10, 50)))
+
+#eof

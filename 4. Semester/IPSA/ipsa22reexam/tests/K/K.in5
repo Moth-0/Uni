@@ -1,0 +1,4 @@
+import itertools
+seq = (i ** 3 % 7 for i in itertools.count())
+print(list(itertools.islice(contract(seq), 100)))
+#eof

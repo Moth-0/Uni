@@ -1,0 +1,6 @@
+P = Painting(32, 32)
+for i in range(1, 30, 4):
+    for j in range(1, 30, 4):
+    	P.rectangle(i, j, i + 1, j + 1, '#')
+print(P)
+#eof

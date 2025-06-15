@@ -1,0 +1,3 @@
+path = Path()
+print(f'{path.distance():.3f}')
+#eof

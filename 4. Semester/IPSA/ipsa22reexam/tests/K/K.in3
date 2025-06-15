@@ -1,0 +1,4 @@
+import itertools
+seq = (x // 5 for x in itertools.count())
+print(list(itertools.islice(contract(seq), 100)))
+#eof

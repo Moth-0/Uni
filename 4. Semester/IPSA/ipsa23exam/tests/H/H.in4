@@ -1,0 +1,5 @@
+P = Painting(31, 15, 'o')
+for i, symbol in enumerate('ABCDEFG'):
+    P.rectangle(13 - 2 * i, 7 - i, 29 - 3 * i, 13 - 2 * i, symbol)
+print(P)
+#eof

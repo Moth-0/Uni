@@ -1,0 +1,4 @@
+seq = [(x % 11) // 5 for x in range(100)]
+print(seq)
+print(list(contract(seq)))
+#eof

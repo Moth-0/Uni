@@ -1,0 +1,5 @@
+K = list(range(500000, 1500000))
+remove_odd(K)
+print('length', len(K))
+print('sum', sum(K))
+#eof
