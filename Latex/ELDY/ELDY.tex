@@ -289,6 +289,11 @@ We also have the following identities:
     &\nabla \times (\nabla \times \v{v}) = \nabla(\nabla \cdot \v{A}) - \nabla^2 \v{A}. \eq{1.47}
 \end{align*}
 
+In terms of vector fields, the field is divergent if the vectors change "speed" comming in and out of frame. 
+The curl means the arows rotatate, or that the "speed" is different between the top and bottom of the frame. 
+In the figure below I has curl and no divergence, and II has divergence but no curl. 
+\bil{divcurl}
+
 \subsection{Dirac Delta Function}
 \begin{align*}
     &δ(x-a)=\begin{cases}
@@ -1060,7 +1065,11 @@ knowing that $\v{m} = \v{M}dτ'$:
 \begin{align*}
     \v{A}(\v{r}) = \frac{μ_0}{4π} \int \frac{\v{M}(\v{r}') \times \hat{\pmb{\r}}}{\r^2}dτ', \eq{6.11}
 \end{align*}
-which can also be rewritten in terms of the potential of a volume current $\v{J}_b = \nabla \times \v{M}$ and surface current $\v{K}_b = \v{M} \times \hat{\v{n}}$:
+which can also be rewritten in terms of the potential of a bound volume current and bound surface current,
+\begin{align*}
+    \v{J}_b = \nabla \times \v{M}, \eq{6.13}\\
+    \v{K}_b = \v{M} \times \hat{\v{n}} \eq{6.14}.
+\end{align*}
 \begin{align*}
     \v{A}(\v{r}) = \frac{μ_0}{4π} \int_{\mathscr{V}} \frac{\v{J}_b(\v{r}')}{\r}dτ' + \frac{μ_0}{4π} \oint_{\mathcal{S}} \frac{\v{K}_b(\v{r}')}{\r}da'. \eq{6.15}
 \end{align*}
@@ -1948,6 +1957,11 @@ We see now that the intensity and power is:
     \br[3]{P} &= \frac{μ_0m_0^2ω^4}{12πc^3}. \eq{11.40}
 \end{align*}
 If we compare the two radiated powers from the electric and magnetic dipole, we see that the electric fields radiation is dominant.
+
+For an electric dipole the power radiated can be approximated to: 
+\begin{align*}
+    P_{rad}(t_0) = \frac{μ_0}{6πc}\br[2]{\frac{\dd p(t_0)}{\dd t}}^2
+\end{align*}
 
 \section{Power Radiated by a Point Charge}
 Equation (\ref{eq:10.72}) and (\ref{eq:10.73}) gives us the fields of a charged particle in motion. 
