@@ -37,7 +37,7 @@
 '''
 
 
-DEFAULT_FILES = None
+DEFAULT_FILES = ['L']
 #DEFAULT_FILES = ['A', 'B', 'C']
 
 
