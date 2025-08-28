@@ -112,6 +112,41 @@ as there might not be a linearly separable dataset.
 A way to fix this is to use Pocket PLA which saves the most accurate hyperplane. 
 \bil{PocketPLA}
 
+\section{Decision Trees}
+\bil{dTree}
+We would like to keep the decision tree small to not overfit to the training data. 
+So we could find the best performing tree with $k$ nodes. 
+But this is \textcolor{red}{NP-hard}, so we rely on \textcolor{red}{heureistics}. 
+With a greedy learning algorithm ith $k=2$: 
+\bil{dtree2}
+We test the tree on all possible split, this has $O(n^2d)$ runtime. 
+
+Another way to build a tree is to increase $k$ to maximise the accuracy. 
+\bil{dtree3}
+
+\subsection{Entropy}
+Another way to test decision tree is to base it on entropy. 
+If we have $n$ point with $n_i$ as the numbers of points with label $i$. 
+And $p_i = n/n_i$. Then entropy is: 
+\begin{align*}
+    H(S) = -\sum_{i=1}^{k} p_i\log_2 p_i. 
+\end{align*}
+
+Entropy is a measure of uncertainty in distrubtions, high entropy is high unsertainty. 
+$H(S)$ describes the expected number of bits it takes to describe the label of a random element drawn from S. 
+If all elements in $S$ er equal $H(S) = 0$. If there is an equal amount $H(S) = \log_2k$.
+\bil{entropy1}
+\bil{entropy2}
+
+\subsection{Loss Function}
+A Loss Function weighs how much a mistake influences a model. 
+We can then try to minimize the loss function over the training points. 
+An example is the Least Square Loss Function: 
+\begin{align*}
+    L(y',y) = (y'-y)^2.
+\end{align*}
+\bil{lf1}
+
 
 
 \end{document} % ----------Dokumentet er nu slut! ------------
