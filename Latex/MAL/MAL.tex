@@ -48,6 +48,7 @@
 \newcommand{\e}[1]{\emph{e}^{#1}} % Pænere e^x
 \newcommand{\vm}[2]{\begin{pmatrix} #1 \\ #2 \end{pmatrix}}
 \newcommand{\mat}[1]{\begin{pmatrix} #1 \end{pmatrix}}
+\newcommand{\dd}{\partial}
 
 % Lette paranteser 
 \newcommand{\br}[2][1]{%
@@ -147,6 +148,54 @@ An example is the Least Square Loss Function:
 \end{align*}
 \bil{lf1}
 
+\section{Error}
+In-Sample Error $(E_{in})$ is the error on the training data, and is what we try to minimize. 
+The Out-Sample Error $(E_{out})$ is the error on the unknown data, this is what we wan't minimized. 
+So we hope that $E_{in} \approx E_{out}$. 
+
+\subsection{Loss Function Error}
+For the speciel Loss function 0-1 Loss, we know the error is 
+\begin{align*}
+    E_{in}(h)=\frac{1}{n}\sum_{i=1}^{n}1_{h(x_i)\neq f(x_i)}.
+\end{align*}
+The Out-Sample error is just the probabilty that $h(x)\neq f(x)$. 
+
+The Hoeffding inequality says that the probability of the two errors being father appart then some number $ε$ is
+\begin{align*}
+    P\br{\br[5]{E_{in}(h)-E_{out}(h)} > ε} \leq 2\e{-2ε^2n}, 
+\end{align*} 
+where $n$ is training examples. If we have multiple hypotheses $M$ we get: 
+\begin{align*}
+    P\br{\br[5]{E_{in}(h)-E_{out}(h)} > ε} \leq 2M\e{-2ε^2n}. 
+\end{align*}
+From this we can prove that minimizing $E_{in}(h)$ is a good strategy since for any other $h'$ in $H$, 
+we get that $E_{out}(h) \leq 2ε+E_{out}(h')$, so any other $h'$ is at most $2ε$ better then $h$. 
+
+We can also use Hoeffding inequality to find out what sampling size we should use. 
+If we want the difference in error to be less then $0.1$ with $95\%$ confidence, and $M=1000$, we get: 
+\begin{align*}
+    2000\e{-2\cdot 0.1^2 n} < 0.05 \Rightarrow n > 50\ln(40.000) = 530.
+\end{align*}
+
+If we are using an algorithm with infinite hypothesis, we can use a large number for $M$,
+for hyperplanes representable using $d$ floats, that would be $M=2^{32d}$. 
+
+\section{Linear Regression}
+\bil{linreg1}
+\bil{linreg2}
+
+\subsection*{Derivative of Matrix}
+If $l=(l_1,...,l_k)$ is a function from $R^d \rightarrow R_k$, 
+then the Jacobian is a matrix of dimension $k\times d$. 
+\bil{linreg3}
+
+Some helpfull tricks are: 
+\begin{align*}
+    \frac{\dd}{\dd x}Ax+b = A, \\
+    \frac{\dd}{\dd x}x^Tx = 2x^T.
+\end{align*}
+
+\bil{linreg4}
 
 
 \end{document} % ----------Dokumentet er nu slut! ------------

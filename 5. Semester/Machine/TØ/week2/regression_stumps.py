@@ -10,6 +10,7 @@ import pydotplus
 from sklearn.datasets import fetch_california_housing
 
 import os, ssl
+# Wtf is this?
 if (not os.environ.get('PYTHONHTTPSVERIFY', '') and
     getattr(ssl, '_create_unverified_context', None)): 
     ssl._create_default_https_context = ssl._create_unverified_context
@@ -51,7 +52,39 @@ class RegressionStump():
         self.left = None
         self.right = None
         ### YOUR CODE HERE
-        ### END CODE
+        len_v, len_f = data.shape
+        final_cost = 100000000
+
+        for f in range(len_f): # O(d)
+            for v in data[:,f]: # O(n)
+                y_left = targets[data[:,f] < v]
+                y_right = targets[data[:,f] >= v]
+                
+                # O(n)
+                if len(y_left) > 0: 
+                    p_left = np.mean(y_left)
+                    left_cost = np.sum((y_left - p_left)**2)
+                else: 
+                    p_left = 0
+                    left_cost = 0
+                
+                if len(y_right) > 0:
+                    p_right = np.mean(y_right)
+                    right_cost = np.sum((y_right - p_right)**2)
+                else: 
+                    p_right = 0
+                    right_cost = 0
+
+                cost = (left_cost + right_cost)
+
+                if cost < final_cost: 
+                    final_cost = cost
+                    self.idx = f
+                    self.val = v
+                    self.left = p_left
+                    self.right = p_right
+
+        ### END CODE - in O(dn^2) time
 
     def predict(self, X):
         """ Regression tree prediction algorithm
@@ -63,6 +96,15 @@ class RegressionStump():
         """
         pred = None
         ### YOUR CODE HERE
+        n = X.shape[0]
+        pred = np.zeros(n)
+        for i in range(n): 
+            if X[i, self.idx] < self.val: 
+                pred[i] = self.left
+            elif X[i, self.idx] >= self.val:
+                pred[i] = self.right
+            else: 
+                print("?")
         ### END CODE
         return pred
     
@@ -76,7 +118,11 @@ class RegressionStump():
         returns out: scalar - mean least squares loss.
         """
         out = None
+
+        p = self.predict(X)
+        n = len(X[0])
         ### YOUR CODE HERE
+        out = np.mean((p - y)**2)
         ### END CODE
         return out
         
@@ -104,7 +150,7 @@ def main():
     dc_score = ((dc.predict(X_test)-y_test)**2).mean()
     print('dc score', dc_score)
     print('feature names - for comparison', list(enumerate(housing.feature_names)))
-    plot_tree(dc, housing.feature_names)
+    #plot_tree(dc, housing.feature_names)
 
 if __name__ == '__main__':
     main()
