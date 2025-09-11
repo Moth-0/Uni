@@ -29,6 +29,10 @@ class LinearRegressor():
         """
         newX = X.copy()
         ### YOUR CODE HERE 1-3 lines
+        n, d = X.shape
+        bias = np.ones((n,1))
+        newX = np.concatenate((bias, X), axis=1)
+        assert newX.shape == (n, d+1) # Wrong shape
         ### END CODE
         return newX
     
@@ -50,6 +54,9 @@ class LinearRegressor():
         w = np.zeros(X.shape[1]+1)
         newX = self.hardcode_bias(X)
         ### YOUR CODE HERE 1-3 lines
+        # From page 86
+        X_in = np.linalg.pinv(newX) 
+        w = np.dot(X_in, y) 
         ### END CODE
         self.w =  w
 
@@ -63,6 +70,7 @@ class LinearRegressor():
         pred = None
         newX = self.hardcode_bias(X)
         ### YOUR CODE HERE 1-2 lines
+        pred = np.dot(newX,self.w)
         ### END CODE
         return pred
 
@@ -76,6 +84,9 @@ class LinearRegressor():
         """
         score = 0 
         ### YOUR CODE HERE 1-3 lines
+        n, d = X.shape
+        pred = self.predict(X)
+        score = 1/n * np.sum([(i - j)**2 for i,j in zip(pred, y)])
         ### END CODE
         return score
         
@@ -89,7 +100,7 @@ def main():
                                                         housing.target,
                                                         test_size=0.2)
 
-
+    print("---------------------------------------------")
     baseline_accuracy = np.mean((y_test-np.mean(y_train))**2)
     print('Least Squares Cost of learning mean of training data:', baseline_accuracy) 
     print('Let\'s see if we can do better with linear regression')

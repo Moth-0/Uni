@@ -85,7 +85,7 @@
 \newpage
 
 %Skriv
-\chapter{Linear model}
+\chapter{Linear Models}
 Hypothesis consists of the features vector: 
 \begin{align*}
     x = \br[4]{x_1,..., x_d}
@@ -174,7 +174,8 @@ we get that $E_{out}(h) \leq 2ε+E_{out}(h')$, so any other $h'$ is at most $2ε
 We can also use Hoeffding inequality to find out what sampling size we should use. 
 If we want the difference in error to be less then $0.1$ with $95\%$ confidence, and $M=1000$, we get: 
 \begin{align*}
-    2000\e{-2\cdot 0.1^2 n} < 0.05 \Rightarrow n > 50\ln(40.000) = 530.
+    2000\e{-2\cdot 0.1^2 n} < 0.05 \Rightarrow n > 50\ln(40.000) = 530, \\
+    n > \frac{\ln(M/(1-c))}{2ε^2}. 
 \end{align*}
 
 If we are using an algorithm with infinite hypothesis, we can use a large number for $M$,
@@ -196,6 +197,86 @@ Some helpfull tricks are:
 \end{align*}
 
 \bil{linreg4}
+
+\section{Logitical Regression}
+If we want to calculate a propability based on some data, we use logistical regression. 
+To map a regression to a number between 0 and 1, we use the Sigmoid Function, 
+\begin{align*}
+    θ(z) = \frac{1}{1+\e{-z}}.
+\end{align*}
+So for our prediction function we use:
+\begin{align*}
+    θ(w^Tx) = \frac{1}{1+\e{-w^Tx}}. 
+\end{align*}
+
+So what we want is for $θ(w^Tx)$ to be equal to $P[y=1|x]$, 
+the likelihood of seeing $y_i$ given $x_i$ is $θ(y_iw^Tx_i)$. 
+Then the total likelihood of a data set (S) is 
+\begin{align*}
+    P[S|w,X] = \prod_{i=1}^{n}\frac{1}{1+\e{-y_iw^Tx_i}}, 
+\end{align*}
+which we can then maximise to get our prediction function. 
+We do this by minimizing the average of the negativ log function: 
+\begin{align*}
+    E_{in}(w) &= -\frac{1}{n}\ln(P[S|w,X]) = \frac{1}{n}\sum_{i=1}^{n}\ln(1+\e{-y_iw^Tx_i}), \\
+    \nabla E_{in}(w) &= -\frac{1}{n}\sum_{i=1}^{n}\frac{1}{1+\e{-y_iw^Tx_i}}\e{-y_iw^Tx_i}y_ix_i \\
+    &= \frac{1}{n}\sum_{i=1}^{n}-y_ix_iθ(-y_iw^Tx_i). 
+\end{align*}
+But we can not set this function to 0 to minimize, so we use Gradient Decent, 
+which is to "roll a ball down a hill", by guessing $w=w-η\nabla l(w)$, 
+where $η$ is a step size (usually $η=0.1$) and $\nabla l(w)$ is the gradient of the function. 
+But this can be slow, so we could use Stochastic Gradient Decent, be just taking a batch of datapoints, 
+\begin{align*}
+    g = \frac{1}{B}\sum_{i=1}^{B}-y'_ix'_iθ(-y'_iw^Tx'_i), \\
+    w = w - ηg.
+\end{align*}
+
+\section{Multinomial Regression}
+If we have $k$ different classes that we need to fit for instead of just $1$ and $-1$. 
+We can use One-in-K Encoding, this means that we use unit vector (instead of just numbers), to classify different targets. 
+For example wine we could have: 
+\begin{align*}
+    \text{Red: }   (1,0,0)\\
+    \text{White: } (0,1,0)\\
+    \text{Rose: }  (0,0,1)
+\end{align*}
+
+So now our label vector turn into a $(n\times K)$ matrix, 
+and our weight vector turn into a $(d\times K)$ matrix. 
+To reduce numbers in a vector to a probability distrubtion we use the softmax function which scales the sum of a vector to 1
+\begin{align*}
+    \text{softmax}(z)_j = \frac{\e{z_j}}{\sum_{i=1}^{K}\e{z_i}}.
+\end{align*}
+Which for code implementation could also be calculated as: 
+\begin{align*}
+    \text{softmax}(z)_j = \e{z_j-z_a-\ln\br{\sum_{i=1}^{K}\e{z_i}-\e{z_a}}},
+\end{align*}
+where $z_a$ is max$(z)$
+
+Then for Multinomial Regression our prediction of $X$ $\text{softmax}(XW)$, where we apply the softmax function row-wise. 
+Then the probabilty that we see the correct labels using $W$ is 
+\begin{align*}
+    P[S|X,W] = \prod_{i=1}^{n}y_i^T\text{softmax}(x_i^TW),
+\end{align*}
+which we can rewrite to negative log and then minimize: 
+\bil{multreg}
+Then we can do Gradient Decent og Stochastic Gradient Decent
+\bil{multreg2}
+\bil{multreg3}
+
+\newpage
+\chapter{Non-Linear Models}
+A way to work with data that can not be trained to a hyperplane, liek for example a circle, 
+is to transform the feature vector to a new dimension 
+
+\begin{align*}
+    & φ: \mathbb{R}^d \rightarrow \mathbb{R}^{d'} \\
+    & φ(x_1,x_2) = (x_1^2+x_2^2). 
+\end{align*}
+You can then use linear models of the new model. 
+\bil{nonlin1}
+This can make more accurate models, but if they are too complex they might be more wrong. 
+\bil{nonlin2}
 
 
 \end{document} % ----------Dokumentet er nu slut! ------------
