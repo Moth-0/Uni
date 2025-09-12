@@ -70,7 +70,7 @@ class LinearRegressor():
         pred = None
         newX = self.hardcode_bias(X)
         ### YOUR CODE HERE 1-2 lines
-        pred = np.dot(newX,self.w)
+        pred = np.dot(newX, self.w)
         ### END CODE
         return pred
 
@@ -86,7 +86,8 @@ class LinearRegressor():
         ### YOUR CODE HERE 1-3 lines
         n, d = X.shape
         pred = self.predict(X)
-        score = 1/n * np.sum([(i - j)**2 for i,j in zip(pred, y)])
+        #score = 1/n * np.sum([(i - j)**2 for i,j in zip(pred, y)])
+        score = np.mean((pred-y)**2)
         ### END CODE
         return score
         
