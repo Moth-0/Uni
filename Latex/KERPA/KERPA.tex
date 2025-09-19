@@ -15,7 +15,8 @@
 \renewcommand{\danishhyphenmins}{22}  % Bedre dansk orddeling
 \usepackage{siunitx} % Sientific notation for forskellige ting, med en regel om at den skal bruge cdot istedet for times. 
 \sisetup{inter-unit-product = \cdot, 
-        exponent-product=\cdot}\usepackage{derivative} % Til at skrive differentialligninger 
+        exponent-product=\cdot}
+\usepackage{derivative} % Til at skrive differentialligninger 
 \usepackage{xcolor} % For at få flere tekst farver 
 \usepackage[colorlinks=true]{hyperref} % For at få refrences man kan trykke på, slet [] hvis man vil have kasser i stedet for farvet tekst.
 \usepackage{pdfpages} % Til at indsætte andre pdf'er
@@ -30,15 +31,15 @@
 
 % Indholdet i dit dokument starter her!
 \begin{document}
-%\author{Mikkel Moth Billing \\ 202307989}
-%\title{Title}
+\author{Mikkel Moth Billing \\ 202307989}
+\title{Nuclear and Particle Physics}
 \date{\today}
 %\maketitle   % Indsætter overskriften
 % Table of Contents indstillinger
 \setcounter{tocdepth}{2}
 \setcounter{secnumdepth}{1}
 \hypersetup{linkcolor=black} % Laver tableofcontents sort.  
-%\tableofcontents %Indsætter ToC
+\tableofcontents %Indsætter ToC
 \hypersetup{linkcolor=red} % og så alle andre hyperrefs røde. 
 
 % Custom Commands
@@ -49,6 +50,7 @@
 \newcommand{\h}{\hbar}
 \renewcommand{\v}[1]{\mathbfit{#1}}
 \newcommand{\ep}{\epsilon_0}
+%\newcommand{\ev}[2][1]{\ifcase#1\text{#2}\text{eV}\else\text{eV}\fi}
 
 
 % Lette paranteser 
@@ -80,7 +82,6 @@
 % Til at Give equation numre 
 \newcommand{\eq}[1]{\label{eq:#1}\tag{#1}}
 
-
 % Lav ny pagestyle (kun odd fordi enkeltsidet)
 \makepagestyle{Title}
 \pagestyle{Title}
@@ -91,5 +92,74 @@
 \newpage
 
 %Skriv
+\chapter{Fundamental Particles}
+\begin{figure}[H]
+    \centerline{\includegraphics[width=1.5\linewidth]{Billeder/Cheat.png}}
+    \label{fig:Cheat}
+\end{figure}
+
+\section{Units}
+To simplify calculations we switch to natrual units, 
+where $c = \h = 1, k=1/4\pi$, and therefore all units are in powers of eV.
+We can then say that 
+\begin{align*}
+    (NU) = \h^ac^b(SI)
+\end{align*}
+and with that go between systems. Some good conversions to remember is: 
+\begin{align*}
+    &\h c \approx \SI{197}{MeV.fm}, \eq{1.17}\\
+    &\h \approx \SI{6.58e{-16}}{eV.s} \eq{1.18}.
+\end{align*}
+
+\chapter{Scattering and Decay}
+\section{Special Relativity}
+Covariance is a prescription on the form of the physical laws
+that ensures compliance with the axioms of relativity:
+
+(A1) The physical laws retain the same functional form in all
+inertial frames.
+
+(A2) The speed of light in vacuum is the same for all inertial
+observers.
+
+The Four-vector for location is 
+\begin{align*}
+    x^μ = (ct, x, y, z) \eq{2.19},
+\end{align*}
+and the transformed vector is:
+\begin{align*}
+    \mat{x_0'\\ x_1'\\ x_2'\\ x_3'} =
+    \begin{pmatrix}
+        γ & βγ & 0 & 0 \\
+        βγ & γ & 0 & 0 \\
+        0 & 0 & 1 & 0 \\
+        0 & 0 & 0 & 1
+    \end{pmatrix}
+    \mat{x_0\\ x_1\\ x_2\\ x_3}, \eq{2.21}
+\end{align*}
+\begin{align*}
+    x'^μ=Λ^μ_ν x^ν. \eq{2.22}
+\end{align*}
+
+The velocity and acceleration four vectors are: 
+\begin{align*}
+    v^μ &= γ(c, v_x, v_y, v_z), \\
+    a^μ &= γ(\dot{γ}c, \dot{γ}\v{v}+γ\v{a}). 
+\end{align*}
+
+The four-momentum is: 
+\begin{align*}
+    p^μ = (mγ, mγ\v{v}) = (E, \v{p}), \eq{2.40}
+\end{align*}
+We can use this to calcualte energies in particle interactions, 
+since we know there is conservation of momentum. 
+\begin{align*}
+    \sum_{i=1}^{N_i}p^μ_i = \sum_{j=1}^{N_f}p^μ_j. \eq{2.43}
+\end{align*}
+Some helpful equations are: 
+\begin{align*}
+    (p^μ)^2 &= (p^0)^2-|\v{p}|^2, \eq{2.57}\\
+    E &= p^0 = (m^2+|\v{p}|^2)^{1/2}. \eq{2.58}
+\end{align*}
 
 \end{document} % ----------Dokumentet er nu slut! ------------

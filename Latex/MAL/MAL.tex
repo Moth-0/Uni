@@ -278,5 +278,28 @@ You can then use linear models of the new model.
 This can make more accurate models, but if they are too complex they might be more wrong. 
 \bil{nonlin2}
 
+\section{Growth Function}
+The Growth Function states that there is a finite number of hypothesis sets, dependent on the number of points int the set
+\begin{align*}
+    m_H(n) = max_{x_1,...,x_n\in X}|\br[4]{(h(x_1),...,h(x_n)):h\in X}|.
+\end{align*}
+We can relate these hypothesis sets to $M$ in Hoeffdings inequality
+\begin{align*}
+    P\br{\br[5]{E_{in}(h)-E_{out}(h)} > ε} \leq 8m_H(2n)\e{-ε^2n/8}. 
+\end{align*}
+
+But it can be hard to find a function for $m_H(n)$, so instead we can bound the growth function with Shattering. 
+If we have $k$ points in a 2D space, we need to be able to all $2^k$ dichotomies, 
+meaning that we can create all subsets of points with hypothesis $H$. (See ML 15 video)
+If all the dichotomies can be generated the points are shattered. 
+If there is no data set of $k$ points that can be shattered then $k$ is a break point for $H$. 
+
+This lead to the Vapnik-Chervonenkis dimension (VC dimension), which is $d$ such that $d=k-1$. 
+From this we know that $m_H(n) \leq n^d+1$, then 
+\begin{align*}
+    P\br{\br[5]{E_{in}(h)-E_{out}(h)} > ε} \leq 8((2n)^d+1)\e{-ε^2n/8}. 
+\end{align*}
+Here we can see that given enough data we can always get that $E_{in}$ and $E_{out}$ are close, if the VC dimension is bounded ($d<\infty$). 
+\bil{VC}
 
 \end{document} % ----------Dokumentet er nu slut! ------------

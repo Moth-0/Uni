@@ -8,9 +8,9 @@ import urllib
 def load_data():
     """ Simple helper function for downloading and loading data """
     print('loading data for nonlinear experiment')
-    filename = 'nonlinear_data.npz'
+    filename = '5. Semester/Machine/TØ/week4/nonlinear_data.npz'
     if not os.path.exists(filename):
-        filepath = 'https://github.com/kaspergl/ML22/tree/main/week4/nonlinear_data.npz'
+        filepath = '5. Semester/Machine/TØ/week4/nonlinear_data.npz'
         print('file not exists - downloading:', filepath)
         with open(filename, 'wb') as fh:
             fh.write(urllib.request.urlopen(filepath).read())
@@ -45,7 +45,29 @@ class PerceptronClassifier():
         if w is None:
             w = np.zeros(X.shape[1])       
         bestw = w
+        besterror = np.sum(np.sign(X @ bestw) != y)
         ### YOUR CODE
+        for i in range(maxiter):
+            # find wrong points 
+            wrong_i = np.where(np.sign(X @ w) != y)[0]
+            
+            # Stop if empty 
+            if len(wrong_i) == 0:
+                print(f"Stopped at itr {i}")
+                break
+
+            random_i = np.random.choice(wrong_i)
+            x_i, y_i = X[random_i], y[random_i]
+            
+            # Update w
+            w = w + (x_i * y_i)
+
+            # If better then save
+            error = np.sum(np.sign(X @ w) != y)
+            if error < besterror:
+                bestw = w
+                besterror = error
+
         ### END CODE
         self.w = bestw
 
@@ -58,6 +80,7 @@ class PerceptronClassifier():
         """
         pred = None
         ### YOUR CODE HERE 1-2 lines
+        pred = np.sign(X @ self.w)
         ### END CODE
         return pred
 
@@ -71,6 +94,9 @@ class PerceptronClassifier():
         """
         score = 0 
         ### YOUR CODE HERE 1-3 lines
+        n, d = X.shape
+        pred = self.predict(X)
+        score = np.mean((pred-y)**2)
         ### END CODE
         return score
     
@@ -145,8 +171,9 @@ def square_transform(X):
     """
     # Insert code here to transform the data - aim to make a vectorized solution!
     Xt = X
-
     ### YOUR CODE HERE 2-4 lines
+    X_trans = np.transpose(X)
+    Xt = np.c_[np.ones(X.shape[0]), X_trans[0]**2, X_trans[1]**2]
     ### END CODE 
     
     return Xt
