@@ -172,8 +172,11 @@ def square_transform(X):
     # Insert code here to transform the data - aim to make a vectorized solution!
     Xt = X
     ### YOUR CODE HERE 2-4 lines
+    n, d = X.shape
+    assert d == 2
     X_trans = np.transpose(X)
     Xt = np.c_[np.ones(X.shape[0]), X_trans[0]**2, X_trans[1]**2]
+    assert Xt.shape == (n, 3) # Wrong shape
     ### END CODE 
     
     return Xt
@@ -214,6 +217,14 @@ def poly_transform(X):
     """
     Xt = X
     ### YOUR CODE HERE
+    n, d = X.shape
+    assert d == 2
+    X_trans = np.transpose(X)
+    Xt = np.c_[np.transpose([X_trans[0]**i * X_trans[1]**j 
+                             for i in range(4) 
+                             for j in range(4)
+                             if i+j <= 3])]
+    assert Xt.shape[0] == n # Wrong shape
     ### END CODE
     return Xt
 
@@ -359,6 +370,7 @@ class LinRegClassifier():
         """  
         w = np.zeros(X.shape[1])
         ### YOUR CODE HERE 1-3 lines
+        w = np.linalg.pinv(X) @ y # ((X^TX)^-1 @ X) @ y
         ### END CODE
         self.w =  w
 
@@ -371,6 +383,7 @@ class LinRegClassifier():
         """
         pred = None
         ### YOUR CODE HERE 1-2 lines
+        pred = np.sign(X @ self.w)
         ### END CODE
         return pred
 
@@ -384,6 +397,8 @@ class LinRegClassifier():
         """
         score = 0 
         ### YOUR CODE HERE 1-3 lines
+        pred = self.predict(X)
+        score = np.mean((pred-y)**2)
         ### END CODE
         return score
 
