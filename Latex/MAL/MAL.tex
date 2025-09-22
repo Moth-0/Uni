@@ -305,4 +305,41 @@ From this we know that $m_H(n) \leq n^d+1$, then
 Here we can see that given enough data we can always get that $E_{in}$ and $E_{out}$ are close, if the VC dimension is bounded ($d<\infty$). 
 \bil{VC}
 
+\section{Testing}
+
+\section{Overfitting}
+Overfitting is when we have a hypothesis that is too complex, this means we get a low in-sample error, but high out-sample error. 
+To solve this we use hyperparameters $λ$, which is user given parameters that changes somth9ing about the learning algorithm. 
+Some examples are: 
+
+\subsection{Regularization}
+To make sure we dont overfit, we can use regularization. 
+This could be linear regression with weight decay, were we add a limit to the size of the weights.
+Here we minimize 
+\begin{align*}
+    \frac{1}{n}&\sum_{i=1}^{n}(w^Tx_i-y_i)^2+λ||w||^2, \\
+    \nabla_w &= \frac{1}{n}(2X^TXw-2X^Ty)+2λw, \\
+    \Rightarrow w &= (X^TX+nλI)^{-1}X^Ty.
+\end{align*}
+\bil{reg1}
+
+\subsection{Validation}
+Here we take $k$ inputs from the training data, to use for validation instead. We can then evaluate a $E_{val} \approx E_{out}$, so the learning algorithm can make a decision based on this. 
+We could run the algorithm with different $λ$, and evaluate all the hypothsis, and then pick the best function. 
+A trick is that after we find $λ$ then we can retain with all the data. 
+
+We can also do cross validation to test the hypothesis. Here we train the algorithm on all the data exept one point, 
+and then evaluate on that one point. We do this for all points and average the loss over all points. 
+In practice doing it on one point at the time is to slow, so you could split the data in 5, and do it 5 times. 
+\bil{cross}
+
+
+\chapter{Neurak Nets}
+When building a neaural network we first have to look at each neuron. 
+The neuron takes in weights and data, and determines what it should send out to other connected neurons. 
+An activation function $φ$, it could run could be $\text{ReLU} = \text{max}(0, w^tx)$, or the Sigmoid function.
+\bil{net1}
+
+
+
 \end{document} % ----------Dokumentet er nu slut! ------------
