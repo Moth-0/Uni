@@ -62,7 +62,7 @@
 }
 %Til at sætter bileder ind i store dokumenter
 \newcommand{\bil}[1]{
-\begin{figure}[H]
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.75\linewidth]{Billeder/#1.png}
     \label{fig:#1}
@@ -333,6 +333,15 @@ and then evaluate on that one point. We do this for all points and average the l
 In practice doing it on one point at the time is to slow, so you could split the data in 5, and do it 5 times. 
 \bil{cross}
 
+\newpage
+\section{Cross Entropy Loss Function}
+The Cross Entropy Loss function is a generalization of negative log likelihood, that can be used for any 
+mashine learning model $h$ that outputs $K$ probabilities $p1,...,p_K$ summing to $1$. 
+\begin{align*}
+    L(h(x), y) &= - \sum_{j=1}^{K}y_j\ln(h(x)_j), \\
+    E_{in}(h) &= -\frac{1}{n}\sum_{i=1}^{n}\sum_{j=1}^{K}y_{i,j}\ln(h(x_i)_j). 
+\end{align*}
+
 
 \chapter{Neural Nets}
 When building a neural network we first have to look at each neuron. 
@@ -353,6 +362,26 @@ We do this by using the chain rule on all the nodes, and finding their partial d
 Because we can find the derivatives we can do stochastic gradient decent. 
 This can be done with pytorch.  
 
+\section{Overfitting}
+To avoid overfitting in neural nets, we can again use validaion. We then store the best performing parameters. 
+We can add to this, by stopping if the parameters do not improve over som time. 
+\bil{net4}
 
+We can also do weight decay where we add $λ$ to whe wieght (not the bias). 
+\begin{align*}
+    E_{in}(h) = \frac{1}{n}\sum_{i=1}^{n}L(h(x_i), y) + λ \sum_{w\in h}w^2.
+\end{align*}
+\bil{net5}
+
+\section{Convolution}
+For image recognition we can use matrix convolution. If we have a grayscale image, or matrix with values between 0 and 1.
+We can apply a convolution matrix to it, to get a matrix with edges. The weight in the convolution matrix can be trained with back propagation.
+If we dont have a grayscale picture, we can split the picture in red, green and blue. Then we add up the edges, so we only get one edge matrix. 
+This is done multiple times with different convolution matrixes, to get multiple channels that can be used to identify pictures. 
+
+You can then use Polling which could be taking the max or minimum of a sleect area, to shrink the picture. 
+\bil{con1}
+\bil{con2}
+\bil{con3}
 
 \end{document} % ----------Dokumentet er nu slut! ------------
