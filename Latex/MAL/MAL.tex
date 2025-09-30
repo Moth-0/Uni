@@ -334,11 +334,24 @@ In practice doing it on one point at the time is to slow, so you could split the
 \bil{cross}
 
 
-\chapter{Neurak Nets}
-When building a neaural network we first have to look at each neuron. 
+\chapter{Neural Nets}
+When building a neural network we first have to look at each neuron. 
 The neuron takes in weights and data, and determines what it should send out to other connected neurons. 
 An activation function $φ$, it could run could be $\text{ReLU} = \text{max}(0, w^tx)$, or the Sigmoid function.
 \bil{net1}
+
+When running a neural network we first decide the architecture, and then the weights gets updated. 
+A simple architecture is fully connected feed forward neural network as seen in the figure above. 
+
+\section{Back Propagation}
+If we see the neural net as a function $f(x_1, ..., x_i)$, 
+were $x_1,...,x_i$ all have values, we want to find the numerical value of the partial derivative of the function, 
+with respect to all the parameters. 
+We do this by using the chain rule on all the nodes, and finding their partial derivative. 
+\bil{net2}
+\bil{net3}
+Because we can find the derivatives we can do stochastic gradient decent. 
+This can be done with pytorch.  
 
 
 
