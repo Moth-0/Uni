@@ -22,6 +22,8 @@
 \usepackage{pdfpages} % Til at indsætte andre pdf'er
 \usepackage{subfig} % For at have to billeder ved siden af hinanden
 \usepackage{unicode-math}
+\usepackage{tikz}
+\usepackage[compat=1.1.0]{tikz-feynman}
 
 % Pænere toc indents 
 \usepackage{tocloft}
@@ -161,5 +163,63 @@ Some helpful equations are:
     (p^μ)^2 &= (p^0)^2-|\v{p}|^2, \eq{2.57}\\
     E &= p^0 = (m^2+|\v{p}|^2)^{1/2}. \eq{2.58}
 \end{align*}
+
+\begin{tikzpicture}[
+  every node/.style={font=\small}
+]
+  \begin{feynman}
+    \node[label=below:(a) Direct Box] {};
+    \diagram[layered layout, horizontal=v2 to v3] {
+      i1 [particle=\(e^-\)] -- [fermion] v1,
+      i2 [particle=\(\gamma\)] -- [photon] v2,
+      v1 -- [photon, momentum=\(q_1\)] v2
+         -- [fermion] v4
+         -- [photon, momentum'=\(q_2\)] v3
+         -- [fermion] v1,
+      v4 -- [fermion] f1 [particle=\(e^-\)],
+      v3 -- [photon] f2 [particle=\(\gamma\)],
+    };
+  \end{feynman}
+\end{tikzpicture}
+%
+\hspace{2cm}
+%
+\begin{tikzpicture}[
+  every node/.style={font=\small}
+]
+  \begin{feynman}
+    \node[label=below:(b) Crossed Box 1] {};
+    \diagram[layered layout, horizontal=v2 to v3] {
+      i1 [particle=\(e^-\)] -- [fermion] v1,
+      i2 [particle=\(\gamma\)] -- [photon] v2,
+      v1 -- [photon, momentum=\(q_1\)] v3
+         -- [fermion] v2
+         -- [fermion] v4
+         -- [photon, momentum'=\(q_2\)] v1,
+      v4 -- [fermion] f1 [particle=\(e^-\)],
+      v3 -- [photon] f2 [particle=\(\gamma\)],
+    };
+  \end{feynman}
+\end{tikzpicture}
+%
+\hspace{2cm}
+%
+\begin{tikzpicture}[
+  every node/.style={font=\small}
+]
+  \begin{feynman}
+    \node[label=below:(c) Crossed Box 2] {};
+    \diagram[layered layout, horizontal=v2 to v3] {
+      i1 [particle=\(e^-\)] -- [fermion] v1,
+      i2 [particle=\(\gamma\)] -- [photon] v2,
+      v1 -- [photon, momentum=\(q_1\)] v4
+         -- [fermion] v3
+         -- [fermion] v2
+         -- [photon, momentum'=\(q_2\)] v1,
+      v4 -- [fermion] f1 [particle=\(e^-\)],
+      v3 -- [photon] f2 [particle=\(\gamma\)],
+    };
+  \end{feynman}
+\end{tikzpicture}
 
 \end{document} % ----------Dokumentet er nu slut! ------------
