@@ -20,6 +20,8 @@
 \usepackage{pdfpages} % Til at indsætte andre pdf'er
 \usepackage{subfig} % For at have to billeder ved siden af hinanden
 \usepackage{unicode-math}
+\usepackage{amsfonts}
+\DeclareMathOperator*{\E}{\mathbb{E}}
 
 % Pænere toc indents 
 \usepackage{tocloft}
@@ -62,7 +64,7 @@
 }
 %Til at sætter bileder ind i store dokumenter
 \newcommand{\bil}[1]{
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.75\linewidth]{Billeder/#1.png}
     \label{fig:#1}
@@ -164,7 +166,7 @@ The Hoeffding inequality says that the probability of the two errors being fathe
 \begin{align*}
     P\br{\br[5]{E_{in}(h)-E_{out}(h)} > ε} \leq 2\e{-2ε^2n}, 
 \end{align*} 
-where $n$ is training examples. If we have multiple hypotheses $M$ we get: 
+where $n$ is training examples. If we have multiple hypothesis $M$ we get: 
 \begin{align*}
     P\br{\br[5]{E_{in}(h)-E_{out}(h)} > ε} \leq 2M\e{-2ε^2n}. 
 \end{align*}
@@ -336,7 +338,7 @@ In practice doing it on one point at the time is to slow, so you could split the
 \newpage
 \section{Cross Entropy Loss Function}
 The Cross Entropy Loss function is a generalization of negative log likelihood, that can be used for any 
-mashine learning model $h$ that outputs $K$ probabilities $p1,...,p_K$ summing to $1$. 
+machine learning model $h$ that outputs $K$ probabilities $p1,...,p_K$ summing to $1$. 
 \begin{align*}
     L(h(x), y) &= - \sum_{j=1}^{K}y_j\ln(h(x)_j), \\
     E_{in}(h) &= -\frac{1}{n}\sum_{i=1}^{n}\sum_{j=1}^{K}y_{i,j}\ln(h(x_i)_j). 
@@ -383,5 +385,37 @@ You can then use Polling which could be taking the max or minimum of a sleect ar
 \bil{con1}
 \bil{con2}
 \bil{con3}
+
+
+\chapter{Bias-Varience}
+The goal of Bias Variance is to say something about the out of sample error like with VC dimensions, 
+but this time we want to take our hypothesis into account. 
+Here we find the bounding by 
+\begin{align*}
+    \mathbb{E}_D[E_{out}(h^D)] = \mathbb{E}_x[\mathbb{E}_D[(h^D(x)-\bar{h}(x))^2]]+\mathbb{E}_x[(\bar{h}(x)-f(x))^2],
+\end{align*}
+where $\bar{h}(x)$ is the average value of all the hypothsis we have trained
+\begin{align*}
+    \bar{h}(x) = \mathbb{E}_D[h^D](x)= \frac{1}{m}\sum_{i}h^{D_i}(x).
+\end{align*}
+We can note that $\mathbb{E}_x[\mathbb{E}_D[(h^D(x)-\bar{h}(x))^2]]$ is a measure of how far the hypothesis is of from the averge hypothesis, 
+also called the variance. $\E_x[(\bar{h}(x)-f(x))^2]$ is then the bias, therby the name. 
+
+\section{Bagging}
+Bootstrap Aggregating (bagging) is a technique to reduce the variance in a returned hypothesis. 
+This means that we average some independant variables which reduces variance. 
+$X_1,...,X_m$ with variance $σ^2$, then $Y = (X_1 + ... + X_m)/m$ has variance $σ^2/m$. 
+\bil{bag1}
+\bil{bag2}
+
+\subsection{Random Forest}
+This model is used for decision and logitic trees, as a more accurate form of bagging, since the datasets are not independant, because it is the same set we are training on. 
+If there is pairwise correlation $ρ>0$, the variance of Y is $ρσ^2+(1-ρ)σ^2/m$. So we also need to reduce the correlation.
+\bil{bag3}
+
+\subsection{Out-of-Bag Samples}
+In Bagging and Random Forest, when we pick data from sets, we can use the data not picked for validation. 
+
+
 
 \end{document} % ----------Dokumentet er nu slut! ------------
