@@ -22,8 +22,7 @@
 \usepackage{pdfpages} % Til at indsætte andre pdf'er
 \usepackage{subfig} % For at have to billeder ved siden af hinanden
 \usepackage{unicode-math}
-\usepackage{tikz}
-\usepackage[compat=1.1.0]{tikz-feynman}
+
 
 % Pænere toc indents 
 \usepackage{tocloft}
@@ -160,66 +159,152 @@ since we know there is conservation of momentum.
 \end{align*}
 Some helpful equations are: 
 \begin{align*}
-    (p^μ)^2 &= (p^0)^2-|\v{p}|^2, \eq{2.57}\\
-    E &= p^0 = (m^2+|\v{p}|^2)^{1/2}. \eq{2.58}
+    & (p^μ)^2 = (p^0)^2-|\v{p}|^2, \eq{2.57}\\
+    & E = p^0 = (m^2+|\v{p}|^2)^{1/2}. \eq{2.58}
 \end{align*}
 
-\begin{tikzpicture}[
-  every node/.style={font=\small}
-]
-  \begin{feynman}
-    \node[label=below:(a) Direct Box] {};
-    \diagram[layered layout, horizontal=v2 to v3] {
-      i1 [particle=\(e^-\)] -- [fermion] v1,
-      i2 [particle=\(\gamma\)] -- [photon] v2,
-      v1 -- [photon, momentum=\(q_1\)] v2
-         -- [fermion] v4
-         -- [photon, momentum'=\(q_2\)] v3
-         -- [fermion] v1,
-      v4 -- [fermion] f1 [particle=\(e^-\)],
-      v3 -- [photon] f2 [particle=\(\gamma\)],
-    };
-  \end{feynman}
-\end{tikzpicture}
-%
-\hspace{2cm}
-%
-\begin{tikzpicture}[
-  every node/.style={font=\small}
-]
-  \begin{feynman}
-    \node[label=below:(b) Crossed Box 1] {};
-    \diagram[layered layout, horizontal=v2 to v3] {
-      i1 [particle=\(e^-\)] -- [fermion] v1,
-      i2 [particle=\(\gamma\)] -- [photon] v2,
-      v1 -- [photon, momentum=\(q_1\)] v3
-         -- [fermion] v2
-         -- [fermion] v4
-         -- [photon, momentum'=\(q_2\)] v1,
-      v4 -- [fermion] f1 [particle=\(e^-\)],
-      v3 -- [photon] f2 [particle=\(\gamma\)],
-    };
-  \end{feynman}
-\end{tikzpicture}
-%
-\hspace{2cm}
-%
-\begin{tikzpicture}[
-  every node/.style={font=\small}
-]
-  \begin{feynman}
-    \node[label=below:(c) Crossed Box 2] {};
-    \diagram[layered layout, horizontal=v2 to v3] {
-      i1 [particle=\(e^-\)] -- [fermion] v1,
-      i2 [particle=\(\gamma\)] -- [photon] v2,
-      v1 -- [photon, momentum=\(q_1\)] v4
-         -- [fermion] v3
-         -- [fermion] v2
-         -- [photon, momentum'=\(q_2\)] v1,
-      v4 -- [fermion] f1 [particle=\(e^-\)],
-      v3 -- [photon] f2 [particle=\(\gamma\)],
-    };
-  \end{feynman}
-\end{tikzpicture}
+\section{Two-body decay}
+Creation or destruction of particles can only happen if kinematics of Special relativity and of laws of the standard model are conserved. 
+For decays of one particle $a$ into two particles, the momentum must be conserved: 
+\begin{align*}
+  p_a^μ = p_1^μ+p_2^μ \eq{2.64}, 
+\end{align*}
+if we look at the rest frame of $a$, we get that 
+\begin{align*}
+  p_2^2=\br{p_a-p_1}^2=p_a^2+p_1^2-2 p_a\cdot p_1, \eq{2.65} \\
+  m_2^2=m_a^2+m_2^2-2 p_a^μ\cdot p_{1μ}. \eq{2.66}
+\end{align*}
+Here we used that the norm of a single particles momentum is it's rest mass. 
+Because we are in the rest frame of $a$
+\begin{align*}
+  p_a^μp_{1μ} = g_{μν}p_a^μp_1^ν=m_aE_1 \eq{2.67},
+\end{align*}
+and with this we have: 
+\begin{align*}
+  E_1 = \frac{m_a^2+m_1^2-m_2^2}{2m_a}, \quad E_2 = \frac{m_a^2+m_2^2-m_1^2}{2m_a}. \eq{2.68}
+\end{align*}
+
+\subsection{Three-body decay}
+In a three-body decay $a \rightarrow 1+2+3$, we have too many variables, and can therefore only say something about the 
+minimum and maximum energy of particle $1$. 
+\begin{align*}
+  m_1 \leq E_1^{CM}\leq \frac{m_a^2+m_1^2-(m_2+m_3^2)}{2m_a}. \eq{2.71}
+\end{align*}
+
+\section{Decay Amplitudes}
+In a general term we can use the \textbf{relativistic golden rule} for unstable particles that decay into $N_f$ particles. 
+We use this rule to calcualte the transition rate, which is the probability per unit time that the particle in the initial state decay into the final state:
+\begin{align*}
+  Γ_{i\rightarrow f} = \frac{1}{2E_a}\int\prod_{i=1}^{N_f}\frac{d^4p_i}{(2\pi)^4}\br[5]{\mathscr{M}}^2(2\pi)^4δ^4\br{p_a-\sum_{j=1}^{N_f}p_j} \times (2\pi) δ\br{p_i^2-m_i^2}. \eq{2.90}
+\end{align*}
+
+The decay Lorentz transforms as 
+\begin{align*}
+  Γ'_{i\rightarrow f} = Γ_{i\rightarrow f} / γ. \eq{2.94}
+\end{align*}
+And is ralated to the lifetime of a particle by 
+\begin{align*}
+  τ = 1/Γ. \eq{2.96}
+\end{align*}
+But most particles decay in multiple nodes and we therefore have to generalize as: 
+\begin{align*}
+  τ = \frac{1}{Γ} = \frac{1}{\sum_{i=1}^{N}Γ_i}. \eq{2.101}
+\end{align*}
+The \textbf{Branching Ratio} of node $i$ is defined as: 
+\begin{align*}
+  \text{BR}(i) = \frac{Γ_i}{Γ}. \eq{2.102}
+\end{align*}
+
+\section{Scattering}
+A measurement for scattering in QM is the \textbf{differential cross section}, which is the ratio between the number of particles 
+that are scattered in a solid angle between $Ω$ and $Ω+dΩ$ per unit time divided by the flux (the rate of incomming particles per unit surface). 
+Or in other words the likelihood that a particle is scattered at an angle $Ω$. 
+\begin{align*}
+  \frac{dσ}{dΩ}(E, Ω) = \frac{1}{F}\frac{dN_s}{dΩ}. \eq{2.113}
+\end{align*} 
+
+
+
+
+
+
+\newpage
+\chapter{Appendix}
+\section{Four-Vector}
+A four-vector $a^\mu$ is an object in Minkowski space-time with four components. It is written as:
+\[
+a^\mu = (a^0, a^1, a^2, a^3) = (a^0, \mathbf{a})
+\]
+where $a^0$ is the time-like component and $\mathbf{a} = (a^1, a^2, a^3)$ is the vector of the space-like components.
+
+\subsection{Contravariant and Covariant Vectors}
+A four-vector can be in two forms:
+\begin{itemize}
+    \item \textbf{Contravariant} (upper index): $a^\mu = (a^0, a^1, a^2, a^3)$
+    \item \textbf{Covariant} (lower index): $a_\mu = (a_0, a_1, a_2, a_3)$
+\end{itemize}
+The transformation between them uses the Minkowski metric tensor $g_{\mu\nu}$.
+\begin{equation}
+g_{\mu\nu} = \begin{pmatrix} 1 & 0 & 0 & 0 \\ 0 & -1 & 0 & 0 \\ 0 & 0 & -1 & 0 \\ 0 & 0 & 0 & -1 \end{pmatrix} \label{eq:metric} \tag{2.31}
+\end{equation}
+The rule to lower an index is $a_\mu = g_{\mu\nu}a^\nu$. This results in:
+\[
+a_\mu = (a^0, -a^1, -a^2, -a^3) = (a^0, -\mathbf{a})
+\]
+
+\subsection{Scalar Product}
+The scalar product of two four-vectors $a^\mu$ and $b^\mu$ is a Lorentz invariant scalar, denoted as $a \cdot b$ or $a_\mu b^\mu$.
+\begin{equation}
+a \cdot b = a_\mu b^\mu = g_{\mu\nu} a^\mu b^\nu \label{eq:scalarprod}
+\end{equation}
+Using the Einstein summation convention, this expands to:
+\[
+a \cdot b = a^0 b^0 - a^1 b^1 - a^2 b^2 - a^3 b^3 = a^0 b^0 - \mathbf{a} \cdot \mathbf{b}
+\]
+
+\subsection{Squared Norm of a Four-Vector}
+The squared norm of a four-vector $a^\mu$ is its scalar product with itself, denoted $a^2$.
+\begin{equation}
+a^2 = a_\mu a^\mu = (a^0)^2 - (a^1)^2 - (a^2)^2 - (a^3)^2 = (a^0)^2 - |\mathbf{a}|^2 \label{eq:norm}
+\end{equation}
+The sign of the squared norm classifies the four-vector:
+\begin{itemize}
+    \item $a^2 > 0$: \textbf{Time-like}
+    \item $a^2 < 0$: \textbf{Space-like}
+    \item $a^2 = 0$: \textbf{Light-like} or \textbf{null}
+\end{itemize}
+
+\subsection{The Four-Momentum}
+The four-momentum $p^\mu$ is a key four-vector in relativistic kinematics. In natural units ($c=1$), it is defined as:
+\begin{equation}
+p^\mu = (E, \mathbf{p}) = (m\gamma, m\gamma\mathbf{v}) \label{eq:4momentum} \tag{2.40}
+\end{equation}
+where $E = m\gamma$ is the relativistic energy, $\mathbf{p} = m\gamma\mathbf{v}$ is the relativistic three-momentum, $m$ is the rest mass, and $\gamma = 1/\sqrt{1 - v^2}$ is the Lorentz factor.
+
+The squared norm of the four-momentum is the squared rest mass, an invariant:
+\[
+p^2 = p_\mu p^\mu = E^2 - |\mathbf{p}|^2 = m^2
+\]
+This yields the energy-momentum relation:
+\begin{equation}
+E = \sqrt{|\mathbf{p}|^2 + m^2} \label{eq:emrelation} \tag{2.58}
+\end{equation}
+
+\subsection{Lorentz Transformations}
+A four-vector $a^\mu$ transforms between inertial frames via a Lorentz transformation matrix $\Lambda^\mu_\nu$.
+\[
+a'^\mu = \Lambda^\mu_\nu a^\nu
+\]
+For a boost with velocity $v$ along the $x^1$-axis, the matrix is:
+\[
+\Lambda^\mu_\nu = \begin{pmatrix} \gamma & -\beta\gamma & 0 & 0 \\ -\beta\gamma & \gamma & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix}
+\]
+where $\beta = v$ in natural units. Applying this to the four-momentum $p^\mu=(E, p_x, p_y, p_z)$ gives:
+\begin{align*}
+E' &= \gamma(E - \beta p_x) \\
+p'_x &= \gamma(p_x - \beta E) \\
+p'_y &= p_y \\
+p'_z &= p_z
+\end{align*}
 
 \end{document} % ----------Dokumentet er nu slut! ------------
