@@ -51,7 +51,7 @@
 \newcommand{\h}{\hbar}
 \renewcommand{\v}[1]{\mathbfit{#1}}
 \newcommand{\ep}{\epsilon_0}
-%\newcommand{\ev}[2][1]{\ifcase#1\text{#2}\text{eV}\else\text{eV}\fi}
+\newcommand{\M}{\br[5]{\mathscr{M}}^2}
 
 
 % Lette paranteser 
@@ -62,6 +62,19 @@
     \or \left\langle #2 \right\rangle %3
     \or \left\{ #2 \right\} %4
     \or \left| #2 \right| %5
+    \fi
+}
+
+% Braket notation
+\newcommand{\hv}[2][]{%
+    \if\relax\detokenize{#1}\relax
+        |#2\rangle%
+    \else
+        \if\relax\detokenize{#2}\relax
+            \langle #1|%
+        \else
+            \langle #1|#2\rangle%
+        \fi
     \fi
 }
 
@@ -215,7 +228,15 @@ The \textbf{Branching Ratio} of node $i$ is defined as:
   \text{BR}(i) = \frac{Γ_i}{Γ}. \eq{2.102}
 \end{align*}
 
+In (2.90) we have $\M$ which is the Lorentz-invarient matrix element for n-body decay: 
+\begin{align*}
+  \mathscr{M} = (2E_a)^{1/2}\prod_{i=1}^{N_f}(2E_i)^{1/2}\mathscr{T}, \eq{2.79}
+\end{align*}
+where $\mathscr{T} = \hv[f]{}\hat{H}\hv{i}$
+
+
 \section{Scattering}
+Most of the formulas for decay holds for two-body scattering $a+b \rightarrow 1+...+n$, we just have to make a few corrections. 
 A measurement for scattering in QM is the \textbf{differential cross section}, which is the ratio between the number of particles 
 that are scattered in a solid angle between $Ω$ and $Ω+dΩ$ per unit time divided by the flux (the rate of incomming particles per unit surface). 
 Or in other words the likelihood that a particle is scattered at an angle $Ω$. 
@@ -223,6 +244,29 @@ Or in other words the likelihood that a particle is scattered at an angle $Ω$.
   \frac{dσ}{dΩ}(E, Ω) = \frac{1}{F}\frac{dN_s}{dΩ}. \eq{2.113}
 \end{align*} 
 
+This leads to the \textbf{relativistic golden rule for the cross section} 
+\begin{align*}
+  \sigma_{i \to f} &= \frac{(2\pi)^4}{2E_a 2E_b |v_a - v_b|} \int \prod_{i=1}^{n} \frac{d^3\v{p}_i}{(2\pi)^3 2E_i} \\ 
+  &\times |\mathcal{M}|^2 \delta\left(E_a + E_b - \sum_{j=1}^{n} E_j\right) \delta^3\left(\v{p}_a + \v{p}_b - \sum_{j=1}^{n} \v{p}_j\right), \eq{2.128}
+\end{align*}
+but here we have a new $\mathscr{M}$
+\begin{align*}
+  \mathscr{M} = (2E_a)^{1/2}(2E_b)^{1/2}\prod_{i=1}^{n}(2E_i)^{1/2}\mathscr{T}. \eq{2.127}
+\end{align*}
+
+A usefull Lorentz-invarient is the \textbf{first Mandelstam variable} for two-body scattering 
+\begin{align*}
+  s = (p_a+p_b)^2 =(p_{tot})_μ(p_{tot})^μ \eq{2.131},
+\end{align*}
+where $(p_{tot})^μ=p_a^μ+p_b^μ$ is the total initial momentum. $\sqrt{s}$ is often called invarient mass. 
+The goal of QFT is to calculate $\mathscr{M}$ and in most cases $\br[5]{\mathscr{M}}^2$ is a smooth and slowly variable function of $s$.
+If $\br[5]{\mathscr{M}}^2 \approx$ constant then 
+\begin{align*}
+  σ = \frac{1}{s}, \eq{2.136}
+\end{align*} 
+for $\sqrt{s} \gg m_a, m_b$. 
+
+\chapter{Symmetries}
 
 
 
