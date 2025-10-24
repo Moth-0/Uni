@@ -53,6 +53,8 @@
 \newcommand{\ep}{\epsilon_0}
 \newcommand{\M}{\br[5]{\mathscr{M}}^2}
 
+% Atomic Numbers 
+\newcommand{\atom}[3]{\!^{#2}_{#3}\text{#1}}
 
 % Lette paranteser 
 \newcommand{\br}[2][1]{%
@@ -267,6 +269,68 @@ If $\br[5]{\mathscr{M}}^2 \approx$ constant then
 for $\sqrt{s} \gg m_a, m_b$. 
 
 \chapter{Symmetries}
+\section{Symmetries in Quantum Mechanics }
+In quantum mechanics (QM), a symmetry is a set of transformations represented by \textbf{unitary} (or anti-unitary) \textbf{operators}, $U$, that leave physical observables unchanged. 
+This requires $U^\dagger U = \text{I}$. A system's Hamiltonian, $H$, is invariant under a symmetry transformation if it commutes with the symmetry operator, $[H, U] = 0$. 
+\textbf{Wigner's theorem} states that all symmetries in QM are represented by such unitary or anti-unitary operators that commute with the Hamiltonian. 
+If $[H, U] = 0$, the expectation value $\langle U \rangle$ is constant in time, making it an integral of motion, though not necessarily a directly measurable conserved physical quantity since $U$ may not be Hermitian.
+
+\section{Classification of Symmetries}
+Symmetries in QM can be \textbf{classified} into four types:
+\begin{itemize}
+    \item \textbf{Continuous external:} Depend smoothly on parameters and change space-time coordinates (e.g., translations, rotations).
+    \item \textbf{Continuous internal:} Depend smoothly on parameters but \emph{do not} change space-time coordinates.
+    \item \textbf{Discrete external:} Involve a finite set of transformations that change space-time coordinates (e.g., parity $P$).
+    \item \textbf{Discrete internal:} Involve a finite set of transformations that \emph{do not} change space-time coordinates (e.g., charge conjugation $C$).
+\end{itemize}
+\textbf{Continuous symmetries} described by unitary operators $U(a_j)$ can be expressed exponentially in terms of \textbf{Hermitian generators} 
+\begin{align*}
+  T_j: U(a_1...a_N) = e^{i\sum_j a_j T_j}. \eq{5.9}
+\end{align*}
+Because these generators $T_j$ are Hermitian and commute with the Hamiltonian $H$, their expectation values $\langle T_j \rangle$ represent \textbf{conserved physical quantities}.
+
+\section{Inversion}
+Inversions are discrete transformations, the unitary operator has to fulfill 
+\begin{align*}
+  U^2=\text{I}, \eq{5.26}
+\end{align*}
+and if the operator is applied twice we should return to the original system. 
+One such symmetry could be \textbf{parity} where we invert $\v{x}$ turning a right hand system to a left hand system. 
+\begin{align*}
+  \mathcal{P}\hv{x} = \hv{-x}, \eq{5.27}
+\end{align*}
+which in quantum mechanics is a unitary, hermitian operator 
+\begin{align*}
+  \mathcal{P}ψ(\v{x}) = ψ(-\v{x}). \eq{5.28}
+\end{align*}
+The parity of a system is only defined if the wavefunction is an eigenstate of $\mathcal{P}$, 
+with eigenvalues $+1$ (even parity) or $-1$ (odd parity).
+
+\section{The Intrinsic Parity of Particles}
+In QM we define the \textbf{intrinsic parity} of a particle, as the eigenvalue of the wavefunction of the particle in its restframe. 
+For a photon we can not find the intrinsic parity directly with QM, so we look at the decay of exited hydrogen: 
+\begin{align*}
+  \atom{H}{1}{1}^{*} \rightarrow \atom{H}{1}{1} + γ \eq{5.34},
+\end{align*}
+We know that the parity of hydrogen is 
+\begin{align*}
+  \mathcal{P}ψ_{H} = (-1)^lψ_{H}, \eq{5.40}
+\end{align*}
+we can extend this to our decay 
+\begin{align*}
+  \mathcal{P}ψ_{H}ψ_γ = (-1)^{l_{fin}} ψ_{H} \mathcal{P}_γψ_γ, \eq{5.41}
+\end{align*}
+where $l_{fin}$ is the angular momentum number in the final state of H, and $\mathcal{P}_γ$ is the intrinsic parity of the photon. 
+In the initial state we have $\mathcal{P}ψ_{H^*} = (-1)^{l_{in}}ψ_{H^*}$, and we know that the electric dipole transition happends at $Δl= \pm 1$, 
+therefore the intrinsic parity of the photon is $-1$ if partity is conserved in electromagnetic ineractions. 
+
+The intrinsic parity of all negatively charged elementary leptons and all neutrinos is $+1$, 
+as well as all quarks. For antifermions the intrinsic parity is opposide the corresponding fermion, but for antobosons it is the same as the corresponding boson. 
+If we exchange a pair of fermions the spin part of the wavefunction changes as $(-1)^{1+s}$, and if we exchange a pair of bosons it changes as $(-1)^s$. 
+
+\section{C-Parity}
+A C-parity transform a particle into its antiparticle (inverts charge). 
+For classical mechanics this means changing both the sign of electric and magnetic fields, this gives us that the C-parity of a photon is $-1$. 
 
 
 
