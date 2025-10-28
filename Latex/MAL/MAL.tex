@@ -416,6 +416,43 @@ If there is pairwise correlation $ρ>0$, the variance of Y is $ρσ^2+(1-ρ)σ^2
 \subsection{Out-of-Bag Samples}
 In Bagging and Random Forest, when we pick data from sets, we can use the data not picked for validation. 
 
+\chapter{Boosting}
+\section{Ada Boost}
+We can boost a weak learner to a strong learner. A weak learner is a classifier that performs slightly better than guessing. 
+A Strong learner is a classifier that performs perfectly. 
+We do this by training a lot of weak learners and combining them. 
+If we have a weighted dataset with a distrubtion D over X, we can reweight the dataset, 
+which is basically what bagging does. 
 
+We run an algorithm (A) on a weigted training set (T) to get hypothesis set $h_t\in H$ and compute weights $α_t$. 
+Then we return a voting classifier 
+\begin{align*}
+    f(x) = \text{sign}\br{\sum_{t=1}^{T}α_th_t(x)}.
+\end{align*}
 
+\bil{ada1}
+
+What this does is put more emphasis on points that are misclassified, so the algorith will focus more on these points. 
+$D_{t+1}(i)$ can also be calculated as 
+\begin{align*}
+    D_{t+1}(i) &= \frac{\frac{1}{n}\text{exp}\br{\sum_{j=1}^{t}-α_jy_ih_j(x_i)}}{\prod_{j=1}^{t}Z_j}, \\
+    &= \frac{\frac{1}{n}\text{exp}\br{-y_iF_t(x_i)}}{\prod_{j=1}^{t}Z_j}.
+\end{align*}
+If T becomes big enough the in sample error will eventually become 0, meaning we have a stong learner. 
+this happens if $T>\ln(n)/2γ^2$, where $γ = 1/2 - ε$, and $ε$ is the error of the weak learner. 
+
+An example for a simple decision stump can be seen in figure below. 
+\bil{ada2}
+
+\section{Gradient Boosting}
+In Gradient Boosting we first train $h_1$ on some dataset and then calculate the loss, 
+we then train a new hypothesis on the difference between the predicted value, and the actual value, 
+and combine the two hypothesis. 
+
+\bil{grad1}
+\bil{grad2}
+This can be done for any pointwise loss function, not just least square loss. 
+The loss function $L(x, y)$ needs to be differentiable, then we get the final general algorithm for gradient Boosting
+\bil{grad3}
+Here $F_{t-1}(x_n)$ is the current prediction. No matter what the loss function is we still minimize least squares loss. 
 \end{document} % ----------Dokumentet er nu slut! ------------

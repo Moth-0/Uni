@@ -51,6 +51,30 @@ class GradientBooster():
         train_scores = []
         val_scores = []
         ### YOUR CODE HERE 
+        # Init residual (y)
+        risidual = y.copy()
+        for i in range(self.n_estimators): 
+          # Create weak learner 
+          h = self.weak_learner()
+          h.fit(X, risidual)
+
+          # Calculate alpha
+          if i == 0: 
+            α = 1 
+          else: 
+            α = lr
+
+          # Store model and alpha
+          self.models.append(h)
+          self.alphas.append(α)
+
+          # Updata risidual y-h(x)
+          risidual -= α * h.predict(X)
+
+
+          train_scores.append(self.score(X, y))
+          val_scores.append(self.score(X_val, y_val))
+
         ### END CODE
 
         # remember to ensure that self.models and self.alphas are filled
@@ -74,6 +98,11 @@ class GradientBooster():
         if len(self.models) == 0:
             return np.zeros(X.shape[0])
         ### YOUR CODE HERE 3-8 lines
+        n, d = X.shape 
+
+        pred = np.sum([a * h.predict(X) for a, h in zip(self.alphas, self.models)], axis=0)
+
+        assert pred.shape == (n,) # predict shape failure 
         ### END CODE
         return pred
         
@@ -88,6 +117,9 @@ class GradientBooster():
         """
         score = 0
         ### YOUR CODE HERE 1-3 lines
+        n, d = X.shape
+        pred = self.predict(X)
+        score = np.mean((pred - y)**2)
         ### END CODE
         return score
 
