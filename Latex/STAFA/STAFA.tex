@@ -1,0 +1,931 @@
+% Første linje er dokumentklassen. Brug *altid* memoir!
+\documentclass[a4paper,oneside,article]{memoir}
+
+% Herunder indlæses forskellige pakker
+\usepackage[utf8]{inputenc}  % Korrekt håndtering af æ, ø og å
+\usepackage[T1]{fontenc}  % Korrekt håndtering af æ, ø og å
+\usepackage{microtype}  % Typografisk magi! Giver bl.a. pænere orddeling
+\usepackage{graphicx}  % Gør det muligt at indsætte billeder
+\usepackage{amsmath}  % Giver adgang til uundværlige matematikting
+\usepackage{mathtools}  % Retter ting i ams og giver ekstra muligheder
+\usepackage[danish]{babel}  % Danske betegnelser og orddeling
+\usepackage{lmodern}
+\usepackage{alphabeta}
+\usepackage{float} %Mere kontrol over billede-placering
+\renewcommand{\danishhyphenmins}{22}  % Bedre dansk orddeling
+\usepackage{siunitx} % Sientific notation for forskellige ting, med en regel om at den skal bruge cdot istedet for times. 
+\sisetup{inter-unit-product = \cdot, 
+        exponent-product=\cdot}\usepackage{derivative} % Til at skrive differentialligninger 
+\usepackage{xcolor} % For at få flere tekst farver 
+\usepackage[colorlinks=true]{hyperref} % For at få refrences man kan trykke på, slet [] hvis man vil have kasser i stedet for farvet tekst.
+\usepackage{pdfpages} % Til at indsætte andre pdf'er
+\usepackage{subfig} % For at have to billeder ved siden af hinanden
+\usepackage{unicode-math}
+
+% Pænere toc indents 
+\usepackage{tocloft}
+\cftsetindents{section}{1em}{2em}
+\cftsetindents{subsection}{4em}{0em}
+
+
+\begin{document}
+\author{Mikkel Moth Billing \\ 202307989}
+\title{Statistical and Solidstate Physics}
+\date{\today}
+%\maketitle   % Indsætter overskriften
+% Table of Contents indstillinger
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{1}
+\hypersetup{linkcolor=black} % Laver tableofcontents sort.  
+\tableofcontents %Indsætter ToC
+\hypersetup{linkcolor=red} % og så alle andre hyperrefs røde. 
+
+% Custom Commands
+\newcommand{\ti}[1]{\cdot 10^{#1}} % Let: gange 10^x
+\newcommand{\e}[1]{\emph{e}^{#1}} % Pænere e^x
+\newcommand{\vm}[2]{\begin{pmatrix} #1 \\ #2 \end{pmatrix}}
+\newcommand{\mat}[1]{\begin{pmatrix} #1 \end{pmatrix}}
+\newcommand{\h}{\hbar}
+\renewcommand{\v}[1]{\mathbfit{#1}}
+\newcommand{\ep}{\epsilon_0}
+
+
+% Lette paranteser 
+\newcommand{\br}[2][1]{%
+    \ifcase#1
+    \or \left( #2 \right) %1 eller ingenting
+    \or \left[ #2 \right] %2
+    \or \left\langle #2 \right\rangle %3
+    \or \left\{ #2 \right\} %4
+    \or \left| #2 \right| %5
+    \fi
+}
+
+% Til at sætter bileder ind i store dokumenter
+\newcommand{\bil}[1]{
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Billeder/#1.png}
+    \label{fig:#1}
+\end{figure}
+}
+
+% Til at Give equation numre 
+\newcommand{\eq}[1]{\label{eq:#1}\tag{#1}}
+
+
+% Lav ny pagestyle (kun odd fordi enkeltsidet)
+\makepagestyle{Title}
+\pagestyle{Title}
+%\makeoddhead{Title}{\footnotesize\color{gray}{\theauthor}}{}{\textcolor{gray}{\thedate}}
+\makeoddfoot{Title}{}{\footnotesize\color{gray}{\thepage{} / \thelastpage}}{}
+% Også fod på siden med \maketitle
+\makeoddfoot{plain}{}{\footnotesize\color{gray}{\thepage{} / \thelastpage}}{}
+\newpage
+
+% ----------Dokumentet Starter her! ------------
+\chapter{Energy in Thermal Physics}
+
+\section{Thermal Equilibrium}
+This section introduces the concept of temperature.
+\begin{itemize}
+    \item \textbf{Thermal Equilibrium:} When two objects are in thermal contact, they spontaneously exchange energy (as \textbf{heat}) until they reach a state of equilibrium[p. 65].
+    \item \textbf{Temperature ($T$):} Temperature is defined as the quantity that is the same for both objects when they are in thermal equilibrium[p. 62].
+    \item \textbf{Absolute Zero:} The zero point of the absolute temperature scale (Kelvin, $K$) is defined as $-273.15 \, ^\circ C$[p. 79]. All calculations in thermodynamics should use an absolute scale like Kelvin.
+\end{itemize}
+
+\section{The Ideal Gas}
+This section relates temperature to the microscopic properties of an ideal gas.
+\begin{itemize}
+    \item \textbf{Ideal Gas Law:} The macroscopic equation of state for $n$ moles of an ideal gas[p. 103].
+    \begin{align*}
+        PV = nRT \eq{1.1}
+    \end{align*}
+    Here $R$ is the universal gas constant, $R = 8.315 \, J/mol \cdot K$[p. 107].
+    \item In terms of the number of molecules $N$, the law is[p. 113]:
+    \begin{align*}
+        PV = NkT \eq{1.5}
+    \end{align*}
+    Where $k$ is Boltzmann's constant, $k = 1.381 \times 10^{-23} \, J/K$[p. 115].
+    
+    \item \textbf{Average Kinetic Energy:} From the microscopic model, the average translational kinetic energy of a single gas molecule is directly proportional to temperature [p. 162-164]. This is a key result linking the microscopic and macroscopic views.
+    \begin{align*}
+        \overline{K}_{\text{trans}} = \frac{1}{2}m\overline{v^2} = \frac{3}{2}kT \eq{1.17}
+    \end{align*}
+    
+    \item \textbf{RMS Speed:} The root-mean-square (rms) speed of gas molecules depends on their mass $m$ and the temperature $T$[p. 171].
+    \begin{align*}
+        v_{\text{rms}} \equiv \sqrt{\overline{v^2}} = \sqrt{\frac{3kT}{m}} \eq{1.21}
+    \end{align*}
+\end{itemize}
+
+\section{Equipartition of Energy}
+This section generalizes the energy-temperature relation.
+\begin{itemize}
+    \item \textbf{Degree of Freedom ($f$):} A "degree of freedom" is any way a molecule can store energy, where the formula for the energy is quadratic in a coordinate or momentum (e.g., $\frac{1}{2}mv_x^2$, $\frac{1}{2}I\omega_x^2$, $\frac{1}{2}k_s x^2$)[p. 181, 183].
+    \item \textbf{Equipartition Theorem:} At temperature $T$, the average energy of any single quadratic degree of freedom is $\frac{1}{2}kT$[p. 185].
+    \item \textbf{Total Thermal Energy ($U_{\text{thermal}}$):} For a system of $N$ molecules, each with $f$ "active" (not "frozen out") degrees of freedom[p. 185]:
+    \begin{align*}
+        U_{\text{thermal}} = N \cdot f \cdot \frac{1}{2}kT \eq{1.23}
+    \end{align*}
+    \begin{itemize}
+        \item Monatomic gas: $f=3$ (translation only)[p. 188].
+        \item Diatomic gas (room temp): $f=5$ (3 translation + 2 rotation)[p. 188, 191].
+        \item Solid: $f=6$ (3 translation K.E. + 3 potential E.)[p. 192].
+    \end{itemize}
+\end{itemize}
+
+\section{Heat and Work}
+This section defines the First Law of Thermodynamics.
+\begin{itemize}
+    \item \textbf{Internal Energy ($U$):} The total energy contained within a system[p. 205].
+    \item \textbf{Heat ($Q$):} A spontaneous transfer of energy from one object to another due to a temperature difference[p. 203].
+    \item \textbf{Work ($W$):} Any other transfer of energy into or out of a system[p. 204].
+    \item \textbf{First Law of Thermodynamics:} Energy is conserved. The change in a system's internal energy ($\Delta U$) is the sum of heat added *to* the system ($Q$) and work done *on* the system ($W$) [p. 206-207].
+    \begin{align*}
+        \Delta U = Q + W \eq{1.24}
+    \end{align*}
+\end{itemize}
+
+\section{Compression Work}
+This section details the most common form of work in thermodynamics.
+\begin{itemize}
+    \item \textbf{Quasistatic Work:} For a slow, reversible compression or expansion of a gas, the work done *on* the system is [p. 227-231, 241]:
+    \begin{align*}
+        W = -\int_{V_i}^{V_f} P(V) dV \eq{1.29}
+    \end{align*}
+    This is the negative of the area under the $P$-$V$ curve[p. 240].
+    
+    \item \textbf{Isothermal Process:} If $T$ is constant, for an ideal gas $P=NkT/V$ [p. 263-264]. The work done is:
+    \begin{align*}
+        W = -NkT \int_{V_i}^{V_f} \frac{1}{V} dV = NkT \ln\left(\frac{V_i}{V_f}\right) \eq{1.30}
+    \end{align*}
+    
+    \item \textbf{Adiabatic Process:} A process with no heat transfer ($Q=0$)[p. 271]. From the First Law, $\Delta U = W$[p. 272].
+    \item For a quasistatic adiabatic process on an ideal gas, the following relations hold:
+    \begin{align*}
+        VT^{f/2} = \text{constant} \eq{1.39}
+    \end{align*}
+    \begin{align*}
+        V^\gamma P = \text{constant} \eq{1.40}
+    \end{align*}
+    Where $\gamma = (f+2)/f$ is the \textbf{adiabatic exponent}[p. 290].
+\end{itemize}
+
+\section{Heat Capacities}
+This section defines quantities that measure how a system's temperature changes when energy is added.
+\begin{itemize}
+    \item \textbf{Heat Capacity ($C$):} The heat required to raise the temperature, per degree increase[p. 305].
+    \begin{align*}
+        C \equiv \frac{Q}{\Delta T} \eq{1.41}
+    \end{align*}
+    \item \textbf{Specific Heat Capacity ($c$):} Heat capacity per unit mass, $c = C/m$ [p. 306-307].
+    
+    \item \textbf{Heat Capacity at Constant Volume ($C_V$):} No $PV$-work is done ($W=0$)[p. 310].
+    \begin{align*}
+        C_V = \left(\frac{\partial U}{\partial T}\right)_V \eq{1.44}
+    \end{align*}
+    From equipartition ($U = \frac{f}{2}NkT$):
+    \begin{align*}
+        C_V = \frac{Nfk}{2} \eq{1.46}
+    \end{align*}
+    
+    \item \textbf{Heat Capacity at Constant Pressure ($C_P$):} The system does work as it expands[p. 314].
+    \begin{align*}
+        C_P = \left(\frac{\partial U}{\partial T}\right)_P + P\left(\frac{\partial V}{\partial T}\right)_P \eq{1.45}
+    \end{align*}
+    For an ideal gas, this simplifies to a crucial relation[p. 337]:
+    \begin{align*}
+        C_P = C_V + Nk \eq{1.48}
+    \end{align*}
+    
+    \item \textbf{Latent Heat ($L$):} The heat required to completely change the phase of a substance (e.g., melt or boil) at constant $T$ [p. 355-357].
+    \begin{align*}
+        L \equiv \frac{Q}{m} \eq{1.50}
+    \end{align*}
+    
+    \item \textbf{Enthalpy ($H$):} A useful thermodynamic potential for constant-pressure processes[p. 362].
+    \begin{align*}
+        H \equiv U + PV \eq{1.51}
+    \end{align*}
+    For a quasistatic process at constant $P$ where the only work is $PV$-work, the change in enthalpy is exactly equal to the heat added [p. 371-375]:
+    \begin{align*}
+        \Delta H = Q \quad \text{(from Eq. 1.55)}
+    \end{align*}
+    This provides an alternative (and often easier) way to calculate $C_P$[p. 376]:
+    \begin{align*}
+        C_P = \left(\frac{\partial H}{\partial T}\right)_P \eq{1.56}
+    \end{align*}
+\end{itemize}
+
+\chapter{The Second Law}
+
+\section{Two-State Systems}
+This section introduces statistical concepts using simple systems.
+\begin{itemize}
+    \item \textbf{Microstate:} The specific state of each individual particle in a system (e.g., HHT for three coins)[p. 500].
+    \item \textbf{Macrostate:} A generalized description of the system (e.g., "2 heads")[p. 500].
+    \item \textbf{Multiplicity ($\Omega$):} The number of microstates corresponding to a given macrostate[p. 500].
+    \item For $N$ coins, the multiplicity of $n$ heads is given by the binomial coefficient:
+    \begin{align*}
+        \Omega(N, n) = \binom{N}{n} = \frac{N!}{n!(N-n)!} \eq{2.6}
+    \end{align*}
+    \item \textbf{Two-State Paramagnet:} A model system of $N$ magnetic dipoles, each of which can be "up" or "down" [p. 525-526]. This is mathematically identical to the coin-flipping system[p. 531].
+\end{itemize}
+
+\section{The Einstein Model of a Solid}
+This section models a solid as a collection of quantum harmonic oscillators.
+\begin{itemize}
+    \item \textbf{Einstein Solid:} A model of a solid as $N$ independent harmonic oscillators, all with the same frequency $f$[p. 540].
+    \item The energy of each oscillator is quantized in discrete units of $\epsilon = hf$[p. 533].
+    \item The multiplicity of an Einstein solid with $N$ oscillators and $q$ energy units is[p. 546]:
+    \begin{align*}
+        \Omega(N, q) = \binom{q+N-1}{q} = \frac{(q+N-1)!}{q!(N-1)!} \eq{2.9}
+    \end{align*}
+\end{itemize}
+
+\section{Interacting Systems}
+This section examines two systems (e.g., two Einstein solids) that can exchange energy.
+\begin{itemize}
+    \item The total multiplicity $\Omega_{\text{total}}$ of a combined macrostate (e.g., $q_A$ and $q_B$) is the product of the individual multiplicities: $\Omega_{\text{total}} = \Omega_A \Omega_B$[p. 560].
+    \item \textbf{Fundamental Assumption of Statistical Mechanics:} In an isolated system in thermal equilibrium, all accessible microstates are equally probable[p. 587].
+    \item This implies that the system will most likely be found in the macrostate with the \textbf{greatest multiplicity}[p. 591, 618].
+    \item \textbf{Second Law of Thermodynamics (Statistical Version):} Multiplicity tends to increase[p. 618].
+\end{itemize}
+
+\section{Large Systems}
+This section applies mathematical tools to systems with large numbers ($N \sim 10^{23}$).
+\begin{itemize}
+    \item \textbf{Stirling's Approximation:} For large $N$, $N!$ is unwieldy. We use the approximation:
+    \begin{align*}
+        \ln N! \approx N \ln N - N \eq{2.16}
+    \end{align*}
+    A more accurate version is $N! \approx N^N e^{-N} \sqrt{2\pi N}$[p. 645].
+    
+    \item \textbf{Multiplicity of a Large Einstein Solid:} In the high-temperature limit ($q \gg N$), the multiplicity is approximately[p. 665]:
+    \begin{align*}
+        \Omega(N, q) \approx \left(\frac{eq}{N}\right)^N \eq{2.21}
+    \end{align*}
+    
+    \item \textbf{Sharpness of the Multiplicity Function:} For two interacting large systems, the $\Omega_{\text{total}}$ function is an extremely sharp \textbf{Gaussian} peak centered on the most probable macrostate (e.g., where energy is shared equally)[p. 670, 681].
+    \item \textbf{Thermodynamic Limit:} For macroscopic systems, fluctuations away from the most likely macrostate are unmeasurably small. We can assume the system *is* in its most likely macrostate[p. 689].
+\end{itemize}
+
+\section{The Ideal Gas}
+This section derives the multiplicity of a monatomic ideal gas.
+\begin{itemize}
+    \item \textbf{Multiplicity of a Monatomic Ideal Gas:} The derivation involves counting states in a $3N$-dimensional "momentum space." The final result depends on $V$ and $U$ as:
+    \begin{align*}
+        \Omega(U, V, N) = f(N) V^N U^{3N/2} \eq{2.41}
+    \end{align*}
+    where $f(N)$ is a complicated function of $N$[p. 743].
+    \item \textbf{Volume Dependence:} $\Omega \propto V^N$. The probability of finding $N$ molecules in a sub-volume $V/2$ is $(1/2)^N$, which is astronomically small for large $N$[p. 762].
+\end{itemize}
+
+\section{Entropy}
+This section defines entropy, the central concept of the Second Law.
+\begin{itemize}
+    \item \textbf{Entropy ($S$):} Entropy is defined as the logarithm of the multiplicity[p. 768].
+    \begin{align*}
+        S \equiv k \ln \Omega \eq{2.45}
+    \end{align*}
+    Entropy is a measure of the number of available microstates.
+    
+    \item \textbf{Second Law of Thermodynamics (Entropy Version):} Any large system in equilibrium will be found in the macrostate with the greatest entropy. Entropy tends to increase [p. 779-780].
+    
+    \item \textbf{Entropy of an Ideal Gas (Sackur-Tetrode Equation):}
+    \begin{align*}
+        S = Nk \left[ \ln\left( \frac{V}{N} \left( \frac{4\pi m U}{3N h^2} \right)^{3/2} \right) + \frac{5}{2} \right] \eq{2.49}
+    \end{align*}
+    
+    \item \textbf{Free Expansion:} An adiabatic expansion into a vacuum. $Q=0$ and $W=0$, so $\Delta U = 0$[p. 794]. The entropy increases because the volume increases[p. 795, 792]:
+    \begin{align*}
+        \Delta S = Nk \ln\left(\frac{V_f}{V_i}\right) \eq{2.51}
+    \end{align*}
+    
+    \item \textbf{Entropy of Mixing:} When two different gases mix, the total entropy increases. For two identical gases, it does not[p. 802, 807]. This is resolved by the fact that identical particles are indistinguishable[p. 816].
+    
+    \item \textbf{Irreversible Processes:} Processes that create new entropy (increase $\Omega_{\text{total}}$) and cannot happen in reverse[p. 822].
+\end{itemize}
+
+\chapter{Interactions and Implications}
+
+\section{Temperature}
+This section provides the fundamental, statistical definition of temperature.
+\begin{itemize}
+    \item When two systems (A and B) are in thermal equilibrium, their total entropy ($S_{\text{total}} = S_A + S_B$) is maximized.
+    \item At equilibrium, the slopes of their entropy-energy graphs are equal:
+    \begin{align*}
+        \frac{\partial S_A}{\partial U_A} = \frac{\partial S_B}{\partial U_B} \eq{3.3}
+    \end{align*}
+    \item \textbf{Temperature ($T$):} This common quantity is defined as the reciprocal of the slope of the entropy-energy graph.
+    \begin{align*}
+        \frac{1}{T} \equiv \left(\frac{\partial S}{\partial U}\right)_{N,V} \eq{3.5}
+    \end{align*}
+    \item The Second Law implies that energy flows spontaneously from an object with a shallow $S$-$U$ slope (high $T$) to one with a steep $S$-$U$ slope (low $T$) [p. 5885-5888].
+    \item For a "normal" system, $U$ increases with $T$, and the $S$-$U$ graph is concave-down.
+    \item For a monatomic ideal gas, this definition correctly yields $U = \frac{3}{2}NkT$ [p. 6114-6115], verifying the equipartition theorem.
+\end{itemize}
+
+\section{Entropy and Heat}
+This section (partially summarized) connects the statistical definition of entropy to measurable quantities like heat capacity.
+\begin{itemize}
+    \item \textbf{Predicting Heat Capacities:} We can predict $C_V$ from a microscopic model using a 5-step procedure:
+    \begin{enumerate}
+        \item Find multiplicity $\Omega$ as a function of $U, V, N$.
+        \item Find entropy: $S = k \ln \Omega$.
+        \item Find temperature: $1/T = (\partial S / \partial U)_{N,V}$.
+        \item Solve for energy $U(T)$.
+        \item Find heat capacity: $C_V = (\partial U / \partial T)_V$.
+    \end{enumerate}
+    \item For an Einstein solid (high $T$) or monatomic ideal gas, this procedure correctly gives $C_V = \frac{f}{2}Nk$ [p. 5988-5991].
+    \item \textbf{Third Law of Thermodynamics:} At $T=0$, a system settles into its unique lowest-energy state (ground state), so $\Omega=1$ and $S=0$[p. 6100]. This implies that $C_V \to 0$ as $T \to 0$[p. 6107].
+\end{itemize}
+
+\section{Paramagnetism}
+This section applies these statistical methods to a two-state paramagnet.
+\begin{itemize}
+    \item \textbf{Model:} $N$ spin-1/2 dipoles in a magnetic field $B$. Each dipole has two states: "up" ($\uparrow$) with energy $-\mu B$, or "down" ($\downarrow$) with energy $+\mu B$ [p. 6157-6158].
+    \item The total energy $U$ and magnetization $M$ are:
+    \begin{align*}
+        U = N_\downarrow (\mu B) + N_\uparrow (-\mu B) = (N_\downarrow - N_\uparrow) \mu B \eq{3.25}
+    \end{align*}
+    \begin{align*}
+        M = (N_\uparrow - N_\downarrow) \mu = -U/B \eq{3.26}
+    \end{align*}
+    \item \textbf{Multiplicity:} The number of ways to arrange $N_\uparrow$ up-dipoles and $N_\downarrow$ down-dipoles.
+    \begin{align*}
+        \Omega(N_\uparrow) = \binom{N}{N_\uparrow} = \frac{N!}{N_\uparrow! N_\downarrow!} \eq{3.27}
+    \end{align*}
+    \item \textbf{Entropy and Temperature:} Using Stirling's approximation ($ \ln N! \approx N \ln N - N $ [p. 5911]) on $S = k \ln \Omega$ gives:
+    \begin{align*}
+        S/k \approx N \ln N - N_\uparrow \ln N_\uparrow - N_\downarrow \ln N_\downarrow \eq{3.28}
+    \end{align*}
+    Applying $1/T = \partial S / \partial U$ gives the temperature:
+    \begin{align*}
+        \frac{1}{T} = \frac{k}{2\mu B} \ln\left(\frac{N_\downarrow}{N_\uparrow}\right) = \frac{k}{2\mu B} \ln\left(\frac{N - U/(\mu B)}{N + U/(\mu B)}\right) \eq{3.30}
+    \end{align*}
+    \item \textbf{Negative Temperature:} This system has a finite maximum energy (all spins $\downarrow$). When $U>0$ (more spins $\downarrow$), the $S$-$U$ graph has a negative slope, resulting in a \textit{negative} temperature. Negative $T$ is "hotter" than positive $T$.
+    
+    \item \textbf{Energy and Magnetization (Analytic Solution):} Solving Eq. {3.30} for $U$ and $M$:
+    \begin{align*}
+        U = -N\mu B \tanh\left(\frac{\mu B}{kT}\right) \eq{3.31}
+    \end{align*}
+    \begin{align*}
+        M = N\mu \tanh\left(\frac{\mu B}{kT}\right) \eq{3.32}
+    \end{align*}
+    At high $T$ ($kT \gg \mu B$), $\tanh(x) \approx x$, and $M \approx N\mu^2 B / (kT)$. This $1/T$ dependence is \textbf{Curie's Law}[p. 6183].
+    
+    \item \textbf{Heat Capacity:} Differentiating $U(T)$ gives $C_V$:
+    \begin{align*}
+        C_V = \left(\frac{\partial U}{\partial T}\right)_B = Nk \left(\frac{\mu B}{kT}\right)^2 \frac{1}{\cosh^2(\mu B / kT)} \eq{3.33}
+    \end{align*}
+    This function approaches zero at both low and high $T$, peaking when $kT \approx \mu B$.
+\end{itemize}
+
+\section{Mechanical Equilibrium and Pressure}
+This section defines pressure based on entropy.
+\begin{itemize}
+    \item Consider two systems that can exchange both energy and volume. At equilibrium, $S_{\text{total}}$ is maximum, which requires $(\partial S_A / \partial U_A) = (\partial S_B / \partial U_B)$ (i.e., $T_A = T_B$) and also:
+    \begin{align*}
+        \left(\frac{\partial S_A}{\partial V_A}\right)_{U,N} = \left(\frac{\partial S_B}{\partial V_B}\right)_{U,N} \eq{3.38}
+    \end{align*}
+    \item \textbf{Pressure ($P$):} This common quantity, which governs volume exchange, is defined as:
+    \begin{align*}
+        P \equiv T \left(\frac{\partial S}{\partial V}\right)_{U,N} \eq{3.39}
+    \end{align*}
+    A system with a large $\partial S / \partial V$ "wants" to expand, so it has high pressure.
+    \item For a monatomic ideal gas, plugging the Sackur-Tetrode equation (2.49) into this definition correctly yields the ideal gas law: $P = NkT/V$.
+    
+    \item \textbf{Thermodynamic Identity (for $U$):} This fundamental relation combines the definitions of $T$ and $P$. If $U$ is considered a function of $S$ and $V$ (for fixed $N$), the total differential is:
+    \begin{align*}
+        dU = \left(\frac{\partial U}{\partial S}\right)_V dS + \left(\frac{\partial U}{\partial V}\right)_S dV
+    \end{align*}
+    Using the definitions of $T$ and $P$, this becomes:
+    \begin{align*}
+        dU = TdS - PdV \eq{3.46}
+    \end{align*}
+    This relates changes in $U$, $S$, and $V$ for any infinitesimal, quasistatic process.
+\end{itemize}
+
+\section{Diffusive Equilibrium and Chemical Potential}
+This section defines the chemical potential, which governs the exchange of particles.
+\begin{itemize}
+    \item Consider two systems that can exchange energy and particles. At equilibrium, $T_A=T_B$ and $P_A=P_B$. There is a third condition:
+    \begin{align*}
+        \left(\frac{\partial S_A}{\partial N_A}\right)_{U,V} = \left(\frac{\partial S_B}{\partial N_B}\right)_{U,V} \eq{3.53}
+    \end{align*}
+    \item \textbf{Chemical Potential ($\mu$):} This quantity is defined as:
+    \begin{align*}
+        \mu \equiv -T \left(\frac{\partial S}{\partial N}\right)_{U,V} \eq{3.55}
+    \end{align*}
+    At equilibrium, $\mu_A = \mu_B$. Particles tend to flow spontaneously from a system of high $\mu$ to a system of low $\mu$.
+    
+    \item \textbf{Generalized Thermodynamic Identity:} The thermodynamic identity (3.46) is expanded to include changes in $N$:
+    \begin{align*}
+        dU = TdS - PdV + \mu dN \eq{3.58}
+    \end{align*}
+    \item This identity provides alternative formulas for $T$, $P$, and $\mu$:
+    \begin{align*}
+        T = \left(\frac{\partial U}{\partial S}\right)_{V,N} \quad
+        P = -\left(\frac{\partial U}{\partial V}\right)_{S,N} \quad
+        \mu = \left(\frac{\partial U}{\partial N}\right)_{S,V} \eq{3.60}
+    \end{align*}
+    So, $\mu$ is the energy required to add one particle while keeping $S$ and $V$ constant.
+    
+    \item \textbf{Chemical Potential of an Ideal Gas:} Using the Sackur-Tetrode equation (2.49), we find $\mu$ for a monatomic ideal gas:
+    \begin{align*}
+        \mu = -kT \ln\left[ \frac{V}{N} \left( \frac{2\pi m kT}{h^2} \right)^{3/2} \right] \eq{3.63}
+    \end{align*}
+\end{itemize}
+
+\subsection{Summary and a Look Ahead}
+This section summarizes the three types of equilibrium and the thermodynamic identity.
+\begin{itemize}
+    \item \textbf{Thermal Equilibrium:} Governed by $T = (\partial U / \partial S)_{V,N}$.
+    \item \textbf{Mechanical Equilibrium:} Governed by $P = -(\partial U / \partial V)_{S,N}$.
+    \item \textbf{Diffusive Equilibrium:} Governed by $\mu = (\partial U / \partial N)_{S,V}$.
+    \item The \textbf{thermodynamic identity} combines all three: $dU = TdS - PdV + \mu dN$.
+\end{itemize}
+
+\setcounter{chapter}{4}
+\chapter{Free Energy and Chemical Thermodynamics}
+
+\section{Free Energy as Available Work}
+This section introduces thermodynamic potentials useful for non-isolated systems.
+\begin{itemize}
+    \item \textbf{Enthalpy ($H$):} The total energy required to create a system at constant pressure $P$.
+    \begin{align*}
+        H \equiv U + PV \eq{5.1}
+    \end{align*}
+    
+    \item \textbf{Helmholtz Free Energy ($F$):} The energy that must be provided as work to create a system at constant temperature $T$. $TS$ is the heat provided "for free" by the environment.
+    \begin{align*}
+        F \equiv U - TS \eq{5.2}
+    \end{align*}
+    
+    \item \textbf{Gibbs Free Energy ($G$):} The "other" work (non-$PV$ work) required to create a system in an environment at constant $T$ and $P$.
+    \begin{align*}
+        G \equiv U - TS + PV \eq{5.3}
+    \end{align*}
+    These four quantities ($U, H, F, G$) are called \textbf{thermodynamic potentials}.
+    
+    \item \textbf{Changes in Free Energy:} For any process at constant $T$ and $P$:
+    \begin{align*}
+        \Delta G \le W_{\text{other}} \eq{5.8}
+    \end{align*}
+    The change in $G$ is the minimum "other" (e.g., electrical) work required (or maximum work that can be extracted).
+    
+    \item \textbf{Thermodynamic Identities:} These summarize the relationships between the potentials and their natural variables ($S, T, P, V$).
+    \begin{align*}
+        dU &= TdS - PdV + \mu dN \eq{5.16} \\
+        dH &= TdS + VdP + \mu dN \eq{5.18} \\
+        dF &= -SdT - PdV + \mu dN \eq{5.20} \\
+        dG &= -SdT + VdP + \mu dN \eq{5.23}
+    \end{align*}
+    
+    \item \textbf{Partial Derivative Relations:} From the identities, we can find key variables by differentiation. From the $dG$ identity:
+    \begin{align*}
+        S = -\left(\frac{\partial G}{\partial T}\right)_{P,N} \quad
+        V = \left(\frac{\partial G}{\partial P}\right)_{T,N} \quad
+        \mu = \left(\frac{\partial G}{\partial N}\right)_{T,P} \eq{5.24}
+    \end{align*}
+\end{itemize}
+
+\section{Free Energy as a Force toward Equilibrium}
+This section establishes the equilibrium conditions for systems in contact with an environment.
+\begin{itemize}
+    \item The Second Law ($S_{\text{total}}$ tends to increase) implies that for a system in contact with a reservoir:
+    \begin{itemize}
+        \item At constant $T$ and $V$, \textbf{Helmholtz Free Energy ($F$) tends to decrease}.
+        \item At constant $T$ and $P$, \textbf{Gibbs Free Energy ($G$) tends to decrease}.
+    \end{itemize}
+    \item $F = U - TS$ represents the competition between minimizing energy ($U$) and maximizing entropy ($S$). At low $T$, the $U$ term dominates; at high $T$, the $S$ term dominates.
+    
+    \item \textbf{Extensive vs. Intensive:}
+    \begin{itemize}
+        \item \textbf{Extensive} quantities double when the system size doubles ($V, N, S, U, H, F, G$).
+        \item \textbf{Intensive} quantities are unchanged ($T, P, \mu$, density).
+    \end{itemize}
+    
+    \item \textbf{Gibbs Free Energy and Chemical Potential:} Because $G$ is extensive and $T$ and $P$ are intensive, $G$ must be directly proportional to $N$. The constant of proportionality is $\mu$.
+    \begin{align*}
+        G = N\mu \eq{5.35}
+    \end{align*}
+    Therefore, $\mu$ is simply the Gibbs free energy per particle.
+    
+    \item \textbf{Chemical Potential of an Ideal Gas:} Using $V = (\partial G / \partial P)_{T,N} = N(\partial \mu / \partial P)_{T,N}$ and the ideal gas law ($V=NkT/P$), we can integrate to find $\mu(P)$:
+    \begin{align*}
+        \mu(T, P) = \mu^\circ(T) + kT \ln(P/P^\circ) \eq{5.40}
+    \end{align*}
+    where $P^\circ$ is a standard reference pressure (e.g., 1 bar) and $\mu^\circ(T)$ is the chemical potential at that pressure.
+\end{itemize}
+
+\chapter{Boltzmann Statistics}
+
+Calculating $\Omega(U)$ directly is often too difficult. This chapter introduces a more powerful method for systems in equilibrium with a reservoir at a fixed temperature $T$, rather than systems with fixed energy $U$.
+
+\section{The Boltzmann Factor}
+This section derives the probability of a system being in a specific microstate.
+\begin{itemize}
+    \item Consider a small system (S) in thermal contact with a large reservoir (R). The total energy is fixed.
+    \item The probability of the system being in a particular microstate $s_1$ is proportional to the multiplicity of the reservoir in that state: $P(s_1) \propto \Omega_R(s_1)$.
+    \item The ratio of probabilities for two different microstates $s_1$ and $s_2$ is:
+    \begin{align*}
+        \frac{P(s_2)}{P(s_1)} = \frac{\Omega_R(s_2)}{\Omega_R(s_1)} = e^{(S_R(s_2) - S_R(s_1))/k}
+    \end{align*}
+    \item Using $dS_R = dU_R/T = -dE_S/T$, this becomes:
+    \begin{align*}
+        \frac{P(s_2)}{P(s_1)} = \frac{e^{-E(s_2)/kT}}{e^{-E(s_1)/kT}} \eq{6.5}
+    \end{align*}
+    \item \textbf{Boltzmann Factor:} The term $e^{-E(s)/kT}$ is the Boltzmann factor. It gives the relative probability of a microstate.
+    \item \textbf{Probability of a Microstate $s$:}
+    \begin{align*}
+        P(s) = \frac{1}{Z} e^{-E(s)/kT} \eq{6.8}
+    \end{align*}
+    \item \textbf{Partition Function ($Z$):} $Z$ is the normalization constant, ensuring all probabilities sum to 1.
+    \begin{align*}
+        Z \equiv \sum_s e^{-E(s)/kT} \eq{6.10}
+    \end{align*}
+    The sum is over all possible microstates $s$ of the system.
+\end{itemize}
+
+\section{Average Values}
+This section shows how to use the partition function to find average properties.
+\begin{itemize}
+    \item The average value of any quantity $X$ is found by summing $X(s)$ for each microstate, weighted by its probability $P(s)$:
+    \begin{align*}
+        \overline{X} = \sum_s X(s) P(s) = \frac{1}{Z} \sum_s X(s) e^{-E(s)/kT} \eq{6.18}
+    \end{align*}
+    \item \textbf{Average Energy ($\overline{E}$ or $U$):} The average energy of a system is:
+    \begin{align*}
+        \overline{E} = \frac{1}{Z} \sum_s E(s) e^{-E(s)/kT}
+    \end{align*}
+    This can be expressed concisely as a derivative of $Z$. Using $\beta = 1/kT$:
+    \begin{align*}
+        \overline{E} = -\frac{1}{Z} \frac{\partial Z}{\partial \beta} = -\frac{\partial (\ln Z)}{\partial \beta} \eq{Prob 6.16}
+    \end{align*}
+    \item \textbf{Example: Two-State Paramagnet.} For a single dipole, $Z = e^{\beta \mu B} + e^{-\beta \mu B} = 2\cosh(\beta \mu B)$.
+    \item The average energy is:
+    \begin{align*}
+        \overline{E} = -\frac{\partial}{\partial \beta} \ln[2\cosh(\beta \mu B)] = -\mu B \tanh(\beta \mu B) \eq{6.23}
+    \end{align*}
+    \item The total energy for $N$ dipoles is $U = N\overline{E}$, matching Eq. (3.31).
+\end{itemize}
+
+\section{The Equipartition Theorem}
+This section provides a formal proof of the equipartition theorem.
+\begin{itemize}
+    \item This theorem applies only to degrees of freedom that are \textbf{quadratic} ($E(q) = cq^2$) and can be treated \textbf{classically} (energy levels are very closely spaced compared to $kT$).
+    \item The partition function for one such degree of freedom (treating the variable $q$ as continuous) is:
+    \begin{align*}
+        Z = \int_{-\infty}^{\infty} e^{-\beta c q^2} dq' \propto \int_{-\infty}^{\infty} e^{-x^2} dx \propto \beta^{-1/2}
+    \end{align*}
+    (where $dq'$ is a small unit of $q$ to make $Z$ dimensionless, and $x^2 = \beta c q^2$).
+    \item We can write $Z = C \beta^{-1/2}$, where $C$ is some constant.
+    \item The average energy for this one degree of freedom is:
+    \begin{align*}
+        \overline{E} = -\frac{\partial (\ln Z)}{\partial \beta} = -\frac{\partial}{\partial \beta} (\ln C - \frac{1}{2}\ln \beta) = - \left( 0 - \frac{1}{2} \frac{1}{\beta} \right) = \frac{1}{2\beta}
+    \end{align*}
+    \item Since $\beta = 1/kT$, we have the equipartition theorem:
+    \begin{align*}
+        \overline{E} = \frac{1}{2}kT \eq{6.40}
+    \end{align*}
+\end{itemize}
+
+\section{The Maxwell Speed Distribution}
+This section derives the probability distribution for the speeds of molecules in an ideal gas.
+\begin{itemize}
+    \item The probability of a molecule having a speed in the range $v$ to $v+dv$ is $D(v)dv$, where $D(v)$ is the Maxwell speed distribution [p. 6395-6397].
+    \item $D(v)$ is proportional to two factors:
+    \begin{enumerate}
+        \item The Boltzmann factor for translational kinetic energy: $e^{-mv^2/2kT}$ [p. 6389-6391].
+        \item The number of velocity vectors corresponding to that speed. This is proportional to the surface area of a sphere in "velocity space" with radius $v$: $4\pi v^2$[p. 6393].
+    \end{enumerate}
+    \item \textbf{Maxwell Speed Distribution:} The normalized probability distribution is:
+    \begin{align*}
+        D(v) = \left(\frac{m}{2\pi kT}\right)^{3/2} 4\pi v^2 e^{-mv^2/2kT} \eq{6.50}
+    \end{align*}
+    \item From this distribution, characteristic speeds can be calculated:
+    \item \textbf{Most Probable Speed ($v_{\text{max}}$):} The speed where $D(v)$ is maximum.
+    \begin{align*}
+        v_{\text{max}} = \sqrt{\frac{2kT}{m}}
+    \end{align*}
+    \item \textbf{Average Speed ($\overline{v}$):} The mean speed of all molecules.
+    \begin{align*}
+        \overline{v} = \int_0^\infty v D(v) dv = \sqrt{\frac{8kT}{\pi m}} \eq{6.52}
+    \end{align*}
+    \item \textbf{RMS Speed ($v_{\text{rms}}$):} The square root of the average squared speed.
+    \begin{align*}
+        v_{\text{rms}} = \sqrt{\overline{v^2}} = \sqrt{\frac{3kT}{m}} \eq{6.41}
+    \end{align*}
+\end{itemize}
+
+\section{Partition Functions and Free Energy}
+This section connects the microscopic partition function ($Z$) to the macroscopic Helmholtz free energy ($F$).
+\begin{itemize}
+    \item \textbf{The Fundamental Relation:} The Helmholtz free energy $F$ of a system at temperature $T$ is given by its partition function $Z$:
+    \begin{align*}
+        F = -kT \ln Z \eq{6.56}
+    \end{align*}
+    This is a crucial bridge from the statistical (microscopic) $Z$ to the thermodynamic (macroscopic) $F$.
+    
+    \item \textbf{Proof Sketch:} This relation is proven by showing that $F' = -kT \ln Z$ obeys the same differential equation as $F = U - TS$, namely $(\partial F / \partial T) = (F-U)/T$ (Eq. 6.59), and has the same value at $T=0$ ($F(0) = U_0$).
+    
+    \item \textbf{Calculating All Thermodynamic Properties from $Z$:} Once $F$ is known from $Z$, all other thermodynamic quantities can be found using the partial derivative relations from the thermodynamic identity for $F$:
+    \begin{align*}
+        S &= -\left(\frac{\partial F}{\partial T}\right)_{V,N} = k \ln Z + kT \left(\frac{\partial (\ln Z)}{\partial T}\right)_{V,N} \\
+        P &= -\left(\frac{\partial F}{\partial V}\right)_{T,N} = kT \left(\frac{\partial (\ln Z)}{\partial V}\right)_{T,N} \eq{6.64} \\
+        \mu &= -\left(\frac{\partial F}{\partial N}\right)_{T,V} = -kT \left(\frac{\partial (\ln Z)}{\partial N}\right)_{T,V} \eq{6.64}
+    \end{align*}
+\end{itemize}
+
+\section{Partition Functions for Composite Systems}
+This section relates the total partition function of a system ($Z_{\text{total}}$) to the partition functions of its individual components (e.g., $Z_1$ for a single particle).
+\begin{itemize}
+    \item \textbf{Noninteracting, Distinguishable Particles:} The total partition function is the product of the individual partition functions.
+    \begin{align*}
+        Z_{\text{total}} = Z_1 Z_2 Z_3 \cdots Z_N = (Z_1)^N \eq{6.69}
+    \end{align*}
+    \item \textbf{Noninteracting, Indistinguishable Particles (Low-Density Limit):}
+    \item For indistinguishable particles (e.g., identical molecules in a gas), we must correct for overcounting states by dividing by $N!$.
+    \begin{align*}
+        Z_{\text{total}} = \frac{1}{N!} (Z_1)^N \eq{6.70}
+    \end{align*}
+    \item This approximation is valid when the number of available single-particle states is much larger than the number of particles ($Z_1 \gg N$), so the probability of two particles occupying the same state is negligible[p. 6432, 6434].
+\end{itemize}
+
+\section{Ideal Gas Revisited}
+This section uses the partition function method to re-derive all thermodynamic properties of an ideal gas.
+\begin{itemize}
+    \item The partition function for a single molecule ($Z_1$) is factored into translational and internal parts:
+    \begin{align*}
+        Z_1 = Z_{\text{trans}} Z_{\text{int}} \eq{6.73}
+    \end{align*}
+    \item \textbf{Translational Partition Function ($Z_{\text{trans}}$):} Found by summing over the quantized energy states of a particle in a 3D box ($E = \frac{h^2}{8mL^2}(n_x^2+n_y^2+n_z^2)$) [p. 6458, 6461-6462]. This sum is approximated by an integral:
+    \begin{align*}
+        Z_{\text{trans}} = \sum_n e^{-E_n/kT} \approx \int e^{-E_n/kT} d^3n = \frac{V}{v_Q} \eq{6.79}
+    \end{align*}
+    \item \textbf{Quantum Volume ($v_Q$):} The typical volume of a particle's wave packet.
+    \begin{align*}
+        v_Q = \left(\frac{h^2}{2\pi m kT}\right)^{3/2} \eq{6.83}
+    \end{align*}
+    $Z_{\text{trans}}$ is the number of quantum volumes that fit inside the box $V$.
+    
+    \item \textbf{Total Partition Function ($Z$):} For $N$ indistinguishable molecules:
+    \begin{align*}
+        Z = \frac{1}{N!} (Z_1)^N = \frac{1}{N!} \left( \frac{V Z_{\text{int}}}{v_Q} \right)^N \eq{6.85}
+    \end{align*}
+    
+    \item \textbf{Thermodynamic Properties from $Z$:}
+    \item \textbf{Helmholtz Free Energy ($F$):} Using $F = -kT \ln Z$ (Eq. 6.56) and Stirling's approximation ($\ln N! \approx N \ln N - N$):
+    \begin{align*}
+        F = -NkT \left[ \ln\left(\frac{V Z_{\text{int}}}{N v_Q}\right) + 1 \right] \eq{6.90}
+    \end{align*}
+    \item \textbf{Pressure ($P$):}
+    \begin{align*}
+        P = -\left(\frac{\partial F}{\partial V}\right)_{T,N} = -(-NkT/V) = \frac{NkT}{V} \eq{6.91}
+    \end{align*}
+    This successfully derives the ideal gas law from quantum statistics.
+    
+    \item \textbf{Entropy ($S$):} $S = -(\partial F / \partial T)_{V,N}$. For a monatomic gas ($Z_{\text{int}}=1$), this yields the \textbf{Sackur-Tetrode Equation}:
+    \begin{align*}
+        S = Nk \left[ \ln\left( \frac{V}{N v_Q} \right) + \frac{5}{2} \right] \eq{6.92}
+    \end{align*}
+    
+    \item \textbf{Energy ($U$):} $U = - \partial(\ln Z) / \partial \beta$.
+    \begin{align*}
+        U = \frac{3}{2}NkT + N\overline{E}_{\text{int}} \eq{6.88}
+    \end{align*}
+    The energy is the sum of translational (from equipartition) and internal (rotational, vibrational) parts.
+\end{itemize}
+
+\chapter{Quantum Statistics}
+
+\section{The Gibbs Factor}
+This section introduces statistical mechanics for a system that can exchange both energy and particles with a reservoir at constant $T$ and $\mu$.
+\begin{itemize}
+    \item \textbf{Gibbs Factor:} The relative probability of a microstate $s$ with energy $E(s)$ and $N(s)$ particles.
+    \begin{align*}
+        \text{Gibbs factor} = e^{-[E(s) - \mu N(s)]/kT} \eq{7.5}
+    \end{align*}
+    
+    \item \textbf{Probability of a Microstate $s$:}
+    \begin{align*}
+        P(s) = \frac{1}{\mathcal{Z}} e^{-[E(s) - \mu N(s)]/kT} \eq{7.6}
+    \end{align*}
+    
+    \item \textbf{Grand Partition Function ($\mathcal{Z}$):} The normalization constant, also called the Gibbs sum.
+    \begin{align*}
+        \mathcal{Z} \equiv \sum_s e^{-[E(s) - \mu N(s)]/kT} \eq{7.7}
+    \end{align*}
+    The sum is over all possible microstates, including all possible values of $N(s)$.
+    
+    \item \textbf{Example: Adsorption Site.} A site (system) can be empty (E=0, N=0) or occupied (E=$\epsilon$, N=1). The grand partition function is $\mathcal{Z} = 1 + e^{-(\epsilon - \mu)/kT}$[p. 6411]. The probability of the site being occupied is:
+    \begin{align*}
+        P(\text{occupied}) = \frac{e^{-(\epsilon - \mu)/kT}}{1 + e^{-(\epsilon - \mu)/kT}}
+    \end{align*}
+\end{itemize}
+
+\section{Bosons and Fermions}
+This section introduces the two fundamental types of quantum particles and their distribution functions.
+\begin{itemize}
+    \item \textbf{Bosons:} Particles with integer spin (e.g., photons, $^4\text{He}$). Any number of identical bosons can occupy the same single-particle state.
+    \item \textbf{Fermions:} Particles with half-integer spin (e.g., electrons, protons, $^3\text{He}$).
+    \item \textbf{Pauli Exclusion Principle:} Two identical fermions cannot occupy the same single-particle state.
+    \item \textbf{Classical Limit ($Z_1 \gg N$):} When the number of available single-particle states ($Z_1$) is much greater than the number of particles ($N$), the probability of two particles occupying the same state is negligible. In this limit ($V/N \gg v_Q$), both quantum distributions reduce to the classical Boltzmann distribution.
+    
+    \item \textbf{Distribution Functions:} We find the average number of particles ($\overline{n}$) in a single-particle state with energy $\epsilon$ by treating that state as the system.
+    \item \textbf{Fermi-Dirac Distribution (Fermions):} $n$ can be 0 or 1.
+    \begin{align*}
+        \overline{n}_{\text{FD}} = \frac{1}{e^{(\epsilon - \mu)/kT} + 1} \eq{7.23}
+    \end{align*}
+    $\overline{n}_{\text{FD}}$ is always between 0 and 1.
+    
+    \item \textbf{Bose-Einstein Distribution (Bosons):} $n$ can be $0, 1, 2, \dots$.
+    \begin{align*}
+        \overline{n}_{\text{BE}} = \frac{1}{e^{(\epsilon - \mu)/kT} - 1} \eq{7.28}
+    \end{align*}
+    This requires $\mu < \epsilon$ for all states. $\overline{n}_{\text{BE}}$ can be greater than 1.
+    
+    \item \textbf{Boltzmann Distribution (Classical Limit):}
+    \begin{align*}
+        \overline{n}_{\text{Boltz}} = e^{-(\epsilon - \mu)/kT} \eq{7.31}
+    \end{align*}
+    This is the limit of both $\overline{n}_{\text{FD}}$ and $\overline{n}_{\text{BE}}$ when $(\epsilon - \mu) \gg kT$.
+\end{itemize}
+
+\section{Degenerate Fermi Gases}
+This section applies Fermi-Dirac statistics to a gas of fermions at very low temperatures (a "degenerate" gas), such as the conduction electrons in a metal.
+\begin{itemize}
+    \item \textbf{Zero Temperature ($T=0$):} The Fermi-Dirac distribution is a step function. All states with energy $\epsilon < \mu$ are occupied ($\overline{n}=1$), and all states with $\epsilon > \mu$ are empty ($\overline{n}=0$).
+    \item \textbf{Fermi Energy ($\epsilon_F$):} The chemical potential at $T=0$. It is the energy of the highest occupied state.
+    \begin{align*}
+        \epsilon_F \equiv \mu(T=0) \eq{7.33}
+    \end{align*}
+    \item \textbf{Free Electron Gas:} For $N$ non-interacting electrons in a 3D box of volume $V$, the allowed energies are $E = \frac{h^2}{8mL^2}(n_x^2+n_y^2+n_z^2)$[p. 6425].
+    \item At $T=0$, the occupied states fill a sphere in "n-space". The radius of this sphere, $n_{\text{max}}$, is related to $N$, which gives the Fermi energy:
+    \begin{align*}
+        \epsilon_F = \frac{h^2}{8m} \left( \frac{3N}{\pi V} \right)^{2/3} \eq{7.39}
+    \end{align*}
+    \item The total energy at $T=0$ is found by integrating the energy of all occupied states:
+    \begin{align*}
+        U = \frac{3}{5} N \epsilon_F \eq{7.42}
+    \end{align*}
+    \item \textbf{Fermi Temperature ($T_F$):} $T_F \equiv \epsilon_F / k$. For electrons in a metal, $T_F$ is typically thousands of Kelvin, so room temperature is "very low".
+    
+    \item \textbf{Degeneracy Pressure:} The pressure exerted by a Fermi gas at $T=0$ due to the Pauli exclusion principle.
+    \begin{align*}
+        P = -\left(\frac{\partial U}{\partial V}\right)_{S,N} = \frac{2U}{3V} = \frac{2}{5} N \frac{\epsilon_F}{V} \eq{7.44}
+    \end{align*}
+    
+    \item \textbf{Small Nonzero Temperatures ($kT \ll \epsilon_F$):}
+    \item Only electrons within $\sim kT$ of the Fermi energy can be thermally excited.
+    \item The total energy is given by the \textbf{Sommerfeld expansion}:
+    \begin{align*}
+        U \approx \frac{3}{5} N \epsilon_F + \frac{\pi^2}{4} N \frac{(kT)^2}{\epsilon_F} \eq{7.47}
+    \end{align*}
+    \item \textbf{Heat Capacity ($C_V$):} Differentiating $U$ with respect to $T$ gives the electronic heat capacity:
+    \begin{align*}
+        C_V = \left(\frac{\partial U}{\partial T}\right)_V = \frac{\pi^2 N k^2}{2 \epsilon_F} T = \frac{\pi^2}{3} g(\epsilon_F) k^2 T \eq{7.48}
+    \end{align*}
+    $C_V$ is linear in $T$, unlike the $T^3$ dependence for phonons (lattice vibrations).
+    
+    \item \textbf{Density of States ($g(\epsilon)$):} The number of single-particle states per unit energy. For a 3D free electron gas:
+    \begin{align*}
+        g(\epsilon) = \frac{3N}{2 \epsilon_F^{3/2}} \sqrt{\epsilon} \eq{7.51}
+    \end{align*}
+    \item At any temperature $T$, the total number of particles $N$ and total energy $U$ are given by integrals over all states:
+    \begin{align*}
+        N = \int_0^\infty g(\epsilon) \overline{n}_{\text{FD}}(\epsilon) d\epsilon \eq{7.53}
+    \end{align*}
+    \begin{align*}
+        U = \int_0^\infty \epsilon g(\epsilon) \overline{n}_{\text{FD}}(\epsilon) d\epsilon \eq{7.54}
+    \end{align*}
+\end{itemize}
+
+\section{Blackbody Radiation}
+This section treats electromagnetic radiation (photons) as a gas of bosons.
+\begin{itemize}
+    \item \textbf{Ultraviolet Catastrophe:} Classical equipartition theorem predicts infinite energy in the electromagnetic field in a box ($U = \infty$) [p. 5863-5864].
+    \item \textbf{Quantum Solution (Planck):} Energy in an EM mode (an oscillator) is quantized: $E_n = n h f$, where $n$ is the number of energy units (photons)[p. 5873, 5883].
+    
+    \item \textbf{Photons:} Photons are bosons. Since they can be created and destroyed (e.g., absorbed by a wall), their total number is not conserved, which implies their \textbf{chemical potential is zero} [p. 5880-5881].
+    
+    \item \textbf{Planck Distribution:} Setting $\mu=0$ and $\epsilon=hf$ in the Bose-Einstein distribution (Eq. 7.28) gives the average number of photons in a single mode of frequency $f$:
+    \begin{align*}
+        \overline{n}_{\text{Planck}} = \frac{1}{e^{hf/kT} - 1} \eq{7.72}
+    \end{align*}
+    
+    \item \textbf{Density of States \& Energy Density:} Summing the energy $hf \cdot \overline{n}_{\text{Planck}}$ over all allowed modes (3D box, 2 polarizations) yields the total energy $U$ [p. 5895-5896]. The energy per unit volume, per unit energy $\epsilon=hf$, is the \textbf{Planck spectrum}:
+    \begin{align*}
+        u(\epsilon) = \frac{8\pi}{(hc)^3} \frac{\epsilon^3}{e^{\epsilon/kT} - 1} \eq{7.84}
+    \end{align*}
+    
+    \item \textbf{Total Energy (Stefan-Boltzmann Law):} Integrating the energy density $u(\epsilon)$ over all energies $\epsilon$ gives the total energy per unit volume:
+    \begin{align*}
+        \frac{U}{V} = \frac{8\pi^5 (kT)^4}{15(hc)^3} \propto T^4 \eq{7.86}
+    \end{align*}
+    
+    \item \textbf{Entropy of a Photon Gas:} From $C_V = (\partial U / \partial T)_V$ and $S = \int (C_V/T) dT$:
+    \begin{align*}
+        S = \frac{32\pi^5 V k^4}{45(hc)^3} T^3 \eq{7.89}
+    \end{align*}
+    
+    \item \textbf{Blackbody Radiation:} A hole in a cavity or a perfect blackbody emits radiation. The power emitted per unit area is given by \textbf{Stefan's Law}:
+    \begin{align*}
+        \frac{\text{Power}}{\text{Area}} = \frac{c}{4} \frac{U}{V} = \sigma T^4 \eq{7.97}
+    \end{align*}
+    where $\sigma$ is the \textbf{Stefan-Boltzmann constant}, $\sigma = \frac{2\pi^5 k^4}{15h^3 c^2} = 5.67 \times 10^{-8} \, \text{W/m}^2\text{K}^4$ [p. 5940-5941].
+    
+    \item \textbf{Emissivity ($e$):} For a non-black object, the power radiated is reduced by a factor $e$ (which can depend on wavelength), where $e=1$ for a perfect blackbody and $e=0$ for a perfect reflector [p. 5945-5946].
+    \begin{align*}
+        \text{Power} = e \sigma A T^4 \eq{7.99}
+    \end{align*}
+\end{itemize}
+
+\section{Debye Theory of Solids}
+This section provides a more accurate model for the heat capacity of solids, treating vibrations as quantized sound waves (phonons).
+\begin{itemize}
+    \item \textbf{Problem with Einstein Model:} Predicts $C_V \propto e^{-\epsilon/kT}$ at low $T$, but experiments show $C_V \propto T^3$[p. 5951, 5953]. The Einstein model fails because it assumes all oscillators have the same frequency.
+    
+    \item \textbf{Debye Model:} Treats lattice vibrations as \textbf{phonons} (bosons with $\mu=0$) in a continuous medium[p. 5952, 5959].
+    \item This model differs from the photon gas in three ways[p. 5952]:
+    \begin{enumerate}
+        \item Phonons travel at the speed of sound $c_s$, not $c$.
+        \item Phonons have three polarizations (1 longitudinal, 2 transverse).
+        \item The total number of modes is finite ($3N$), not infinite. The wavelength cannot be shorter than the atomic spacing.
+    \end{enumerate}
+    
+    \item \textbf{Debye Approximation:} The sum over all $3N$ modes is approximated by an integral over a sphere in $n$-space, cut off at a maximum radius $n_{\text{max}}$ such that the total number of modes is $3N$ [p. 5956-5957].
+    
+    \item \textbf{Debye Temperature ($T_D$):} The cutoff corresponds to a maximum energy $\epsilon_D = k T_D$. $T_D$ is the \textbf{Debye temperature}.
+    \begin{align*}
+        k T_D = \frac{h c_s}{2L} n_{\text{max}} = \frac{h c_s}{2L} \left(\frac{6N}{\pi}\right)^{1/3} \eq{7.111}
+    \end{align*}
+    
+    \item \textbf{Total Energy ($U$):}
+    \begin{align*}
+        U = 9NkT \left(\frac{T}{T_D}\right)^3 \int_0^{T_D/T} \frac{x^3}{e^x - 1} dx \eq{7.112}
+    \end{align*}
+    
+    \item \textbf{High-Temperature Limit ($T \gg T_D$):} The integral simplifies, and $U \approx 3NkT$. This gives $C_V = 3Nk$, the classical \textbf{Dulong-Petit law}[p. 5967].
+    
+    \item \textbf{Low-Temperature Limit ($T \ll T_D$):} The integral's upper limit goes to $\infty$, yielding $\pi^4/15$.
+    \begin{align*}
+        U = \frac{3\pi^4 N k T^4}{5 T_D^3} \eq{7.114}
+    \end{align*}
+    This gives the \textbf{Debye $T^3$ Law} for heat capacity, which matches experiments:
+    \begin{align*}
+        C_V = \frac{12\pi^4 Nk}{5} \left(\frac{T}{T_D}\right)^3 \eq{7.115}
+    \end{align*}
+    \item For metals at low $T$, $C_V$ includes both the electronic (linear in $T$) and phonon ($T^3$) terms[p. 5970]:
+    \begin{align*}
+        C_V = \gamma T + A T^3 \eq{7.116}
+    \end{align*}
+\end{itemize}
+
+\section{Bose-Einstein Condensation}
+This section considers a gas of non-interacting bosons (like $^4\text{He}$) where the total number of particles $N$ is conserved.
+\begin{itemize}
+    \item At $T=0$, all $N$ particles must occupy the ground state (lowest single-particle state $\epsilon_0$)[p. 5975].
+    
+    \item \textbf{Ground State Occupancy:} The average number of particles in the ground state is $\overline{n}_0$.
+    \begin{align*}
+        \overline{n}_0 = \frac{1}{e^{(\epsilon_0 - \mu)/kT} - 1} \eq{7.119}
+    \end{align*}
+    For $\overline{n}_0$ to be large (e.g., $10^{20}$), the denominator must be tiny, which implies $\mu$ must be extremely close to $\epsilon_0$:
+    \begin{align*}
+        \mu \approx \epsilon_0 - \frac{kT}{\overline{n}_0} \eq{7.120}
+    \end{align*}
+    
+    \item \textbf{Number of Excited Particles ($N_{\text{excited}}$):} The total $N$ is fixed: $N = \overline{n}_0 + N_{\text{excited}}$. We can find $N_{\text{excited}}$ by integrating the Bose-Einstein distribution over all excited states, approximating $\mu \approx \epsilon_0 = 0$.
+    \begin{align*}
+        N_{\text{excited}} = \int_0^\infty g(\epsilon) \frac{1}{e^{\epsilon/kT} - 1} d\epsilon \eq{7.122}
+    \end{align*}
+    
+    \item \textbf{Condensation Temperature ($T_c$):} The integral for $N_{\text{excited}}$ has a maximum value. The temperature at which $N_{\text{excited}} = N$ is the \textbf{condensation temperature $T_c$}.
+    \begin{align*}
+        N = 2.612 \left(\frac{2\pi m k T_c}{h^2}\right)^{3/2} V \quad \text{or} \quad k T_c = \frac{h^2}{2\pi m} \left( \frac{N}{2.612 V} \right)^{2/3} \eq{7.126}
+    \end{align*}
+    This is the temperature at which the quantum volume $v_Q$ is comparable to the average volume per particle $V/N$.
+    
+    \item \textbf{Bose-Einstein Condensation (BEC):}
+    \begin{itemize}
+        \item For $T > T_c$: $\mu < 0$. All $N$ particles are in excited states ($N_{\text{excited}} = N$, $\overline{n}_0 \approx 0$).
+        \item For $T < T_c$: $\mu \approx 0$. The excited states can only hold a maximum of $N_{\text{excited}}$ particles.
+        \begin{align*}
+            N_{\text{excited}} = N \left(\frac{T}{T_c}\right)^{3/2} \eq{7.128}
+        \end{align*}
+        \item The remaining particles, $\overline{n}_0$, must "condense" into the ground state.
+        \item \textbf{Condensate Fraction ($\overline{n}_0$):}
+        \begin{align*}
+            \overline{n}_0 = N - N_{\text{excited}} = N \left[ 1 - \left(\frac{T}{T_c}\right)^{3/2} \right] \eq{7.129}
+        \end{align*}
+    \end{itemize}
+    \item \textbf{Real-World Examples:} BEC was first observed in ultracold atomic gases ($^{87}\text{Rb}$) in 1995[p. 6003, 6005]. It is also the mechanism behind superfluidity in liquid $^4\text{He}$ and superconductivity (where electron pairs act as bosons) [p. 6007-6010].
+\end{itemize}
+
+
+
+\end{document} % ----------Dokumentet er nu slut! ------------

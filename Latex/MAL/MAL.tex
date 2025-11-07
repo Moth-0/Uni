@@ -455,4 +455,107 @@ This can be done for any pointwise loss function, not just least square loss.
 The loss function $L(x, y)$ needs to be differentiable, then we get the final general algorithm for gradient Boosting
 \bil{grad3}
 Here $F_{t-1}(x_n)$ is the current prediction. No matter what the loss function is we still minimize least squares loss. 
+
+\chapter{Support Vector Machines}
+Support Vector Machines is an expansion of linear classification. 
+We can use this when we have a large boundry between classes, to give a margin instead of just a line. 
+We do this by maximising $γ$ in 
+\begin{align*}
+    &y_i(w^Tx_i+b)\geq γ, \quad i=1,...,n \\
+    &||w|| = 1. 
+\end{align*}
+But this is not simple, so we change the function, with the requirement that it should be convex.
+We need to minimize $||w||^2/2$ as a function of $w$ and $b$:
+\begin{align*}
+    y_i(w^Tx_i+b)\geq 1, \quad i=1,...,n
+\end{align*}
+\bil{svm1}
+
+\section{Convex Optimization}
+The general convex optimization problem is to minimize $f(x)$ subject to $g_i(x) \leq 0$
+where $f$ and $g_i$ are convex functions. 
+We do this with the generalized lagrangian:
+\begin{align*}
+    L(x, a) = f(x) + \sum_{i=1}^{n}a_ig_i(x).
+\end{align*}
+Given the constraints this means that we can solve: 
+\begin{align*}
+    \min_x θ_p(x) = \min_x\max_{a: a_i \geq 0} L(x,a). 
+\end{align*}
+this is the prime value $p^* = \min_x θ_p(x)$, we also introduce dual value: 
+\begin{align*}
+    θ_D(a) = \min_x L(x,a), \\
+    d^* = \max_{a: a_i \geq 0}θ_d(a),
+\end{align*}
+and observe $d^* \leq p^*$. 
+\bil{svm2}
+
+To use this for SVM we set: 
+\begin{align*}
+    f(w, b) &= ||w||^2/2, \\
+    g_i(w, b) &\leq 0, \\
+    g_i(w, b) &\leq 1-y_i(w^Tx_i+b). 
+\end{align*}
+All these functions are convex, and we can therefore use the dual value. 
+\begin{align*}
+    &\max_{a: a_i \geq 0}\min_{w,b} f(w,b) + \sum_{i=1}^{n}a_ig_i(w,b), \\
+    &\max_{a: a_i \geq 0}\min_{w,b} ||w||^2/2 - \sum_{i=1}^{n}a_i(y_i(w^Tx_i+b)-1). 
+\end{align*}
+From KKT conditions we can find that 
+\begin{align*}
+    &w = \sum_{i=1}^{n}a_iy_ix_i, \\
+    &\sum_{i=1}^{n}a_iy_i = 0. 
+\end{align*}
+That gives the final problem: 
+\begin{align*}
+    &\max_{a: a_i \geq 0} \sum_{i=1}^{n}a_i-\frac{1}{2}\sum_{i=1}^{n}\sum_{j=1}^{n}a_ia_jy_iy_jx_i^Tx_j, \\
+    &w = \sum_{i=1}^{n}a_iy_ix_i, \\
+    &b = -\frac{1}{2}\br{\min_{i:y_1=1}w^Tx_i+\max_{i:y:i=-1}w^Tx_i}. 
+\end{align*}
+
+\section{Kernels}
+Like for the linear classifications we dont need to only apply SVM to linear problems, 
+we can use kernels which is the same as feature transform $φ: R^d \rightarrow R^{d'}$, 
+the corresponding kernel would be: $K: R^d \times R^d \rightarrow R$, which would be $K(x,z) = φ(x)^Tφ(z)$. 
+
+\bil{svm3}
+
+Polynomial Kernel: 
+\begin{align*}
+    K(x,z) = (x^Tz+c)^r.
+\end{align*}
+
+Gaussian Kernel: 
+\begin{align*}
+    K(x,z) = exp(-λ||x-z||^2), \quad λ > 0. 
+\end{align*}
+
+\section{Regularization}
+If the data is not linearly separable, we can use regularization, 
+which changes the calculations to: 
+\bil{svm4}
+
+But here we can not find $b$ the same way since we have outliers. 
+
+\chapter{Cluster Analysis}
+Clustering is a way of splitting up data in clusters. Data can be split up in more clusters creating a cluster hierarchi. 
+A way of making these making these clusters is with k-means, where we make k clusters , defined from a cluster center. 
+We then minimize the loss of this center. For a set of centers $C$ let $π(x)\in C$ be the cluster center. 
+Then minimize 
+\begin{align*}
+    \text{cost}(S,C,π) = \sum_{X\in S}||x-π(x)||^2.
+\end{align*}
+It turns out that the point that reduces the cost is the mean of the points in the cluster. 
+\begin{align*}
+    π(x) = \frac{1}{|S_i|}\sum_{X\in S_i}x. 
+\end{align*}
+
+The most famous k-means algorithm is Lloyd's Algorithm: 
+\bil{clus1}
+
+We can expand on this algorithm to make the initial guess better: 
+\bil{clus2}
+
+
+
 \end{document} % ----------Dokumentet er nu slut! ------------
