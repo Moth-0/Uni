@@ -416,6 +416,168 @@ If there is pairwise correlation $ρ>0$, the variance of Y is $ρσ^2+(1-ρ)σ^2
 \subsection{Out-of-Bag Samples}
 In Bagging and Random Forest, when we pick data from sets, we can use the data not picked for validation. 
 
+\chapter{Boosting}
+\section{Ada Boost}
+We can boost a weak learner to a strong learner. A weak learner is a classifier that performs slightly better than guessing. 
+A Strong learner is a classifier that performs perfectly. 
+We do this by training a lot of weak learners and combining them. 
+If we have a weighted dataset with a distrubtion D over X, we can reweight the dataset, 
+which is basically what bagging does. 
+
+We run an algorithm (A) on a weigted training set (T) to get hypothesis set $h_t\in H$ and compute weights $α_t$. 
+Then we return a voting classifier 
+\begin{align*}
+    f(x) = \text{sign}\br{\sum_{t=1}^{T}α_th_t(x)}.
+\end{align*}
+
+\bil{ada1}
+
+What this does is put more emphasis on points that are misclassified, so the algorith will focus more on these points. 
+$D_{t+1}(i)$ can also be calculated as 
+\begin{align*}
+    D_{t+1}(i) &= \frac{\frac{1}{n}\text{exp}\br{\sum_{j=1}^{t}-α_jy_ih_j(x_i)}}{\prod_{j=1}^{t}Z_j}, \\
+    &= \frac{\frac{1}{n}\text{exp}\br{-y_iF_t(x_i)}}{\prod_{j=1}^{t}Z_j}.
+\end{align*}
+If T becomes big enough the in sample error will eventually become 0, meaning we have a stong learner. 
+this happens if $T>\ln(n)/2γ^2$, where $γ = 1/2 - ε$, and $ε$ is the error of the weak learner. 
+
+An example for a simple decision stump can be seen in figure below. 
+\bil{ada2}
+
+\section{Gradient Boosting}
+In Gradient Boosting we first train $h_1$ on some dataset and then calculate the loss, 
+we then train a new hypothesis on the difference between the predicted value, and the actual value, 
+and combine the two hypothesis. 
+
+\bil{grad1}
+\bil{grad2}
+This can be done for any pointwise loss function, not just least square loss. 
+The loss function $L(x, y)$ needs to be differentiable, then we get the final general algorithm for gradient Boosting
+\bil{grad3}
+Here $F_{t-1}(x_n)$ is the current prediction. No matter what the loss function is we still minimize least squares loss. 
+
+\chapter{Support Vector Machines}
+Support Vector Machines is an expansion of linear classification. 
+We can use this when we have a large boundry between classes, to give a margin instead of just a line. 
+We do this by maximising $γ$ in 
+\begin{align*}
+    &y_i(w^Tx_i+b)\geq γ, \quad i=1,...,n \\
+    &||w|| = 1. 
+\end{align*}
+But this is not simple, so we change the function, with the requirement that it should be convex.
+We need to minimize $||w||^2/2$ as a function of $w$ and $b$:
+\begin{align*}
+    y_i(w^Tx_i+b)\geq 1, \quad i=1,...,n
+\end{align*}
+\bil{svm1}
+
+\section{Convex Optimization}
+The general convex optimization problem is to minimize $f(x)$ subject to $g_i(x) \leq 0$
+where $f$ and $g_i$ are convex functions. 
+We do this with the generalized lagrangian:
+\begin{align*}
+    L(x, a) = f(x) + \sum_{i=1}^{n}a_ig_i(x).
+\end{align*}
+Given the constraints this means that we can solve: 
+\begin{align*}
+    \min_x θ_p(x) = \min_x\max_{a: a_i \geq 0} L(x,a). 
+\end{align*}
+this is the prime value $p^* = \min_x θ_p(x)$, we also introduce dual value: 
+\begin{align*}
+    θ_D(a) = \min_x L(x,a), \\
+    d^* = \max_{a: a_i \geq 0}θ_d(a),
+\end{align*}
+and observe $d^* \leq p^*$. 
+\bil{svm2}
+
+To use this for SVM we set: 
+\begin{align*}
+    f(w, b) &= ||w||^2/2, \\
+    g_i(w, b) &\leq 0, \\
+    g_i(w, b) &\leq 1-y_i(w^Tx_i+b). 
+\end{align*}
+All these functions are convex, and we can therefore use the dual value. 
+\begin{align*}
+    &\max_{a: a_i \geq 0}\min_{w,b} f(w,b) + \sum_{i=1}^{n}a_ig_i(w,b), \\
+    &\max_{a: a_i \geq 0}\min_{w,b} ||w||^2/2 - \sum_{i=1}^{n}a_i(y_i(w^Tx_i+b)-1). 
+\end{align*}
+From KKT conditions we can find that 
+\begin{align*}
+    &w = \sum_{i=1}^{n}a_iy_ix_i, \\
+    &\sum_{i=1}^{n}a_iy_i = 0. 
+\end{align*}
+That gives the final problem: 
+\begin{align*}
+    &\max_{a: a_i \geq 0} \sum_{i=1}^{n}a_i-\frac{1}{2}\sum_{i=1}^{n}\sum_{j=1}^{n}a_ia_jy_iy_jx_i^Tx_j, \\
+    &w = \sum_{i=1}^{n}a_iy_ix_i, \\
+    &b = -\frac{1}{2}\br{\min_{i:y_1=1}w^Tx_i+\max_{i:y:i=-1}w^Tx_i}. 
+\end{align*}
+
+\section{Kernels}
+Like for the linear classifications we dont need to only apply SVM to linear problems, 
+we can use kernels which is the same as feature transform $φ: R^d \rightarrow R^{d'}$, 
+the corresponding kernel would be: $K: R^d \times R^d \rightarrow R$, which would be $K(x,z) = φ(x)^Tφ(z)$. 
+
+\bil{svm3}
+
+Polynomial Kernel: 
+\begin{align*}
+    K(x,z) = (x^Tz+c)^r.
+\end{align*}
+
+Gaussian Kernel: 
+\begin{align*}
+    K(x,z) = exp(-λ||x-z||^2), \quad λ > 0. 
+\end{align*}
+
+\section{Regularization}
+If the data is not linearly separable, we can use regularization, 
+which changes the calculations to: 
+\bil{svm4}
+
+But here we can not find $b$ the same way since we have outliers. 
+
+\chapter{Unsupervised Learning}
+
+\section{Cluster Analysis}
+Clustering is a way of splitting up data in clusters and is unsupervised learning. Data can be split up in more clusters creating a cluster hierarchi. 
+A way of making these making these clusters is with k-means, where we make k clusters , defined from a cluster center. 
+We then minimize the loss of this center. For a set of centers $C$ let $π(x)\in C$ be the cluster center. 
+Then minimize 
+\begin{align*}
+    \text{cost}(S,C,π) = \sum_{X\in S}||x-π(x)||^2.
+\end{align*}
+It turns out that the point that reduces the cost is the mean of the points in the cluster. 
+\begin{align*}
+    π(x) = \frac{1}{|S_i|}\sum_{X\in S_i}x. 
+\end{align*}
+
+The most famous k-means algorithm is Lloyd's Algorithm: 
+\bil{clus1}
+
+We can expand on this algorithm to make the initial guess better: 
+\bil{clus2}
+
+\section{Principal Component Analysis}
+In PCA we project a feature vector onto a k-dimentional space, to reduce features to k. 
+We project $x$ onto a subspace of k unit vectors $z_1, ..., z_k$. and get a new basis 
+\begin{align*}
+    \hat{x} = \begin{pmatrix}
+        x^Tz_1 \\ \vdots \\ x^Tz_k
+    \end{pmatrix}
+\end{align*}
+
+\bil{pca1}
+
+To find $z_i$ we minimize the variance: 
+\begin{align*}
+    &\sum_{j=1}^{n}||x_j-\sum_{i=1}^{k}(x_j^Tz_i)z_||^2, \\
+    &= -\sum_{j=1}^{n}\sum_{i=1}^{k}(x_j^Tz_i)^2,
+\end{align*}
+which is the same as maximizing 
+\begin{align*}
+    \sum_{j=1}^{n}\sum_{i=1}^{k}(XZ)_{i,j}^2 = \text{tr}(Z^TX^TXZ).
+\end{align*}
 
 
 \end{document} % ----------Dokumentet er nu slut! ------------

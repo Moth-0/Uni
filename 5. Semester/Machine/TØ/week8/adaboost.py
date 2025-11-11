@@ -43,6 +43,29 @@ class AdaBoostClassifier():
         scores = []
         exp_losses = []
         ### YOUR CODE HERE 
+        for _ in range(self.n_estimators): 
+            # Create weak learner 
+            h = self.weak_learner()
+            h.fit(X, y, w)
+
+            # Predict weak learner
+            y_pred = h.predict(X)
+            
+            # Calculate the weighted error
+            er = np.sum(w[y_pred != y])
+
+            # Calculate alpha
+            α = 1/2 * np.log((1-er)/er)
+
+            # Update and normalize weight
+            w = w * np.exp(-α*y*y_pred) / np.sum(w)
+
+            # Compute and store final values 
+            self.models.append(h)
+            self.alphas.append(α)
+
+            scores.append(self.score(X, y))
+            exp_losses.append(self.exp_loss(X, y))
         ### END CODE
 
         # remember to ensure that self.models and self.alphas are filled
@@ -64,6 +87,9 @@ class AdaBoostClassifier():
 
         loss = None
         ### YOUR CODE here 1-3 lines
+        n, d = X.shape
+        f = self.ensemble_output(X)
+        loss = 1/n * np.sum([np.exp(- yi * fi) for yi, fi in zip(y, f)])
         ### END CODE
         return loss
         
@@ -81,6 +107,9 @@ class AdaBoostClassifier():
         if len(self.models) == 0:
             return np.zeros(X.shape[0])
         ### YOUR CODE HERE 3-8 lines
+        n, d = X.shape
+        pred = np.sum([a * h.predict(X) for a, h in zip(self.alphas, self.models)], axis=0)
+        assert pred.shape == (n,) # ensamble shape failure
         ### END CODE
         return pred
         
@@ -93,6 +122,10 @@ class AdaBoostClassifier():
         """
         pred = None
         ### YOUR CODE Here 1-3 lines
+        n, d = X.shape
+        f = self.ensemble_output(X)
+        pred = np.sign(f)
+        assert pred.shape == (n,) # predict shape failure
         ### END CODE 
         return pred
 
@@ -106,6 +139,9 @@ class AdaBoostClassifier():
         """
         score = 0
         ### YOUR CODE HERE 1-3 lines
+        n, d = X.shape
+        pred = self.predict(X)
+        score = (1/n) * np.sum([1 for yi, pi in zip(y, pred) if yi == pi], axis=0)
         ### END CODE
         return score
 
