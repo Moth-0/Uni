@@ -558,6 +558,8 @@ The most famous k-means algorithm is Lloyd's Algorithm:
 We can expand on this algorithm to make the initial guess better: 
 \bil{clus2}
 
+\chapter{Dimension Reduction}
+
 \section{Principal Component Analysis}
 In PCA we project a feature vector onto a k-dimentional space, to reduce features to k. 
 We project $x$ onto a subspace of k unit vectors $z_1, ..., z_k$. and get a new basis 
@@ -579,5 +581,33 @@ which is the same as maximizing
     \sum_{j=1}^{n}\sum_{i=1}^{k}(XZ)_{i,j}^2 = \text{tr}(Z^TX^TXZ).
 \end{align*}
 
+\section{Autoencoders}
+Autoencoders are a neural net that reduces the amount of features, by minimizing the loss of a "bottleneck" structure. 
+This is a biased version of PCA, that can also use non linear functions. 
+\bil{auto1}
+
+\section{Random Projections}
+Another way to reduce features is Johnson-Lindenstrauss projection. 
+Here we want to preserve the distance between points before and after the feature transform, we do this by making the projection
+\begin{align*}
+    X \rightarrow \sqrt{\frac{d}{k}}XZ,
+\end{align*}
+where $z_1,...,z_k$ are random unit length orthogonal vectors. 
+\bil{rp1}
+\bil{rp2}
+
+\chapter{Word Classification}
+\section{Bag of Words}
+\bil{word1}
+
+\section{TF_IDF}
+\bil{word2}
+\bil{word3}
+\bil{word4}
+
+\section{Hashing}
+\bil{hash1}
+
+\section{}
 
 \end{document} % ----------Dokumentet er nu slut! ------------
