@@ -35,7 +35,9 @@
 
         {
             "name": "xelatex",
-            "tools": ["xelatex"]
+            "tools": [
+                "xelatex", 
+                "xelatex"]
         },
         {
             "name": "bibtex",

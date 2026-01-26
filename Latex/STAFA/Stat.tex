@@ -15,7 +15,8 @@
 \renewcommand{\danishhyphenmins}{22}  % Bedre dansk orddeling
 \usepackage{siunitx} % Sientific notation for forskellige ting, med en regel om at den skal bruge cdot istedet for times. 
 \sisetup{inter-unit-product = \cdot, 
-        exponent-product=\cdot}\usepackage{derivative} % Til at skrive differentialligninger 
+        exponent-product=\cdot}
+\usepackage{derivative} % Til at skrive differentialligninger 
 \usepackage{xcolor} % For at få flere tekst farver 
 \usepackage[colorlinks=true]{hyperref} % For at få refrences man kan trykke på, slet [] hvis man vil have kasser i stedet for farvet tekst.
 \usepackage{pdfpages} % Til at indsætte andre pdf'er
@@ -698,6 +699,13 @@ This section uses the partition function method to re-derive all thermodynamic p
         U = \frac{3}{2}NkT + N\overline{E}_{\text{int}} \eq{6.88}
     \end{align*}
     The energy is the sum of translational (from equipartition) and internal (rotational, vibrational) parts.
+
+    \item \textbf{Chemical Potential: }
+    \begin{align*}
+        μ &= -kT\ln\br{\frac{VZ_{int}}{Nv_q}}, \eq{6.93}\\
+        v_Q &= \br{\frac{h}{\sqrt{2\pi mkT}}}^3.
+    \end{align*}
+    For monatomic gas $Z_{int} = 1$. 
 \end{itemize}
 
 \chapter{Quantum Statistics}
@@ -715,15 +723,23 @@ This section introduces statistical mechanics for a system that can exchange bot
         P(s) = \frac{1}{\mathcal{Z}} e^{-[E(s) - \mu N(s)]/kT} \eq{7.6}
     \end{align*}
     
-    \item \textbf{Grand Partition Function ($\mathcal{Z}$):} The normalization constant, also called the Gibbs sum.
+    \item \textbf{Grand Partition Function ($\mathcal{Z}$):} The normalization constant, also called the Gibbs sum for fermions.
     \begin{align*}
-        \mathcal{Z} \equiv \sum_s e^{-[E(s) - \mu N(s)]/kT} \eq{7.7}
+        \mathcal{Z} = \sum_s e^{-[E(s) - \mu N(s)]/kT} \eq{7.7}
     \end{align*}
-    The sum is over all possible microstates, including all possible values of $N(s)$.
-    
+    The sum is over all possible microstates, including all possible values of $N(s)$. For \textbf{Bosons} it looks like 
+    \begin{align*}
+        \mathcal{Z} = \prod_{k}\br{\sum_{n=0}^{\infty}\e{-\frac{n\br{E_k-μ}}{k_bT}}}.
+    \end{align*}
+
     \item \textbf{Example: Adsorption Site.} A site (system) can be empty (E=0, N=0) or occupied (E=$\epsilon$, N=1). The grand partition function is $\mathcal{Z} = 1 + e^{-(\epsilon - \mu)/kT}$[p. 6411]. The probability of the site being occupied is:
     \begin{align*}
         P(\text{occupied}) = \frac{e^{-(\epsilon - \mu)/kT}}{1 + e^{-(\epsilon - \mu)/kT}}
+    \end{align*}
+
+    \item \textbf{Avergae Number of Particles in a System: } When using the Grand Partition Function: 
+    \begin{align*}
+        \bar{N} = \frac{k_bT}{\mathcal{Z}}\frac{\partial \mathcal{Z}}{\partial μ}
     \end{align*}
 \end{itemize}
 
@@ -925,7 +941,4 @@ This section considers a gas of non-interacting bosons (like $^4\text{He}$) wher
     \end{itemize}
     \item \textbf{Real-World Examples:} BEC was first observed in ultracold atomic gases ($^{87}\text{Rb}$) in 1995[p. 6003, 6005]. It is also the mechanism behind superfluidity in liquid $^4\text{He}$ and superconductivity (where electron pairs act as bosons) [p. 6007-6010].
 \end{itemize}
-
-
-
 \end{document} % ----------Dokumentet er nu slut! ------------

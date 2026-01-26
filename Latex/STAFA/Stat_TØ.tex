@@ -1,0 +1,83 @@
+% Første linje er dokumentklassen. Brug *altid* memoir!
+\documentclass[a4paper,oneside,article]{memoir}
+
+% Herunder indlæses forskellige pakker
+\usepackage[utf8]{inputenc}  % Korrekt håndtering af æ, ø og å
+\usepackage[T1]{fontenc}  % Korrekt håndtering af æ, ø og å
+\usepackage{microtype}  % Typografisk magi! Giver bl.a. pænere orddeling
+\usepackage{graphicx}  % Gør det muligt at indsætte billeder
+\usepackage{amsmath}  % Giver adgang til uundværlige matematikting
+\usepackage{mathtools}  % Retter ting i ams og giver ekstra muligheder
+\usepackage[danish]{babel}  % Danske betegnelser og orddeling
+\usepackage{lmodern}
+\usepackage{alphabeta}
+\usepackage{float} %Mere kontrol over billede-placering
+\renewcommand{\danishhyphenmins}{22}  % Bedre dansk orddeling
+\usepackage{siunitx} % Sientific notation for forskellige ting, med en regel om at den skal bruge cdot istedet for times. 
+\sisetup{inter-unit-product = \cdot, 
+        exponent-product=\cdot}\usepackage{derivative} % Til at skrive differentialligninger 
+\usepackage{xcolor} % For at få flere tekst farver 
+\usepackage[colorlinks=true]{hyperref} % For at få refrences man kan trykke på, slet [] hvis man vil have kasser i stedet for farvet tekst.
+\usepackage{pdfpages} % Til at indsætte andre pdf'er
+\usepackage{subfig} % For at have to billeder ved siden af hinanden
+\usepackage{unicode-math}
+\usepackage{pgffor} % For the loop
+
+
+% Pænere toc indents 
+\usepackage{tocloft}
+\cftsetindents{section}{1em}{2em}
+\cftsetindents{subsection}{4em}{0em}
+
+
+% Indholdet i dit dokument starter her!
+\begin{document}
+%\author{Mikkel Moth Billing \\ 202307989}
+%\title{Title}
+\date{\today}
+%\maketitle   % Indsætter overskriften
+% Table of Contents indstillinger
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{1}
+\hypersetup{linkcolor=black} % Laver tableofcontents sort.  
+%\tableofcontents %Indsætter ToC
+\hypersetup{linkcolor=red} % og så alle andre hyperrefs røde. 
+
+% Til at sætte pdf'er ind i store dokumenter (kun pdf'er på mere end 1 sider)
+\newcommand{\pdf}[1]{
+\includepdf[pages=1,scale=0.8,pagecommand={\subsection{#1}  \label{asc:#1}}]{pdf/stat/#1.pdf}
+\includepdf[pages=2-, scale=0.8]{pdf/stat/#1.pdf}
+}
+
+\pdf{S1}
+\pdf{Problem A1}
+\pdf{Problem A2}
+\pdf{S2}
+\pdf{Problem B1}
+\pdf{S3}
+\pdf{Problem C1}
+\pdf{S4}
+\pdf{Problem D1}
+\pdf{Problem D2}
+\pdf{Problem D3}
+\pdf{S5}
+\pdf{Problem E1}
+\pdf{Problem E2}
+\pdf{Problem E3}
+\pdf{Problem E4}
+\pdf{S6}
+\pdf{Problem F1}
+\pdf{Problem F2}
+\pdf{Problem F3}
+\pdf{Problem F4}
+\pdf{Problem G1}
+\pdf{Problem G2}
+\pdf{Problem G3}
+\pdf{Problem G4}
+\pdf{Problem G5}
+\pdf{S8 - Hoffmann Problems}
+\pdf{S8}
+\pdf{Problem H1}
+\pdf{Problem H2}
+
+\end{document}

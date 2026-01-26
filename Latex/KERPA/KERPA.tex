@@ -85,6 +85,7 @@
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\linewidth]{Billeder/#1.png}
+    \caption{}
     \label{fig:#1}
 \end{figure}
 }
@@ -268,6 +269,7 @@ If $\br[5]{\mathscr{M}}^2 \approx$ constant then
 \end{align*} 
 for $\sqrt{s} \gg m_a, m_b$. 
 
+\setcounter{chapter}{4}
 \chapter{Symmetries}
 \section{Symmetries in Quantum Mechanics }
 In quantum mechanics (QM), a symmetry is a set of transformations represented by \textbf{unitary} (or anti-unitary) \textbf{operators}, $U$, that leave physical observables unchanged. 
@@ -331,8 +333,140 @@ If we exchange a pair of fermions the spin part of the wavefunction changes as $
 \section{C-Parity}
 A C-parity transform a particle into its antiparticle (inverts charge). 
 For classical mechanics this means changing both the sign of electric and magnetic fields, this gives us that the C-parity of a photon is $-1$. 
+It is only neutral particles that can be eigenstates of the C-parity operator, meaning they are their own antiparticle. 
+For neutrinos we dont know if they are thier own antiparticle. 
+
+\subsection{Particle-Antiparticle Pairs}
+For particle-antiparticle pairs we know that the C-parity of a boson-antiboson is $+1$ and for a fermion-antifermion pair it is $-1$. 
+If the two particles have no spin the C-operator is the same as the parity-operator 
+\begin{align*}
+  Cψ = Pψ = (-1)^lψ. 
+\end{align*}
+If they have spin the C-parity operator is the exchange of the two particles 
+\begin{align*}
+  Cψ = (-1)^{l+s}ψ. \eq{5.66}
+\end{align*}
+
+\section{T-Parity and CPT}
+T-parity is flipping the time axis. This symmetry is conserved in strong and QED interaction, but not always in weak interactions. 
+This means that a motion in time, is also allowed reversed in time and happens at the same rate. 
+A system is not nessecarily invarient to any of the operators when applied individually, 
+but if we apply all three parity operators $(\mathcal{CPT})$, the system will be invarient, 
+"it is a symmetry in any Lorentz invarient local quantum field theory with hermitian Hamiltonian." 
+
+\section{The Dirac Equation}
+The Dirac equation is used to describe the wavefunction, of spin-1/2 particles with mass $m$, in space-time: 
+\begin{align*}
+  \br{iγ^μ\partial_μ-m}ψ(x^μ)=0. \eq{5.82}
+\end{align*}
+It introduces the bispinor wanvefunction $ψ(x^μ)$, which is a vector of 4 wavefuntions, and the Dirac matrices: 
+\begin{align*}
+\gamma^0 &= \begin{pmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & -1 & 0 \\ 0 & 0 & 0 & -1 \end{pmatrix} &
+\gamma^1 &= \begin{pmatrix} 0 & 0 & 0 & 1 \\ 0 & 0 & 1 & 0 \\ 0 & -1 & 0 & 0 \\ -1 & 0 & 0 & 0 \end{pmatrix} \\
+\gamma^2 &= \begin{pmatrix} 0 & 0 & 0 & -i \\ 0 & 0 & i & 0 \\ 0 & i & 0 & 0 \\ -i & 0 & 0 & 0 \end{pmatrix} &
+\gamma^3 &= \begin{pmatrix} 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & -1 \\ -1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \end{pmatrix}. \eq{5.81}
+\end{align*}
+
+The solution the the Dirac equation can be spilt into two; the postive energy solution and the negative energy solution. 
+These solution (eq 5.85 and 5.86) show that 
+"if a particle satisfies the Dirac equation, it is a spin-1/2 fermion and its intrinsic magnetic moment is proportional to the spin $\mathbf{S}$. "
+
+\chapter{Electromagnetic Interactions}
+Read Elyn Notes $:($
+
+\chapter{Strong Interactions}
+Quarks interact with the strong force using gluons, which are simmilar to photons. 
+They do this through the color charge of the quarks. A quark can either $+1$ blue, red or green charge, 
+and an anti quark can have $-1$ blue, red or green charge. 
+Quarks and antiquarks also have electrical charges, which can be seen in the fundamental map. 
+A hadron then has the sum of all the charges of its quarks. 
 
 
+\chapter{Flavour and Quark Model}
+\section{Baryons in the Two/Three-quark Model}
+Chapter 8 goes through the total wavefunction of quarks, and how they interact in a baryon. 
+There is a little about group theory, but not really how to calculate it. 
+For the two-quark model, that is where we only use up and down, the total wavefunction for a baryon is 
+\begin{align*}
+  Ψ = ψ_{space}ψ_{spin}ψ_{color}ψ_{flavor}. \eq{8.16}
+\end{align*}
+The total wavefunction for a baryon has to be anti-symmetric, according to Pauli exclusion principle. 
+The spin wavefunction is anti-symmetric and the space wavefunction is symmetric, so the color and flavor wavfunctions has to be symmetric.
+
+If we extend to the three-quark model where we include the strange quark, the $ψ_{space}ψ_{color}$ wavefunction is antisymmetric, 
+and the spin wave function has to be $ψ_{spin}^{S=3/2}$. 
+
+\section{Isospin}
+Up type quarks have isospin $I_z=+1/2$ and down has $I_z=-1/2$. And anti particles have different sign. 
+Isospin has nothing to do with the angular momentum of the particles, as all quarks are spin-1/2 particles. 
+So when building Hadrons we can have total isospin, which is then a measure of if the hadron is down or up. 
+If we put this on the x-axis, and then the flavours on the y-axis we can create isospin plots like shown in fig \ref{fig:Iso}
+\bil{Iso}
+
+\section{Mesons in the Two/Three-quark Model}
+For mesons we do not require the wavefunction to be anti-symmetric. The parity and C-parity of a meson is 
+\begin{align*}
+  Pψ = Cψ = (-1)^{l+s} \eq{8.43}.
+\end{align*}
+
+\section{Generalization of the Quark Model}
+We introduce a new quantum number called the baryon number which is $+1/3$ for quarks, and $-1/3$ for anti-quarks. 
+This number must be conserved in all interactions. 
+For the modern classification we use the five-quark model which approximates that all quarks exept top has the same mass. 
+Top has a much higher mass, and decays before it can be bound in a hadron. 
+Tetraquarks and Pentaquarks are possible but it is hard to distinguish them from a meson-meson binding and baryon-meson binding. 
+
+
+\chapter{From QCD to Nuclear}
+\setcounter{section}{3}
+\section{Nuclear Shell Model}
+\subsection{Universal Filling order}
+\begin{itemize}
+  \item $1s_{1/2} (2) \quad \rightarrow \mathbf{2}$
+  \item $1p_{3/2} (4) \quad 1p_{1/2} (2) \quad \rightarrow \mathbf{8}$
+  \item $1d_{5/2} (6) \quad 2s_{1/2} (2) \quad 1d_{3/2} (4) \quad \rightarrow \mathbf{2 0}$
+  \item $1f_{7/2} (8) \quad \rightarrow \mathbf{2 8} $
+  \item $2p_{3/2} (4) \quad 1f_{5/2} (6) \quad 2p_{1/2} (2) \quad 1g_{9/2} (10) \quad \rightarrow \mathbf{5 0}$
+  \item $1g_{7/2} (8) \quad 2d_{5/2} (6) \quad 3s_{1/2} (2) \quad 1h_{11/2} (12) \quad 2d_{3/2} (4) \quad \rightarrow \mathbf{8 2}$
+  \item $ 2f_{7/2} (8) \quad 1h_{9/2} (10) \quad 3p_{3/2} (4) \quad 2f_{5/2} (6) \quad 3p_{1/2} (2) \quad 1i_{13/2} (14) \quad \rightarrow \mathbf{1 2 6}$
+  \item $2g_{9/2} (10) \quad 1i_{11/2} (12) \quad 1j_{15/2} (16) \quad 3d_{5/2} (6) \quad 2g_{7/2} (8) \quad 4s_{1/2} (2) \quad 3d_{3/2} (4) \quad \rightarrow \mathbf{1 8 4}$
+\end{itemize}
+
+\subsection{Determining Nucleus Spin and Parity}
+\begin{itemize}
+  \item Check Number of Protons (Z) and Neutrons (N):
+  \begin{itemize}
+    \item If both are even, the ground state has $I=0$ and parity $+$. 
+    \item If one is odd the spin is determined by the valence nucleon. 
+    \item If both are odd the spin is detemined both by the spin of the unpaired proton and nucleon. 
+  \end{itemize}
+  If A is odd fill the shells with the number of nucleons in accordance with figure \ref{fig:Shell}.
+  From that we then know $I=i$ and $P=(-1)^l$. 
+
+  If both are odd do this for both and then 
+  \begin{align*}
+    P &= P_p \times P_n \\
+    |i_p-i_n| &\leq I \leq i_p + i_n
+  \end{align*}
+\end{itemize}
+\bil{Shell}
+
+\section{Magnetic Moment}
+This is not in the book but used for exercise 1 in 2023. 
+The magnetic moment of a nucleus is decided from the valence particle, and calculated as
+\begin{align*}
+  μ_j = \br{g^{(l)}l+\frac{1}{2}g^{(s)}}μ_N, \quad \text{ if } j=l+1/2, \\
+  μ_j = \frac{j}{j+1}\br{g^{(l)}(l+1)-\frac{1}{2}g^{(s)}}μ_N, \quad \text{ if } j=l-1/2,
+\end{align*}
+where $μ_N$ is the nuclear magneton, and for a neutron $g^{(l)}=0$, $g^{(s)}=-3.8263$ and for a proton $g^{(l)}=1$, $g^{(s)}=5.5858$. 
+
+\setcounter{chapter}{10}
+\chapter{Radioactivity}
+\setcounter{section}{3}
+\section{Beta Decay Selection Rules}
+Allowed beta decays are $ΔI=0$ which are Fermi decays, 
+if the total spin does not go from 0 to 0 and there is no parity change, 
+then it is also a Gamov-Teller decay. 
 
 
 

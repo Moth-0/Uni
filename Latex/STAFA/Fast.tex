@@ -1,0 +1,917 @@
+% Første linje er dokumentklassen. Brug *altid* memoir!
+\documentclass[a4paper,oneside,article]{memoir}
+
+% Herunder indlæses forskellige pakker
+\usepackage[utf8]{inputenc}  % Korrekt håndtering af æ, ø og å
+\usepackage[T1]{fontenc}  % Korrekt håndtering af æ, ø og å
+\usepackage{microtype}  % Typografisk magi! Giver bl.a. pænere orddeling
+\usepackage{graphicx}  % Gør det muligt at indsætte billeder
+\usepackage{amsmath}  % Giver adgang til uundværlige matematikting
+\usepackage{mathtools}  % Retter ting i ams og giver ekstra muligheder
+\usepackage[danish]{babel}  % Danske betegnelser og orddeling
+\usepackage{lmodern}
+\usepackage{alphabeta}
+\usepackage{float} %Mere kontrol over billede-placering
+\renewcommand{\danishhyphenmins}{22}  % Bedre dansk orddeling
+\usepackage{siunitx} % Sientific notation for forskellige ting, med en regel om at den skal bruge cdot istedet for times. 
+\sisetup{inter-unit-product = \cdot, 
+        exponent-product=\cdot}
+\usepackage{derivative} % Til at skrive differentialligninger 
+\usepackage{xcolor} % For at få flere tekst farver 
+\usepackage[colorlinks=true]{hyperref} % For at få refrences man kan trykke på, slet [] hvis man vil have kasser i stedet for farvet tekst.
+\usepackage{pdfpages} % Til at indsætte andre pdf'er
+\usepackage{subfig} % For at have to billeder ved siden af hinanden
+\usepackage{unicode-math}
+
+% Pænere toc indents 
+\usepackage{tocloft}
+\cftsetindents{section}{1em}{2em}
+\cftsetindents{subsection}{4em}{0em}
+
+
+\begin{document}
+\author{Mikkel Moth Billing \\ 202307989}
+\title{Statistical and Solidstate Physics}
+\date{\today}
+%\maketitle   % Indsætter overskriften
+% Table of Contents indstillinger
+\setcounter{tocdepth}{1}
+\setcounter{secnumdepth}{1}
+\hypersetup{linkcolor=black} % Laver tableofcontents sort.  
+\tableofcontents %Indsætter ToC
+\hypersetup{linkcolor=red} % og så alle andre hyperrefs røde. 
+
+% Custom Commands
+\newcommand{\ti}[1]{\cdot 10^{#1}} % Let: gange 10^x
+\newcommand{\e}[1]{\emph{e}^{#1}} % Pænere e^x
+\newcommand{\vm}[2]{\begin{pmatrix} #1 \\ #2 \end{pmatrix}}
+\newcommand{\mat}[1]{\begin{pmatrix} #1 \end{pmatrix}}
+\newcommand{\h}{\hbar}
+\renewcommand{\v}[1]{\mathbfit{#1}}
+\newcommand{\ep}{\epsilon_0}
+
+
+% Lette paranteser 
+\newcommand{\br}[2][1]{%
+    \ifcase#1
+    \or \left( #2 \right) %1 eller ingenting
+    \or \left[ #2 \right] %2
+    \or \left\langle #2 \right\rangle %3
+    \or \left\{ #2 \right\} %4
+    \or \left| #2 \right| %5
+    \fi
+}
+
+% Til at sætter bileder ind i store dokumenter
+\newcommand{\bil}[1]{
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Billeder/#1.png}
+    \label{fig:#1}
+\end{figure}
+}
+
+% Til at Give equation numre 
+\newcommand{\eq}[1]{\label{eq:#1}\tag{#1}}
+
+
+% Lav ny pagestyle (kun odd fordi enkeltsidet)
+\makepagestyle{Title}
+\pagestyle{Title}
+%\makeoddhead{Title}{\footnotesize\color{gray}{\theauthor}}{}{\textcolor{gray}{\thedate}}
+\makeoddfoot{Title}{}{\footnotesize\color{gray}{\thepage{} / \thelastpage}}{}
+% Også fod på siden med \maketitle
+\makeoddfoot{plain}{}{\footnotesize\color{gray}{\thepage{} / \thelastpage}}{}
+\newpage
+
+% ----------Dokumentet Starter her! ------------
+\chapter{Crystal Structures}
+
+\section{General Description of Crystal Structures}
+This section introduces the mathematical description of crystals.
+\begin{itemize}
+    \item \textbf{Lattice:} A lattice is a set of regularly spaced points defined by generating vectors. In three dimensions, a Bravais lattice is defined by vectors $\v{R}$ [p. 2]:
+    \begin{align*}
+        \v{R} = m\v{a}_1 + n\v{a}_2 + o\v{a}_3 \eq{1.2}
+    \end{align*}
+    Where $m, n, o$ are integers and $\v{a}_1, \v{a}_2, \v{a}_3$ are the primitive lattice vectors.
+    \item \textbf{Basis:} The building block (atom or group of atoms) attached to every lattice point to form the crystal structure [p. 2].
+    \begin{align*}
+        \text{Lattice} + \text{Basis} = \text{Crystal Structure}
+    \end{align*}
+    \item \textbf{Unit Cell:} A volume that fills space without overlap when translated by lattice vectors.
+    \begin{itemize}
+        \item \textbf{Primitive Unit Cell:} Contains exactly one lattice point [p. 2].
+        \item \textbf{Wigner-Seitz Cell:} A specific primitive unit cell defined as the region of space closer to one lattice point than any other [p. 2].
+    \end{itemize}
+\end{itemize}
+
+\section{Some Important Crystal Structures}
+Common structures found in metals and ionic solids.
+\begin{itemize}
+    \item \textbf{Cubic Structures:}
+    \begin{itemize}
+        \item \textbf{Simple Cubic (sc):} Rare due to low packing density (open structure) [p. 4].
+        \item \textbf{Body-Centered Cubic (bcc):} One atom at corners and one in the center. Common for alkali metals [p. 4].
+        \item \textbf{Face-Centered Cubic (fcc):} One atom at corners and one on each face. Highest possible packing density (74\%) [p. 4].
+    \end{itemize}
+    \item \textbf{Ionic Structures:}
+    \begin{itemize}
+        \item \textbf{CsCl Structure:} Two simple cubic lattices (Cs and Cl) shifted by half the body diagonal [p. 5].
+        \item \textbf{NaCl Structure:} Two fcc lattices shifted by half the side length [p. 5].
+    \end{itemize}
+    \item \textbf{Close-Packed Structures:} Structures that maximize packing density.
+    \begin{itemize}
+        \item \textbf{Hexagonal Close-Packed (hcp):} Stacking sequence ABABAB... [p. 6].
+        \item \textbf{Face-Centered Cubic (fcc):} Stacking sequence ABCABC... [p. 6].
+    \end{itemize}
+    Both have a coordination number (nearest neighbors) of 12 [p. 6].
+\end{itemize}
+
+\section{Crystal Structure Determination}
+The primary method for determining structure is X-ray diffraction.
+
+\subsection{X-Ray Diffraction (Bragg Theory)}
+\begin{itemize}
+    \item \textbf{Bragg Condition:} Constructive interference occurs when reflection from parallel lattice planes separated by distance $d$ satisfies [p. 8]:
+    \begin{align*}
+        n\lambda = 2d \sin \theta \eq{1.3}
+    \end{align*}
+    Where $\theta$ is the angle of incidence relative to the plane (not the normal).
+    \item \textbf{Miller Indices $(hkl)$:} Integers describing lattice planes. They are derived from the reciprocal of the intercepts of the plane with the crystallographic axes [p. 8].
+\end{itemize}
+
+\subsection{General Diffraction Theory and the Reciprocal Lattice}
+\begin{itemize}
+    \item \textbf{Scattered Intensity:} In the kinematic approximation (single scattering), the intensity $I(\v{K})$ depends on the scattering vector $\v{K} = \v{k}' - \v{k}$ and the electron concentration $\rho(\v{r})$ [p. 11]:
+    \begin{align*}
+        I(\v{K}) \propto \left| \int_V \rho(\v{r}) \e{-i\v{K}\cdot\v{r}} dV \right|^2 \eq{1.11}
+    \end{align*}
+    \item \textbf{Reciprocal Lattice:} A set of vectors $\v{G}$ that satisfy $\e{i\v{G}\cdot\v{R}} = 1$ for all Bravais lattice vectors $\v{R}$ [p. 12]. The primitive reciprocal lattice vectors $\v{b}_1, \v{b}_2, \v{b}_3$ are defined such that [p. 12]:
+    \begin{align*}
+        \v{a}_i \cdot \v{b}_j = 2\pi\delta_{ij} \eq{1.17}
+    \end{align*}
+    \item \textbf{Laue Condition:} Constructive interference (diffraction) occurs only when the change in wave vector equals a reciprocal lattice vector [p. 14]:
+    \begin{align*}
+        \Delta \v{k} = \v{k}' - \v{k} = \v{G} \eq{1.25}
+    \end{align*}
+    This is equivalent to the Bragg condition.
+    \item \textbf{Structure Factor:} The intensity of diffraction peaks depends on the basis of atoms within the unit cell. The integral over the unit cell splits into a sum over atoms (structure factor) and an atomic form factor [p. 15].
+    \item \textbf{Ewald Construction:} A geometric visualization of the Laue condition. A sphere of radius $k = 2\pi/\lambda$ in reciprocal space determines which lattice points $\v{G}$ satisfy the diffraction condition [p. 16].
+\end{itemize}
+
+\subsection{Other Methods}
+\begin{itemize}
+    \item \textbf{Neutron Diffraction:} Neutrons interact with nuclei (stronger interaction with light atoms than X-rays) and have magnetic moments (useful for magnetic ordering) [p. 17].
+    \item \textbf{Electron Diffraction:} Strong interaction with matter, limiting penetration depth. Suitable for surface studies (LEED) [p. 17].
+\end{itemize}
+
+\chapter{Bonding in Solids}
+
+\section{Attractive and Repulsive Forces}
+\begin{itemize}
+    \item Bonding requires a balance between attractive forces (varying by bond type) and repulsive forces (Pauli exclusion principle at short range) [p. 23].
+    \item \textbf{Interatomic Potential:} Often modeled as [p. 23]:
+    \begin{align*}
+        \phi(r) = \frac{A}{r^n} - \frac{B}{r^m} \eq{2.1}
+    \end{align*}
+    Where $n > m$ to ensure repulsion dominates at short distances.
+\end{itemize}
+
+\section{Ionic Bonding}
+\begin{itemize}
+    \item \textbf{Mechanism:} Electron transfer from electropositive to electronegative atoms, leading to electrostatic attraction between ions [p. 24].
+    \item \textbf{Madelung Energy:} The total electrostatic energy of an ion in a crystal is the sum of interactions with all other ions [p. 24]:
+    \begin{align*}
+        E_{electrostatic} = -M_d \frac{e^2}{4\pi\ep a} \eq{2.2}
+    \end{align*}
+    Where $M_d$ is the \textbf{Madelung constant}, which depends only on the crystal structure, and $a$ is the nearest-neighbor distance.
+    \item \textbf{Cohesive Energy:} The total energy required to separate the solid into isolated atoms. For ionic solids, it is the lattice energy (electrostatic + repulsive) minus the energy cost to create ions (ionization energy - electron affinity) [p. 25].
+\end{itemize}
+
+\section{Covalent Bonding}
+\begin{itemize}
+    \item \textbf{Mechanism:} Electrons are shared between neighboring atoms, forming highly directional bonds [p. 25].
+    \item \textbf{Examples:}
+    \begin{itemize}
+        \item \textbf{Carbon:} Forms diamond ($sp^3$ hybridization, tetrahedral) and graphite/graphene ($sp^2$ hybridization, planar honeycomb) [p. 25].
+        \item \textbf{Semiconductors:} Silicon (Si) and Germanium (Ge) also crystallize in the diamond structure [p. 7].
+    \end{itemize}
+    \item \textbf{Characteristics:} High stability and cohesive energies (several eV per atom). The directional nature determines the crystal structure more than packing density [p. 25].
+\end{itemize}
+
+\section{Metallic Bonding}
+\begin{itemize}
+    \item \textbf{Mechanism:} Valence electrons are delocalized (conduction electrons) and move freely between positive ion cores [p. 28].
+    \item \textbf{Energy Gain:}
+    \begin{itemize}
+        \item \textbf{Kinetic Energy:} Delocalization reduces the curvature of the electron wave function ($\nabla^2\Psi$), lowering kinetic energy compared to localized atomic states [p. 28].
+        \item \textbf{Potential Energy:} Electrons see an attractive potential from ions, but the interaction is complex due to electron-electron repulsion and the Pauli principle [p. 29].
+    \end{itemize}
+    \item \textbf{Structure:} Bonding is non-directional, favoring close-packed structures (fcc, hcp) to maximize overlap and delocalization [p. 29].
+    \item \textbf{Transition Metals:} bonding is stronger due to a mix of delocalized $s/p$ electrons and more localized (covalent-like) $d$ electrons [p. 29].
+\end{itemize}
+
+\setcounter{section}{5}
+\section{van der Waals Bonding}
+\begin{itemize}
+    \item \textbf{Mechanism:} Weak attraction arising from quantum mechanical fluctuations in the electron cloud. A transient dipole in one atom induces a dipole in a neighbor, leading to attraction [p. 29].
+    \item \textbf{Characteristics:}
+    \begin{itemize}
+        \item Present in all solids but significant only when other bonding types are absent (e.g., noble gas crystals, interactions between graphite layers) [p. 30].
+        \item Very weak binding energies ($\sim$ meV range) [p. 30].
+        \item The interaction potential typically scales as $r^{-6}$ (Problem 2.4) [p. 31].
+    \end{itemize}
+\end{itemize}
+
+\chapter{Mechanical Properties}
+
+\section{Elastic Deformation}
+This section covers the macroscopic and microscopic description of reversible deformation.
+
+\subsection{Macroscopic Picture}
+\begin{itemize}
+    \item \textbf{Stress ($\sigma$):} Force per unit area, $\sigma = F/A$ (Pascal) [p. 33].
+    \item \textbf{Strain ($\epsilon$):} Relative length change, $\epsilon = \Delta l / l$ (dimensionless) [p. 33].
+    \item \textbf{Hooke's Law:} For small deformations, stress is linear with strain [p. 35]:
+    \begin{align*}
+        \sigma = Y\epsilon \eq{3.2}
+    \end{align*}
+    Where $Y$ is \textbf{Young's Modulus}.
+    \item \textbf{Other Elastic Constants:}
+    \begin{itemize}
+        \item \textbf{Shear Modulus ($G$):} Relates shear stress $\tau$ to shear angle $\alpha$: $\tau = G\alpha$ [p. 35].
+        \item \textbf{Bulk Modulus ($K$):} Relates hydrostatic pressure $p$ to relative volume change: $K = -V \frac{dp}{dV}$ [p. 36].
+        \item \textbf{Poisson's Ratio ($\nu$):} Describes lateral contraction during tensile stress [p. 36]:
+        \begin{align*}
+            \frac{\Delta l_{transverse}}{l_{transverse}} = -\nu \frac{\Delta l_{longitudinal}}{l_{longitudinal}} \eq{3.6}
+        \end{align*}
+    \end{itemize}
+\end{itemize}
+
+\subsection{Microscopic Picture}
+\begin{itemize}
+    \item Elastic deformation corresponds to small displacements of atoms from their equilibrium positions in the interatomic potential $\phi(r)$ [p. 37].
+    \item \textbf{Harmonic Approximation:} Expanding the potential around the equilibrium distance $a$ [p. 37]:
+    \begin{align*}
+        \phi(x) \approx \phi(a) + \frac{1}{2}\phi''(a)(x-a)^2 \eq{3.11}
+    \end{align*}
+    The quadratic term creates a linear restoring force (Hooke's law). The elastic constants are directly related to the curvature of the potential ($\phi''(a)$) [p. 37].
+\end{itemize}
+
+\chapter{Thermal Properties of the Lattice}
+
+\section{Lattice Vibrations}
+We treat atomic vibrations using the harmonic approximation (linear restoring forces).
+
+\subsection{A Simple Harmonic Oscillator}
+\begin{itemize}
+    \item For a single atom of mass $M$ connected to a spring with force constant $\gamma$, the frequency is [p. 48]:
+    \begin{align*}
+        \omega = \sqrt{\frac{\gamma}{M}} \eq{4.2}
+    \end{align*}
+    \item \textbf{Amplitude:} Using the equipartition theorem ($\frac{1}{2}\gamma x_{max}^2 = k_B T$), the vibration amplitude at temperature $T$ is [p. 48]:
+    \begin{align*}
+        x_{max} = \sqrt{\frac{2k_B T}{\gamma}} \eq{4.5}
+    \end{align*}
+\end{itemize}
+
+\subsection{An Infinite Chain of Atoms}
+A 1D model for vibrations in a crystal.
+
+\subsubsection{One Atom Per Unit Cell}
+\begin{itemize}
+    \item Consider a chain of atoms with mass $M$, spacing $a$, and spring constant $\gamma$. The equation of motion for the $n$'th atom is [p. 49]:
+    \begin{align*}
+        M\frac{d^2u_n}{dt^2} = -\gamma(2u_n - u_{n-1} - u_{n+1}) \eq{4.7}
+    \end{align*}
+    \item \textbf{Wave Solution:} We assume a solution of the form 
+    \begin{align*}
+        u_n = u \e{i(kan - \omega t)} \eq{4.8}.
+    \end{align*}
+    \item \textbf{Dispersion Relation:} Substituting the solution yields the relationship between frequency $\omega$ and wave vector $k$ [p. 49]:
+    \begin{align*}
+        \omega(k) = \sqrt{\frac{4\gamma}{M}} \left| \sin\left(\frac{ka}{2}\right) \right| \eq{4.10}
+    \end{align*}
+    \item \textbf{Long Wavelength Limit ($k \to 0$):} $\sin(x) \approx x$, so the dispersion becomes linear [p. 50]:
+    \begin{align*}
+        \omega(k) \approx \sqrt{\frac{\gamma}{M}} a k = v k \eq{4.11}
+    \end{align*}
+    Here $v$ is the \textbf{speed of sound}. Group velocity and phase velocity are equal.
+\end{itemize}
+
+\subsubsection{The First Brillouin Zone}
+\begin{itemize}
+    \item The dispersion relation $\omega(k)$ is periodic with period $2\pi/a$ (the reciprocal lattice vector).
+    \item \textbf{First Brillouin Zone:} The range of unique $k$-values, defined as [p. 51]:
+    \begin{align*}
+        -\frac{\pi}{a} \le k < \frac{\pi}{a}
+    \end{align*}
+    \item Values of $k$ outside this zone describe the exact same physical motion of atoms as a corresponding $k$ inside the zone [p. 51].
+    \item At the zone boundary ($k = \pm \pi/a$), the group velocity $d\omega/dk$ is zero, representing a standing wave where neighboring atoms move in opposite directions [p. 50].
+\end{itemize}
+
+\subsection{Two Atoms per Unit Cell}
+\begin{itemize}
+    \item Consider a 1D chain with two atoms per unit cell (masses $M_1$ and $M_2$, spacing $b$). The equations of motion are coupled, leading to a system of linear equations [p. 52].
+    \item \textbf{Dispersion Relation:} Solving the determinant yields two branches of solutions [p. 52]:
+    \begin{align*}
+        \omega^2 = \gamma\left(\frac{1}{M_1} + \frac{1}{M_2}\right) \pm \gamma \sqrt{\left(\frac{1}{M_1} + \frac{1}{M_2}\right)^2 - \frac{4}{M_1 M_2} \sin^2\left(\frac{kb}{2}\right)} \eq{4.16}
+    \end{align*}
+    \item \textbf{Acoustic Branch ($-$):} $\omega \to 0$ as $k \to 0$. Atoms move in phase. Corresponds to sound waves [p. 53].
+    \item \textbf{Optical Branch ($+$):} Finite $\omega$ at $k=0$. Atoms move out of phase. Can interact with electromagnetic waves (light) if the ions have opposite charges [p. 53].
+\end{itemize}
+
+\subsection{A Finite Chain of Atoms}
+\begin{itemize}
+    \item To model real solids, we use \textbf{Periodic Boundary Conditions} (Born-von Kármán): $u_{n+N} = u_n$ for a chain of $N$ atoms [p. 54].
+    \item This discretizes the allowed wave vectors $k$:
+    \begin{align*}
+        k = \frac{2\pi}{Na} m \eq{4.20}
+    \end{align*}
+    Where $m$ is an integer. There are exactly $N$ allowed $k$-values in the first Brillouin zone, conserving the total number of degrees of freedom [p. 54].
+\end{itemize}
+
+\subsection{Quantized Vibrations, Phonons}
+\begin{itemize}
+    \item Treating lattice vibrations quantum mechanically leads to the concept of \textbf{phonons} (quanta of lattice vibration energy) [p. 56].
+    \item The energy levels of a normal mode with frequency $\omega(k)$ are quantized as harmonic oscillators [p. 55]:
+    \begin{align*}
+        E_l(k) = \left(l + \frac{1}{2}\right)\h\omega(k) \eq{4.22}
+    \end{align*}
+    \item Phonons are bosons and follow Bose-Einstein statistics [p. 56].
+\end{itemize}
+
+\subsection{Three-Dimensional Solids}
+\begin{itemize}
+    \item Generalizing to 3D, the wave vector $\v{k}$ becomes three-dimensional.
+    \item \textbf{Density of States $g(\omega)$:} The number of vibrational states per unit frequency interval. For a 3D linear dispersion $\omega = vk$, it is [p. 65]:
+    \begin{align*}
+        g(\omega) = \frac{V\omega^2}{2\pi^2 v^3} \eq{4.40}
+    \end{align*}
+\end{itemize}
+
+\section{Heat Capacity of the Lattice}
+This section deals with the lattice contribution to the specific heat $C_V = (\partial U / \partial T)_V$.
+
+\subsection{Classical Theory (Dulong-Petit)}
+\begin{itemize}
+    \item According to the equipartition theorem, each atom has $3$ vibrational degrees of freedom with average energy $k_B T$ each (potential + kinetic) [p. 60].
+    \item Total energy per mole is $3 N_A k_B T = 3RT$.
+    \item \textbf{Heat Capacity:} $C = 3R \approx 24.9$ J/mol K. This matches experiment at high temperatures but fails at low temperatures where $C \to 0$ [p. 60].
+\end{itemize}
+
+\subsection{Einstein Model}
+\begin{itemize}
+    \item \textbf{Assumption:} All atoms vibrate independently with the same frequency $\omega_E$ [p. 62].
+    \item Average energy is derived using Bose-Einstein statistics for the occupation number $\langle n \rangle$ [p. 62]:
+    \begin{align*}
+        \langle E \rangle = 3N_A \h\omega_E \left( \frac{1}{\e{\h\omega_E / k_B T} - 1} + \frac{1}{2} \right) \eq{4.31}
+    \end{align*}
+    \item \textbf{Result:} Explains the drop in $C$ at low $T$, but predicts an exponential decay ($\e{-\h\omega_E / k_B T}$), whereas experiments show a $T^3$ dependence [p. 62].
+\end{itemize}
+
+\subsection{Debye Model}
+\begin{itemize}
+    \item \textbf{Assumption:} Treat lattice vibrations as sound waves with linear dispersion $\omega = vk$ up to a cutoff frequency $\omega_D$ [p. 64].
+    \item \textbf{Debye Frequency $\omega_D$:} Chosen such that the total number of modes equals $3N$ [p. 66]:
+    \begin{align*}
+        \omega_D^3 = 6\pi^2 \frac{N}{V} v^3 \eq{4.42}
+    \end{align*}
+    \item \textbf{Debye Temperature:} Defined as $\Theta_D = \h\omega_D / k_B$, for atoms it is related to their mass and bond force. [p. 66].
+    \item \textbf{Low Temperature Limit ($T \ll \Theta_D$):} The heat capacity follows the \textbf{Debye $T^3$ law} [p. 66]:
+    \begin{align*}
+        C = \frac{12π^4}{5}Nk_B\br{\frac{T}{Θ_D}}^3 \eq{4.45}
+    \end{align*}
+    This agrees excellently with experimental data at low temperatures.
+\end{itemize}
+
+\section{Thermal Conductivity}
+\begin{itemize}
+    \item \textbf{Mechanism:} Heat is transported by phonons. We treat them as a gas of particles [p. 68].
+    \item \textbf{Thermal Conductivity $\kappa$:} Given by the kinetic theory expression [p. 68]:
+    \begin{align*}
+        \kappa_p = \frac{1}{3} C v \lambda_p \eq{4.48}
+    \end{align*}
+    Where $C$ is the heat capacity per volume, $v$ is the phonon velocity (speed of sound), and $\lambda_p$ is the phonon mean free path.
+    \item \textbf{Scattering Mechanisms:}
+    \begin{itemize}
+        \item \textbf{Low T:} Scattering by crystal defects/boundaries dominates. $\lambda_p$ is roughly constant (size of sample), so $\kappa \propto C \propto T^3$ [p. 68].
+        \item \textbf{High T:} Phonon-phonon scattering dominates. The number of phonons increases with $T$, reducing $\lambda_p$. This causes $\kappa$ to decrease (typically as $1/T$) [p. 68].
+    \end{itemize}
+    \item \textbf{Umklapp Processes:} Anharmonic phonon-phonon scattering events where crystal momentum is not conserved (changed by a reciprocal lattice vector $\v{G}$). These are responsible for thermal resistance at high temperatures [p. 69].
+\end{itemize}
+
+\section{Thermal Expansion}
+\begin{itemize}
+    \item \textbf{Origin:} Thermal expansion arises from the \textbf{anharmonicity} of the interatomic potential (e.g., cubic terms in the Taylor expansion) [p. 70].
+    \item In a purely harmonic potential, the mean separation between atoms would not change with temperature.
+    \item As temperature increases, atoms vibrate with higher energy. due to the asymmetry of the potential (steeper repulsion, softer attraction), the average position shifts to larger separations [p. 71].
+    \item \textbf{Coefficient of Thermal Expansion $\alpha$:} Defined as $\Delta l / l = \alpha \Delta T$. It typically vanishes as $T \to 0$ [p. 70].
+\end{itemize}
+
+\chapter{Electronic Properties of Metals: Classical Approach}
+
+\section{Basic Assumptions of the Drude Model}
+The Drude model (1900) applies kinetic gas theory to electrons in a metal.
+\begin{itemize}
+    \item \textbf{Independent Electron Approximation:} Electrons do not interact with each other [p. 77].
+    \item \textbf{Free Electron Approximation:} Electrons do not interact with ions between collisions [p. 78].
+    \item \textbf{Collisions:} Electrons collide with ion cores, which instantaneously thermalizes them [p. 78].
+    \item \textbf{Relaxation Time ($\tau$):} The average time between collisions. The probability of a collision per unit time is $1/\tau$ [p. 78].
+    \item \textbf{Electron Density ($n$):} Calculated assuming each atom contributes $Z_v$ valence electrons [p. 78].
+\end{itemize}
+
+\section{Results from the Drude Model}
+
+\subsection{DC Electrical Conductivity}
+\begin{itemize}
+    \item \textbf{Drift Velocity:} In an electric field $\mathcal{E}$, electrons acquire an average drift velocity $\overline{v}$ [p. 79]:
+    \begin{align*}
+        \overline{v} = \frac{-e\mathcal{E}\tau}{m_e} \eq{5.4}
+    \end{align*}
+    \item \textbf{Ohm's Law:} The current density is $\v{j} = -ne\overline{v} = \sigma \mathcal{E}$. The conductivity $\sigma$ and resistivity $ρ$ is given by [p. 80]:
+    \begin{align*}
+        \sigma = \frac{ne^2\tau}{m_e} \eq{5.9} \\
+        ρ = \frac{m_e}{ne^2τ} \eq{5.10}
+    \end{align*}
+    \item \textbf{Mobility ($\mu$):} Defined as the magnitude of drift velocity per unit field [p. 80]:
+    \begin{align*}
+        \mu = \frac{|\overline{v}|}{\mathcal{E}} = \frac{e\tau}{m_e} \eq{5.11}
+    \end{align*}
+\end{itemize}
+
+\subsection{Hall Effect}
+\begin{itemize}
+    \item \textbf{Setup:} A magnetic field $B_z$ perpendicular to the current density $j_x$ exerts a Lorentz force, leading to a transverse electric field $\mathcal{E}_H$ (Hall field) [p. 81].
+    \item \textbf{Hall Coefficient ($R_H$):} defined as $R_H = \mathcal{E}_H / (j_x B_z)$. The Drude model predicts [p. 82]:
+    \begin{align*}
+        R_H = \frac{-1}{ne} \eq{5.15}
+    \end{align*}
+    \item This provides a way to measure the carrier density $n$.
+    \item \textbf{Failure:} For some metals (e.g., Al, Be), $R_H$ is positive, suggesting positive charge carriers, which contradicts the classical model [p. 82].
+\end{itemize}
+
+\subsection{Optical Reflectivity of Metals}
+\begin{itemize}
+    \item In an AC electric field $\mathcal{E}(t) \propto \e{-i\omega t}$, the electrons oscillate. The material's response is described by a frequency-dependent dielectric function $\epsilon(\omega)$ [p. 84]:
+    \begin{align*}
+        \epsilon(\omega) = 1 - \frac{\omega_p^2}{\omega^2} \eq{5.28}
+    \end{align*}
+    \item \textbf{Plasma Frequency ($\omega_p$):} The frequency where the metal transitions from reflecting to transparent [p. 84]:
+    \begin{align*}
+        \omega_p^2 = \frac{ne^2}{m_e \epsilon_0} \eq{5.29}
+    \end{align*}
+    \item For $\omega < \omega_p$, $\epsilon$ is negative and the metal reflects light. For $\omega > \omega_p$ (typically UV), it becomes transparent [p. 84].
+\end{itemize}
+
+\subsection{The Wiedemann-Franz Law}
+\begin{itemize}
+    \item Relates thermal conductivity $\kappa$ and electrical conductivity $\sigma$. The Drude model predicts [p. 85]:
+    \begin{align*}
+        \frac{\kappa}{\sigma} = L T = \frac{3}{2} \br{\frac{k_B}{e}}^2 T \eq{5.31}
+    \end{align*}
+    \item The constant $L$ is the \textbf{Lorenz number}. The prediction agrees well with experiment due to fortuitous cancellation of errors (velocity averaging) [p. 85].
+\end{itemize}
+
+\section{Shortcomings of the Drude Model}
+\begin{itemize}
+    \item \textbf{Electronic Heat Capacity:} Classical theory predicts $C_{el} = \frac{3}{2} n k_B$. Experiments show the electronic contribution is negligible at room temperature (solid obeys Dulong-Petit law) [p. 86].
+    \item \textbf{Mean Free Path:} At low temperatures, the mean free path can be extremely long (mm range), which is inconsistent with electrons bouncing off fixed ions [p. 86].
+    \item \textbf{ Alloys:} The strong resistivity increase in alloys is not well explained [p. 86].
+\end{itemize}
+
+\chapter{Electronic Properties of Solids: Quantum Mechanical Approach}
+
+\section{The Idea of Energy Bands}
+\begin{itemize}
+    \item \textbf{Band Formation:} As atoms are brought together to form a solid, discrete atomic energy levels split and merge into continuous bands of allowed energies [p. 92].
+    \item \textbf{Metals:} Characterized by a partially filled highest occupied band (e.g., Na, where the 3s band is half-full). Electrons can easily be excited into nearby empty states to conduct current [p. 93].
+    \item \textbf{Insulators/Semiconductors:} Characterized by a completely filled valence band and a completely empty conduction band, separated by an energy gap ($E_g$). Electrons cannot easily gain energy [p. 94].
+\end{itemize}
+
+\section{Free Electron Model}
+This model treats electrons as quantum particles in a box (the solid) with no interaction with the lattice ions ($U(\v{r})=0$).
+
+\subsection{The Quantum Mechanical Eigenstates}
+\begin{itemize}
+    \item \textbf{Wave Functions:} Using periodic boundary conditions for a cube of volume $V$, the solutions are plane waves [p. 95]:
+    \begin{align*}
+        \psi_{\v{k}}(\v{r}) = \frac{1}{\sqrt{V}} \e{i\v{k}\cdot\v{r}} \eq{6.4}
+    \end{align*}
+    \item \textbf{Energies:}
+    \begin{align*}
+        E(\v{k}) = \frac{\h^2 k^2}{2m_e} \eq{6.6}
+    \end{align*}
+    \item \textbf{Fermi Energy ($E_F$):} At $T=0$, electrons fill states up to the highest energy $E_F$. In k-space, occupied states form a sphere with radius $k_F$ [p. 96]:
+    \begin{align*}
+        E_F = \frac{\h^2 k_F^2}{2m_e} = \frac{\h^2}{2m_e}(3\pi^2 n)^{2/3} \eq{6.11}
+    \end{align*}
+    Where $n$ is the electron density.
+    \item \textbf{Density of States $g(E)$:} The number of states per energy interval increases with energy [p. 97]:
+    \begin{align*}
+        g(E) = \frac{V}{2\pi^2}\br{\frac{2m_e}{\h^2}}^{3/2} E^{1/2} \eq{6.13}
+    \end{align*}
+    \item \textbf{Finite Temperature:} Occupation is governed by the Fermi-Dirac distribution. Only electrons within $\sim k_B T$ of $E_F$ are affected ("soft zone") [p. 97].
+\end{itemize}
+
+\subsection{Electronic Heat Capacity}
+\begin{itemize}
+    \item \textbf{Pauli Principle:} Unlike classical gas particles, only a small fraction of electrons (those near $E_F$) can absorb thermal energy. Most are "frozen" in deep states [p. 99].
+    \item \textbf{Result:} The electronic heat capacity is linear in temperature [p. 100]:
+    \begin{align*}
+        C_{el} = \frac{\pi^2}{3} k_B^2 g(E_F) T \eq{6.18}
+    \end{align*}
+    where $g(E_F)$ is the density of states at the Fermi Energy. 
+    This explains why the electronic contribution is negligible at room temperature compared to the lattice ($3R$).
+    This heat capacity is only for metals. 
+\end{itemize}
+
+\subsection{The Wiedemann-Franz Law}
+\begin{itemize}
+    \item The quantum model correctly predicts the ratio of thermal to electrical conductivity [p. 100]:
+    \begin{align*}
+        \frac{\kappa}{\sigma} = \frac{\pi^2}{3} \br{\frac{k_B}{e}}^2 T = L T \eq{6.19}
+    \end{align*}
+    The calculated Lorenz number $L$ agrees well with experiment (correcting Drude's fortuitous error).
+\end{itemize}
+
+\section{The General Form of the Electronic States}
+\begin{itemize}
+    \item \textbf{Bloch's Theorem:} For electrons in a periodic potential $U(\v{r})$, the eigenstates are the product of a plane wave and a lattice-periodic function $u_{\v{k}}(\v{r})$ [p. 104]:
+    \begin{align*}
+        \psi_{\v{k}}(\v{r}) = \e{i\v{k}\cdot\v{r}} u_{\v{k}}(\v{r}) \eq{6.26}
+    \end{align*}
+    \item \textbf{Properties:} 
+    \begin{itemize}
+        \item Electrons are delocalized over the entire crystal (mean free path can be very long) [p. 104].
+        \item $\v{k}$ is the \textbf{crystal momentum}, a quantum number conserved modulo a reciprocal lattice vector $\v{G}$ [p. 109].
+    \end{itemize}
+\end{itemize}
+
+\section{Nearly Free Electron Model}
+\begin{itemize}
+    \item \textbf{Assumption:} The lattice potential is a weak perturbation on free electrons.
+    \item \textbf{Band Gaps:} Energy gaps open at the Brillouin zone boundaries ($k = n\pi/a$) due to Bragg reflection of the electron waves [p. 107].
+    \item \textbf{Mechanism:} At the zone boundary, traveling waves form standing waves ($\psi(+) \sim \cos(\pi x/a)$ and $\psi(-) \sim \sin(\pi x/a)$). These have different probability densities relative to the ion cores, leading to different potential energies and thus a gap [p. 110].
+\end{itemize}
+
+\section{Tight-binding Model}
+\begin{itemize}
+    \item \textbf{Approach:} Starts with localized atomic orbitals and treats the solid as a giant molecule (Linear Combination of Atomic Orbitals) [p. 111].
+    \item \textbf{Dispersion:} For a 1D chain of s-orbitals with nearest-neighbor overlap integral $\gamma$ [p. 114]:
+    \begin{align*}
+        E(k) = E_s - \beta - 2\gamma \cos(ka) \eq{6.62}
+    \end{align*}
+    \item \textbf{Bandwidth:} The width of the energy band is $4\gamma$. Stronger overlap (closer atoms) leads to wider bands [p. 114].
+    \item \textbf{Wave Functions:} At $k=0$, orbitals add in phase (bonding-like). At $k=\pi/a$, they alternate sign (antibonding-like) [p. 115].
+\end{itemize}
+
+\section{Energy Bands in Real Solids}
+\begin{itemize}
+    \item \textbf{Metals:} Defined by having a Fermi energy that cuts through one or more bands. There is a finite density of states at $E_F$ (e.g., Al) [p. 117].
+    \item \textbf{Semiconductors/Insulators:} The Fermi energy lies within an \textbf{absolute band gap}. The valence band is full, and the conduction band is empty (at $T=0$) [p. 118].
+    \item \textbf{Direct:} A band gap is direct if the Valence Band Maximum (VBM) and Conducting Band Minimum (CBM) is at the same k-space (x-value). 
+    \item \textbf{Filling Rule:} A single band can hold 2 electrons per unit cell. A solid with an odd number of valence electrons per unit cell is typically a metal (e.g., Na, Al) [p. 120].
+    \item \textbf{Graphene:} A special semi-metal where the conduction and valence bands touch at the Dirac points (K points). It has a linear dispersion $E \propto k$ [p. 121].
+\end{itemize}
+\bil{band1}
+
+\section{Transport Properties}
+\begin{itemize}
+    \item \textbf{Semiclassical Model:} Electrons are treated as wave packets moving with the \textbf{group velocity} [p. 122]:
+    \begin{align*}
+        \v{v}_g = \frac{1}{\h} \nabla_{\v{k}} E(\v{k}) \eq{6.47}
+    \end{align*}
+    \item \textbf{Dynamics:} An external electric field $\mathcal{E}$ changes the crystal momentum, not the velocity directly [p. 123]:
+    \begin{align*}
+        \h \frac{d\v{k}}{dt} = -e\mathcal{E} \eq{6.65}
+    \end{align*}
+    \item \textbf{Filled Bands:} A completely filled band carries no net current because for every electron with velocity $\v{v}$, there is one with $-\v{v}$ (sum over Brillouin zone is zero) [p. 124].
+    \item \textbf{Effective Mass ($m^*$):} The response of an electron to a force depends on the band curvature [p. 125]:
+    \begin{align*}
+        m^* = \h^2 \br{\frac{d^2E}{dk^2}}^{-1} \eq{6.68}
+    \end{align*}
+    \begin{itemize}
+        \item Near the bottom of a band, curvature is positive $\rightarrow$ electron-like ($m^* > 0$).
+        \item Near the top of a band, curvature is negative $\rightarrow$ hole-like ($m^* < 0$).
+    \end{itemize}
+    \item \textbf{Holes:} Vacancies in a nearly filled band behave like positive charge carriers with positive mass [p. 124].
+\end{itemize}
+
+\chapter{Semiconductors}
+
+\section{Intrinsic Semiconductors}
+\begin{itemize}
+    \item \textbf{Definition:} Materials with a band gap $E_g$ small enough (typically $< 3$ eV) to allow thermal excitation of electrons from the valence band (VB) to the conduction band (CB) [p. 131].
+    \item \textbf{Chemical Potential ($\mu$):} At $T=0$, $\mu$ lies in the middle of the band gap. At finite $T$, charge neutrality ($n=p$) keeps it near the middle [p. 132].
+    \begin{align*}
+        μ = \frac{E_g}{2}+\frac{3}{4}k_bT\ln\br{\frac{m_h^*}{m_e^*}}. \eq{7.15}
+    \end{align*}
+    \item \textbf{Carrier Densities:}
+    \begin{itemize}
+        \item \textbf{Effective Mass Approximation:} The bands near the gap are modeled as parabolas with effective masses $m_e^*$ (electrons) and $m_h^*$ (holes) [p. 134].
+        \item \textbf{Boltzmann Approximation:} If the chemical potential is far from the band edges ($|E-\mu| \gg k_B T$), the Fermi-Dirac distribution simplifies to a Boltzmann distribution [p. 136].
+        \item \textbf{Electron Density ($n$):}
+        \begin{align*}
+            n = N_{C,eff} \e{-(E_g-\mu)/k_B T} \eq{7.11}
+        \end{align*}
+        Where $N_{C,eff}$ is the effective density of states in the CB.
+        \item \textbf{Hole Density ($p$):}
+        \begin{align*}
+            p = N_{V,eff} \e{-\mu/k_B T} \eq{7.12}
+        \end{align*}
+        \item \textbf{Density of States for free electrons $g_C(E)$:}
+        \begin{align*}
+            g(E) = \frac{V}{2\pi^2}\br{\frac{2m_e^*}{\h^2}}^{3/2}\br{E-E_g}^{1/2} \eq{7.4}
+        \end{align*}
+        \item \textbf{Density of States for holes $g_V(E)$:}
+        \begin{align*}
+            g(E) = \frac{V}{2\pi^2}\br{\frac{2m_h^*}{\h^2}}^{3/2}\br{-E}^{1/2} \eq{7.6}
+        \end{align*}
+        For both $g$, $m^*$ is the effective mass, which is relative to the curve of the band. 
+        
+    \end{itemize}
+    \item \textbf{Law of Mass Action:} The product $np$ is independent of the chemical potential (and thus doping) at a given temperature [p. 137]:
+    \begin{align*}
+        np = n_i^2 = 4\br{\frac{k_B T}{2\pi\h^2}}^3 (m_e^* m_h^*)^{3/2} \e{-E_g/k_B T} \eq{7.13}
+    \end{align*}
+\end{itemize}
+
+\section{Doped Semiconductors}
+Conductivity is controlled by adding impurities (dopants).
+\begin{itemize}
+    \item \textbf{n-type:} Donors (e.g., P in Si) have an extra valence electron. This electron is loosely bound (binding energy $\sim$ meV, large Bohr radius) and easily excited into the CB [p. 140].
+    \item \textbf{p-type:} Acceptors (e.g., B in Si) capture an electron from the VB, creating a mobile hole [p. 141].
+    \item \textbf{Temperature Regimes:}
+    \begin{itemize}
+        \item \textbf{Freeze-out (Low T):} Thermal energy is insufficient to ionize dopants [p. 141].
+        \item \textbf{Extrinsic (Intermediate T):} All dopants are ionized. Carrier concentration is constant and determined by doping level ($n \approx N_d$) [p. 141].
+        \item \textbf{Intrinsic (High T):} Thermal excitation across the gap dominates ($n_i \gg N_d$) [p. 141].
+    \end{itemize}
+\end{itemize}
+
+\section{Conductivity of Semiconductors}
+\begin{itemize}
+    \item \textbf{Conductivity ($\sigma$):} Carried by both electrons and holes [p. 144]:
+    \begin{align*}
+        \sigma = e(n\mu_e + p\mu_h) \eq{7.19}
+    \end{align*}
+    \item \textbf{Temperature Dependence:} Unlike metals, $\sigma$ typically \textit{increases} with temperature because the exponential increase in carrier density ($n, p$) dominates the decrease in mobility ($\mu$) due to scattering [p. 144].
+\end{itemize}
+
+\section{Semiconductor Devices}
+
+\subsection{The pn Junction}
+\begin{itemize}
+    \item \textbf{Formation:} Joining p-type and n-type materials creates a \textbf{depletion layer} where mobile carriers recombine, leaving fixed ionized dopants. This creates a built-in electric field and potential barrier [p. 145].
+    \item \textbf{Currents:} Equilibrium is a balance between \textbf{diffusion current} (carriers moving due to concentration gradient) and \textbf{drift current} (minority carriers swept by the field) [p. 148].
+    \item \textbf{Diode Behavior:}
+    \begin{itemize}
+        \item \textbf{Forward Bias:} External voltage opposes the built-in field, lowering the barrier. Diffusion current dominates $\rightarrow$ current flows exponentially [p. 149].
+        \item \textbf{Reverse Bias:} External voltage adds to the built-in field, increasing the barrier. Only small leakage (drift) current flows [p. 149].
+    \end{itemize}
+\end{itemize}
+
+\subsection{Other Devices}
+\begin{itemize}
+    \item \textbf{MOSFET:} A transistor where a gate voltage controls the channel conductivity. A sufficient gate voltage creates an \textbf{inversion layer}, allowing current to flow between source and drain (switching) [p. 150].
+    \item \textbf{LED:} Radiative recombination of electrons and holes in a forward-biased pn-junction emits light with energy $h\nu \approx E_g$ [p. 151]. Requires a \textbf{direct band gap} (e.g., GaAs) for efficiency [p. 152].
+    \item \textbf{Solar Cell:} Reverse process of LED. Light creates electron-hole pairs which are separated by the built-in field of the pn-junction, generating voltage [p. 152].
+\end{itemize}
+
+\chapter{Magnetism}
+
+\section{Macroscopic Description}
+\begin{itemize}
+    \item \textbf{Magnetization ($\v{M}$):} Magnetic dipole moment per unit volume [p. 160].
+    \item \textbf{Constitutive Relation:} In matter, the magnetic field $\v{B}$ is [p. 160]:
+    \begin{align*}
+        \v{B} = \mu_0 (\v{H} + \v{M}) \eq{8.3}
+    \end{align*}
+    \item \textbf{Susceptibility ($\chi_m$):} defined by $\mu_0 \v{M} = \chi_m \v{B}_0$ (linear regime).
+    \begin{itemize}
+        \item \textbf{Diamagnetic:} $\chi_m < 0$ (repelled by field) [p. 160].
+        \item \textbf{Paramagnetic:} $\chi_m > 0$ (attracted by field) [p. 160].
+    \end{itemize}
+\end{itemize}
+
+\section{Quantum Mechanical Description}
+\begin{itemize}
+    \item Classical physics (Bohr-van Leeuwen theorem) cannot explain magnetism; a quantum approach is required [p. 161].
+    \item \textbf{Hamiltonian:} In a magnetic field $\v{B}$, the kinetic energy term changes ($\v{p} \to \v{p} - q\v{A}$). For a uniform field $\v{B} = B_0 \hat{z}$ [p. 162]:
+    \begin{align*}
+        H'_{kin} = \frac{\v{p}^2}{2m_e} + \frac{e}{2m_e}B_0(\v{r}\times\v{p})_z + \frac{e^2}{8m_e}B_0^2(x^2+y^2) \eq{8.12}
+    \end{align*}
+    \item \textbf{Paramagnetic Term:} The linear term ($\propto B_0$) involves angular momentum. It lowers energy when the magnetic moment aligns with the field [p. 163].
+    \item \textbf{Diamagnetic Term:} The quadratic term ($\propto B_0^2$) is always positive, raising energy (Lenz's law effect on atomic scale) [p. 163].
+    \item \textbf{Spin:} Electrons also have an intrinsic spin magnetic moment $\boldsymbol{\mu}_s = -g_e \mu_B \v{S}$ ($g_e \approx 2$) [p. 163].
+\end{itemize}
+
+\section{Paramagnetism and Diamagnetism in Atoms}
+\begin{itemize}
+    \item \textbf{Closed Shells:} Total angular momentum ($L$) and spin ($S$) are zero. Atoms with only closed shells are diamagnetic [p. 164].
+    \item \textbf{Open Shells (Paramagnetism):} Electrons determine the total angular momentum $J$ using \textbf{Hund's Rules} to minimize energy (maximize $S$, then maximize $L$) [p. 165].
+    \item \textbf{Magnetic Moment:} The total magnetic moment is related to $J$ by the Landé g-factor $g_J$ [p. 164]:
+    \begin{align*}
+        \mu_J = -g_J \mu_B m_J \eq{8.19}
+    \end{align*}
+    \item \textbf{Atomic Diamagnetism:} Arises from the quadratic term in the Hamiltonian. It is proportional to the mean square radius of the electron orbitals and is usually very weak [p. 166].
+\end{itemize}
+
+\section{Weak Magnetism in Solids}
+Most solids exhibit weak magnetic responses categorized as diamagnetism or paramagnetism.
+
+\subsection{Diamagnetic Contributions}
+\begin{itemize}
+    \item \textbf{Atomic Diamagnetism:} Induced currents in filled electron shells oppose the external field (Lenz's law). The susceptibility is negative and temperature-independent [p. 167]:
+    \begin{align*}
+        \chi_m = -\frac{\mu_0 Z N e^2}{6 V m_e} \langle r^2 \rangle \eq{8.24}
+    \end{align*}
+    where $Z$ is the number of electrons and $\langle r^2 \rangle$ is the mean square atomic radius.
+    \item \textbf{Free Electron Diamagnetism (Landau):} Conduction electrons moving in helical paths also create a diamagnetic moment. It is small, typically $\chi_{Landau} = -\frac{1}{3} \chi_{Pauli}$ [p. 167].
+\end{itemize}
+
+\subsection{Paramagnetic Contributions}
+\begin{itemize}
+    \item \textbf{Curie Paramagnetism (Localized Moments):} Arises from atoms with unfilled shells (non-zero total angular momentum $J$).
+    \begin{itemize}
+        \item Magnetic moments align with the field against thermal disorder.
+        \item \textbf{Curie's Law:} For $g_J \mu_B B_0 \ll k_B T$, susceptibility is inversely proportional to temperature [p. 169]:
+        \begin{align*}
+            \chi_m = \frac{C}{T} \quad \text{with} \quad C = \frac{\mu_0 N g_J^2 \mu_B^2 J(J+1)}{3 V k_B} \eq{8.28}
+        \end{align*}
+        \item \textbf{Hund's Rules} determine $L$, $S$, and $J$ for the ground state [p. 165].
+        \item \textbf{Quenching:} In crystals (esp. 3d transition metals), the orbital moment $L$ is often "quenched" by the crystal field, so $J \approx S$ [p. 169].
+    \end{itemize}
+    \item \textbf{Pauli Paramagnetism (Free Electrons):}
+    \begin{itemize}
+        \item Conduction electrons with spin parallel to the field lower their energy, leading to a net imbalance in spin populations near the Fermi level [p. 170].
+        \item Susceptibility is independent of temperature (determined by $g(E_F)$) [p. 171]:
+        \begin{align*}
+            \chi_m = \mu_0 \mu_B^2 g(E_F) \eq{8.32}
+        \end{align*}
+    \end{itemize}
+\end{itemize}
+
+\section{Magnetic Ordering}
+Spontaneous ordering of magnetic moments occurs due to interactions between spins.
+
+\subsection{Exchange Interaction}
+\begin{itemize}
+    \item Dipole-dipole interaction is too weak ($\sim 1$ K) to explain ordering at high $T$ [p. 172].
+    \item \textbf{Exchange Interaction:} Originates from the interplay of the Pauli exclusion principle and Coulomb repulsion. For two electrons, the energy difference between symmetric (singlet) and antisymmetric (triplet) spatial states defines the exchange constant $X$ [p. 173].
+\end{itemize}
+
+\subsection{Heisenberg Model (Localized Spins)}
+\begin{itemize}
+    \item \textbf{Hamiltonian:} Describes interaction between nearest-neighbor spins [p. 175]:
+    \begin{align*}
+        H = -X \sum_{i, nn} \v{S}_i \cdot \v{S}_{nn} \eq{8.36}
+    \end{align*}
+    \item \textbf{Mean Field Approximation:} Spins feel an effective \textbf{Weiss Field} $\v{B}_W$ proportional to the magnetization $\v{M}$ [p. 175]:
+    \begin{align*}
+        \v{B}_W \propto X \v{M} \eq{8.40}
+    \end{align*}
+    \item \textbf{Ferromagnetism:} Spontaneous magnetization $M(T)$ exists below the \textbf{Curie Temperature} $\Theta_C$ [p. 176].
+    \item \textbf{Curie-Weiss Law:} Above $\Theta_C$, the susceptibility follows [p. 177]:
+    \begin{align*}
+        \chi_m = \frac{C}{T - \Theta_C} \eq{8.44}
+    \end{align*}
+\end{itemize}
+
+\subsection{Band Model (Itinerant Magnetism)}
+\begin{itemize}
+    \item Appropriate for 3d transition metals (Fe, Co, Ni) where magnetic electrons are delocalized.
+    \item \textbf{Stoner Model:} Exchange interaction shifts the energy bands for spin-up and spin-down electrons relative to each other [p. 179].
+    \item \textbf{Spontaneous Magnetization:} Occurs if the energy gained by shifting electrons to the majority spin band exceeds the kinetic energy cost. Favored by a high density of states $g(E_F)$ and strong exchange interaction (Stoner Criterion) [p. 179].
+\end{itemize}
+
+\subsection{Domains and Hysteresis}
+\begin{itemize}
+    \item \textbf{Domains:} To minimize external stray field energy, ferromagnets split into domains with different magnetization directions [p. 180].
+    \item \textbf{Bloch Walls:} Transition regions between domains where spins rotate gradually [p. 180].
+    \item \textbf{Hysteresis:} Magnetization under an external field involves irreversible domain wall motion (pinning by defects). Defines \textbf{Remanence} ($M_R$) and \textbf{Coercivity} ($B_C$) [p. 182].
+\end{itemize}
+
+\chapter{Dielectrics}
+
+\section{Macroscopic Description}
+\begin{itemize}
+    \item \textbf{Polarization ($\v{P}$):} Dipole moment per unit volume. Linearly related to the electric field $\mathcal{E}$ via the susceptibility $\chi_e$ [p. 187]:
+    \begin{align*}
+        \v{P} = \chi_e \epsilon_0 \mathcal{E} \eq{9.1}
+    \end{align*}
+    \item \textbf{Dielectric Constant ($\epsilon$):} $\epsilon = 1 + \chi_e$. In a capacitor, the dielectric reduces the electric field to $\mathcal{E}_{ext}/\epsilon$ due to surface charges induced by polarization [p. 189].
+\end{itemize}
+
+\section{Microscopic Polarization}
+Three main mechanisms contribute to $\v{P}$:
+\begin{itemize}
+    \item \textbf{Electronic Polarization:} Displacement of the electron cloud relative to the nucleus. Present in all atoms [p. 190].
+    \item \textbf{Ionic Polarization:} Displacement of positive and negative ions in an ionic crystal lattice (e.g., NaCl) [p. 190].
+    \item \textbf{Orientational Polarization:} Alignment of permanent molecular dipoles (e.g., in H$_2$O). Strong temperature dependence ($1/T$) [p. 190].
+\end{itemize}
+
+\section{The Local Field}
+\begin{itemize}
+    \item The field acting on a single atom, $\mathcal{E}_{loc}$, differs from the macroscopic average field $\mathcal{E}$.
+    \item \textbf{Lorentz Local Field:} For a cubic lattice, the local field includes a correction from the polarization of the surroundings [p. 192]:
+    \begin{align*}
+        \mathcal{E}_{loc} = \mathcal{E} + \frac{\v{P}}{3\epsilon_0} = \frac{\epsilon + 2}{3} \mathcal{E} \eq{9.7}
+    \end{align*}
+    \item \textbf{Clausius-Mossotti Relation:} Connects the macroscopic $\epsilon$ to the microscopic atomic polarizability $\alpha$ [p. 192]:
+    \begin{align*}
+        \frac{\epsilon - 1}{\epsilon + 2} = \frac{N \alpha}{3 \epsilon_0 V} \eq{9.9}
+    \end{align*}
+\end{itemize}
+
+\section{Frequency Dependence of the Dielectric Constant}
+The dielectric function $\epsilon(\omega)$ describes the response to time-dependent fields (e.g., light).
+
+\subsection{Excitation of Lattice Vibrations}
+\begin{itemize}
+    \item \textbf{Ionic Polarization:} At low frequencies, ions follow the field. At optical frequencies ($\sim 10^{14}$ Hz), ions are too heavy to respond, so only electronic polarization contributes [p. 193].
+    \item \textbf{Oscillator Model:} Optical phonons ($\v{k} \approx 0$) are modeled as damped harmonic oscillators driven by the electric field [p. 193]:
+    \begin{align*}
+        \epsilon(\omega) = \epsilon_{opt} + \frac{Ne^2}{V\epsilon_0 M} \frac{1}{\omega_0^2 - \omega^2 - i\eta\omega} \eq{9.18}
+    \end{align*}
+    Where $\epsilon_{opt}$ is the high-frequency limit (electronic contribution), $\omega_0$ is the resonance frequency, and $\eta$ is damping.
+    \item \textbf{Imaginary Part $\epsilon_i$:} Represents energy dissipation (absorption). It peaks at the resonance frequency $\omega_0$ [p. 195].
+\end{itemize}
+
+\subsection{Electronic Transitions}
+\begin{itemize}
+    \item For photon energies $h\nu > E_g$, electrons can be excited across the band gap. This leads to structure in $\epsilon(\omega)$ [p. 196].
+    \item \textbf{Absorption:} Strong absorption occurs when the photon energy matches the energy difference between occupied (valence) and empty (conduction) states at the same $\v{k}$ (vertical transitions) [p. 197].
+\end{itemize}
+
+\chapter{Superconductivity}
+
+\section{Basic Experimental Facts}
+\begin{itemize}
+    \item \textbf{Zero Resistivity:} Below a critical temperature $T_C$, resistivity drops to zero (upper limit $< 10^{-25}$ $\Omega$m). Current in a loop can persist for years [p. 204].
+    \item \textbf{Critical Parameters:} Superconductivity is destroyed by high temperatures ($T > T_C$), high magnetic fields ($B > B_C$), or high current densities ($j > j_C$) [p. 206].
+    \item \textbf{Meissner Effect:} A superconductor behaves as a perfect diamagnet ($\chi_m = -1$). It expels magnetic fields from its interior ($B=0$) [p. 207].
+    \begin{itemize}
+        \item This is distinct from a perfect conductor, which would trap flux rather than expel it [p. 208].
+    \end{itemize}
+    \item \textbf{Isotope Effect:} $T_C \propto M^{-1/2}$, where $M$ is the isotopic mass. This indicates that lattice vibrations (phonons) play a role in the mechanism [p. 209].
+\end{itemize}
+
+\section{Some Theoretical Aspects}
+
+\subsection{Phenomenological Theory (London)}
+\begin{itemize}
+    \item \textbf{First London Equation:} Describes collisionless acceleration of superconducting electrons ($n_s$) [p. 210]:
+    \begin{align*}
+        \frac{\partial \v{j}}{\partial t} = \frac{n_s e^2}{m_s} \mathcal{E} \eq{10.3}
+    \end{align*}
+    \item \textbf{Second London Equation:} Describes the Meissner effect [p. 210]:
+    \begin{align*}
+        \nabla \times \v{j} = -\frac{n_s e^2}{m_s} \v{B} \eq{10.6}
+    \end{align*}
+    \item \textbf{Penetration Depth ($\lambda_L$):} Magnetic fields decay exponentially into the superconductor surface with a characteristic length $\lambda_L$ (typically $\sim 30-100$ nm) [p. 211]:
+    \begin{align*}
+        \lambda_L = \sqrt{\frac{m_s}{\mu_0 n_s e^2}} \eq{10.11}
+    \end{align*}
+\end{itemize}
+
+\subsection{Microscopic BCS Theory}
+Developed by Bardeen, Cooper, and Schrieffer (1957).
+\begin{itemize}
+    \item \textbf{Cooper Pairs:} A weak attractive interaction (mediated by phonons) causes electrons near the Fermi energy to form pairs with opposite spin and momentum ($\v{k}\uparrow, -\v{k}\downarrow$). These pairs behave like bosons [p. 214].
+    \item \textbf{Mechanism:} An electron polarizes the lattice (attracts ions), creating a region of positive charge that attracts a second electron [p. 213].
+    \item \textbf{BCS Ground State:} Cooper pairs condense into a coherent macroscopic quantum state.
+    \item \textbf{Energy Gap ($2\Delta$):} An energy gap opens at the Fermi level in the single-particle excitation spectrum. Breaking a pair requires energy $2\Delta$ [p. 215].
+    \item \textbf{Critical Temperature:} Predicted to be $k_B T_C \approx 1.13 \h\omega_D \e{-1/N(E_F)V}$, where $V$ is the interaction strength [p. 216].
+\end{itemize}
+
+\section{Experimental Detection of the Gap}
+\begin{itemize}
+    \item \textbf{Tunneling:} In a Superconductor-Insulator-Metal junction, current only flows when the voltage $eV$ exceeds the gap $\Delta$ [p. 218].
+    \item \textbf{Optical Absorption:} Photons are absorbed only if $h\nu \ge 2\Delta$ (typically in the microwave/far-IR range) [p. 219].
+    \item \textbf{Heat Capacity:} Below $T_C$, the electronic heat capacity drops exponentially ($C \propto \e{-\Delta/k_B T}$), confirming the existence of an energy gap [p. 220].
+\end{itemize}
+
+\setcounter{section}{4}
+\section{Type I and Type II Superconductors}
+\begin{itemize}
+    \item \textbf{Type I:} Expels magnetic flux completely until $B_C$, then turns normal. Occurs when coherence length $\xi > \lambda_L$ (e.g., Pb, Sn) [p. 222].
+    \item \textbf{Type II:} Has two critical fields, $B_{c1}$ and $B_{c2}$.
+    \begin{itemize}
+        \item For $B < B_{c1}$: Meissner state (complete expulsion).
+        \item For $B_{c1} < B < B_{c2}$: \textbf{Vortex State}. Flux penetrates in quantized vortices (fluxoids) while the bulk remains superconducting.
+        \item Occurs when $\xi < \lambda_L$ (e.g., Nb, alloys). High $B_{c2}$ makes them useful for magnets [p. 222].
+    \end{itemize}
+\end{itemize}
+
+\section{High-Temperature Superconductivity}
+\begin{itemize}
+    \item Discovered in 1986 (Bednorz and Müller) in cuprate ceramics (e.g., YBCO).
+    \item \textbf{Characteristics:} $T_C$ can exceed the boiling point of nitrogen (77 K) [p. 225].
+    \item \textbf{Structure:} Layered perovskite structures with CuO$_2$ planes. Superconductivity is highly anisotropic (quasi-2D) [p. 226].
+    \item \textbf{Mechanism:} Unconventional (non-BCS). Electron pairing still occurs, but likely not mediated by phonons (possibly magnetic excitations) [p. 226].
+\end{itemize}
+
+\end{document}
