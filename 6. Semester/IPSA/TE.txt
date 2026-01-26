@@ -1,0 +1,49 @@
+Activity 1: 
+Course: Introduction to programming with scientific applications&nbsp;
+
+https://kursuskatalog.au.dk/da/course/138411/Introduktion-til-programmering-med-videnskabelige-anvendelser
+
+ECTS: 10
+
+Teaching format: Theoretical exercises&nbsp;
+
+Learning outcomes:&nbsp;
+
+"After the course the participants will have knowledge of principles and techniques for systematic construction of programs. At the end of the course, the participants will be able to:
+
+apply constructions of a common programming language,
+develop well-structured programs and perform testing and debugging of these,
+explain fundamental programming concepts and basic algorithmic techniques,
+apply standard tools for scientific applications,
+use the documentation for a programming language and available software packages."&nbsp;
+
+
+
+Assesment: Continuous assessment through weakly assignments and theoretical exercises, and a final assessment in exam.&nbsp;
+
+
+
+Alignment:&nbsp;
+
+In this course, students are expected to learn how to "apply construction of a common programming language" and "develop well.structured programs and perform testing and debugging". These points are what is mostly used in the exam, and therefore both taught in lectures and TE.&nbsp;
+
+It is also expected that students learn to "explain fundamental programming concepts and basic algorithmic techniques" and "use the documentation for programming language and available software packages", these are not directly used in the exam, but area big part of the mandatory weakly assignments, and TE.&nbsp;
+
+My role as teaching assistant is to make sure that all learning outcomes are used in TE, so students have the best possible outcome of the cource.&nbsp;
+
+
+
+Activity 2: 
+When doing theoretical exercises the student will, work in selfmade groups to solve the given exercises. While doing so I can talk to the groups about how they are progressing and if they have questions. There is also time to take general questions on the board at the end of class, and let a student or myself show how the exercises could be solved. 
+
+I know students learn best in different ways, and some just want to solve the exercises themselves, while other would like to discuss all problems on the class. I think this is the way to let everybody participate in their own way, and it is also the structure proposed by the lecturer. In the first weeks of the course i can discuss the structure with the students, to give everyone a good experience. 
+
+
+Activity 3: 
+Students: 20
+
+Teaching type: Theoretical Exercises
+
+Student level: BSc
+
+Course duration: 3 hours TE each week
