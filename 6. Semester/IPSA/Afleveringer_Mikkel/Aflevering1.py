@@ -5,7 +5,7 @@ This handin is done by:
     202307989 Mikkel Moth Billing 
 
 Reflection upon solution: 
-    Fixed to solve the excersise, if the loan can not be payed off, 
+    Fixed to solve the exercise, if the loan can not be payed off, 
     (because the interest is bigger then the pay)
     the while loop breaks. 
 """
@@ -23,4 +23,4 @@ while loan > 0:
         print("Montly payment not enough to pay off loan!")
         break
     loan = loan + intrest - pay
-    print(f"Month: {months}, Remaining loan: {loan:.2f}") # Now solves the excesice! 
+    print(f"Month: {months}, Remaining loan: {loan:.2f}")
