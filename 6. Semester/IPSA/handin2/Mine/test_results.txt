@@ -1,0 +1,15 @@
+OUTPUT CAPTURE FOR: Aflevering2.py
+========================================
+
+--- TEST CASE: saxo.txt ---
+Number of pailindromes with lenght 4 : 2524
+Number of pailindromes with lenght 5 : 1601
+Number of pailindromes with lenght 6 : 64
+Number of pailindromes with lenght 7 : 118
+Number of pailindromes with lenght 8 : 4
+Number of pailindromes with lenght 9 : 0
+Number of pailindromes with lenght 10 : 1
+Sum = 4312
+
+------------------------------
+

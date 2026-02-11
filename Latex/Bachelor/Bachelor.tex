@@ -1,0 +1,178 @@
+% Første linje er dokumentklassen. Brug *altid* memoir!
+\documentclass[a4paper,oneside,article]{memoir}
+
+% Herunder indlæses forskellige pakker
+\usepackage[utf8]{inputenc}  % Korrekt håndtering af æ, ø og å
+\usepackage[T1]{fontenc}  % Korrekt håndtering af æ, ø og å
+\usepackage{microtype}  % Typografisk magi! Giver bl.a. pænere orddeling
+\usepackage{graphicx}  % Gør det muligt at indsætte billeder
+\usepackage{amsmath}  % Giver adgang til uundværlige matematikting
+\usepackage{mathtools}  % Retter ting i ams og giver ekstra muligheder
+\usepackage[danish]{babel}  % Danske betegnelser og orddeling
+\usepackage{lmodern}
+\usepackage{alphabeta}
+\usepackage{float} %Mere kontrol over billede-placering
+\renewcommand{\danishhyphenmins}{22}  % Bedre dansk orddeling
+\usepackage{siunitx} % Sientific notation for forskellige ting, med en regel om at den skal bruge cdot istedet for times. 
+\sisetup{inter-unit-product = \cdot, 
+        exponent-product=\cdot}\usepackage{derivative} % Til at skrive differentialligninger 
+\usepackage{xcolor} % For at få flere tekst farver 
+\usepackage[colorlinks=true]{hyperref} % For at få refrences man kan trykke på, slet [] hvis man vil have kasser i stedet for farvet tekst.
+\usepackage{pdfpages} % Til at indsætte andre pdf'er
+%\usepackage{subfig} % For at have to billeder ved siden af hinanden
+\usepackage{unicode-math}
+
+% Pænere toc indents 
+\usepackage{tocloft}
+\cftsetindents{section}{1em}{2em}
+\cftsetindents{subsection}{4em}{0em}
+
+
+% Indholdet i dit dokument starter her!
+\begin{document}
+%\author{Mikkel Moth Billing \\ 202307989}
+%\title{Title}
+\date{\today}
+%\maketitle   % Indsætter overskriften
+% Table of Contents indstillinger
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{1}
+\hypersetup{linkcolor=black} % Laver tableofcontents sort.  
+%\tableofcontents %Indsætter ToC
+\hypersetup{linkcolor=red} % og så alle andre hyperrefs røde. 
+
+% Custom Commands
+\newcommand{\ti}[1]{\cdot 10^{#1}} % Let: gange 10^x
+\newcommand{\e}[1]{\emph{e}^{#1}} % Pænere e^x
+\newcommand{\vm}[2]{\begin{pmatrix} #1 \\ #2 \end{pmatrix}}
+\newcommand{\mat}[1]{\begin{pmatrix} #1 \end{pmatrix}}
+\newcommand{\h}{\hbar}
+\renewcommand{\v}[1]{\mathbfit{#1}}
+\newcommand{\ep}{\epsilon_0}
+\newcommand{\dd}{\partial}
+\renewcommand{\square}{□}
+\newcommand{\p}{\phi}
+
+% Lette paranteser 
+\newcommand{\br}[2][1]{%
+    \ifcase#1
+    \or \left( #2 \right) %1 eller ingenting
+    \or \left[ #2 \right] %2
+    \or \left\langle #2 \right\rangle %3
+    \or \left\{ #2 \right\} %4
+    \or \left| #2 \right| %5
+    \fi
+}
+
+% Braket notation
+\DeclarePairedDelimiter\bra{\langle}{\rvert}
+\DeclarePairedDelimiter\ket{\lvert}{\rangle}
+\DeclarePairedDelimiterX\braket[2]{\langle}{\rangle}{#1\,\delimsize\vert\,\mathopen{}#2}
+
+
+% Til at sætter bileder ind i store dokumenter
+\newcommand{\bil}[1]{
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Billeder/#1.png}
+    \label{fig:#1}
+\end{figure}
+}
+
+% Til at sætte pdf'er ind i store dokumenter (kun pdf'er på mere end 1 sider)
+\newcommand{\pdf}[4]{
+\includepdf[pages=#3,scale=.85,pagecommand={\subsection{#2 - \ref{ch:opg}}  \label{asc:#2}}]{pdf/#1.pdf}
+\includepdf[pages=\the\numexpr 1 + #3\relax-#4, scale=.85]{pdf/#1.pdf}
+}
+
+% Til at Give equation numre 
+\newcommand{\eq}[1]{\label{eq:#1}\tag{#1}}
+
+
+% Lav ny pagestyle (kun odd fordi enkeltsidet)
+\makepagestyle{Title}
+\pagestyle{Title}
+%\makeoddhead{Title}{\footnotesize\color{gray}{\theauthor}}{}{\textcolor{gray}{\thedate}}
+\makeoddfoot{Title}{}{\footnotesize\color{gray}{\thepage{} / \thelastpage}}{}
+% Også fod på siden med \maketitle
+\makeoddfoot{plain}{}{\footnotesize\color{gray}{\thepage{} / \thelastpage}}{}
+\newpage
+
+%Skriv
+
+The relativistik kinetic energy is 
+\begin{align*}
+    E_K = \sqrt{(pc)^2+(mc^2)^2} - mc^2. 
+\end{align*}
+
+If we rewrite this to a hamiltonian using $p=i\h \nabla$ we get 
+\begin{align*}
+    H &= \sqrt{(i\h c \nabla)^2+(mc^2)^2} - mc^2. \\
+    &= \sqrt{(mc^2)^2-(\h c)^2\nabla^2} -mc^2
+\end{align*}
+
+Shrödinger becomes: 
+\begin{align*}
+    i\h\frac{\dd}{\dd t}ψ = \sqrt{(mc^2)^2-(\h c)^2\nabla^2ψ} - mc^2 + Vψ
+\end{align*}
+
+Here we have the sqrt of of the gradient squared, which is hard to calculate. 
+To do this we will use fourier transformation to go from position space to momentum space. 
+This will transform the space and momentum operators to (Griffiths 2018, 157)\cite{Griff}
+\begin{align*}
+    \p(p) &= \braket{p}{S(t)} = \int dx \braket{p}{x}\braket{x}{S(t)} = \int dx \braket{p}{x} ψ(x), \\
+    \braket{p}{x} &= \braket{x}{p}^* = \frac{1}{\sqrt{2π\h}}\e{-ipx/\h}.
+\end{align*}
+But in momentum space the position and momentum operators are different (Griffiths 2018, 151)\cite{Griff}
+\begin{align*}
+    \hat{x} &= i\h \frac{\dd}{\dd \v{p}}, \\
+    \hat{p} &= \v{p}. 
+\end{align*}
+
+To find the hamiltonian in momentum space we use 
+\begin{align*}
+    \bra{p}\hat{H}\ket{\p} = \int dp' \bra{p}\hat{H}\ket{p'}\braket{p'}{\p},
+\end{align*}
+since the kinetic energy is only dependant on the momentum we get
+\begin{align*}
+    \bra{p}f(p)\ket{p'} = f(p)δ(p-p'), \\
+    \bra{p}\hat{K}\ket{\p} = \hat{K}\p(p).
+\end{align*}
+
+but the Coulumb potential must be rewritten. We do this by using the Yukawa trick. \cite{ana}
+\begin{align*}
+    \bra{g'}f(|w^T\v{r}|)\ket{g} &= \braket{g'}{g} \left( \frac{\beta}{\pi} \right)^{\frac{3}{2}} 2\pi \frac{e^{-\beta q^2}}{\beta q} \int_{0}^{\infty} r dr f(r) e^{-\beta r^2} \sinh(2\beta qr), \\
+    &= \braket{g'}{g}J[f],
+\end{align*}
+which for Coulumb potential can be expressed as 
+\begin{align*}
+    = \braket{g'}{g}J\br[2]{\frac{1}{r}} = \braket{g'}{g}\frac{erf(\sqrt{β}q)}{q} \underset{q \to 0}{\longrightarrow} \braket{g'}{g}\frac{2}{\sqrt{π}}\sqrt{β}. 
+\end{align*}
+This gives us the final potential operator 
+\begin{align*}
+    \bra{p'}\hat{V}(\v{r})\ket{p} = \braket{p'}{p}\frac{2}{\sqrt{π}}\sqrt{β}
+\end{align*}
+where 
+\begin{align*}
+    β = \br{w^TB^{-1}w}^{-1}
+\end{align*}
+
+
+Use the variation principle to "guess" a ground state wave function, where we use the Jacobian to reduce 3 body problem 2 two body problem. 
+We use a general gaussian wavefunction
+\begin{align*}
+    ψ(α, β, x, y) = \e{-αx^2-βy^2},
+\end{align*}
+where x is the distance from pion to center of nucleon and x is distance between proton and neutron (I think).
+
+To improve the "trial function" we use a linear combination of these gaussians 
+
+\begin{thebibliography}{9}
+    \bibitem{Griff}
+    Griffiths, D. J. 2018, "Introduction to Quantum Mechanics"
+
+    \bibitem{ana}
+    Dimitri, F. "Analytic matrix elements with shifted correlated Gaussians"
+\end{thebibliography}
+
+\end{document} % ----------Dokumentet er nu slut! ------------

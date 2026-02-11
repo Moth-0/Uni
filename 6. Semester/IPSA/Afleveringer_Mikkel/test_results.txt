@@ -1,0 +1,4 @@
+OUTPUT CAPTURE FOR: Aflevering4.py
+========================================
+
+--- TEST CASE: saxo.txt ---
