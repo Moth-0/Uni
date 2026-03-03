@@ -1,0 +1,42 @@
+142:
+Rigtig fin løsning, med god brug af list comprehension. 
+
+143: 
+God løsning. I jeres permute funktion kommer i til at lave den originale liste om. 
+
+144: 
+Rigtig fin løsning. 
+En anden måde at lave permute, kunne være at vælge et random element i L og så putte det i en anden liste og fjerne det fra L. 
+
+145: 
+Rigtig fin løsning. 
+I sidste opgave kunne du også overveje at bruge triplets funktionen igen.
+
+146: 
+Rigtig fin løsning. 
+En anden måde at lave permute, kunne være at vælge et random element i L og så putte det i en anden liste og fjerne det fra L. 
+
+147: 
+Husk at filnavnet også skal indeholde studienummer. 
+Ellers rigtig fin løsning, i opgave a checker i om længden af out == n 2 gange. 
+
+148: 
+Husk at filnavnet skal indeholde navn og studienummer.
+Ellers rigtig god løsning. 
+
+149: 
+I er der næsten. 
+Der går noget galt i opgave e, hvor den kun laver halvdelen, og giver dem 2 gange. 
+I kunne overveje om man kunne bruge pairs til at lave canonical_triplets funktionen, 
+og så bruge canonical_triplets til at lave anchored_triplets. 
+
+150: 
+Rigtig god løsning. 
+
+151: 
+Du er kommet til at aflevere aflevering 2 igen. 
+
+152: 
+Husk at filnavnet skal indeholde navn og studienummer, og skal afleveres i en .py fil.
+Ellers rigtig god løsning i permute, kan du bruge den indbygede funktion pop
+ - copy_L.pop(chosen_element)

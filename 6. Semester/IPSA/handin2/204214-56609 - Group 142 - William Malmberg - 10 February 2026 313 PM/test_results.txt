@@ -1,0 +1,8 @@
+OUTPUT CAPTURE FOR: Handin-2-202495584-Victor_Pedersen-202405681-William_Malmberg-202404925-Josefine_Wendt.py
+========================================
+
+--- TEST CASE: saxo.txt ---
+(No output captured)
+
+------------------------------
+

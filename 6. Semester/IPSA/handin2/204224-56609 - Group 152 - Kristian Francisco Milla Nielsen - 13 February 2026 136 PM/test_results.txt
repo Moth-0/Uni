@@ -1,0 +1,15 @@
+OUTPUT CAPTURE FOR: Handin 2 - Kristian Milla.py
+========================================
+
+--- TEST CASE: saxo.txt ---
+(No output captured)
+
+[PROCESS EXITED WITH ERROR CODE 1]
+Error Details: Traceback (most recent call last):
+  File "C:\Users\Moth\Documents\Uni\6. Semester\IPSA\handin2\204224-56609 - Group 152 - Kristian Francisco Milla Nielsen - 13 February 2026 136 PM\Handin 2 - Kristian Milla.py", line 17, in <module>
+    s = open('saxo.txt', encoding='utf8').read()
+        ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'saxo.txt'
+
+------------------------------
+

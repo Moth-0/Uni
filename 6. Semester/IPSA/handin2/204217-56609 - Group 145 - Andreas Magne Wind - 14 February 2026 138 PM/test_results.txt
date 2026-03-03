@@ -1,0 +1,15 @@
+OUTPUT CAPTURE FOR: handin2_202406267_Andreas_Wind.py
+========================================
+
+--- TEST CASE: saxo.txt ---
+(No output captured)
+
+[PROCESS EXITED WITH ERROR CODE 1]
+Error Details: Traceback (most recent call last):
+  File "C:\Users\Moth\Documents\Uni\6. Semester\IPSA\handin2\204217-56609 - Group 145 - Andreas Magne Wind - 14 February 2026 138 PM\handin2_202406267_Andreas_Wind.py", line 23, in <module>
+    s = open('saxo.txt', encoding='utf8').read()
+        ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'saxo.txt'
+
+------------------------------
+

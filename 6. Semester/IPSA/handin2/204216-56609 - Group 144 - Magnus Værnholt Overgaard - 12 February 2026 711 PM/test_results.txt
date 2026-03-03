@@ -1,0 +1,14 @@
+OUTPUT CAPTURE FOR: (IPSA) Handin2 - Excercise 4.13 (palindrome) - 202407098 Johanne Stubkjær 202408622 Magnus Overgaard 202405571 Jonas Ullgren.py
+========================================
+
+--- TEST CASE: saxo.txt ---
+(No output captured)
+
+[PROCESS EXITED WITH ERROR CODE 1]
+Error Details: File "C:\Users\Moth\Documents\Uni\6. Semester\IPSA\handin2\204216-56609 - Group 144 - Magnus Værnholt Overgaard - 12 February 2026 711 PM\(IPSA) Handin2 - Excercise 4.13 (palindrome) - 202407098 Johanne Stubkjær 202408622 Magnus Overgaard 202405571 Jonas Ullgren.py", line 61
+    """"
+       ^
+SyntaxError: unterminated string literal (detected at line 61)
+
+------------------------------
+

@@ -1,0 +1,15 @@
+FUNCTION TESTS FOR: handin4_202308053_NannaBank-Pedersen.py
+========================================
+
+--- Testing generate_tree(4) ---
+Output: (((('F', 'E'), ('D', 'C')), 'B'), 'A')
+
+--- Testing generate_triplets(L) ---
+Trips: (['A', 'F', 'B', 'D', 'C', 'E'], [('B', ('A', 'F')), ('D', ('C', 'E')), ('A', ('D', 'E')), ('A', ('C', 'D')), ('A', ('C', 'E')), ('F', ('D', 'E')), ('F', ('C', 'D')), ('F', ('C', 'E')), ('B', ('D', 'E')), ('B', ('C', 'D')), ('B', ('C', 'E')), ('D', ('A', 'F')), ('D', ('A', 'B')), ('D', ('B', 'F')), ('C', ('A', 'F')), ('C', ('A', 'B')), ('C', ('B', 'F')), ('E', ('A', 'F')), ('E', ('A', 'B')), ('E', ('B', 'F'))])
+len(trips): 20
+
+--- Testing triplet_distance ---
+Output: 10
+
+
+------------------------------

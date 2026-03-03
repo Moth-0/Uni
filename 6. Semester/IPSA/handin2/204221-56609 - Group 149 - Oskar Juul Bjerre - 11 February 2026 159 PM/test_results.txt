@@ -1,0 +1,15 @@
+OUTPUT CAPTURE FOR: Assignment2_Oskar_Juul_Bjerre_202307796,_Mathias_Dahl_Rahbek_202304778.py
+========================================
+
+--- TEST CASE: saxo.txt ---
+(No output captured)
+
+[PROCESS EXITED WITH ERROR CODE 1]
+Error Details: Traceback (most recent call last):
+  File "C:\Users\Moth\Documents\Uni\6. Semester\IPSA\handin2\204221-56609 - Group 149 - Oskar Juul Bjerre - 11 February 2026 159 PM\Assignment2_Oskar_Juul_Bjerre_202307796,_Mathias_Dahl_Rahbek_202304778.py", line 24, in <module>
+    s = open('saxo.txt', encoding='utf8').read()
+        ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'saxo.txt'
+
+------------------------------
+

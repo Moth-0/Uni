@@ -1,0 +1,51 @@
+- 141 G
+Rigtig god løsning :)
+
+- 142 G
+Rigtig god løsning :)
+
+- 143 G
+Standard notation for recursion er at have "basecase" i starten af functionen, 
+jeres help_funk kunne undgåes hvis I havde jeres if-statements i starten af functionen. 
+
+Ellers rigtig fin løsning.
+
+- 144 G
+Rigtig fin løsning. 
+I generate_triplets() kunne I overveje om det kunne gøres uden at appende til en løsning i functionen, og passere den som et argument, 
+men i stedet retunere den fulde (leaves, triplets), det er ikke nødvendigt bare mere standard notation. 
+
+ - 145 G
+Rigtig god løsning 
+
+- 146 G
+Rigtig god løsning.
+I generate_triplets måtte du godt have brugt jeres anchored triplets funktion fra aflevering 3. 
+
+- 147 G
+Fin løsning. 
+I triplet_distance kunne de to list-comprehensions være undgået hvis alle pairs blev sorteret i pair funktionen. 
+Det er min fejl for ikke at fange det til aflevering 3, men koden virker så det er godt. 
+
+- 148 G
+Rigtig fin løsning. 
+Jeres if statements i generate_tree bliver meget kompliceret, den kommer kun ti at køre return tuple hvis len(tree) == 2, 
+og ellers kører den resten af funktionen, da return springer resten af funktionen over. 
+
+- 149 G
+Rigtig god løsning. 
+Meget flotte træer i del e :)
+Jeg tror d var for at vise hvor langsomt recursion kan blive. 
+
+- 150 G
+Rigtig god løsning :)
+
+- 151 G
+Rigtig god løsning :)
+
+- 152 G 
+Rigtig fin løsning. 
+I triplet_distance kalder du generate_triplets(tree1) to ganger og assigner den output til _, 
+Du kan samle det til et kald: 
+labels1, triplets1 = generate_triplets(tree1)
+Det vil gøre din kode en del hurtigere. 

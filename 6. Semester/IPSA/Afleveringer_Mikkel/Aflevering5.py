@@ -26,7 +26,7 @@ def print_solution(solution):                       # For printing the board
 def solve(solution): 
     global n, found_solution, number_solutions
     if len(solution) == n:                          # If we have a full solution
-        print_solution(solution)                    # Print the solution
+        #print_solution(solution)                    # Print the solution
         found_solution = True                       # We found a solution
         number_solutions += 1                       # Increment number of solutions
     
@@ -44,13 +44,17 @@ def solve(solution):
             solve(solution + [c])                   # and none are unsafe, run recursion with the added queen
             
 
-n = int(input("n: "))                               # n input
-found_solution = False
-number_solutions = 0
+#n = int(input("n: "))                               # n input
+from time import time
+for n in range(14):
+    start = time()
+    found_solution = False
+    number_solutions = 0
+    solve([])
 
-solve([])
-
-if not found_solution:                              # If we didn't find solution
-    print("No solution")
-else:
-    print("Number of solutions: ", number_solutions)
+    end = time()
+    if not found_solution:                              # If we didn't find solution
+        print("No solution")
+    else:
+        print(f"Number of solutions for n={n}: {number_solutions}")
+        print(f"Time: {(end-start):.3f}")

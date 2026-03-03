@@ -1,0 +1,15 @@
+FUNCTION TESTS FOR: Handin4 202407098 Johanne Stubkjær 202408622 Magnus Overgaard 202405571 Jonas Ullgren.py
+========================================
+
+--- Testing generate_tree(4) ---
+Output: ('A', ((('B', ('C', 'D')), 'E'), 'F'))
+
+--- Testing generate_triplets(L) ---
+Trips: (['A', 'F', 'B', 'D', 'C', 'E'], [('B', ('A', 'F')), ('D', ('C', 'E')), ('A', ('C', 'D')), ('F', ('C', 'D')), ('B', ('C', 'D')), ('A', ('D', 'E')), ('F', ('D', 'E')), ('B', ('D', 'E')), ('A', ('C', 'E')), ('F', ('C', 'E')), ('B', ('C', 'E')), ('D', ('A', 'F')), ('C', ('A', 'F')), ('E', ('A', 'F')), ('D', ('A', 'B')), ('C', ('A', 'B')), ('E', ('A', 'B')), ('D', ('B', 'F')), ('C', ('B', 'F')), ('E', ('B', 'F'))])
+len(trips): 20
+
+--- Testing triplet_distance ---
+Output: 10
+
+
+------------------------------

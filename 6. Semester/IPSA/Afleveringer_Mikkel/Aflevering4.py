@@ -59,7 +59,7 @@ def generate_tree(labels):
     # Start recursion where both of the plit parts go through function
     return (generate_tree(left),generate_tree(right))
 
-print("a: ", generate_tree(generate_labels(3)))
+print("a: ", generate_tree(generate_labels(6)))
 
 # b 
 def generate_triplets(tree): 
@@ -80,7 +80,10 @@ def generate_triplets(tree):
     # Return the labels and the triplets 
     return left_label + right_label, left_triplet + right_triplet + new_triplet
 
-print("b: ", generate_triplets(((('A', 'F'), 'B'), ('D', ('C', 'E')))))
+trips = generate_triplets(((('A', 'F'), 'B'), ('D', ('C', 'E'))))
+print("b: ", trips)
+print(len(trips[1]))
+
 
 # c
 def triplet_distance(tree1, tree2): 

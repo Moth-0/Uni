@@ -1,0 +1,17 @@
+FUNCTION TESTS FOR: handin 3 Marie Kenny Safiya.py
+========================================
+
+--- Testing generate_labels(4) ---
+Output: ['A', 'B', 'P', 'AA']
+
+--- Testing permute(L) ---
+Output: ['P', 'A', 'AA', 'B']
+
+--- Testing pairs(['P', 'A', 'AA', 'B']) ---
+Output: [('P', 'A'), ('P', 'AA'), ('P', 'B'), ('A', 'AA'), ('A', 'B'), ('AA', 'B')]
+
+--- Testing anchored_triplets(['P', 'A', 'AA', 'B'], ['X', 'Y', 'Z']) ---
+Output: [('P', ('X', 'Y')), ('P', ('X', 'Z')), ('P', ('Y', 'Z')), ('A', ('X', 'Y')), ('A', ('X', 'Z')), ('A', ('Y', 'Z')), ('AA', ('X', 'Y')), ('AA', ('X', 'Z')), ('AA', ('Y', 'Z')), ('B', ('X', 'Y')), ('B', ('X', 'Z')), ('B', ('Y', 'Z')), ('X', ('P', 'A')), ('X', ('P', 'AA')), ('X', ('P', 'B')), ('X', ('A', 'AA')), ('X', ('A', 'B')), ('X', ('AA', 'B')), ('Y', ('P', 'A')), ('Y', ('P', 'AA')), ('Y', ('P', 'B')), ('Y', ('A', 'AA')), ('Y', ('A', 'B')), ('Y', ('AA', 'B')), ('Z', ('P', 'A')), ('Z', ('P', 'AA')), ('Z', ('P', 'B')), ('Z', ('A', 'AA')), ('Z', ('A', 'B')), ('Z', ('AA', 'B'))]
+Number: 30
+
+------------------------------

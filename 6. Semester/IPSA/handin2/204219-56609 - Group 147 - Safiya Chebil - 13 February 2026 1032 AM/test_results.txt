@@ -1,0 +1,14 @@
+OUTPUT CAPTURE FOR: Handin2 - 202408911 Safiya Chebil 202406237 Marie Schnoor-Madsen 202407458 Kenny Nguyen.py
+========================================
+
+--- TEST CASE: saxo.txt ---
+(No output captured)
+
+[PROCESS EXITED WITH ERROR CODE 1]
+Error Details: File "C:\Users\Moth\Documents\Uni\6. Semester\IPSA\handin2\204219-56609 - Group 147 - Safiya Chebil - 13 February 2026 1032 AM\Handin2 - 202408911 Safiya Chebil 202406237 Marie Schnoor-Madsen 202407458 Kenny Nguyen.py", line 1
+    202408911 Safiya Chebil
+              ^^^^^^
+SyntaxError: invalid syntax
+
+------------------------------
+

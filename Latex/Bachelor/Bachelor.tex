@@ -52,6 +52,8 @@
 \newcommand{\dd}{\partial}
 \renewcommand{\square}{□}
 \newcommand{\p}{\phi}
+\newcommand{\f}[1]{\tilde{#1}}
+\newcommand{\M}{\mathcal{M}}
 
 % Lette paranteser 
 \newcommand{\br}[2][1]{%
@@ -100,72 +102,111 @@
 
 %Skriv
 
-The relativistik kinetic energy is 
+\chapter{Gaussian Method}
+Using Gaussian methods for the variation principle and correlated gaussian method, 
+we define the wavefunction as a sum of gaussians (denoted $\ket{g}$). 
 \begin{align*}
-    E_K = \sqrt{(pc)^2+(mc^2)^2} - mc^2. 
+    ψ(\v{r}) = \sum_{i=1}^{n_g} c_i\ket{g_i} = \braket{\v{r}}{g}. 
 \end{align*}
 
-If we rewrite this to a hamiltonian using $p=i\h \nabla$ we get 
+By using this we get the Schrödinger equation as 
 \begin{align*}
-    H &= \sqrt{(i\h c \nabla)^2+(mc^2)^2} - mc^2. \\
-    &= \sqrt{(mc^2)^2-(\h c)^2\nabla^2} -mc^2
-\end{align*}
-
-Shrödinger becomes: 
-\begin{align*}
-    i\h\frac{\dd}{\dd t}ψ = \sqrt{(mc^2)^2-(\h c)^2\nabla^2ψ} - mc^2 + Vψ
-\end{align*}
-
-Here we have the sqrt of of the gradient squared, which is hard to calculate. 
-To do this we will use fourier transformation to go from position space to momentum space. 
-This will transform the space and momentum operators to (Griffiths 2018, 157)\cite{Griff}
-\begin{align*}
-    \p(p) &= \braket{p}{S(t)} = \int dx \braket{p}{x}\braket{x}{S(t)} = \int dx \braket{p}{x} ψ(x), \\
-    \braket{p}{x} &= \braket{x}{p}^* = \frac{1}{\sqrt{2π\h}}\e{-ipx/\h}.
-\end{align*}
-But in momentum space the position and momentum operators are different (Griffiths 2018, 151)\cite{Griff}
-\begin{align*}
-    \hat{x} &= i\h \frac{\dd}{\dd \v{p}}, \\
-    \hat{p} &= \v{p}. 
-\end{align*}
-
-To find the hamiltonian in momentum space we use 
-\begin{align*}
-    \bra{p}\hat{H}\ket{\p} = \int dp' \bra{p}\hat{H}\ket{p'}\braket{p'}{\p},
-\end{align*}
-since the kinetic energy is only dependant on the momentum we get
-\begin{align*}
-    \bra{p}f(p)\ket{p'} = f(p)δ(p-p'), \\
-    \bra{p}\hat{K}\ket{\p} = \hat{K}\p(p).
-\end{align*}
-
-but the Coulumb potential must be rewritten. We do this by using the Yukawa trick. \cite{ana}
-\begin{align*}
-    \bra{g'}f(|w^T\v{r}|)\ket{g} &= \braket{g'}{g} \left( \frac{\beta}{\pi} \right)^{\frac{3}{2}} 2\pi \frac{e^{-\beta q^2}}{\beta q} \int_{0}^{\infty} r dr f(r) e^{-\beta r^2} \sinh(2\beta qr), \\
-    &= \braket{g'}{g}J[f],
-\end{align*}
-which for Coulumb potential can be expressed as 
-\begin{align*}
-    = \braket{g'}{g}J\br[2]{\frac{1}{r}} = \braket{g'}{g}\frac{erf(\sqrt{β}q)}{q} \underset{q \to 0}{\longrightarrow} \braket{g'}{g}\frac{2}{\sqrt{π}}\sqrt{β}. 
-\end{align*}
-This gives us the final potential operator 
-\begin{align*}
-    \bra{p'}\hat{V}(\v{r})\ket{p} = \braket{p'}{p}\frac{2}{\sqrt{π}}\sqrt{β}
+    H\ket{ψ} &= E\ket{ψ}, \\
+    \mathcal{H}c &= E\mathcal{N}c, 
 \end{align*}
 where 
 \begin{align*}
-    β = \br{w^TB^{-1}w}^{-1}
+    \mathcal{H} &= \br[4]{H_{i,j}} = \bra{g_i}\hat{H}\ket{g_j}, \\
+    \mathcal{N} &= \br[4]{N_{i,j}} = \braket{g_i}{g_j}.
 \end{align*}
 
-
-Use the variation principle to "guess" a ground state wave function, where we use the Jacobian to reduce 3 body problem 2 two body problem. 
-We use a general gaussian wavefunction
+\plainbreak{1}
+The correlated gaussian is defined by: 
 \begin{align*}
-    ψ(α, β, x, y) = \e{-αx^2-βy^2},
+    \braket{\v{r}}{g} &= \text{exp}\br{-\sum_{i,j=1}^{N}A_{i,j}\v{r}_i\cdot \v{r_j}+\sum_{i=1}^{N}\v{s}_i\cdot \v{r}_i}, \\
+    &= \e{-\v{r}^TA\v{r}+\v{s}^T\v{r}}. 
 \end{align*}
-where x is the distance from pion to center of nucleon and x is distance between proton and neutron (I think).
+which gives the notation
+\begin{align*}
+    \ket{g} = \ket{A, s}.
+\end{align*}
 
-To improve the "trial function" we use a linear combination of these gaussians 
+The overlap of these gaussians is given by \cite{ana}
+\begin{align*}
+    \braket{g'}{g} = \br{\frac{π^N}{\text{det}B}}\e{\frac{1}{4}\v{v}^TB^{-1}\v{v}} \equiv M, 
+\end{align*}
+where $B = A+A'$ and $\v{v} = \v{s} + \v{s}'$. 
+
+
+
+\plainbreak{1}
+To find the fouriertransformed correlated gaussian we evaluate the intergral: 
+\begin{align*}
+    \braket{\v{p}}{g} &= \int d^{3N}x\e{\v{x}^T\v{p}} \e{-\v{r}^TA\v{r}+\v{s}^T\v{r}},\\
+    &= \br{\frac{π^N}{\text{det}(A)}}^{3/2} \e{\frac{1}{4}(\v{s}-i\v{p})^TA^{-1}(\v{s}-i\v{p})}, \\
+    &= \br{\frac{π^N}{\text{det}(A)}}^{3/2} \e{\frac{1}{4}\v{s}^TA^{-1}\v{s}} \cdot \e{-\frac{1}{4}\v{p}^TA^{-1}\v{p}} \cdot \e{-\frac{1}{2}i\v{p}^TA^{-1}\v{s}}, 
+\end{align*}
+which gives the fourier transformed gaussian
+\begin{align*}
+    \ket{\f{g}} = \e{-\v{p}^T\f{A}\v{p}+\f{\v{s}}^T\v{p}},
+\end{align*}
+where $\f{A}=\frac{1}{4}A^{-1}$ and $\f{\v{s}}=\frac{-i}{2}A^{-1}\v{s}$. 
+And the $\mathcal{M}$ function is introduced 
+\begin{align*}
+    \M (A,\v{s}) = \br{\frac{π^N}{\text{det}(A)}}^{3/2} \e{\frac{1}{4}\v{s}^TA^{-1}\v{s}},
+\end{align*}
+giving us the final solution 
+\begin{align*}
+    \braket{\v{p}}{g} = \M(A,\v{s}) \ket{\f{g}}.
+\end{align*}
+
+
+The overlap in momentum space can be calculated as 
+\begin{align*}
+    \braket{g'}{g} &= \int \frac{d^{3N}p}{(2π)^{3N}} \braket{g'}{p} \braket{p}{g}, \\
+    &= \br{\frac{π^N}{\text{det}A'}\frac{π^N}{\text{det}A}}^{3/2} \frac{\e{\frac{1}{4}\v{s}'^TA'^{-1}\v{s}'}\e{\frac{1}{4}\v{s}^TA^{-1}\v{s}}}{(2π)^{3N}}\braket{\f{g}'}{\f{g}}, \\
+    &= \M(A',\v{s}')\M(A,\v{s})\frac{\braket{\f{g}'}{\f{g}}}{(2π)^{3N}}.
+\end{align*}
+
+We can now use the overlap to calculate the matrix element for the general momentum operator $f(c^T\v{p})$.
+\begin{align*}
+    \bra{g'}f(c^T\v{p})\ket{g} &= \int \frac{d^{3N}p}{(2π)^{3N}}\braket{g'}{\v{p}}f(c^T\v{p})\braket{\v{p}}{g}, \\
+    &= \M(A',\v{s}')\M(A,\v{s}) \int \frac{d^{3N}p}{(2π)^{3N}} \bra{\f{g}'}f(c^T\v{x})\ket{\f{g}}, 
+\end{align*}
+using equation (\ref{place}) we continue
+\begin{align*}
+    &= \M(A',\v{s}')\M(A,\v{s}) \braket{\f{g}'}{\f{g}} \br{\frac{γ}{π}}^{3/2}2π\frac{\e{-γ(iη)^2}}{iγη}\int xdx \f{f}(x)\e{-γx^2}\sinh(2iγηx), \\
+    &= \braket{g'}{g}\br{\frac{γ}{π}}^{3/2}2π\frac{\e{γη^2}}{γη}\int xdx \f{f}(x)\e{-γx^2}\sin(2γηx)
+\end{align*}
+
+
+\chapter{Notes}
+Chatten er sikker på at front faktoren i eq(A.25) burde være $\e{-γη^2}$, jeg burde checke udregningen. 
+Coupeling term er ikke skrevet for shifted gaussians, så dette burde gøres, chatten har skrevet kode for det. 
+
+
+% So the momentum wavefunction becomes
+% \begin{align*}
+%     \p(\v{p}) = \braket{\v{p}}{g} = \braket{g'}{g}\br{\frac{π^N}{\text{det}(A)}}^{3/2} \e{\frac{1}{4}\v{b}^TA^{-1}\v{b}}
+% \end{align*}
+
+% We can then use this to calculate the kinetic energy operator 
+% \begin{align*}
+%     \bra{\f{g}'}\hat{K}\ket{\f{g}} &= \int d\v{p} \f{g}'^* \br{\sqrt{\v{p}^2c^2+m^2c^4}-mc^2}\f{g}, \\
+%     &= \int d\v{p} \br{\frac{π^N}{\text{det}(A')}}^{3/2} \e{\frac{1}{4}\v{s}^TA'^{-1}\v{s}} \cdot \e{-\frac{1}{4}\v{p}^TA'^{-1}\v{p}} \cdot \e{+\frac{1}{2}i\v{p}^TA'^{-1}\v{s}} \\
+%     &\quad \br{\frac{π^N}{\text{det}(A)}}^{3/2} \e{\frac{1}{4}\v{s}^TA^{-1}\v{s}} \cdot \e{-\frac{1}{4}\v{p}^TA^{-1}\v{p}} \cdot \e{-\frac{1}{2}i\v{p}^TA^{-1}\v{s}} \\
+%     &\quad \br{\sqrt{\v{p}^2c^2+m^2c^4}-mc^2}, \\
+%     &= \int d\v{p} \br{\frac{π^N}{\text{det}(A')}}^{3/2} \br{\frac{π^N}{\text{det}(A)}}^{3/2} \e{-\frac{1}{4}\v{p}^TM\v{p}+i\v{v}^T\v{p}} \br{\sqrt{\v{p}^2c^2+m^2c^4}-mc^2}. 
+% \end{align*}
+
+% Where 
+% \begin{align*}
+%     M = A'^{-1} + A^{-1}, \quad v = A'^{-1}s'- A^{-1}s.
+% \end{align*}
+
+
+
+
 
 \begin{thebibliography}{9}
     \bibitem{Griff}
@@ -173,6 +214,11 @@ To improve the "trial function" we use a linear combination of these gaussians
 
     \bibitem{ana}
     Dimitri, F. "Analytic matrix elements with shifted correlated Gaussians"
+
+    \bibitem{part}
+    Navas, S. 2024, "Particle Properties" 
+    
+    \url{https://pdg.lbl.gov/2024/listings/particle_properties.html}
 \end{thebibliography}
 
 \end{document} % ----------Dokumentet er nu slut! ------------

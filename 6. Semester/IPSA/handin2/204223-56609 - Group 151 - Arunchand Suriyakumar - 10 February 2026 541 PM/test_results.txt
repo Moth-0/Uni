@@ -1,0 +1,17 @@
+OUTPUT CAPTURE FOR: 202305360 - Arunchand Suriyakumar.py
+========================================
+
+--- TEST CASE: saxo.txt ---
+(No output captured)
+
+[PROCESS EXITED WITH ERROR CODE 1]
+Error Details: Traceback (most recent call last):
+  File "C:\Users\Moth\Documents\Uni\6. Semester\IPSA\handin2\204223-56609 - Group 151 - Arunchand Suriyakumar - 10 February 2026 541 PM\202305360 - Arunchand Suriyakumar.py", line 19, in <module>
+    s = open('/Users/arunchandsuriyakumar/Bachelor/Semester 5 og 6/Introduktion til programmering med videnskabelige anvendelser'
+        ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    '/Lecture 4/saxo.txt', encoding='utf8').read()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/arunchandsuriyakumar/Bachelor/Semester 5 og 6/Introduktion til programmering med videnskabelige anvendelser/Lecture 4/saxo.txt'
+
+------------------------------
+
