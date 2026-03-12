@@ -1,0 +1,37 @@
+141:
+Fin løsning
+
+142:
+God løsning. God list comprehension
+
+143:
+Rigtig god løsning hvor i opdaterer brættet samtidig. 
+
+144: 
+God løsning 
+
+145: 
+God løsning
+Det ser ud til at du forstår hvad koden gør, og hvis ikke er du velkommen til at tage fat i mig. 
+
+146: 
+God løsning 
+
+147: 
+God løsning 
+
+148: 
+God løsning. God list comprehension
+
+149: 
+Rigtig fin løsning, i stedet for memory, der checker den nye dronning mod alle dronninger, 
+kan man bruge break der stopper efter den finder en dronning der angriber. 
+
+150:
+Rigtig fin løsning 
+
+151:
+God løsning
+
+152:
+God løsning 
