@@ -1,0 +1,52 @@
+141: 
+God aflevering :)
+Dine points er ikke i clockwise order, hvilket de ville have været hvis du ikke havde 
+CH.reverse()
+
+142: 
+God aflevering med gode tests :)
+
+143: 
+Koden virker næsten som den skal, den er dog lidt uoptimiseret. 
+Når jeg siger "næsten" er det bare fordi det første punkt er med 2 gange for at lukke polygonen, 
+men det burde være "plot_hull" der gjorde dette. 
+For at lave jeres hull starter i et sted, checker alle punkter efter og vælger det mest til højre, 
+så flytter i jer hen til det sted og checker alle punkter bag jer og foran jer. 
+Gerth har i opgaven linket til en algoritme som kun går igennem punkterne 1 gang som i kunne have brugt. 
+
+144: F
+Den er der næsten, men grunden til at jeres kode fejler er fordi rækkefølgen ikke passer, 
+og i har det samme punkt 2 gange.
+På linjen "CH = lower[::-1] + upper[1:]", kan den redes. 
+
+145:
+God løsning.
+
+146: F
+Jeg tror du har forstået opgaven, men er desværre ikke kommet i mål. 
+Din kode kører ikke fordi du ikke har en on_segment function. 
+I stedet for at prøve at scanne 360 grader i en cirkel, kan du prøve at samligne punkterne med hinanden. 
+I opgavebeskrivelsen har Gerth givet et link til Wikibooks, jeg vil foreslå at du læser denne, 
+og prøver igen. 
+
+147: F
+I har den rigtige ide og fremgangsmåde til koden, der er dog et par småting. 
+Ifølge opgavebeskrivelsen burde convex_hull retunere en lister af points der opfylder de 6 kriterier. 
+Jeres kode opfylder de første 2, men rækkefælgen af jeres punkter passer ikke, og I har punkter på linjen med. 
+Prøv at kigge på de steder i bruge left_turn, for at se om I kan fikse det. 
+
+148:
+Gode løsninger :)
+
+149: 
+God løsning :)
+
+150: 
+God løsning :)
+
+151: 
+God løsning :)
+
+152:
+God løsning :)
+

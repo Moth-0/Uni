@@ -1,0 +1,51 @@
+141:
+Flot løsning. 
+God memorize function, hvis du kigger på Gerths slides finder du den samme function, men den virker for alle functioner. 
+Eller du kan prøve selv at lave den general. 
+
+142: 
+Flot løsning. 
+Godt med nogle tests
+
+143: 
+Flot løsning. 
+Den her del "x != '' and y != ''" gør ingenting når I har "if x == '' or y == '':" lige inden. 
+
+144: 
+Flot løsning. 
+Det kan gøres uden at give subseq_so_far som arguments til functionen, 
+ligesom i lcs_length hvis man i stedet for 0 og +1 bruger '' og +x[-1].
+På den måde I har gjort det, vil jeres memorize ikke virke, da den gemmer resultater efter hvilke parametre funktionen er kørt med, 
+og jere funktion bliver kørt med nye parameter hver gang. 
+
+145: 
+Flot løsning. 
+Du behøver faktisk ikke kalde lcs_length i lcs, du kan bruge max() til at finde den længste af dem, 
+men begge virker. 
+
+146: 
+Flot løsning. 
+Ligesom du opdagede kan 'max' og 'min' også tage functioner ligesom 'sorted', til at vælge hvordan koden skal vælge. 
+
+147: 
+Flot løsning. 
+I sidste del af lcs kan I bruge max(ene_side, anden_side, key=len), så sortere den efter længde og vælger den længste. 
+
+148: 
+Fin løsning. 
+Jeg tror pointen med at lave lcs_length først var at man fik en god forståelse for recursion, og så var den fulde lcs ikke så svær. 
+
+149: 
+Flot løsning. 
+I sidste del af lcs kan iI bruge "return max(lcs(x[:-1], y), lcs(x, y[:-1]), key=len)", det er det jeres kode gør. 
+
+150: 
+Flot løsning. 
+I sidste del af lcs kan du bruge "return max(lcs(x[:-1], y), lcs(x, y[:-1]), key=len)", det er det samme din kode gør. 
+
+151: 
+Flot løsning
+
+152: 
+Flot løsning. 
+I sidste del af lcs kan du bruge "return max(lcs(x[:-1], y), lcs(x, y[:-1]), key=len)", det er det samme din kode gør. 

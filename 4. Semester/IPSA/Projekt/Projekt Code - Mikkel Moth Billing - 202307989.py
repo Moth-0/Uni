@@ -578,7 +578,7 @@ assert all(len(b) <= 3 for b in batches)
 
 #%% 
 # Learning Cell 
-network, ani_list = learn(train_images, train_labels, 5, 100, False)
+network, ani_list = learn(train_images, train_labels, 1, 100, False)
 vis = visualize_A(network[0])
 
 #%% 

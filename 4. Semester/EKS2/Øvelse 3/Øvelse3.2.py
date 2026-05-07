@@ -5,7 +5,6 @@ from scipy.signal import find_peaks
 from scipy.optimize import curve_fit
 from scipy.stats import chi2
 import os
-from Lib.mypylib import ez_curve_fit
 
 # Plot settings
 plt.rc("axes", labelsize=18, titlesize=22)

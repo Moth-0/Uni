@@ -1,0 +1,32 @@
+142: 
+God løsning. 
+
+144:
+God løsning. 
+
+145:
+Fin løsning. 
+
+146:
+God løsning. 
+Du kan med fordel bruge numpy igennem hele opgave til at lave 0 matricer og transponere. 
+
+147:
+Fin løsning. 
+I kunne have lavet en funktion der fandt (sink, capacity, conservation) så have I ikke behøvet kopirer koden. 
+
+148:
+Fin løsning.
+
+149:
+God løsning. 
+I stedet for 'if x not in set(nodes):' kunne i bare tilføje alle elementer til en liste og så lave listen om til et set, så fjerner den duplicates.
+
+150: 
+God løsning.
+
+151:
+God løsning.
+
+152:
+God løsning. 

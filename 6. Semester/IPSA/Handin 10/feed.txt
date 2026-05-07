@@ -1,0 +1,51 @@
+141:
+
+142:
+God løsning
+
+143: 
+Fin løsning. 
+Genaflever med navne og studienummre i filnavnet, så bliver Gerth glad
+
+144: 
+Fin løsning. 
+Man kan lave direction med tuples, for at undgå en masse if-statements
+'dir = [(1,0), (-1,0), (0,1), (0,-1)]'
+'dx, dy = choice(dir)' 
+'x+=dx; y+=dy'
+
+145:
+
+146:
+Fin løsning 
+
+147:
+Fin løsning. 
+I mangler et yield i starten af function for at give startpunktet. 
+En måde at vælge direction på kunne være 
+'dir = [(1,0), (-1,0), (0,1), (0,-1)]'
+'dx, dy = choice(dir)' 
+'x+=dx; y+=dy'
+
+148: 
+To gode løsninger
+
+149:
+God løsning.
+
+150:
+Fin løsning. 
+Man kan lave direction med tuples, for at undgå en masse if-statements
+'dir = [(1,0), (-1,0), (0,1), (0,-1)]'
+'dx, dy = choice(dir)' 
+'x+=dx; y+=dy'
+
+151:
+God løsning.
+Man kunne bruge random.choice til at vælge et step fra en liste:
+'dir = [(1,0), (-1,0), (0,1), (0,-1)]'
+'dx, dy = random.choice(dir)' 
+'x+=dx; y+=dy'
+
+152:
+God løsning.

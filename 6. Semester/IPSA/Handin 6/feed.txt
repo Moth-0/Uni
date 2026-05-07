@@ -1,0 +1,63 @@
+141:
+God løsning :)
+I __init__ er rækkefølgen ligemeget, men hvis du laver din __str__ om, så kommer dit træ til at se anderledes ud. 
+Tænk på hvad der sker hvis en person ikke er død endnu. 
+
+142: 
+God løsning :)
+Godt tænkt med at checke om personen er død. 
+
+143: 
+God løsning. 
+God detalie med at sætte born og dead til en tom string i stedet for None. 
+I forhold til __str__ så har i helt ret i at hvis der ikke er en til Annotated så hopper den tilbage og bruger Person. 
+I Annotated.__str__() kunne man også bruge 'return super().__str__() + f"[{note}]", 
+så ville man kun skulle rette den første del en gang hvis man vil lave den om senere. 
+
+144: 
+Det ville være en god ide at prøve at lave jeres ancestors function i en. 
+Lige nu laver i en liste af [mor, mormor, oldemor], [far, farfar, oldefar]
+Morfar eller farmor ville ikke være i listen på denne måde. 
+I stedet burde det være et tuple træ, af (self.name, father.ancestors, mother.ancestors). 
+Så skal i bare have en måde at stoppe når der ikke er nogle forældre. 
+
+145:
+Fin løsning 
+I forhold til ancestors kan du gøre det lidt pænere ved f.eks at sige 'father = self.father.ancestors() if self.father else "-"'
+og det samme for mother og så bare have 1 return statement i stedet for 4. 
+Derudover behøver du faktisk ikke have ancestors funktion i Annotated, da den er inført i Person. 
+
+146: 
+God løsning 
+
+147: 
+Rigtig fin løsning. 
+I linjerne med "if self.father is not None else '-'", 
+behøver i ikke "is not None", det gør den for jer: 
+"x = None "
+"if x: "
+"   print(1)"
+"if not x: "
+"   print(2)"
+
+ville printe 2 
+
+148: 
+To gode løsninger. 
+Man behøver ikke bruge None som standard input i can bruge __init__(..., born='', died='').
+I ancestors ville jeg gå med den første, da det er mere clean at have et return statment, 
+man kunne putte recursion linjerne på sine egne linjer. 
+I __str__ er det en god ide at bruge super().__str__(), så skal man ikke lave det om to steder hvis man ændre det senere. 
+
+149: 
+God løsning :)
+
+150: 
+God løsning :)
+Tænk på hvad der sker hvis en person ikke er død endnu. 
+
+151:
+God løsning :)
+
+152: 
+God løsning :) 

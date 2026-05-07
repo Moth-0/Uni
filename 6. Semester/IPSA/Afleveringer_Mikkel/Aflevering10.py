@@ -23,11 +23,13 @@ def random_walk():
 
 infinite_walk = random_walk()
 
-length = 1000
+length = 100
 walk = list(islice(infinite_walk, 0, length))
 
 x = [step[0] for step in walk]
 y = [step[1] for step in walk]
+x[0] = max(x)
+y[0] = max(y)
 
 plt.hist2d(x, y, bins=[max(x)- min(x), max(y)-min(y)], cmap="hot")
 plt.colorbar()

@@ -1,0 +1,4 @@
+Kasper Funch Dubery:
+
+  Problem ift. optimeringsalgoritmen, der I nogle tilfælde varierer, alt efter hvilken startposition, man angiver. 
+  Har prøvet nogle andre methods end "nelder-mean", men synes ikke de performer væsentligt bedre.

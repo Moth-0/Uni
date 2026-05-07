@@ -1,49 +1,55 @@
-% Første linje er dokumentklassen. Brug *altid* memoir!
-\documentclass[a4paper,oneside,article]{memoir}
+% First line is the document class. Always use memoir!
+\documentclass[a4paper,oneside,article,12pt]{memoir}
 
-% Herunder indlæses forskellige pakker
-\usepackage[utf8]{inputenc}  % Korrekt håndtering af æ, ø og å
-\usepackage[T1]{fontenc}  % Korrekt håndtering af æ, ø og å
-\usepackage{microtype}  % Typografisk magi! Giver bl.a. pænere orddeling
-\usepackage{graphicx}  % Gør det muligt at indsætte billeder
-\usepackage{amsmath}  % Giver adgang til uundværlige matematikting
-\usepackage{mathtools}  % Retter ting i ams og giver ekstra muligheder
-\usepackage[danish]{babel}  % Danske betegnelser og orddeling
+% Below various packages are loaded
+\usepackage[utf8]{inputenc}  % Correct handling of æ, ø and å
+\usepackage[T1]{fontenc}  % Correct handling of æ, ø and å
+\usepackage{microtype}  % Typographic magic! Provides nicer hyphenation among other things
+\usepackage{graphicx}  % Makes it possible to insert images
+\usepackage{amsmath}  % Provides access to essential math things
+\usepackage{mathtools}  % Fixes things in ams and provides extra options
+\usepackage[danish]{babel}  % Danish notations and hyphenation
 \usepackage{lmodern}
 \usepackage{alphabeta}
-\usepackage{float} %Mere kontrol over billede-placering
-\renewcommand{\danishhyphenmins}{22}  % Bedre dansk orddeling
-\usepackage{siunitx} % Sientific notation for forskellige ting, med en regel om at den skal bruge cdot istedet for times. 
+\usepackage{float} % More control over image placement
+\renewcommand{\danishhyphenmins}{22}  % Better Danish hyphenation
+\usepackage{siunitx} % Scientific notation for various things, with a rule that it should use cdot instead of times. 
 \sisetup{inter-unit-product = \cdot, 
-        exponent-product=\cdot}\usepackage{derivative} % Til at skrive differentialligninger 
-\usepackage{xcolor} % For at få flere tekst farver 
-\usepackage[colorlinks=true]{hyperref} % For at få refrences man kan trykke på, slet [] hvis man vil have kasser i stedet for farvet tekst.
-\usepackage{pdfpages} % Til at indsætte andre pdf'er
-%\usepackage{subfig} % For at have to billeder ved siden af hinanden
+        exponent-product=\cdot}\usepackage{derivative} % For writing differential equations 
+\usepackage{xcolor} % To get more text colors 
+\usepackage[colorlinks=true]{hyperref} % To get clickable references, delete [] if you want boxes instead of colored text.
+
+\usepackage{pdfpages} % For inserting other PDFs
+%\usepackage{subfig} % To have two images side by side
 \usepackage{unicode-math}
 
-% Pænere toc indents 
+% Nicer table of contents indents 
 \usepackage{tocloft}
 \cftsetindents{section}{1em}{2em}
 \cftsetindents{subsection}{4em}{0em}
 
+% Layout 
+% Linedistance
+\linespread{1.1} % 1.1–1.3 are typical
+\setlength{\parskip}{0.5\baselineskip}
 
-% Indholdet i dit dokument starter her!
+
+% Your document content starts here!
 \begin{document}
 %\author{Mikkel Moth Billing \\ 202307989}
 %\title{Title}
 \date{\today}
-%\maketitle   % Indsætter overskriften
-% Table of Contents indstillinger
+%\maketitle   % Inserts the header
+% Table of Contents settings
 \setcounter{tocdepth}{2}
 \setcounter{secnumdepth}{1}
-\hypersetup{linkcolor=black} % Laver tableofcontents sort.  
-%\tableofcontents %Indsætter ToC
-\hypersetup{linkcolor=red} % og så alle andre hyperrefs røde. 
+\hypersetup{linkcolor=black} % Makes table of contents black  
+%\tableofcontents %Inserts ToC
+\hypersetup{linkcolor=red} % and all other hyperrefs red 
 
 % Custom Commands
-\newcommand{\ti}[1]{\cdot 10^{#1}} % Let: gange 10^x
-\newcommand{\e}[1]{\emph{e}^{#1}} % Pænere e^x
+\newcommand{\ti}[1]{\cdot 10^{#1}} % Easy: times 10^x
+\newcommand{\e}[1]{\emph{e}^{#1}} % Nicer e^x
 \newcommand{\vm}[2]{\begin{pmatrix} #1 \\ #2 \end{pmatrix}}
 \newcommand{\mat}[1]{\begin{pmatrix} #1 \end{pmatrix}}
 \newcommand{\h}{\hbar}
@@ -54,11 +60,12 @@
 \newcommand{\p}{\phi}
 \newcommand{\f}[1]{\tilde{#1}}
 \newcommand{\M}{\mathcal{M}}
+\newcommand{\n}{\nonumber\\}
 
-% Lette paranteser 
+% Easy parentheses 
 \newcommand{\br}[2][1]{%
     \ifcase#1
-    \or \left( #2 \right) %1 eller ingenting
+    \or \left( #2 \right) %1 or nothing
     \or \left[ #2 \right] %2
     \or \left\langle #2 \right\rangle %3
     \or \left\{ #2 \right\} %4
@@ -66,13 +73,13 @@
     \fi
 }
 
-% Braket notation
+% Bracket notation
 \DeclarePairedDelimiter\bra{\langle}{\rvert}
 \DeclarePairedDelimiter\ket{\lvert}{\rangle}
 \DeclarePairedDelimiterX\braket[2]{\langle}{\rangle}{#1\,\delimsize\vert\,\mathopen{}#2}
 
 
-% Til at sætter bileder ind i store dokumenter
+% For inserting images into large documents
 \newcommand{\bil}[1]{
 \begin{figure}[H]
     \centering
@@ -81,152 +88,603 @@
 \end{figure}
 }
 
-% Til at sætte pdf'er ind i store dokumenter (kun pdf'er på mere end 1 sider)
+% For inserting PDFs into large documents (only PDFs with more than 1 page)
 \newcommand{\pdf}[4]{
 \includepdf[pages=#3,scale=.85,pagecommand={\subsection{#2 - \ref{ch:opg}}  \label{asc:#2}}]{pdf/#1.pdf}
 \includepdf[pages=\the\numexpr 1 + #3\relax-#4, scale=.85]{pdf/#1.pdf}
 }
 
-% Til at Give equation numre 
+% To give equation numbers 
 \newcommand{\eq}[1]{\label{eq:#1}\tag{#1}}
+\newcommand{\note}[1]{\textcolor{red}{#1}}
+\newcommand{\tr}{{\cramped{{}^\mathsf{T}}}}
+
+% wavefunctions 
+\newcommand{\G}[3]{\e{-\v{#1}\tr #2\v{#1}+\v{#3}\tr \v{#1}}}
+\newcommand{\ψ}{\br{\ket{A,a} + \ket{A,-a}}}
+\newcommand{\χ}{\ket{\uparrow\uparrow}}
+\newcommand{\ξ}[1]{\frac{1}{\sqrt{2}}\br{\ket{pn}#1\ket{np}}}
+
+% Front page 
+
+\begin{titlingpage}
+  \newlength{\frontpagecorrection}
+  \calccentering{\frontpagecorrection}
+  \begin{adjustwidth*}{\frontpagecorrection-2cm}{-\frontpagecorrection-2cm}
+
+    \centering
+    \sffamily
+
+    \vspace*{0.1cm}
+
+    \fontsize{26pt}{29pt}\selectfont
+
+    % Title
+    Quantifying Relativistic Correction \par
+
+    \vspace{0.8cm}
+
+    \fontsize{18pt}{22pt}\selectfont
+
+    Mikkel Moth Billing \par
+
+    \vspace{2.7cm}
+
+    % Please change to a nice picture related to your work
+    \includegraphics[width=5cm]{segla1b}
+
+    \vspace{2.7cm}
+
+    Bachelor's project
+
+    \vspace{1.0cm}
+
+    \fontsize{14pt}{17pt}\selectfont
+
+    Department of Physics and Astronomy\par
+    Aarhus University\par
+    % Denmark
+
+    \vspace{0.3cm}
+
+    June 2026
+
+  \end{adjustwidth*}
+\end{titlingpage}
 
 
-% Lav ny pagestyle (kun odd fordi enkeltsidet)
-\makepagestyle{Title}
-\pagestyle{Title}
-%\makeoddhead{Title}{\footnotesize\color{gray}{\theauthor}}{}{\textcolor{gray}{\thedate}}
-\makeoddfoot{Title}{}{\footnotesize\color{gray}{\thepage{} / \thelastpage}}{}
-% Også fod på siden med \maketitle
-\makeoddfoot{plain}{}{\footnotesize\color{gray}{\thepage{} / \thelastpage}}{}
-\newpage
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% The verso of the title page
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-%Skriv
+% We actually want the page numbering to start at 1 at the front page in order
+% to count pages for the requirements! Easy to disable by out-commenting the line.
+\setcounter{page}{2}
 
-\chapter{Gaussian Method}
-Using Gaussian methods for the variation principle and correlated gaussian method, 
-we define the wavefunction as a sum of gaussians (denoted $\ket{g}$). 
-\begin{align*}
-    ψ(\v{r}) = \sum_{i=1}^{n_g} c_i\ket{g_i} = \braket{\v{r}}{g}. 
-\end{align*}
+% Write
 
-By using this we get the Schrödinger equation as 
-\begin{align*}
-    H\ket{ψ} &= E\ket{ψ}, \\
-    \mathcal{H}c &= E\mathcal{N}c, 
-\end{align*}
+\chapter{Preface}
+
+\chapter{Introduction}
+
+\chapter{Deuteron System}
+In this project we are modeling deuteron bound by a single pion, by expressing it as two subsystems, one with the bare deuteron core consisting of a proton and a neutron, and a system that also contains a pion. 
+
+The spatial wavefunction can be described as a vector of the two systems 
+\begin{align}
+    ψ = \vm{ψ_{pn}(\v{r}_p, \v{r}_n)}{ψ_{pnπ}(\v{r}_p, \v{r}_n, \v{r}_π)}, 
+\end{align}
+where $\v{r}_i$ is the coordinate vector of the $i$'th particle. This means we have a two-particle and a three-particle system, which we will use Jacobi center mass coordinates to reduce to $(N-1)$ systems in chapter \ref{ch:jac}. 
+
+To couple the bare $pn$ channel to the $pn\pi$ channel, we introduce the pion emission/absorption operator $W$. 
+It acts between the two subspaces and decides both the allowed transitions and their amplitudes. 
+
+
+With this we can build a Hamiltonian describing the system 
+\begin{align}
+    H = \begin{pmatrix}
+        K_{pn} & W \\ W^\dagger & K_{pnπ} + m_π
+    \end{pmatrix},
+\end{align}
+where $K_i$ is the kinetic energy of the subsystem and $m_π$ is the mass of the pion. 
+We only model the kinetic energy, as the $W$ operator will model the nucleon-nucleon potential, \note{and the effect of the coulomb potential should be negatable \cite{tobias}. }
+
+
+\section{Variational principle}
+To find the binding energy of this system, we can use the variational principle to find an upper bound for the ground state energy. The variational principle states that for any spatial wavefunction $Ψ$, the expected value of $H$ satisfies 
+\begin{align}
+    E = \frac{\bra{Ψ}H\ket{Ψ}}{\braket{Ψ}{Ψ}} \geq E_0, 
+\end{align}
+where $Ψ$ is and eigenstate of $H$ with eigenvalue $E_0$ \cite{SVM}. 
+This means we can build a system of linear combinations of wavefunctions and minimize to find an approximate ground state wavefunction
+\begin{align}
+    Ψ = \sum_{i=0}^nc_iψ_i(a_i), 
+\end{align}
+where $a_i$ are optimization parameters, and $c_i$ are found by solving the generalized eigenvalue problem. Then $E$ can be found by \note{comment about normalization?}
+\begin{align}
+    E = \frac{c^\dagger\mathcal{H}c}{c^\dagger\mathcal{N}c}, \label{eq:E0}
+\end{align}
 where 
-\begin{align*}
-    \mathcal{H} &= \br[4]{H_{i,j}} = \bra{g_i}\hat{H}\ket{g_j}, \\
-    \mathcal{N} &= \br[4]{N_{i,j}} = \braket{g_i}{g_j}.
-\end{align*}
+\begin{align}
+    \mathcal{H}_{ij} = \bra{ψ_i(a_i)}H\ket{ψ_j(a_j)}, \quad \mathcal{N}_{ij} = \braket{ψ_i(a_i)}{ψ_j(a_j)}.
+\end{align}
 
-\plainbreak{1}
-The correlated gaussian is defined by: 
-\begin{align*}
-    \braket{\v{r}}{g} &= \text{exp}\br{-\sum_{i,j=1}^{N}A_{i,j}\v{r}_i\cdot \v{r_j}+\sum_{i=1}^{N}\v{s}_i\cdot \v{r}_i}, \\
-    &= \e{-\v{r}^TA\v{r}+\v{s}^T\v{r}}. 
-\end{align*}
-which gives the notation
-\begin{align*}
-    \ket{g} = \ket{A, s}.
-\end{align*}
+The generalized eigenvalue problem can be solved by using Cholesky-factorization on the symmetric positive-definite $\mathcal{N}$ matrix, which gives us $\mathcal{N}=LL\tr$, where $L$ is a lower-triangular matrix. Then (\ref{eq:E0}) can be rewritten as
+\begin{align}
+    \br{L^{-1}\mathcal{H}L\cramped{{}^{-\mathsf{T}}}}\br{L\tr c} = E\br{L\tr c}, 
+\end{align}
+and $L\tr c$ can be found as the eigenvector to the system. 
 
-The overlap of these gaussians is given by \cite{ana}
-\begin{align*}
-    \braket{g'}{g} = \br{\frac{π^N}{\text{det}B}}\e{\frac{1}{4}\v{v}^TB^{-1}\v{v}} \equiv M, 
-\end{align*}
-where $B = A+A'$ and $\v{v} = \v{s} + \v{s}'$. 
+\note{A section explaining why we use $b_N$ to limit the nucleon interacting distance instead of letting it be a free parameter. Maybe done here.}
+
+\chapter{Correlated Shifted Gaussian}
+To model the spatial wavefunction we use the gaussian method, where we build the wavefunction as a linear combination of correlated shifted gaussians. The correlated gaussian is defined as \cite{ana}
+\begin{align}
+    \text{exp}\br{-\sum_{i,j=1}^{N}A_{i,j}\v{r}_i\cdot \v{r_j}}
+    \equiv \e{-\v{r}\tr A\v{r}},
+\end{align}
+which defines a system of N particles where $\v{r} = \br{\v{r}_1, ..., \v{r}_N}$ is a N-dimensional column vector of particle 3-dimensional coordinate vectors $\v{r}_j$, with unit length fm, for particle $j$. $A$ is a $N\times N$ symmetric positive-definite particle correlation matrix with units fm$^{-2}$. To make it more \note{usable} we introduce a shift in $\v{r}$, 
+\begin{align}
+    \exp\br{-(\v{r}-\v{r}_0)\tr A(\v{r}-\v{r}_0)}
+    &= \exp\br{-\v{r}\tr A\v{r}+2\v{r}_0\tr A\v{r}-\v{r}_0\tr A\v{r}_0}, 
+\end{align}
+the last part is a constant so we omit this, and if we define $\v{s}\tr =\frac{1}{2}\v{r}_0\tr A$, we get the final correlated shifted gaussian
+\begin{align}
+    \G{r}{A}{s} 
+    = \text{exp}\br{-\sum_{i,j=1}^{N}A_{i,j}\v{r}_i\cdot \v{r_j}+\sum_{i=1}^{N}\v{s}_i\cdot \v{r}_i}
+    = \braket{\v{r}}{g}. 
+\end{align}
+
+\section{Overlap}
+Since the product of two Gaussians is again a Gaussian, the overlap integral between two shifted correlated Gaussians reduces to a single Gaussian integral with an effective matrix $B=A+A'$ and effective shift $\v{v}=\v{s}+\v{s}'$. We diagonalize $B$ with an orthogonal matrix $Q$ so that $B=QDQ\tr$ and transform coordinates as $\v{r}=Q\v{x}$. This decouples the integral into a product of $N$ independent 3D Gaussian integrals \cite{ana}. 
+\begin{align}
+    \braket{g'}{g} 
+    &= \int d^3\v{r}_N\G{r}{B}{v}, \n
+    &= \prod_{i=1}^{N} \int d^3\v{x}_i \e{-\v{x}_i\cdot D_{ii}\v{x}_i+\v{v}_i \cdot \v{x}_i}, \n
+    &= \prod_{i=1}^{N} \e{\frac{1}{4D_{ii}}\v{v}_i^2}\br{\frac{π}{D_{ii}}}^{3/2}, \n
+    &= \br{\frac{π^N}{\text{det}B}}\e{\frac{1}{4}\v{v}\tr B^{-1}\v{v}} \equiv M. 
+\end{align}
+This gives us the unnormalized overlap element $M$, which will be normalized by solving the generalized eigenvalue problem. 
+
+We can use the gaussians to evaluate functions in the form of $\bra{g'}f(w\tr \v{r})\ket{g}$, like $w\tr \v{r}$ and $(w\tr \v{r})^2$:
+\note{To evaluate matrix elements that are linear or quadratic in $\v{r}$, we use the fact that the Gaussian integral generates moments when we differentiate with respect to the shift vector $\v{v}$. Since $\v{v}$ appears only in the exponential, derivatives with respect to $\v{v}$ bring down factors of $\v{r}$ inside the integral.}
+\begin{align}
+    \bra{g'}w\tr \v{r}\ket{g} 
+    &= \int d^3\v{r}\;w\tr \v{r}\G{r}{B}{v}, \n
+    &= w\tr \nabla_{\v{v}}\int d^3\v{r}\G{r}{B}{v}, \n
+    &= w\tr \br{\frac{\dd}{\dd \v{v}\tr }}\e{\frac{1}{4}\v{v}\tr B^{-1}\v{v}}\br{\frac{π^N}{\det B}}^{3/2} 
+    = w\tr \v{u} M,
+\end{align}
+where $\v{u} = \frac{1}{2}B^{-1}\v{v}$. 
+\note{This compact form isolates all dependence on the shifts in $\v{u}$, which is convenient for later algebraic manipulations of matrix elements.}
+For $(w\tr \v{r})^2$ the derivation is similar and yields: 
+\begin{align}
+    \bra{g'}\v{r}\tr ww\tr \v{r}\ket{g} 
+    &= \br{\frac{\dd}{\dd \v{v}}ww\tr \frac{\dd}{\dd \v{v}\tr }}M, \n
+    &= \br[2]{\frac{3}{2}w\tr B^{-1}w+\frac{1}{4}\br{w\tr B^{-1}\v{v}}\br{\v{v}\tr B^{-1}w}}M, \n
+    &= \br{\frac{3}{2}w\tr B^{-1}w+\v{u}\tr ww\tr \v{u}}M.
+\end{align}
 
 
-
-\plainbreak{1}
-To find the fouriertransformed correlated gaussian we evaluate the intergral: 
-\begin{align*}
-    \braket{\v{p}}{g} &= \int d^{3N}x\e{\v{x}^T\v{p}} \e{-\v{r}^TA\v{r}+\v{s}^T\v{r}},\\
-    &= \br{\frac{π^N}{\text{det}(A)}}^{3/2} \e{\frac{1}{4}(\v{s}-i\v{p})^TA^{-1}(\v{s}-i\v{p})}, \\
-    &= \br{\frac{π^N}{\text{det}(A)}}^{3/2} \e{\frac{1}{4}\v{s}^TA^{-1}\v{s}} \cdot \e{-\frac{1}{4}\v{p}^TA^{-1}\v{p}} \cdot \e{-\frac{1}{2}i\v{p}^TA^{-1}\v{s}}, 
-\end{align*}
-which gives the fourier transformed gaussian
-\begin{align*}
-    \ket{\f{g}} = \e{-\v{p}^T\f{A}\v{p}+\f{\v{s}}^T\v{p}},
-\end{align*}
+\section{Momentum Space}
+We use the Fourier convention $\langle \v{k} \mid \v{r} \rangle = (2\pi)^{-3N/2} e^{i\v{k}\tr \v{r}}$ and completeness $\int d^{3N}\v{k}\,(2\pi)^{-3N}\,\ket{\v{k}}\bra{\v{k}} = 1$, so wavefunctions in $\v{k}$-space carry the same normalization as in $\v{r}$-space and all $(2\pi)^{3N}$ factors in overlaps and matrix elements are fixed by this choice.
+To easily calculate the kinetic energy we need the gaussians in momentum space. To find the fouriertransformed correlated gaussian we evaluate the integral: 
+\note{Because the spatial wavefunction is Gaussian in $\v{r}$, its Fourier transform is again Gaussian in $\v{k}$, with a transformed width matrix and a complex shift. The chosen convention ensures that normalization is preserved between coordinate and momentum space.}
+\begin{align}
+    \braket{\v{k}}{g} &= \int d^{3N}\v{r}\e{-i\v{k}\tr \v{r}} \G{r}{A}{s}, \n
+    &= \br{\frac{π^N}{\text{det}(A)}}^{3/2} \e{\frac{1}{4}(\v{s}-i\v{k})\tr A^{-1}(\v{s}-i\v{k})}, \n
+    &= \br{\frac{π^N}{\text{det}(A)}}^{3/2} \e{\frac{1}{4}\v{s}\tr A^{-1}\v{s}} \cdot \e{-\frac{1}{4}\v{k}\tr A^{-1}\v{k}} \cdot \e{-\frac{1}{2}i\v{k}\tr A^{-1}\v{s}}, 
+\end{align}
+which gives the Fourier transformed Gaussian
+\begin{align}
+    \ket{\f{g}} = \G{k}{\f{A}}{\f{s}},
+\end{align}
 where $\f{A}=\frac{1}{4}A^{-1}$ and $\f{\v{s}}=\frac{-i}{2}A^{-1}\v{s}$. 
-And the $\mathcal{M}$ function is introduced 
-\begin{align*}
-    \M (A,\v{s}) = \br{\frac{π^N}{\text{det}(A)}}^{3/2} \e{\frac{1}{4}\v{s}^TA^{-1}\v{s}},
-\end{align*}
+And the $\mathcal{M}$ term is introduced 
+\note{The factor $\mathcal{M}(A,\v{s})$ collects the $A$- and $\v{s}$-dependent prefactors, so that the remaining $\ket{\f{g}}$ has the same Gaussian form as in coordinate space but expressed in momentum variables.}
+\begin{align}
+    \M (A,\v{s}) = \br{\frac{π^N}{\text{det}(A)}}^{3/2} \e{\frac{1}{4}\v{s}\tr A^{-1}\v{s}},
+\end{align}
 giving us the final solution 
-\begin{align*}
-    \braket{\v{p}}{g} = \M(A,\v{s}) \ket{\f{g}}.
-\end{align*}
+\begin{align}
+    \braket{\v{k}}{g} = \M(A,\v{s}) \ket{\f{g}}.
+\end{align}
 
 
 The overlap in momentum space can be calculated as 
-\begin{align*}
-    \braket{g'}{g} &= \int \frac{d^{3N}p}{(2π)^{3N}} \braket{g'}{p} \braket{p}{g}, \\
-    &= \br{\frac{π^N}{\text{det}A'}\frac{π^N}{\text{det}A}}^{3/2} \frac{\e{\frac{1}{4}\v{s}'^TA'^{-1}\v{s}'}\e{\frac{1}{4}\v{s}^TA^{-1}\v{s}}}{(2π)^{3N}}\braket{\f{g}'}{\f{g}}, \\
+\begin{align}
+    \braket{g'}{g} &= \int \frac{d^{3N}\v{k}}{(2π)^{3N}} \braket{g'}{\v{k}} \braket{\v{k}}{g}, \n
+    &= \br{\frac{π^N}{\text{det}A'}\frac{π^N}{\text{det}A}}^{3/2} \frac{\e{\frac{1}{4}\v{s}'^\intercal A'^{-1}\v{s}'}\e{\frac{1}{4}\v{s}\tr A^{-1}\v{s}}}{(2π)^{3N}}\braket{\f{g}'}{\f{g}}, \n
     &= \M(A',\v{s}')\M(A,\v{s})\frac{\braket{\f{g}'}{\f{g}}}{(2π)^{3N}}.
-\end{align*}
-
-We can now use the overlap to calculate the matrix element for the general momentum operator $f(c^T\v{p})$.
-\begin{align*}
-    \bra{g'}f(c^T\v{p})\ket{g} &= \int \frac{d^{3N}p}{(2π)^{3N}}\braket{g'}{\v{p}}f(c^T\v{p})\braket{\v{p}}{g}, \\
-    &= \M(A',\v{s}')\M(A,\v{s}) \int \frac{d^{3N}p}{(2π)^{3N}} \bra{\f{g}'}f(c^T\v{x})\ket{\f{g}}, 
-\end{align*}
-using equation (\ref{place}) we continue
-\begin{align*}
-    &= \M(A',\v{s}')\M(A,\v{s}) \braket{\f{g}'}{\f{g}} \br{\frac{γ}{π}}^{3/2}2π\frac{\e{-γ(iη)^2}}{iγη}\int xdx \f{f}(x)\e{-γx^2}\sinh(2iγηx), \\
-    &= \braket{g'}{g}\br{\frac{γ}{π}}^{3/2}2π\frac{\e{γη^2}}{γη}\int xdx \f{f}(x)\e{-γx^2}\sin(2γηx)
-\end{align*}
-
-\chapter{W-operator}
-the coupeling operator $W$ is given by 
-\begin{align*}
-    W = (\v{τπ})(\v{σr})f(r), 
-\end{align*}
-where $(\v{τπ})$ desides the isospin of the nucleon and the resulting pion, and is given by 
-\begin{align*}
-    (\v{τπ}) = τ_0π^0+\sqrt{2}τ_-π^++\sqrt{2}τ_+π^-,
-\end{align*}
-where $τ$ are the Pauli spin matrices. This gives us the possible states that a bare deuterium nucleus can be in: 
-\begin{align*}
-    (\v{τπ})\ket{pn} &= (τ_0π^0+\sqrt{2}τ_-π^++\sqrt{2}τ_+π^-)\ket{p} + (τ_0π^0+\sqrt{2}τ_-π^++\sqrt{2}τ_+π^-)\ket{n}, \\
-    &= (π^0\ket{p}+\sqrt(2)π^+\ket{n})+(-π^0\ket{n}+\sqrt{2}π^-\ket{n}) 
-\end{align*}
+\end{align}
 
 
+\section{Kinetic Energy}
+We can now use the overlap to calculate the matrix element for the general momentum operator $f(c\tr \v{k})$.
+\note{We insert a momentum-space completeness relation and evaluate the resulting Gaussian integral. This reduces the matrix element to a radial integral over $x=|\v{k}|$, which depends only on the scalar $c\tr\v{k}$.}
+\begin{align}
+    \bra{g'}f(c\tr \v{k})\ket{g} &= \int \frac{d^{3N}\v{k}}{(2π)^{3N}}\braket{g'}{\v{k}}f(c\tr \v{k})\braket{\v{k}}{g}, \n
+    &= \M(A',\v{s}')\M(A,\v{s}) \int \frac{d^{3N}\v{k}}{(2π)^{3N}} \bra{\f{g}'}f(c\tr \v{x})\ket{\f{g}}, 
+\end{align}
+using equation 22 from \cite{ana} we continue
+\begin{align}
+    &= \M(A',\v{s}')\M(A,\v{s}) \frac{\braket{\f{g}'}{\f{g}}}{(2π)^{3N}} \br{\frac{γ}{π}}^{3/2}2π\frac{\e{-γ(iη)^2}}{iγη}\int_0^\infty dx x\f{f}(x)\e{-γx^2}\sinh(2iγηx), \n
+    &= \braket{g'}{g}\br{\frac{γ}{π}}^{3/2}2π\frac{\e{γη^2}}{γη}\int_0^\infty dx x\f{f}(x)\e{-γx^2}\sin(2γηx), \label{eq:cp}
+\end{align}
+where 
+\note{The parameter $\gamma$ controls the effective width of the Gaussian in momentum space, while $\v{\eta}$ encodes the shift dependence; both are scalars built from $A,A'$ and the shifts.}
+\begin{align}
+    \frac{1}{γ} = c\tr \f{R}c = c\tr \br{\f{A}+\f{A}'}^{-1}c = 4c\tr \br{A^{-1}+A'^{-1}}^-1c = 4c\tr ARA'c, 
+\end{align}
+if we define $R = B^{-1} = (A+A')^{-1}$. We also have the shift part 
+\begin{align}
+    \v{η} = c\tr \br{AR\v{s}'-A'R\v{s}}, 
+\end{align}
+which for unshifted gaussians $\v{s}=\v{s}'=0 \Rightarrow \v{η}=0$. This gives a simpler version of (\ref{eq:cp}):
+\note{For unshifted Gaussians the sine term linearizes and the remaining integral becomes a standard Gaussian moment, giving a closed-form expression.}
+\begin{align}
+    \bra{g'}f(c\tr \v{k})\ket{g} = \br{\frac{π^N}{\text{det}B}} 4π\br{\frac{γ}{π}}^{3/2}\int_{0}^{\infty}dxx^2\f{f}(x)\e{-γx^2}. 
+\end{align}
+
+Now that we have a general form for a momentum function, we can plot in non-relativistic kinetic energy for particle $i$: 
+\begin{align}
+        \f{f}(c\tr \v{k}) = \frac{(c_i\tr \v{k})^2}{2m_i},
+\end{align}
+which gives us the shifted matrix element \textcolor{red}{Check these integrals}
+\begin{align}
+    \bra{g'}(c\tr \v{k})^2\ket{g} &= \braket{g'}{g}\br{\frac{γ}{π}}^{3/2}2π\frac{\e{γη^2}}{γη}\int_0^\infty dxx^3\e{-γx^2}\sin(2γηx), \n
+    &= \braket{g'}{g}\br{\frac{γ}{π}}^{3/2}2π\frac{\e{γη^2}}{γη} \frac{\sqrt{π}\e{-γη^2}}{4γ^{3/2}}\br{3η-2γη^3}, \n
+    &= \braket{g'}{g}\br{\frac{3}{2}\frac{1}{γ}-η^2}.
+\end{align}
+\textcolor{red}{And in the case of no shift: }
+\begin{align}
+    \lim_{η \rightarrow 0}\frac{\e{γη^2}}{γη}\sin(2γηx) = 2x, 
+\end{align}
+\begin{align}
+    \bra{g'}(c\tr \v{k})^2\ket{g} &= \braket{g'}{g}\br{\frac{γ}{π}}^{3/2}4π\int_0^\infty dxx^4\e{-γx^2}, \n
+    &= \braket{g'}{g}\br{\frac{γ}{π}}^{3/2}4π\frac{3\sqrt{π}}{8γ^{5/2}}=\braket{g'}{g}6(c\tr A'RAc). 
+\end{align}
+
+We can also use the relativistic kinetic energy for particle $i$: 
+\begin{align}
+    \f{f}(c\tr \v{k})=\sqrt{(c_i\tr \v{k})^2+m_i^2}-m_i,  
+\end{align}
+which gives us the shifted matrix element: 
+\begin{align}
+    & \bra{g'}\sqrt{(c\tr \v{k})^2+m^2}-m\ket{g} \n 
+    &= \braket{g'}{g}\br{\frac{γ}{π}}^{3/2}2π\frac{\e{γη^2}}{γη}\int_0^\infty dxx\e{-γx^2}\sin(2γηx)\sqrt{x^2+m^2}-m,
+\end{align}
+which again can be simplified for $\v{η}=0$:
+\begin{align}
+    &\bra{g'}\sqrt{(c\tr \v{k})^2+m^2}-m\ket{g} \n 
+    &= \braket{g'}{g}\br{\frac{γ}{π}}^{3/2}4π\int_0^\infty dxx^2\e{-γx^2}\sqrt{x^2+m^2}-m,
+\end{align}
+
+These integrals are not solved analytically but instead numerically in the code. 
+Since we have transformed into center mass jacobian coordinates, m represents the reduced mass μ corresponding to the specific relative subsystem being evaluated.
+
+
+\chapter{Jacobi Transformation} \label{ch:jac}
+To reduce the number of dimensions for our calculations, we introduce a center mass jacobian shift. 
+The Jacobi matrix is defined by 
+\begin{align}
+    J = \begin{pmatrix} 
+    \frac{m_1}{M_1} & -1 & 0 & \dots & 0 \\ 
+    \frac{m_1}{M_2} & \frac{m_2}{M_2} & -1  & \dots & 0 \\ 
+    \vdots & \vdots & \vdots & \ddots  & \vdots \\
+    \frac{m_1}{M_N} & \frac{m_2}{M_N} & \dots & \frac{m_{N-1}}{M_N} & \frac{m_N}{M_N}
+    \end{pmatrix}
+\end{align}
+where $M_n = \sum_{i=1}^{n}m_i$. Here the last row describes the center mass coordinates, which we are not interested in 
+since we are examining internal nucleon interactions. Thus we can transform our $N$ body systems into $N-1$ systems, by discarding the center-mass coordinates. 
+
+Since we have now made the transformation $\v{r} \rightarrow J\v{r} = \v{r}'$, we also introduce vectors that that pick out specific coordinates in both physical and momentum space. 
+These are denoted $w_i$ for physical space and $k_i$ for momentum space. They are unit vectors with $1$ in the $i$'th slot. 
+Under a coordinate transformation they transform as $w_i \rightarrow U\tr w_i$, where $U=J^{-1}$, since 
+\begin{align}
+    w\tr \v{r} \rightarrow w\tr J^{-1}J\v{r} = \br{U\tr w}\tr \v{r}'.
+\end{align}
+In practice this means the kinetic energy splits into relative motions with reduced masses, e.g., $\mu_{np}$ for the $pn$ coordinate and $\mu_{np\pi}$ for the pion relative to the $pn$ pair.
+For momentum space, the transformation looks a little different, $c_i \rightarrow Jc_i$ since $c\tr \v{k} = -i\sum_{i}c_i\frac{\dd}{\dd r_i}$, which shows
+\begin{align}
+    c\tr \v{k} = -i\sum_{i}c_i\frac{\dd}{\dd r_i} = -i\sum_{i}c_i\frac{\dd}{\dd r'_j} \frac{\dd r'_j}{\dd r_i} = c_i J_{ij}k_j'=\br{Jc}\tr \v{k}'. 
+\end{align}
+For the $pn\pi$ system with particle ordering $(p,n,\pi)$, the full explicit Jacobi matrix is
+\begin{align*}
+    \renewcommand{\arraystretch}{1.3}
+    J_{3} = \begin{pmatrix}
+    \frac{m_p}{m_p} & -1 & 0 \\
+    \frac{m_p}{m_p+m_n} & \frac{m_n}{m_p+m_n} & -1 \\
+    \frac{m_p}{m_p+m_n+m_\pi} & \frac{m_n}{m_p+m_n+m_\pi} & \frac{m_\pi}{m_p+m_n+m_\pi}
+    \end{pmatrix},
+\end{align*}
+where we can then remove the last row and rewrite in terms of reduced mass. 
+
+\begin{align*}
+    \renewcommand{\arraystretch}{1.3}
+    J_{pnπ} = \begin{pmatrix}
+    1 & -1 & 0 \\
+    \frac{m_p}{m_p+m_n} & \frac{m_n}{m_p+m_n} & -1 
+    \end{pmatrix},
+\end{align*}
+We then use $J_{pn\pi}$ to write the three-body wavefunction in the two relative coordinates, and discard the center-of-mass coordinate 
+\begin{align*}
+    J_{pnπ}\begin{pmatrix}
+        \v{r_p}\\\v{r_n}\\\v{r_π}
+    \end{pmatrix} = 
+    \renewcommand{\arraystretch}{1.3}
+    \begin{pmatrix}
+        \v{r}_p-\v{r}_n \\ \frac{m_p\v{r}_p+m_n\v{r}_n}{m_p+m_n}
+    \end{pmatrix} = 
+    \begin{pmatrix}
+        \v{r}_{pn}\\\v{r}_{pnπ}
+    \end{pmatrix}
+\end{align*}
+
+\chapter{Pion-Nucleon Coupling}
+\section{The Bare Deuteron state}
+Before the deuteron nucleus emits a pion, it is in a so-called bare state. 
+In this state there is only a proton and a neutron with total spin $S=1$, isospin $I=0$ and parity $+1$. 
+The proton and neutron are both fermions, so their final wavefunction must be antisymmetrical. 
+The spin wavefunction is a spin triplet and is chosen to be $χ=\ket{\uparrow\uparrow}$. 
+The isospin wavefunction is a singlet and therefore antisymmetric $ξ=\frac{1}{\sqrt{2}}\br{\ket{pn}-\ket{np}}$.
+To get a final antisymmetric wavefunction, the spatial wavefunction must be symmetric, but our standard shifted Gaussian is not symmetric under particle exchange: \note{What?}
+\begin{align}
+    P_{12}\ket{A,a} = \G{(-r)}{A}{a} = \G{r}{A}{a},
+\end{align}
+So to get a symmetric spatial wavefunction we use the linear combination: 
+\begin{align}
+    ψ = \ket{A,a}+\ket{A,-a}. 
+\end{align}
+
+When combining these three, we get the final wavefunction of the bare deuteron state: 
+\begin{align}
+    \ket{Ψ_{pn}} &= \ket{ξ} \otimes \ket{χ} \otimes \ket{ψ} \n
+    &= \frac{1}{\sqrt{2}} \br{\ket{pn}-\ket{np}}\ket{\uparrow\uparrow}\br{\ket{A,a}+\ket{A,-a}}.
+\end{align}
+
+We can now apply the coupling operator to the bare state to find all possible pion states, 
+that satisfies the total isospin is 0 and the total spin is 1 and positive parity. \note{Rewrite}
+
+\section{Pions}
+The pion is a meson with 3 charge states $\{π^0, π^-, π^+\}$.
+Therefore the pion is an isospin-vector with total isospin $I=1$, it has spin $S=0$ and parity $-1$.
+When we create the W-coupling operator in the next section we will see that the total isospin, spin and parity are satisfied. 
+
+
+\section{The Total Coupling Operator}
+In the nuclear model with explicit mesons, the total pion-nucleon coupling operator for the deuteron is the sum of the individual one-body emission operators for the proton and the neutron:
+\begin{align}
+    W &= W_1 + W_2 \n
+      &= (\v{\tau}_1 \cdot \v{\pi})(\v{\sigma}_1 \cdot w_1\tr \v{r})f(w_1\tr \v{r}) + (\v{\tau}_2 \cdot \v{\pi})(\v{\sigma}_2 \cdot w_2\tr \v{r})f(w_2\tr \v{r}). \label{eq:W}
+\end{align}
+Here, $\v{\tau}$ and $\v{\sigma}$ are the isospin and spin Pauli matrices respectively, $\v{\pi}$ is the pion isospin-vector, 
+and $w_i\tr \v{r}$ is the distance from the emitted pion to the emitting nucleon $i$.
+
+The function $f(w_i\tr \v{r})$ represents a short-range phenomenological form factor, which ensures the interaction occurs only when the particles are in close proximity and that the total parity is satisfied. 
+To allow for analytic evaluation within the Correlated Gaussian method, we model this form factor as a Gaussian function:
+
+\begin{align}
+    f(w_i\tr \v{r}) = \frac{S}{b_π} \exp\br{-\frac{\v{r}\tr w_iw_i\tr \v{r}}{b_π^2}}\exp\br{-\frac{\v{r}\tr w_{NN}w_{NN}\tr \v{r}}{b_N^2}},
+\end{align}
+where $S$ determines the strength of the coupling (with units of MeV), and $b_i$ and $b_N$ dictates the interaction range. 
+The first exponent controls the interaction range for the emitted pion by limiting the distance it can have to the emitting nucleon $i$. The second exponent limits the distance between the nucleons, forcing them to stay in close proximity to mimic a bound state. 
+
+\section{Isospin Space}
+The isospin operator determines the charge of the emitted pion and the resulting nucleon states. The isospin interaction is given by:
+\begin{align}
+    (\v{\tau} \cdot \v{\pi}) = \tau^0\pi^0 + \sqrt{2}\tau^-\pi^+ + \sqrt{2}\tau^+\pi^-,
+\end{align}
+where the isospin Pauli matrices are: 
+\begin{align}
+    \tau^0 = \begin{pmatrix}1 & 0 \\ 0 & - 1 \end{pmatrix}, \quad 
+    \tau^- = \begin{pmatrix}0 & 0 \\ 1 & 0 \end{pmatrix}, \quad 
+    \tau^+ = \begin{pmatrix}0 & 1 \\ 0 & 0 \end{pmatrix}, 
+\end{align}
+so that $\tau^+\ket{n}=\ket{p}$ and $\tau^-\ket{p}=\ket{n}$, which fixes the overall sign of the charged-pion channels.
+
+This gives us 4 possible interactions when $(\v{\tau} \cdot \v{\pi})$ interacts with a nucleon, and their corresponding coefficients: 
+\begin{align}
+    \bra{π^0p}(\v{\tau} \cdot \v{\pi})\ket{p} = +1, \\
+    \bra{π^+n}(\v{\tau} \cdot \v{\pi})\ket{p} = \sqrt{2}, \\
+    \bra{π^0n}(\v{\tau} \cdot \v{\pi})\ket{n} = -1, \\
+    \bra{π^-p}(\v{\tau} \cdot \v{\pi})\ket{n} = \sqrt{2}. 
+\end{align}
+
+\section{Spin and Spatial Space}
+We choose an initial state where both nucleons have parallel spins (the spin-triplet state $\χ$). 
+Using spin interaction coordinates $(\v{σ}\v{r})$ consisting of the Pauli spin matrices: 
+
+
+Using Cartesian coordinates, the standard spin Pauli matrices are:
+\begin{align}
+    σ^0 = \begin{pmatrix}1 & 0 \\ 0 & - 1 \end{pmatrix}, \quad 
+    σ^- = \begin{pmatrix}0 & 0 \\ 1 & 0 \end{pmatrix}, \quad 
+    σ^+ = \begin{pmatrix}0 & 1 \\ 0 & 0 \end{pmatrix}, 
+\end{align}
+and the position vector consists of: 
+\begin{align}
+    r^0=z, \quad r^+=\frac{x+iy}{\sqrt{2}}, \quad r^-=\frac{x-iy}{\sqrt{2}}. 
+\end{align}
+Here $(r^0, r^\pm)$ are the spherical components of $\v{r}$, and the spin operators $\sigma^0,\sigma^\pm$ are written in the same spherical basis so that $(\v{\sigma}\cdot\v{r})=\sigma^0 r^0+\sqrt{2}\sigma^- r^+ + \sqrt{2}\sigma^+ r^-$.
+Like the isospin part, we also get 4 contributions from the spin interaction: 
+\begin{align}
+    \bra{\uparrow}(\v{σ} \cdot \v{r})\ket{\uparrow} = +r^0, \\
+    \bra{\downarrow}(\v{σ} \cdot \v{r})\ket{\uparrow} = \sqrt{2}r^+, \\
+    \bra{\uparrow}(\v{σ} \cdot \v{r})\ket{\downarrow} = \sqrt{2}r^-, \\
+    \bra{\downarrow}(\v{σ} \cdot \v{r})\ket{\downarrow} = -r^0,  
+\end{align}
+but since we have chosen a system where the bare state only consists of spin-up, the two last will not be used. 
+
+\section{Matrix Elements}
+Now that we have shown how the spin and isospin interact we can calculate all possible states. 
+We do this by applying equation (\ref{eq:W}) to the full wavefunction of the $pn$ state. 
+
+For the $π^0$ state we isolate the $τ^0$ component and the resulting isospin function becomes: 
+\begin{align}
+    τ_1^0\ξ{-} = + \ξ{+}, \\
+    τ_2^0\ξ{-} = - \ξ{+}. \\
+\end{align}
+The negative sign is absorbed into the calculations of the spin part, 
+and our resulting isospin wavefunction becomes symmetric: $\ket{ξ_{π^0}} = \ξ{+}$. 
+The spin part becomes antisymmetric and is calculated as: 
+\begin{align}
+    W_{π^0}\ket{χ} &= \br[2]{(\v{\sigma}_1 \cdot w_1\tr \v{r})f(w_1\tr \v{r}) - (\v{\sigma}_2 \cdot w_2\tr \v{r})f(w_2\tr \v{r})}\ket{\uparrow\uparrow}, \\
+    &= f(w_1\tr \v{r})\br[2]{w_1\tr r^0\ket{\uparrow\uparrow} + \sqrt{2}w_1\tr r^+\ket{\downarrow\uparrow}} \\ 
+    & \quad - f(w_2\tr \v{r})\br[2]{w_2\tr r^0\ket{\uparrow\uparrow} + \sqrt{2}w_2\tr r^+\ket{\uparrow\downarrow}}
+\end{align}
+This will give us three spin possibilities: 
+\begin{itemize}
+    \item There is no flip in spin, \hfill $f(w_1\tr \v{r})w_1\tr r^0 - f(w_2\tr \v{r})w_2\tr r^0$. 
+    \item The spin of the first particle is flipped, \hfill $f(w_1\tr \v{r})\sqrt{2}w_1\tr r^+.\quad\quad$ 
+    \item The spin of the second particle is flipped, \hfill $-f(w_2\tr \v{r})\sqrt{2}w_2\tr r^+.\quad\quad$
+\end{itemize}
+
+These need to be split into three for computing the Hamiltonian matrix, since they are a function of space, and therefore have different overlap. 
+For the two charged pions we also get three states for each. \newline
+
+Before we assemble the final state, we must account for parity conservation. The deuteron ground state must have a strictly positive total parity $(+1)$.
+
+Because the emitted pion has intrinsic negative parity $(-1)$, the spatial wavefunction of the three-body state must adapt to compensate. 
+To ensure the total parity remains positive $((-1)_{\text{intrinsic}} \times (-1)_{\text{spatial}} = +1_{\text{total}})$, the spatial wavefunction of the dressed state must have odd parity.
+\note{Optionally connect this to orbital angular momentum: odd spatial parity corresponds to odd $\ell$ in the $pn\pi$ channel.}
+
+In the Correlated Gaussian framework, we enforce this odd spatial parity by taking the difference of the shifted states rather than the sum:
+\begin{align}
+    ψ_{pnπ} = \ket{A, a} - \ket{A, -a}. 
+\end{align}
+
+
+
+
+
+\section{Evaluation of the Transition Matrix Elements}
+To calculate the off-diagonal transition elements, such as $\bra{pn}W_{pn\pi_0}\ket{pn\pi_0}$, the integration must be performed over the full three-body coordinate space. However, the initial bare state $\ket{pn}$ depends only on the nucleon-nucleon distance and is independent of the pion coordinates. 
+
+To resolve this, the $1 \times 1$ correlation matrix of the bare state, $A^{(d)}$, is first promoted to the $2 \times 2$ three-body Jacobi space by padding with zeros. 
+
+Next, we absorb the spatial dependence of the form factor 
+\begin{align}
+    f(r_{\pi N}) = S \exp(-r_{\pi N}^2/b^2). 
+\end{align}
+In the Correlated Gaussian framework, multiplying by a Gaussian is equivalent to adding its correlation matrix. We define a new effective promoted matrix $\tilde{A}$ that absorbs this interaction range:
+\begin{align}
+    \tilde{A} = A^{(d)}_{\text{promoted}} + \frac{1}{b^2} w_{\pi N} w_{\pi N}\tr ,
+\end{align}
+where $w_{\pi N}$ is the coordinate vector that extracts the relative distance between the emitted pion and the emitting nucleon. 
+
+
+
+
+\chapter{Computational Methodology and Implementation}
+
+To evaluate the ground state of our coupled meson-nucleon system, we construct a C++ simulation utilizing the Stochastic Variational Method (SVM) pioneered by Suzuki and Varga. This approach relies on expanding the total wavefunction in a basis of Correlated Shifted Gaussians and stochastically optimizing their nonlinear parameters to minimize the energy expectation value. This chapter outlines the algorithmic structure used to parameterize the basis, optimize the states, and solve the resulting generalized eigenvalue problem.
+
+\section{Parameterization of the Gaussian Basis}
+Each basis state in our trial wavefunction is defined by a multidimensional Correlated Gaussian, characterized by a positive-definite correlation matrix $A$ and a spatial shift vector $\v{s}$. To ensure that $A$ remains strictly positive-definite during stochastic generation, we use \cite{ana}
+\begin{align}
+    A = \sum_{i<j=1}^{N} \frac{w_{ij} w_{ij}\tr }{b_{ij}^2},
+\end{align}
+where $w_{ij}$ is the coordinate extraction vector that isolates the relative distance between particles $i$ and $j$, and $b_{ij}$ is a parameter defining the physical range between those particles in units of fm. This mean the correlation matrix A is related to the distance between the particles in the system. 
+
+In our code, rather than optimizing the matrix elements of $A$ directly, we randomly sample the physical range parameters $b_{ij}$. These are drawn from an exponential distribution, $b_{ij} = -\ln(u)b_0$, where $u \in (0,1)$ is a uniformly distributed random number, and $b_0$ is a characteristic length scale of the system (e.g., $\approx 1.4$ fm).
+\note{State how $b_0$ is chosen (e.g., physical intuition or a short calibration sweep) and whether different channels use different $b_0$.}
+
+The shift vector $\v{s}$, which breaks spherical symmetry to naturally accommodate nonzero orbital angular momentum (such as the D-wave component of the deuteron), is also generated stochastically. The Cartesian components of $\v{s}$ are drawn randomly from a uniform distribution bounded by the expected physical scale of the nucleus. 
+
+\section{The Stochastic Variational Method (SVM)}
+Finding the true ground state requires exploring a massive, highly correlated parameter space. Standard deterministic gradient-descent methods frequently become trapped in local minima. Instead, we employ the SVM, which builds the basis iteratively using a competitive search and refinement strategy.
+
+\subsection{Competitive Search}
+The basis is built one state at a time. To add the $K$-th basis state, we generate a large pool of random candidate states (e.g., 50 to 100 candidates), each with unique, randomly sampled $b_{ij}$ and $\v{s}$ parameters. For each candidate, we temporarily add it to the existing basis of size $K-1$, build the Hamiltonian and overlap matrices, and solve for the ground state energy. The candidate that yields the lowest ground state energy wins the competition and is permanently added to the basis. 
+\note{Give the typical candidate pool size used in your runs and any convergence check (e.g., energy change threshold).}
+
+\subsection{Basis Refinement}
+Because the basis states are highly correlated, adding a new state alters the optimal parameters for the existing states. To account for this, we periodically refine the basis. During refinement, we select a previously established basis state and replace it with a pool of new random candidates. If one of the new candidates yields a lower total energy than the original state, the original state is overwritten. This continuous stochastic refinement ensures that the basis remains compact and avoids stagnation.
+
+\section{Solving the Generalized Eigenvalue Problem}
+Each time a candidate is evaluated, the simulation must solve the generalized eigenvalue problem:
+\begin{align}
+    \mathcal{H}c = E \mathcal{N} c,
+\end{align}
+where $\mathcal{H}$ is our block-structured Hamiltonian matrix, $\mathcal{N}$ is the overlap matrix, $c$ is the vector of linear coefficients, and $E$ is the energy. 
+
+Because the overlap matrix $\mathcal{N}$ constructed from Correlated Gaussians is symmetric and strictly positive-definite, we can solve this efficiently by first performing a Cholesky decomposition:
+\begin{align}
+    \mathcal{N} = L L\tr ,
+\end{align}
+where $L$ is a lower triangular matrix. By substituting this into the generalized equation and multiplying by $L^{-1}$ from the left, we transform the system into a standard symmetric eigenvalue problem:
+\begin{align}
+    \br{L^{-1} \mathcal{H} L^{-T}} (L\tr c) = E (L\tr c).
+\end{align}
+This standard symmetric matrix, $L^{-1} \mathcal{H} L^{-T}$, is then diagonalized using the Jacobi eigenvalue algorithm. The Jacobi method operates by applying a sequence of orthogonal Givens rotations to iteratively eliminate off-diagonal elements. Once diagonalized, the lowest eigenvalue represents the ground state energy of the physical system, and the corresponding eigenvector, $L\tr c$, can be back-substituted to find the linear coefficients $c$ of the wavefunction.
+\note{Mention any numerical stabilization steps (e.g., symmetrizing $\mathcal{H}$/$\mathcal{N}$ or thresholding small eigenvalues) used in the implementation.}
+
+\newpage
 \chapter{Notes}
-Claude har brugt arrays the skal laves til vectors. 
+\section{Synthesis: The Full Hamiltonian}
+By combining the isospin channel generation and the spin-flip mechanics, we can now fully understand the structure of our $5 \times 5$ block Hamiltonian matrix:
 
-% So the momentum wavefunction becomes
-% \begin{align*}
-%     \p(\v{p}) = \braket{\v{p}}{g} = \braket{g'}{g}\br{\frac{π^N}{\text{det}(A)}}^{3/2} \e{\frac{1}{4}\v{b}^TA^{-1}\v{b}}
-% \end{align*}
+Each block in this matrix has a distinct physical interpretation:
+\begin{itemize}
+    \item \textbf{Diagonal Elements:} These blocks represent the self-energy of each specific state. The top-left element, $K_{pn}$, is the kinetic energy of the bare proton-neutron system. The remaining diagonal elements represent the three-body states containing a virtual pion. Their energies consist of the kinetic energy of the nucleons ($K_{NN}$), the kinetic energy of the emitted pion ($K_{\pi}$), and the rest mass of the pion ($m_{\pi}$). 
+    \item \textbf{Off-Diagonal Elements ($W$ and $W^\dagger$):} The first row and first column contain the coupling operators. The $W$ operators describe the emission of a pion, transitioning the system from the bare two-body state into a three-body state. The Hermitian conjugate operators, $W^\dagger$, describe the absorption (annihilation) of the pion, returning the system to the bare $pn$ state.
+    \item \textbf{Zero Blocks:} The matrix contains blocks of zeros between the different one-pion states. This reflects the physical assumption of our one-pion approximation: direct transitions between different one-pion states (e.g., a $\pi^+$ spontaneously transforming into a $\pi^-$) do not occur. The system must always transition back through the bare $pn$ state.
+\end{itemize}
 
-% We can then use this to calculate the kinetic energy operator 
-% \begin{align*}
-%     \bra{\f{g}'}\hat{K}\ket{\f{g}} &= \int d\v{p} \f{g}'^* \br{\sqrt{\v{p}^2c^2+m^2c^4}-mc^2}\f{g}, \\
-%     &= \int d\v{p} \br{\frac{π^N}{\text{det}(A')}}^{3/2} \e{\frac{1}{4}\v{s}^TA'^{-1}\v{s}} \cdot \e{-\frac{1}{4}\v{p}^TA'^{-1}\v{p}} \cdot \e{+\frac{1}{2}i\v{p}^TA'^{-1}\v{s}} \\
-%     &\quad \br{\frac{π^N}{\text{det}(A)}}^{3/2} \e{\frac{1}{4}\v{s}^TA^{-1}\v{s}} \cdot \e{-\frac{1}{4}\v{p}^TA^{-1}\v{p}} \cdot \e{-\frac{1}{2}i\v{p}^TA^{-1}\v{s}} \\
-%     &\quad \br{\sqrt{\v{p}^2c^2+m^2c^4}-mc^2}, \\
-%     &= \int d\v{p} \br{\frac{π^N}{\text{det}(A')}}^{3/2} \br{\frac{π^N}{\text{det}(A)}}^{3/2} \e{-\frac{1}{4}\v{p}^TM\v{p}+i\v{v}^T\v{p}} \br{\sqrt{\v{p}^2c^2+m^2c^4}-mc^2}. 
-% \end{align*}
+Computationally, each of the $W$ blocks in this Hamiltonian is further expanded by the spin mechanics derived in the previous section. 
+Because a single pion emission channel like $W_{pn\pi_0}$ generates a superposition of both spin-preserving and spin-flip states, the corresponding matrix elements are evaluated using a combination of the $z$, $x$, and $y$ spatial coordinates in our Correlated Gaussian framework. 
+The lowest eigenvalue of this complete matrix $\mathcal{H}$ yields the exact bound-state energy of the physical deuteron, incorporating the explicit pion-exchange dynamics.
 
-% Where 
-% \begin{align*}
-%     M = A'^{-1} + A^{-1}, \quad v = A'^{-1}s'- A^{-1}s.
-% \end{align*}
+With the form factor absorbed into $\tilde{A}$, the spatial integrals simplify significantly. The overall constant $S$ scales the entire matrix element[cite: 1141, 1190]. The remaining spin-spatial operators, such as the $z_{\pi p}$ coordinate from the non-spin-flip channel, are evaluated analytically by taking the derivative of the standard overlap function $\mathcal{M}$ with respect to the corresponding Cartesian shift parameters. 
+
+Thus, the full evaluation of the $W$ operator is reduced to purely algebraic matrix manipulations, making the stochastic optimization of the parameters $S$ and $b$ computationally feasible.
+
+\chapter{idk}
+Using Gaussian methods for the variation principle and correlated gaussian method, 
+we define the spatial wavefunction as a gaussians (denoted $\ket{g}$). 
+\begin{align}
+    ψ(\v{r}) = \braket{\v{r}}{g}. 
+\end{align}
+
+By using this we get the Schrödinger equation as 
+\begin{align}
+    H\ket{Ψ} &= E\ket{Ψ}, \\
+    \mathcal{H}c &= E\mathcal{N}c, 
+\end{align}
+where 
+\begin{align}
+    \mathcal{H} &= \br[4]{H_{i,j}} = \bra{g_i}\hat{H}\ket{g_j}, \\
+    \mathcal{N} &= \br[4]{N_{i,j}} = \braket{g_i}{g_j}.
+\end{align}
+
+\plainbreak{1}
+The correlated shifted gaussian is defined by: 
+\begin{align}
+    \braket{\v{r}}{g} &= \text{exp}\br{-\sum_{i,j=1}^{N}A_{i,j}\v{r}_i\cdot \v{r_j}+\sum_{i=1}^{N}\v{s}_i\cdot \v{r}_i}, \n
+    &= \G{r}{A}{s}. 
+\end{align}
+which gives the notation
+\begin{align}
+    \ket{g} = \ket{A, s}.
+\end{align}
+Here $A$ is a positive definite matrix matching $\v{r}$ and $\v{s}$ is the shift vector. 
 
 
 
-
-
+\newpage
 \begin{thebibliography}{9}
+    \bibitem{ana}
+    D.V. Fedorov. "Analytic matrix elements with shifted correlated Gaussians"
+
+    \bibitem{sigma}
+    D.V. Fedorov. "A nuclear model with explicit mesons"
+
+    \bibitem{SVM}
+    Yasuyuki Suzuki \& Kálmán Varga. "Stochastic Variational Approach to Quantum-Mechanical Few-Body Problems" Springer, 1998
+
     \bibitem{Griff}
     Griffiths, D. J. 2018, "Introduction to Quantum Mechanics"
-
-    \bibitem{ana}
-    Dimitri, F. "Analytic matrix elements with shifted correlated Gaussians"
 
     \bibitem{part}
     Navas, S. 2024, "Particle Properties" 
@@ -234,4 +692,4 @@ Claude har brugt arrays the skal laves til vectors.
     \url{https://pdg.lbl.gov/2024/listings/particle_properties.html}
 \end{thebibliography}
 
-\end{document} % ----------Dokumentet er nu slut! ------------
+\end{document} % ----------The document is now complete! ------------
