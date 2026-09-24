@@ -68,7 +68,7 @@ def progression(L):
     
     # Third Case
     if n == 5: 
-        delta = L[0]+L[2]-2*L[1]
+        delta = L[0]+L[2]-2*L[1] # (L[2]-L[1]) - (L[1]-L[0])
         step = L[1]-L[0]
         i = L[0]
         out = []
@@ -77,9 +77,6 @@ def progression(L):
             i += step
             step += delta
         return out
-
-
-
 
 
 print(progression(eval(input())))

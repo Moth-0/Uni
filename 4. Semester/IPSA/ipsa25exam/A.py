@@ -33,7 +33,7 @@
 def deviation(x, y, z):
     # insert code
     l = sorted([x,y,z])
-    return abs((l[2]+l[0])/2 - l[1])
+    return abs((l[2] + l[0])/2 - l[1])
 
 
 

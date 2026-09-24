@@ -45,12 +45,13 @@ n = int(input())
 text = [input() for _ in range(n)]
 
 for i in range(len(text)): 
-    j = i
-    while text[j][-1] == "*": 
-        if text[i-1].startswith(text[j][:-1]): 
-            text[j] = text[i-1]
+    j = i # Save index
+    while text[i][-1] == "*": # if word has * 
+        # check if word before starts with text[j][:-1]
+        if text[j-1].startswith(text[i][:-1]): 
+            text[i] = text[j-1] # If yes replace word j with word i
         else: 
-            i -= 1
+            j -= 1 # else move to word above 
 
 for t in text:
     print(t)

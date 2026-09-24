@@ -40,17 +40,16 @@
 
 
 # insert code
-def forbidden(*args, default=None, **kwargs): 
+def forbidden(*args, default=None): 
     def decorator(f): 
         def wrapper(*x): 
             out = f(*x)
-            if out in args or kwargs: 
+            if out in args: 
                 return default
             else: 
                 return out
         return wrapper
     return decorator
-
 
 
 import sys

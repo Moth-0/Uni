@@ -49,11 +49,16 @@
 
 # insert code
 n, m = map(int, input().split())
+
 board = [[x for x in input()] for _ in range(n)]
+# input() = "0","0","0", 0000"
+# A list of lists every row is a list of individual strings 
+# [["0", "0", "1", "0"], [...], ...]
 
 i_list = []
 j_list = []
 
+# makes column and row list containing index containing ones. 
 for i in range(n):
     for j in range(m):
         if board[i][j] == "1": 

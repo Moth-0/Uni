@@ -61,21 +61,28 @@ from functools import cache
 n, m, x, y = map(int, input().split())
 
 board = [[p for p in input()] for _ in range(n)]
+# board = [["4", "3", "2"], ...]
 
 is_valid = set()
 directions = [(0, 1), (0,-1), (1,0), (-1,0)]
 
-@cache
+@cache 
 def valid(i, j): 
+    # Add point to set of valid points
     is_valid.add((i, j))
-    for d in directions: 
+    for d in directions: # Walk all directions from point 
+        # Check direction is a valid step 
         if 0 <= i+d[0] < (n) and 0<= j+d[1] < (m):  
+            # Makes valid skip repeats 
             if (i+d[0],j+d[1]) not in is_valid: 
+                # If the water can flow in direction
                 if board[i][j] >= board[i+d[0]][j+d[1]]: 
+                    # Check from that direction
                     valid(i+d[0], j+d[1])
         
 valid(x, y)
 
+# Replace valid points with water marks 
 for i in range(n): 
     for j in range(m):
         if (i, j) in is_valid: 

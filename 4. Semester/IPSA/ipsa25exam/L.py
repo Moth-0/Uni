@@ -27,31 +27,39 @@
     Note: The below code already reads the input list L.
 '''
 
-# What is this asking????
-# Im not sure of the logic so the answer is flawed 
 L = eval(input())
 # insert code
+from functools import cache
 
-i = 0 
-out = []
 
-def solve(i, L): 
-    if len(L) == 5: 
-        out.append((i+2))
-    elif len(L) == 4:
-        l = [L[2], L[1]]
-        j = 2-l.index(min(l))
-        out.append((i+j))
-    elif len(L) == 3: 
-        l = [L[2], L[1], L[0]]
-        j = 2-l.index(min(l))
-        out.append((i+j))
-    elif len(L) >= 6: 
-        l = [L[2], L[1], L[0]]
-        j = 2-l.index(min(l))
-        out.append((i+j))
-        solve((i+j+1), L[j+1:])
+def func(L):
+    n = len(L)
+    
+    @cache
+    def solve(i):
+        # if there is less then 3 elements left, we dont need to add more
+        if i >= n-3:
+            return L[i], [i]
+        
+        # run recursion on the next three numbers from out current idx
+        new_sum, new_idx = min(solve(i+1), solve(i+2), solve(i+3), 
+                               key=lambda x: x[0]) # pick the one with min value 
+
+        # update and return the new sum 
+        sum = L[i] + new_sum
+        idx = [i] + new_idx
+
+        return sum, idx
+    
+    out0 = solve(0)
+    out1 = solve(1)
+    out2 = solve(2)
+
+    value, index = min(out0, out1, out2, 
+                       key=lambda x: x[0])
+    
+    return index
+
     
         
-solve(i, L)
-print(out)
+print(func(L))

@@ -1,0 +1,920 @@
+% First line is the document class. Always use memoir!
+\documentclass[a4paper,oneside,article,12pt]{memoir}
+
+% Below various packages are loaded
+\usepackage[utf8]{inputenc}  % Correct handling of æ, ø and å
+\usepackage[T1]{fontenc}  % Correct handling of æ, ø and å
+\usepackage{microtype}  % Typographic magic! Provides nicer hyphenation among other things
+\usepackage{graphicx}  % Makes it possible to insert images
+\usepackage{amsmath}  % Provides access to essential math things
+\usepackage{mathtools}  % Fixes things in ams and provides extra options
+\usepackage[english]{babel}
+\usepackage{lmodern}
+\usepackage{alphabeta}
+\usepackage{float} % More control over image placement
+\usepackage{siunitx} % Scientific notation for various things, with a rule that it should use cdot instead of times. 
+\sisetup{inter-unit-product = \cdot, 
+        exponent-product=\cdot}\usepackage{derivative} % For writing differential equations 
+\usepackage{xcolor} % To get more text colors 
+\usepackage[colorlinks=true]{hyperref} % To get clickable references, delete [] if you want boxes instead of colored text.
+
+\usepackage{pdfpages} % For inserting other PDFs
+%\usepackage{subfig} % To have two images side by side
+\usepackage{unicode-math}
+
+% Nicer table of contents indents 
+\usepackage{tocloft}
+\cftsetindents{section}{1em}{2em}
+\cftsetindents{subsection}{4em}{0em}
+
+% Layout 
+% Linedistance
+\linespread{1.12} % 1.1–1.3 are typical
+\setlength{\parskip}{0.4\baselineskip}
+
+\usepackage{titlesec, blindtext, color}
+\titlespacing*{\chapter}{0pt}{0pt}{18pt}
+\definecolor{gray75}{gray}{0.75}
+\newcommand{\hsp}{\hspace{10pt}}
+\titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter\hsp\textcolor{gray75}{|}\hsp}{0pt}{\Huge\bfseries}
+
+\titlespacing*{\section}{2pt}{20pt}{5pt}
+\titleformat{\section}[hang]{\large\bfseries}{\thesection\hsp}{0pt}{\large\bfseries}
+
+% Your document content starts here!
+\begin{document}
+%\author{Mikkel Moth Billing \\ 202307989}
+%\title{Title}
+\date{\today}
+%\maketitle   % Inserts the header
+% Table of Contents settings
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{1}
+\hypersetup{linkcolor=black} % Makes table of contents black  
+%\tableofcontents %Inserts ToC
+\hypersetup{linkcolor=red} % and all other hyperrefs red 
+
+% Custom Commands
+\newcommand{\ti}[1]{\cdot 10^{#1}} % Easy: times 10^x
+\newcommand{\e}[1]{\emph{e}^{#1}} % Nicer e^x
+\newcommand{\vm}[2]{\begin{pmatrix} #1 \\ #2 \end{pmatrix}}
+\newcommand{\mat}[1]{\begin{pmatrix} #1 \end{pmatrix}}
+\newcommand{\h}{\hbar}
+\renewcommand{\v}[1]{\mathbfit{#1}}
+\newcommand{\ep}{\epsilon_0}
+\newcommand{\dd}{\partial}
+\renewcommand{\square}{□}
+\newcommand{\p}{\phi}
+\newcommand{\f}[1]{\tilde{#1}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\n}{\nonumber\\}
+
+% Easy parentheses 
+\newcommand{\br}[2][1]{%
+    \ifcase#1
+    \or \left( #2 \right) %1 or nothing
+    \or \left[ #2 \right] %2
+    \or \left\langle #2 \right\rangle %3
+    \or \left\{ #2 \right\} %4
+    \or \left| #2 \right| %5
+    \fi
+}
+
+% Bracket notation
+\DeclarePairedDelimiter\bra{\langle}{\rvert}
+\DeclarePairedDelimiter\ket{\lvert}{\rangle}
+\DeclarePairedDelimiterX\braket[2]{\langle}{\rangle}{#1\,\delimsize\vert\,\mathopen{}#2}
+
+
+% For inserting images into large documents
+\newcommand{\bil}[1]{
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Billeder/#1.png}
+    \label{fig:#1}
+\end{figure}
+}
+
+% For inserting PDFs into large documents (only PDFs with more than 1 page)
+\newcommand{\pdf}[4]{
+\includepdf[pages=#3,scale=.85,pagecommand={\subsection{#2 - \ref{ch:opg}}  \label{asc:#2}}]{pdf/#1.pdf}
+\includepdf[pages=\the\numexpr 1 + #3\relax-#4, scale=.85]{pdf/#1.pdf}
+}
+
+% To give equation numbers 
+\newcommand{\eq}[1]{\label{eq:#1}\tag{#1}}
+\newcommand{\note}[1]{\textcolor{red}{#1}}
+\newcommand{\com}[1]{\textcolor{blue}{#1}}
+\newcommand{\tr}{{\cramped{{}^\mathsf{T}}}}
+
+% wavefunctions 
+\newcommand{\G}[3]{\e{-\v{#1}\tr #2\v{#1}+\v{#3}\tr \v{#1}}}
+\newcommand{\ψ}{\br{\ket{A,a} + \ket{A,-a}}}
+\newcommand{\χ}{\ket{\uparrow\uparrow}}
+\newcommand{\ξ}[1]{\frac{1}{\sqrt{2}}\br{\ket{pn}#1\ket{np}}}
+
+% Front page 
+\pagestyle{empty}
+
+\begin{titlingpage}
+  \newlength{\frontpagecorrection}
+  \calccentering{\frontpagecorrection}
+  \begin{adjustwidth*}{\frontpagecorrection-2cm}{-\frontpagecorrection-2cm}
+
+    \centering
+    \sffamily
+
+    \vspace*{0.1cm}
+
+    \fontsize{26pt}{29pt}\selectfont
+
+    % Title
+    The Effect of Relativistic Kinematics on the Pion-Dressed Deuteron \par
+
+    \vspace{0.8cm}
+
+    \fontsize{18pt}{22pt}\selectfont
+
+    Mikkel Moth Billing \par
+
+    \vspace{2.0cm}
+
+    % Please change to a nice picture related to your work
+    \includegraphics[width=5cm]{segla1b}
+
+    \vspace{2.0cm}
+
+    Bachelor's Project
+
+    \vspace{0.8cm}
+
+    \fontsize{14pt}{17pt}\selectfont
+
+    Department of Physics and Astronomy\par
+    Aarhus University\par
+    
+    \vspace{0.3cm}
+    Supervisor: Dmitri Fedorov
+
+    \vspace{0.3cm}
+
+    June 2026
+
+  \end{adjustwidth*}
+\end{titlingpage}
+
+
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% The verso of the title page
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+% Write
+\chapter*{Abstract}
+\pagestyle{empty}
+This report investigates the deuteron using a nuclear model with explicit mesons, describing the system as a superposition of a bare neutron-proton state and a dressed neutron-proton-pion state. Transitions between these states generate the effective nuclear attraction. The spatial wavefunctions are evaluated using the Stochastic Variational Method and a basis of Correlated Shifted Gaussians. The model is calibrated by tuning a nucleon interaction range and a pion-nucleon coupling strength to reproduce the experimental deuteron binding energy and charge radius. 
+
+After calibrating the model, the primary goal is to evaluate the effect of relativistic kinematics. Since the explicitly modeled pion is much lighter than the nucleons, it reaches relativistic velocities inside the nucleus. By replacing the classical kinetic energy operators with their exact relativistic counterparts, the resulting shifts in binding energy are determined. The findings show that while relativistic corrections are negligible for the heavy nucleons, they play a crucial role in the dynamics of the light pion, significantly altering the energy of the dressed state. 
+
+\newpage
+\chapter*{Resumé}
+\pagestyle{empty}
+Dette projekt undersøger deuteronen ved hjælp af en kernemodel med eksplicitte mesoner, hvor systemet beskrives som en superposition af en bar neutron-proton-tilstand og en klædt neutron-proton-pion-tilstand. Overgange mellem disse tilstande skaber den effektive kernekraft. De rumlige bølgefunktioner evalueres med den stokastiske variationsmetode (SVM) ved brug af en basis af korrelerede forskudte Gauss-funktioner. Modellen kalibreres ved at justere rækkevidden for nukleonvekselvirkningen og koblingsstyrken mellem pion og nukleon for at reproducere deuteronens eksperimentelle bindingsenergi og ladningsradius. 
+
+Efter kalibreringen er det primære mål at evaluere effekten af relativistisk kinematik. Da den eksplicit modellerede pion er meget lettere end nukleonerne, opnår den relativistiske hastigheder inde i kernen. Ved systematisk at udskifte de klassiske operatorer for kinetisk energi med deres relativistiske ækvivalenter, isoleres de resulterende energiskift. Resultaterne viser, at mens relativistiske korrektioner er ubetydelige for de tunge bare nukleoner, er de afgørende for den lette pions dynamik og ændrer bindingsenergien af den klædte tilstand markant.
+
+\newpage
+\pagestyle{empty}
+% Table of Contents indstillinger
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{1}
+\hypersetup{linkcolor=black} % Laver tableofcontents sort.  
+\tableofcontents* %Indsætter ToC
+\pagestyle{empty}
+\hypersetup{linkcolor=red} % og så alle andre hyperrefs røde. 
+
+\newpage
+\pagestyle{plain}
+\setcounter{page}{1}
+\chapter{Introduction}
+The deuteron is the simplest bound nucleus, consisting of just one proton and one neutron. Due to its simplicity, it serves as the natural starting point for investigating the strong nuclear force. While standard nuclear models describe this force using effective potentials fitted to experimental data, this project utilizes the nuclear model with explicit mesons (MEM). Working within the one-pion approximation, the physical deuteron is modeled as a quantum superposition of a bare neutron-proton state and a dressed nucleon-nucleon-pion state. Transitions between these states generate the effective attraction that binds the nucleus.
+
+Solving the Schrödinger equation for this multi-channel system requires efficient computational techniques. 
+This is achieved by employing the Stochastic Variational Method (SVM) utilizing a basis of correlated shifted Gaussians. This choice of basis is advantageous because it provides analytical matrix elements for the overlaps and spatial interactions, reducing computation time. 
+By optimizing the widths and spatial shifts of these Gaussians, the basis can dynamically capture the exact spatial structure of the loosely bound deuteron.
+
+The pions have a mass of approximately $140$ MeV, which is significantly lighter than the 940 MeV nucleons. Consequently, the pion reaches relativistic speeds within the nucleus, meaning the classical kinetic energy operator $p^2/2m$ may lack sufficient accuracy. The primary objective of this project is to quantify this relativistic correction. By evaluating the Hamiltonian using both the classical operator and the exact relativistic operator, $\sqrt{p^2+m^2}-m$, the resulting energy shift is isolated. This comparison is performed independently for the heavy nucleons and the light pion to determine where relativistic kinematics are necessary.
+
+\newpage
+\chapter{Deuteron System} \label{ch:deuteron}
+In this project we are modeling deuteron bound by a single pion, by expressing it as two subsystems, one with the bare deuteron core consisting of a proton and a neutron, and a system that also contains a pion. This two-channel approach lets us calculate how the pion mediates the attraction between nucleons, effectively giving us a pion-exchange model without solving the full three-body problem directly. 
+
+The spatial wavefunction can be described as a vector of the two systems 
+\begin{align}
+    ψ = \vm{ψ_{pn}(\v{r}_p, \v{r}_n)}{ψ_{pnπ}(\v{r}_p, \v{r}_n, \v{r}_π)}, 
+\end{align}
+where $\v{r}_i$ is the coordinate vector of the $i$'th particle. This means we have a two-particle and a three-particle system, which we will use Jacobi center mass coordinates to reduce to $(N-1)$ systems in chapter \ref{ch:jac}. 
+
+To couple the bare $pn$ channel to the $pnπ$ channel, we introduce the pion emission/absorption operator $W$. 
+It acts between the two subspaces and decides both the allowed transitions and their amplitudes. 
+
+
+With this we can build a Hamiltonian describing the system. The top-left $K_{pn}$ is the kinetic energy of just the bare nucleon pair. The bottom-right $K_{pnπ} + m_π$ is the kinetic energy plus rest mass of the three-body system with the pion. The off-diagonal $W$ blocks let the system transition between these two states. 
+\begin{align}
+    H = \begin{pmatrix}
+        K_{pn} & W \\ W^\dagger & K_{pnπ} + m_π
+    \end{pmatrix}. \label{eq:H}
+\end{align}
+
+We only model the kinetic energy, as the $W$ operator will model the nucleon-nucleon potential. The Coulomb interaction between the particles is neglected in this model, since we are looking at the effect of kinetic energy, and the Coulomb potential is assumed to have minimal effect. 
+
+
+\section{Variational principle}
+To find the binding energy of this system, we can use the variational principle to find an upper bound for the ground state energy. The variational principle states that for any spatial wavefunction $Ψ$, the expected value of $H$ satisfies 
+\begin{align}
+    E = \frac{\bra{Ψ}H\ket{Ψ}}{\braket{Ψ}{Ψ}} \geq E_0, 
+\end{align}
+where $Ψ$ is and eigenstate of $H$ with eigenvalue $E_0$ \cite{SVM}. Meaning any wavefunction we guess will give us an energy that's higher than (or equal to) the true ground state energy. So by trying many wavefunctions and picking the one with the lowest energy, we gradually approach the true ground state. 
+This means we can build a system of linear combinations of wavefunctions and minimize to find an approximate ground state wavefunction
+\begin{align}
+    Ψ = \sum_{i=0}^nc_iψ_i(a_i), 
+\end{align}
+where the parameters $a_i$ let us tune each wavefunction to push that energy as low as possible. To find the coefficients $c_i$, we construct the Hamiltonian matrix $\mathcal{H}$ and overlap matrix $\mathcal{N}$ from the basis functions, then solve the generalized eigenvalue problem:
+\begin{align}
+    \mathcal{H}c = E\mathcal{N}c, \label{eq:gen_eigen}
+\end{align}
+where 
+\begin{align}
+    \mathcal{H}_{ij} = \bra{ψ_i(a_i)}H\ket{ψ_j(a_j)}, \quad \mathcal{N}_{ij} = \braket{ψ_i(a_i)}{ψ_j(a_j)}.
+\end{align}
+The lowest eigenvalue $E$ of this generalized eigenvalue problem represents an upper bound on the ground state energy. The numerical solution method is discussed in detail in Chapter~\ref{ch:comp_eigenvalue}.
+
+The binding energy is the energy gained when nucleons bind together. It equals the energy difference between a separated nucleon pair (zero reference) and the bound deuteron state. Since our Hamiltonian has zero energy at infinite separation, the ground state energy $E_0$ is negative, and the binding energy is $E_d=-E_0$. 
+
+\newpage
+\chapter{Correlated Shifted Gaussian} \label{ch:gaussian}
+To model the spatial wavefunction we use the Gaussian method, where we build the wavefunction as a linear combination of correlated shifted Gaussians. The correlated Gaussian is defined as \cite{ana}
+\begin{align}
+    \text{exp}\br{-\sum_{i,j=1}^{N}A_{i,j}\v{r}_i\cdot \v{r_j}}
+    \equiv \e{-\v{r}\tr A\v{r}},
+\end{align}
+which defines a system of N particles where $\v{r} = \br{\v{r}_1, ..., \v{r}_N}$ is a N-dimensional column vector of particle 3-dimensional coordinate vectors $\v{r}_j$, with unit length fm, for particle $j$. $A$ is a $N\times N$ symmetric positive-definite particle correlation matrix with units fm$^{-2}$. To allow the basis to describe states with non-zero orbital angular momentum and break spherical symmetry, we introduce a spatial shift $\v{r}_0$ to the coordinate vector,
+\begin{align}
+    \exp\br{-(\v{r}-\v{r}_0)\tr A(\v{r}-\v{r}_0)}
+    &= \exp\br{-\v{r}\tr A\v{r}+2\v{r}_0\tr A\v{r}-\v{r}_0\tr A\v{r}_0}, 
+\end{align}
+the last part is a constant so we omit this, and if we define $\v{s}\tr =\frac{1}{2}\v{r}_0\tr A$, we get the final correlated shifted Gaussian
+\begin{align}
+    \G{r}{A}{s} 
+    = \text{exp}\br{-\sum_{i,j=1}^{N}A_{i,j}\v{r}_i\cdot \v{r_j}+\sum_{i=1}^{N}\v{s}_i\cdot \v{r}_i}
+    = \braket{\v{r}}{g}. 
+\end{align}
+Each basis function is determined by two parameters: the matrix $A$ and the shift $\v{s}$. This makes the Gaussian basis computationally useful for calculating all the matrix elements we need.
+
+\section{Overlap}
+Since the product of two Gaussians is again a Gaussian, the overlap integral between two shifted correlated Gaussians reduces to a single Gaussian integral with an effective matrix $B=A+A'$ and effective shift $\v{v}=\v{s}+\v{s}'$. We diagonalize $B$ with an orthogonal matrix $Q$ so that $B=QDQ\tr$ and transform coordinates as $\v{r}=Q\v{x}$. This decouples the integral into a product of $N$ independent 3D Gaussian integrals \cite{ana}. 
+\begin{align}
+    \braket{g'}{g} 
+    &= \int d^3\v{r}_N\G{r}{B}{v}, \n
+    &= \prod_{i=1}^{N} \int d^3\v{x}_i \e{-\v{x}_i\cdot D_{ii}\v{x}_i+\v{v}_i \cdot \v{x}_i}, \n
+    &= \prod_{i=1}^{N} \e{\frac{1}{4D_{ii}}\v{v}_i^2}\br{\frac{π}{D_{ii}}}^{3/2}, \n
+    &= \br{\frac{π^N}{\text{det}B}}\e{\frac{1}{4}\v{v}\tr B^{-1}\v{v}} \equiv M. 
+\end{align}
+This gives us the unnormalized overlap element $M$, which will be normalized by solving the generalized eigenvalue problem. 
+
+We can use the Gaussians to evaluate functions in the form of $\bra{g'}f(w\tr \v{r})\ket{g}$, like $w\tr \v{r}$ and $(w\tr \v{r})^2$.
+Differentiating the exponential with respect to the shift, pulls down coordinate factors $\v{r}$. 
+\begin{align}
+    \bra{g'}w\tr \v{r}\ket{g} 
+    &= \int d^3\v{r}\;w\tr \v{r}\G{r}{B}{v}, \n
+    &= w\tr \nabla_{\v{v}}\int d^3\v{r}\G{r}{B}{v}, \n
+    &= w\tr \br{\frac{\dd}{\dd \v{v}\tr }}\e{\frac{1}{4}\v{v}\tr B^{-1}\v{v}}\br{\frac{π^N}{\det B}}^{3/2} 
+    = w\tr \v{u} M, 
+\end{align}
+where $\v{u} = \frac{1}{2}B^{-1}\v{v}$. 
+Expressing the result in terms of $\v{u}$ isolates the dependence on the spatial shifts, simplifying the algebraic evaluation of higher-order matrix elements.
+For $(w\tr \v{r})^2$ the derivation is similar and yields: 
+\begin{align}
+    \bra{g'}\v{r}\tr ww\tr \v{r}\ket{g} 
+    &= \br{\frac{\dd}{\dd \v{v}}ww\tr \frac{\dd}{\dd \v{v}\tr }}M, \n
+    &= \br[2]{\frac{3}{2}w\tr B^{-1}w+\frac{1}{4}\br{w\tr B^{-1}\v{v}}\br{\v{v}\tr B^{-1}w}}M, \n
+    &= \br{\frac{3}{2}w\tr B^{-1}w+\v{u}\tr ww\tr \v{u}}M. \label{eq:wr}
+\end{align}
+
+\newpage
+The formula works for any smooth function of $w^T r$. The key is that the exponential of a quadratic form in the coordinates, allows us to compute these integrals in closed form, using the substitution $\beta$ and $q$ to reshape the integrand \cite{ana}. 
+\begin{align}
+    \bra{g'}f(\br[5]{w\tr \v{r}})\ket{g} &= M \br{\frac{β}{π}}^{\frac{3}{2}} 2π \frac{\e{-βq^2}}{βq}\int_0^\infty rdrf(r)\e{-βr^2}\sinh\br{2βqr}, \label{eq:J}
+\end{align}
+where $β = \br{w\tr B^{-1}w}^{-1}$ and $q=w\tr\v{u}$, which we will use for calculating kinetic energy in section \ref{ch:kin}. 
+
+\section{Momentum Space}
+To easily calculate the kinetic energy, we evaluate the basis functions in momentum space using a Fourier transform. We adopt the convention $\braket{\v{r}}{\v{k}} = \e{i\v{k}\tr \v{r}}$ with the corresponding completeness relation $\int \frac{d^{3N}\v{k}}{(2π)^{3N}}\,\ket{\v{k}}\bra{\v{k}} = 1$. This specific choice systematically handles the $(2π)^{3N}$ factors in all subsequent matrix elements and ensures that normalization is preserved between coordinate and momentum space.
+
+Because the spatial wavefunction is Gaussian, its Fourier transform remains Gaussian in $\v{k}$, with a transformed width matrix and a complex shift. By inserting a spatial completeness relation, the transformed state is evaluated as:
+\begin{align}
+    \braket{\v{k}}{g} &= \int d^{3N}\v{r}\e{-i\v{k}\tr \v{r}} \G{r}{A}{s}, \n
+    &= \br{\frac{π^N}{\text{det}(A)}}^{3/2} \e{\frac{1}{4}(\v{s}-i\v{k})\tr A^{-1}(\v{s}-i\v{k})}, \n
+    &= \br{\frac{π^N}{\text{det}(A)}}^{3/2} \e{\frac{1}{4}\v{s}\tr A^{-1}\v{s}} \cdot \e{-\frac{1}{4}\v{k}\tr A^{-1}\v{k}} \cdot \e{-\frac{1}{2}i\v{k}\tr A^{-1}\v{s}}, 
+\end{align}
+which gives the Fourier-transformed Gaussian
+\begin{align}
+    \ket{\f{g}} = \G{k}{\f{A}}{\f{s}},
+\end{align}
+where $\f{A}=\frac{1}{4}A^{-1}$ and $\f{\v{s}}=\frac{-i}{2}A^{-1}\v{s}$. 
+
+\newpage
+The factor $\mathcal{M}(A,\v{s})$ collects the $A$- and $\v{s}$-dependent prefactors, so that the remaining $\ket{\f{g}}$ has the same Gaussian form as in coordinate space but expressed in momentum variables:
+\begin{align}
+    \M (A,\v{s}) = \br{\frac{π^N}{\text{det}(A)}}^{3/2} \e{\frac{1}{4}\v{s}\tr A^{-1}\v{s}},
+\end{align}
+giving us the final solution 
+\begin{align}
+    \braket{\v{k}}{g} = \M(A,\v{s}) \ket{\f{g}}.
+\end{align}
+
+The overlap in momentum space can be calculated as 
+\begin{align}
+    \braket{g'}{g} &= \int \frac{d^{3N}\v{k}}{(2π)^{3N}} \braket{g'}{\v{k}} \braket{\v{k}}{g}, \n
+    &= \br{\frac{π^N}{\text{det}A'}\frac{π^N}{\text{det}A}}^{3/2} \frac{\e{\frac{1}{4}\v{s}'^\intercal A'^{-1}\v{s}'}\e{\frac{1}{4}\v{s}\tr A^{-1}\v{s}}}{(2π)^{3N}}\braket{\f{g}'}{\f{g}}, \n
+    &= \M(A',\v{s}')\M(A,\v{s})\frac{\braket{\f{g}'}{\f{g}}}{(2π)^{3N}}.
+\end{align}
+This factorization lets us compute kinetic energy efficiently as integrals over momentum, as seen in the next section.
+
+\section{Kinetic Energy} \label{ch:kin}
+We can now use the overlap to calculate the matrix element for the general momentum operator $f(u\tr \v{k})$.
+We insert a momentum-space completeness relation and evaluate the resulting Gaussian integral. This reduces the matrix element to a radial integral over $x=|\v{k}|$, which depends only on the scalar $u\tr\v{k}$. 
+\begin{align}
+    \bra{g'}f(\br[5]{u\tr \v{k}})\ket{g} &= \int \frac{d^{3N}\v{k}}{(2π)^{3N}}\braket{g'}{\v{k}}f(\br[5]{u\tr \v{k}})\braket{\v{k}}{g}, \n
+    &= \M(A',\v{s}')\M(A,\v{s}) \frac{1}{(2π)^{3N}} \bra{\f{g}'}f(\br[5]{w\tr \v{x}})\ket{\f{g}}, 
+\end{align}
+using equation (\ref{eq:J}) we get 
+\begin{align}
+    &= \M(A',\v{s}')\M(A,\v{s}) \frac{\braket{\f{g}'}{\f{g}}}{(2π)^{3N}} \br{\frac{γ}{π}}^{3/2}2π\frac{\e{-γ(iη)^2}}{iγη}\int_0^\infty dx x\f{f}(x)\e{-γx^2}\sinh(2iγηx), \n
+    &= \braket{g'}{g}\br{\frac{γ}{π}}^{3/2}2π\frac{\e{γη^2}}{γη}\int_0^\infty dx x\f{f}(x)\e{-γx^2}\sin(2γηx), \label{eq:cp}
+\end{align}
+where the parameter $\gamma$ controls the effective width of the Gaussian in momentum space, while $\v{\eta}$ encodes the shift dependence, 
+\begin{align}
+    \frac{1}{γ} = u\tr \f{R}u = u\tr \br{\f{A}+\f{A}'}^{-1}u = 4u\tr \br{A^{-1}+A'^{-1}}^-1u = 4u\tr ARA'u, 
+\end{align}
+if we define $R = B^{-1} = (A+A')^{-1}$. We also have the shift part 
+\begin{align}
+    \v{η} = u\tr \br{AR\v{s}'-A'R\v{s}}, 
+\end{align}
+For unshifted Gaussians the sine term linearizes and the remaining integral becomes a standard Gaussian moment, giving a closed-form expression 
+\begin{align}
+    \bra{g'}f(\br[5]{u\tr \v{k}})\ket{g} = \br{\frac{π^N}{\text{det}B}} 4π\br{\frac{γ}{π}}^{3/2}\int_{0}^{\infty}dxx^2\f{f}(x)\e{-γx^2}. 
+\end{align}
+
+Now that we have a general form for a momentum function, we can plug in non-relativistic kinetic energy: 
+\begin{align}
+        \f{f}(u\tr \v{k}) = \frac{(u\tr \v{k})^2}{2m},
+\end{align}
+which gives us the shifted matrix element 
+\begin{align}
+    \bra{g'}\frac{(u\tr \v{k})^2}{2m}\ket{g} &= \braket{g'}{g}\frac{2π}{2m}\br{\frac{γ}{π}}^{3/2}\frac{\e{γη^2}}{γη}\int_0^\infty dxx^3\e{-γx^2}\sin(2γηx), \n
+    &= \braket{g'}{g}\frac{2π}{2m}\br{\frac{γ}{π}}^{3/2}\frac{\e{γη^2}}{γη} \frac{\sqrt{π}\e{-γη^2}}{4γ^{3/2}}\br{3η-2γη^3}, \n
+    &= \frac{\braket{g'}{g}}{2m}\br{\frac{3}{2}\frac{1}{γ}-η^2}. \label{eq:cla}
+\end{align}
+And in the case of no shift: 
+\begin{align}
+    \lim_{η \rightarrow 0}\frac{\e{γη^2}}{γη}\sin(2γηx) = 2x, 
+\end{align}
+\begin{align}
+    \bra{g'}\frac{(u\tr \v{k})^2}{2m}\ket{g} &= \braket{g'}{g}\br{\frac{γ}{π}}^{3/2}\frac{4π}{2m}\int_0^\infty dxx^4\e{-γx^2}, \n
+    &= \braket{g'}{g}\frac{4π}{2m}\br{\frac{γ}{π}}^{3/2}\frac{3\sqrt{π}}{8γ^{5/2}}=\braket{g'}{g}\frac{3}{m}(u\tr A'RAu). 
+\end{align}
+
+To include relativistic corrections, we replace the non-relativistic $p^2/2m$ with the exact relativistic form $\sqrt{p^2+m^2}-m$, keeping the same momentum-space framework, but using the function 
+\begin{align}
+    \f{f}(u\tr \v{k})=\sqrt{(u\tr \v{k})^2+m^2}-m,  
+\end{align}
+which gives us the shifted matrix element: 
+\begin{align}
+    & \bra{g'}\br{\sqrt{(u\tr \v{k})^2+m^2}-m}\ket{g} \n 
+    &= \braket{g'}{g}\br{\frac{γ}{π}}^{3/2}2π\frac{\e{γη^2}}{γη}\int_0^\infty dxx\e{-γx^2}\sin(2γηx)\br{\sqrt{x^2+m^2}-m}, \label{eq:rel}
+\end{align}
+which again can be simplified for $\v{η}=0$:
+\begin{align}
+    &\bra{g'}\br{\sqrt{(u\tr \v{k})^2+m^2}-m}\ket{g} \n 
+    &= \braket{g'}{g}\br{\frac{γ}{π}}^{3/2}4π\int_0^\infty dxx^2\e{-γx^2}\br{\sqrt{x^2+m^2}-m}. 
+\end{align}
+
+Unlike the classical operator, these relativistic integrals cannot be solved analytically and must be evaluated numerically using Simpson's rule. Because the analytical integral limits extend from zero to infinity, the numerical integration requires a carefully chosen upper momentum cutoff. 
+Since the system is transformed into Jacobi coordinates, to remove the center of mass, the mass parameter $m$ in these equations explicitly represents the reduced mass $\mu$ of the specific relative subsystem being evaluated.
+
+\newpage
+We can also see that in the low momentum regime where $x \ll m$, the relativistic energy is the same as the classic energy, since we can transform the operator using Taylor-approximation
+
+\begin{align}
+    \sqrt{x^2+m^2}-m &= m\br{\sqrt{1+\br{\frac{x}{m}}^2} - 1} \n
+    &\approx m\br{1 + \frac{x^2}{2m^2} - 1} \n 
+    &= \frac{x^2}{2m}.
+\end{align}
+Substituting this approximation back into the full integral yields:
+\begin{align}
+    \bra{g'}T_{\text{rel}}\ket{g} &\approx \braket{g'}{g}\br{\frac{\gamma}{π}}^{3/2}2π\frac{\e{\gamma\eta^2}}{\gamma\eta}\int_0^\infty dx \, x\e{-\gamma x^2}\sin(2\gamma\eta x)\br{\frac{x^2}{2m}} \n
+    &= \braket{g'}{g}\frac{2π}{2m} \br{\frac{\gamma}{π}}^{3/2}\frac{\e{\gamma\eta^2}}{\gamma\eta}\int_0^\infty dx \, x^3\e{-\gamma x^2}\sin(2\gamma\eta x).
+\end{align}
+This confirms that the numerical relativistic integral recovers the analytical classical integral for heavy non-relativistic particles.
+
+\section{Charge Radius}
+From the overlap formula, we can extract physical observables. One key quantity is the charge radius, which measures the spatial extent of the charge distribution in the deuteron. Physically, this radius is not determined solely by the proton's position, it is also modified by the intrinsic charge distribution of the neutron and the spatial extent of the charged virtual pions ($\pi^+$ and $\pi^-$) that mediate the strong interaction. We compute this macroscopic radius using the expectation value of $r^2$ in our Gaussian basis, and then fit our model parameters to match the experimental value.
+\begin{align}
+    r_d &= \sqrt{\br[3]{r_c^2}+r_p^2+r_n^2}, \\
+    \br[3]{r_c^2} &= \frac{u\tr R^2c}{c\tr\mathcal{N}c}, \\
+    R_{ij}^2 &= \bra{ψ_i}\v{r}\tr ww\tr\v{r}\ket{ψ_j}, 
+\end{align} 
+where $r_d$ is the total charge radius, $r_c$ is the RMS radius of the charge distribution in the center-of-mass frame. The intrinsic squared radii of proton and neutron are $r_p^2 \approx 0.708 \text{fm}^2$ and $r_n^2 \approx -0.1161 \text{fm}^2$. The second line shows how we extract $r_c^2$ from the matrix element $R^2$ using our basis coefficients $c$. We can use the charge radius to fit parameters later, since it has an experimentally found value for the deuteron. 
+
+\vspace{30pt}
+\chapter{Jacobi Transformation} \label{ch:jac}
+To reduce the number of dimensions for our calculations, we introduce a center mass Jacobi shift. 
+The Jacobi matrix is defined by 
+\begin{align}
+    J = \begin{pmatrix} 
+    \frac{m_1}{M_1} & -1 & 0 & \dots & 0 \\ 
+    \frac{m_1}{M_2} & \frac{m_2}{M_2} & -1  & \dots & 0 \\ 
+    \vdots & \vdots & \vdots & \ddots  & \vdots \\
+    \frac{m_1}{M_N} & \frac{m_2}{M_N} & \dots & \frac{m_{N-1}}{M_N} & \frac{m_N}{M_N}
+    \end{pmatrix}
+\end{align}
+where $M_n = \sum_{i=1}^{n}m_i$. Here the last row describes the center mass coordinates, which we are not interested in 
+since we are examining internal nucleon interactions. Thus we can transform our $N$ body systems into $N-1$ systems, by discarding the center-mass coordinates. 
+
+Since we have now made the transformation $\v{r} \rightarrow J\v{r} = \v{r}'$, we also introduce vectors that pick out specific coordinates in both physical and momentum space. 
+These are denoted $w_i$ for physical space and $u_i$ for momentum space. They are unit vectors with $1$ in the $i$'th slot. 
+Under a coordinate transformation they transform as $w_i \rightarrow U\tr w_i$, where $U=J^{-1}$, since 
+\begin{align}
+    w\tr \v{r} \rightarrow w\tr J^{-1}J\v{r} = \br{U\tr w}\tr \v{r}'.
+\end{align}
+In practice this means the kinetic energy splits into relative motions with reduced masses, e.g., $\mu_{np}$ for the $pn$ coordinate and $\mu_{npπ}$ for the pion relative to the $pn$ pair. 
+
+For momentum space, the transformation looks a little different, $u_i \rightarrow Ju_i$ since $u\tr \v{k} = -i\sum_{i}u_i\frac{\dd}{\dd r_i}$, which shows
+\begin{align}
+    u\tr \v{k} = -i\sum_{i}u_i\frac{\dd}{\dd r_i} = -i\sum_{i}u_i\frac{\dd}{\dd r'_j} \frac{\dd r'_j}{\dd r_i} = u_i J_{ij}k_j'=\br{Ju}\tr \v{k}'. 
+\end{align}
+For the $pnπ$ system with particle ordering $(p,n,π)$, the full explicit Jacobi matrix is
+\begin{align*}
+    \renewcommand{\arraystretch}{1.3}
+    J_{3} = \begin{pmatrix}
+    \frac{m_p}{m_p} & -1 & 0 \\
+    \frac{m_p}{m_p+m_n} & \frac{m_n}{m_p+m_n} & -1 \\
+    \frac{m_p}{m_p+m_n+m_π} & \frac{m_n}{m_p+m_n+m_π} & \frac{m_π}{m_p+m_n+m_π}
+    \end{pmatrix},
+\end{align*}
+where we can then remove the last row and rewrite in terms of reduced mass. 
+
+\begin{align*}
+    \renewcommand{\arraystretch}{1.3}
+    J_{pnπ} = \begin{pmatrix}
+    1 & -1 & 0 \\
+    \frac{m_p}{m_p+m_n} & \frac{m_n}{m_p+m_n} & -1 
+    \end{pmatrix},
+\end{align*}
+We then use $J_{pnπ}$ to write the three-body wavefunction in the two relative coordinates, and discard the center-of-mass coordinate 
+\begin{align*}
+    J_{pnπ}\begin{pmatrix}
+        \v{r_p}\\\v{r_n}\\\v{r_π}
+    \end{pmatrix} = 
+    \renewcommand{\arraystretch}{1.3}
+    \begin{pmatrix}
+        \v{r}_p-\v{r}_n \\ \frac{m_p\v{r}_p+m_n\v{r}_n}{m_p+m_n} - \v{r}_π
+    \end{pmatrix} = 
+    \begin{pmatrix}
+        \v{r}_{pn}\\\v{r}_{pnπ}
+    \end{pmatrix}.
+\end{align*}
+This shows that $\v{r}_{pn}$ is the separation between proton and neutron, and $\v{r}_{pnπ}$ is the distance from the pion to the center of mass of the nucleon pair. 
+
+\newpage
+\chapter{Pion-Nucleon Coupling}
+\section{The Bare Deuteron state}
+Before the deuteron nucleus emits a pion, it is in a so-called bare state. 
+In this state there is only one proton and one neutron with total spin $S=1$, isospin $I=0$ and parity $+1$. 
+The proton and neutron are both fermions, so their final wavefunction must be antisymmetrical. 
+The spin wavefunction is a spin triplet and we can freely choose a system where $χ=\ket{\uparrow\uparrow}$. 
+The isospin wavefunction is a singlet and therefore antisymmetric $ξ=\frac{1}{\sqrt{2}}\br{\ket{pn}-\ket{np}}$.
+To get a final antisymmetric wavefunction, the spatial wavefunction must be symmetric, but our standard shifted Gaussian is not symmetric under particle exchange: 
+\begin{align}
+    P_{12}\ket{A,s} = \G{(-r)}{A}{s} = \e{-\v{r}\tr A\v{r}-\v{s}\tr\v{r}},
+\end{align}
+So to get a symmetric spatial wavefunction we use the linear combination: 
+\begin{align}
+    ψ = \ket{A,s}+\ket{A,-s}. 
+\end{align}
+The spatial wavefunction is not explicitly normalized, since the two Gaussians are not orthogonal. Any spatial normalization constants are absorbed into the $c_i$ coefficients when solving the generalized eigenvalue problem. 
+
+When combining the three parts, we get the final wavefunction of the bare deuteron state: 
+\begin{align}
+    \ket{Ψ_{pn}} &= \ket{ξ} \otimes \ket{χ} \otimes \ket{ψ} \n
+    &= \frac{1}{\sqrt{2}} \br{\ket{pn}-\ket{np}}\ket{\uparrow\uparrow}\br{\ket{A,a}+\ket{A,-a}}.
+\end{align}
+
+By applying the coupling operator $W$ to the bare $pn$ state, we generate a superposition of one-pion intermediate states. Each resulting state must preserve the global quantum numbers: total isospin $I=0$, total spin $S=1$, and positive parity $+1$. These constraints limit the accessible channels and determine the structure of the Hamiltonian matrix in equation (\ref{eq:H}). 
+
+\section{Pions}
+The pion is a meson with 3 charge states $\{π^0, π^-, π^+\}$.
+Therefore the pion is an isospin-vector with total isospin $I=1$, it has spin $S=0$ and parity $-1$.
+When the W coupling operator acts, it must change these quantum numbers in a way that conserves total isospin $I=0$, total spin $S=1$, and total parity $+1$ of the system. 
+
+\section{The Total Coupling Operator}
+In the nuclear model with explicit mesons, we use an exchange operator to simulate the nucleons emitting and absorbing pions. Since both nucleons in our system can exchange pions, the total pion-nucleon coupling operator is the sum of the individual one-body emission operators for the proton and the neutron:
+\begin{align}
+    W &= W_1 + W_2 \n
+      &= (\v{τ}_1 \cdot \v{π})(\v{σ}_1 \cdot w_1\tr \v{r})f(w_1\tr \v{r}) + (\v{τ}_2 \cdot \v{π})(\v{σ}_2 \cdot w_2\tr \v{r})f(w_2\tr \v{r}). \label{eq:W}
+\end{align}
+Here, $\v{τ}$ and $\v{σ}$ are the isospin and spin Pauli matrices, $\v{π}$ is the pion isospin-vector, 
+and $w_i\tr \v{r}$ is the distance from the emitted pion to the emitting nucleon $i$.
+
+The function $f(w_i\tr \v{r})$ represents an effective short-range form factor, which ensures the interaction occurs only when the particles are in close proximity and that the total parity is satisfied. 
+To allow for analytic evaluation within the Correlated Gaussian method, we model this form factor as a Gaussian function:
+
+\begin{align}
+    f(w_i\tr \v{r}) = \frac{S}{b_π} \exp\br{-\frac{\v{r}\tr w_iw_i\tr \v{r}}{b_π^2}}\exp\br{-\frac{\v{r}\tr w_{NN}w_{NN}\tr \v{r}}{b_N^2}}, \label{eq:fr}
+\end{align}
+where $S$ determines the strength of the coupling (with units of MeV), $b_π$ and $b_N$ dictates the interaction range. 
+The first exponent controls the interaction range for the emitted pion by limiting the distance it can have to the emitting nucleon $i$. The second exponent limits the distance between the nucleons, forcing them to stay in close proximity to mimic a bound state. 
+This Gaussian form factor is a practical approximation chosen for computational convenience, a more realistic form would derive from letting the nucleons exchange pions, no matter their separation, and then find the binding energy as the difference between the ground state and the first exited state energy. 
+This was tested, but finding convergence and consistent bound states proved difficult, therefore the simple Gaussian form factor was used. 
+
+\section{Isospin Space}
+The isospin operator determines the charge of the emitted pion and the resulting nucleon states. The isospin interaction is given by:
+\begin{align}
+    (\v{τ} \cdot \v{π}) = τ^0π^0 + \sqrt{2}τ^-π^+ + \sqrt{2}τ^+π^-,
+\end{align}
+where the isospin Pauli matrices are: 
+\begin{align}
+    τ^0 = \begin{pmatrix}1 & 0 \\ 0 & - 1 \end{pmatrix}, \quad 
+    τ^- = \begin{pmatrix}0 & 0 \\ 1 & 0 \end{pmatrix}, \quad 
+    τ^+ = \begin{pmatrix}0 & 1 \\ 0 & 0 \end{pmatrix}, 
+\end{align}
+so that $τ^+\ket{n}=\ket{p}$ and $τ^-\ket{p}=\ket{n}$, which fixes the overall sign of the charged-pion channels.
+
+This gives us 4 possible interactions when $(\v{τ} \cdot \v{π})$ interacts with a nucleon, and their corresponding coefficients: 
+\begin{align}
+    \bra{π^0p}(\v{τ} \cdot \v{π})\ket{p} = +1, \\
+    \bra{π^+n}(\v{τ} \cdot \v{π})\ket{p} = \sqrt{2}, \\
+    \bra{π^0n}(\v{τ} \cdot \v{π})\ket{n} = -1, \\
+    \bra{π^-p}(\v{τ} \cdot \v{π})\ket{n} = \sqrt{2}. 
+\end{align}
+These four matrix elements show how isospin conservation constrains the pion emission process. The factors reflect Clebsch-Gordan coefficients when coupling the pion's isospin to the nucleon pair. 
+
+\newpage
+\section{Spin and Spatial Space}
+An initial state is chosen where both nucleons have parallel spins (the spin-triplet state $\χ$). 
+Using spin interaction coordinates $(\v{σ}\v{r})$ consisting of the Pauli spin matrices. 
+The spin operator $\v{σ}$ and the position components are both expressed in the spherical tensor basis to ensure proper angular momentum coupling: 
+\begin{align}
+    σ^0 = \begin{pmatrix}1 & 0 \\ 0 & - 1 \end{pmatrix}, \quad 
+    σ^- = \begin{pmatrix}0 & 0 \\ 1 & 0 \end{pmatrix}, \quad 
+    σ^+ = \begin{pmatrix}0 & 1 \\ 0 & 0 \end{pmatrix}, 
+\end{align}
+and the position vector consists of: 
+\begin{align}
+    r^0=z, \quad r^+=\frac{x+iy}{\sqrt{2}}, \quad r^-=\frac{x-iy}{\sqrt{2}}. 
+\end{align}
+Here $(r^0, r^\pm)$ are the spherical components of $\v{r}$, and the spin operators $σ^0,σ^\pm$ are written in the same spherical basis so that $(\v{σ}\cdot\v{r})=σ^0 r^0+\sqrt{2}σ^- r^+ + \sqrt{2}σ^+ r^-$. 
+Like the isospin part, there are also 4 contributions from the spin interaction: 
+\begin{align}
+    \bra{\uparrow}(\v{σ} \cdot \v{r})\ket{\uparrow} = +r^0, \\
+    \bra{\downarrow}(\v{σ} \cdot \v{r})\ket{\uparrow} = \sqrt{2}r^+, \\
+    \bra{\uparrow}(\v{σ} \cdot \v{r})\ket{\downarrow} = \sqrt{2}r^-, \\
+    \bra{\downarrow}(\v{σ} \cdot \v{r})\ket{\downarrow} = -r^0,  
+\end{align}
+but since a system is chosen where the bare state only consists of spin-up, the two last will not be used. 
+
+
+\section{Matrix Elements}
+Now that we have shown how the spin and isospin interact we can calculate all possible states. 
+We do this by applying equation (\ref{eq:W}) to the full wavefunction of the $pn$ state. 
+This is a long derivation, which can be seen in appendix \ref{app:W}.
+
+As an example we will look at the $π^0$ state, the result is similar for the other pions. We isolate the $τ^0$ component and the resulting isospin function becomes: 
+\begin{align}
+    τ_1^0\ξ{-} = + \ξ{+}, \\
+    τ_2^0\ξ{-} = - \ξ{+}.
+\end{align}
+The negative sign is absorbed into the calculations of the spin part, 
+and the resulting isospin wavefunction becomes symmetric: $\ket{ξ_{π^0}} = \ξ{+}$. 
+The spin part becomes antisymmetric and the negative factor from the isospin wavefunction is inserted to get :  
+\begin{align}
+    W_{π^0}\ket{χ} &= \br[2]{(\v{σ}_1 \cdot w_1\tr \v{r})f(w_1\tr \v{r}) - (\v{σ}_2 \cdot w_2\tr \v{r})f(w_2\tr \v{r})}\ket{\uparrow\uparrow}, \n
+    &= f(w_1\tr \v{r})\br[2]{w_1\tr r^0\ket{\uparrow\uparrow} + \sqrt{2}w_1\tr r^+\ket{\downarrow\uparrow}} \n 
+    & \quad - f(w_2\tr \v{r})\br[2]{w_2\tr r^0\ket{\uparrow\uparrow} + \sqrt{2}w_2\tr r^+\ket{\uparrow\downarrow}}
+\end{align}
+This expression arises from applying the spin-dependent part of $W$ to the initial spin triplet state. The spatial form factor $f(r)$ acts on the coordinates of the emitting nucleon, creating transitions between spin-aligned and spin-flipped states. This will give us three spin possibilities: 
+\begin{itemize}
+    \item There is no flip in spin, \hfill $f(w_1\tr \v{r})w_1\tr r^0 - f(w_2\tr \v{r})w_2\tr r^0$. 
+    \item The spin of the first nucleon is flipped, \hfill $f(w_1\tr \v{r})\sqrt{2}w_1\tr r^+.\quad\quad$ 
+    \item The spin of the second nucleon is flipped, \hfill $-f(w_2\tr \v{r})\sqrt{2}w_2\tr r^+.\quad\quad$
+\end{itemize}
+
+Each spatial form $(w_i^T r^0, w_i^T r^+, w_i^T r^-)$ couples to different Gaussian overlaps because they have different $\v{r}$ dependence. The Hamiltonian matrix therefore treats each as an independent basis state with its own matrix element, giving $3 \times 3$ pion channels (3 pion types times 3 spin couplings). 
+
+Before we assemble the final state, we must account for parity conservation. The deuteron ground state has a strictly positive total parity. Because the intrinsic parity of the emitted pion is negative $(-1)$, the spatial wavefunction of the three-body state must adapt to compensate. To ensure the total parity remains positive, the spatial wavefunction of the dressed state must possess odd parity $( (-1)_{\text{intrinsic}} \times (-1)_{\text{spatial}} = +1_{\text{total}} )$. In terms of orbital angular momentum, this requires the $pnπ$ channel to reside in a state with an odd angular momentum quantum number ($\ell = 1, 3, \dots$).
+In the Correlated Gaussian framework, we enforce this odd spatial parity by taking the antisymmetric linear combination of the shifted states rather than the symmetric sum:
+\begin{align}
+    ψ_{pnπ} = \ket{A, a} - \ket{A, -a}. 
+\end{align}
+
+This gives us 9 final overlaps to calculate between the bare state and pion states, for the case of $π^0$ with spin flip in the first particle, it would be 
+\begin{align}
+    \bra{ψ_{pnπ^0}}\bra{ξ_{π^0}}\bra{\uparrow\uparrow}W\ket{Ψ_{pn}}
+    = \bra{ψ_{pnπ^0}} f(w_1\tr \v{r})\sqrt{2}w_1\tr r^+ \ket{ψ_{pn}}. 
+\end{align}
+Each overlap depends on the combination of isospin, spin, and spatial structure. The next section shows how to compute these using Gaussian basis functions.
+
+\section{Evaluation of the Transition Matrix Elements}
+To calculate the off-diagonal transition elements, such as $\bra{pnπ^0}W_{pnπ_0}\ket{pn}$, the integration must be performed over the full three-body coordinate space. However, the initial bare state $\ket{pn}$ depends only on the nucleon-nucleon distance and is independent of the pion coordinates. 
+
+To resolve this, the $1 \times 1$ correlation matrix of the bare state, $A^{(d)}$, is first promoted to the $2 \times 2$ three-body Jacobi space by padding with zeros. 
+Then we absorb the spatial form factor of $W$ (\ref{eq:fr}), which we can do since we made it a Gaussian. 
+In the Correlated Gaussian framework, multiplying by a Gaussian is equivalent to adding its correlation matrix. We define a new effective promoted matrix $\tilde{A}$ that absorbs both the nucleon interaction range and the pion form factor:
+\begin{align}
+    \tilde{A} = 
+    \begin{pmatrix}
+        A + 1/b_N^2 && 0 \\ 0 && 0
+    \end{pmatrix} 
+    + \frac{1}{b_π^2} w_{i} w_{i}\tr .
+\end{align}
+When computing the coupling matrix element $\langle pnπ | W | pn \rangle$, the effective matrix $\tilde{A}$ replaces the bare correlation matrix in the overlap formula. Since Gaussian multiplication corresponds to matrix addition in the exponent, the form factor effectively increases the effective width of the Gaussian, confining the overlap to the region where the nucleons are close and the pion is near the emitting nucleon. This encoding allows all spatial integrations to be performed analytically within the Gaussian framework.
+
+\newpage
+\chapter{Computational Methodology} \label{ch:comp}
+With the spatial basis, momentum transformations, and coupling operators established, the system is fully prepared to evaluate the Hamiltonian. To isolate the effect of relativistic kinematics, an efficient computational framework is necessary to generate the wavefunction and calculate the ground state energy.
+
+To evaluate the ground state of the deuteron-pion system, a custom C++ simulation was constructed utilizing the Stochastic Variational Method (SVM) \cite{SVM}. This approach relies on expanding the total wavefunction in a linear combination of Correlated Shifted Gaussians and stochastically optimizing their parameters to minimize the energy expectation value. This choice of basis is advantageous because it provides analytical matrix elements for the overlaps and spatial interactions, reducing computation time. 
+
+\section{Parameterization and Basis Generation}
+Each basis state in the trial wavefunction is defined by a multi-dimensional Correlated Gaussian, characterized by a positive-definite correlation matrix $A$ and a spatial shift vector $\v{s}$. To ensure that $A$ remains strictly positive-definite during generation, it is constructed as:
+\begin{align}
+    A = \sum_{i<j=1}^{N} \frac{w_{ij} w_{ij}\tr }{b_{ij}^2},
+\end{align}
+where $w_{ij}$ is the coordinate extraction vector that isolates the relative distance between particles $i$ and $j$, and $b_{ij}$ is a parameter defining the physical range between those particles in units of fm. 
+
+To ensure uniform coverage of the parameter space and avoid the clustering inherent in standard pseudo-random number generators, the parameters $b_{ij}$ are sampled using the quasi-random van der Corput sequence, with different prime bases assigned for each particle pair. The ranges are sampled using an exponential distribution, $b_{ij} = -\ln(u) \, b_N$, where $u \in (0,1)$ is drawn from the sequence. The characteristic length scale $b_N$ represents the maximum nucleon interaction range and is set to 4 fm. 
+
+Because the correlated Gaussian parameter space is non-linear and prone to local minima, the Nelder-Mead simplex method is particularly advantageous. Unlike gradient-descent algorithms, it does not require the evaluation of analytic derivatives, which would be computationally expensive to recalculate for the full Hamiltonian matrix at every step. Instead, the simplex geometrically adapts to the local energy topology, naturally moving down steep energy valleys and contracting near the true minimum to refine precision.
+
+The shift vector $\v{s}\tr = \frac{1}{2}\v{r}_0\tr A$, which breaks spherical symmetry to accommodate nonzero orbital angular momentum, is also generated stochastically. The Cartesian components of the shift origin $\v{r}_0$ are drawn from a uniform distribution $r_0^i \in (-0.2, 0.2)$. These initial boundaries are utilized solely for random generation, during optimization, both $b_{ij}$ and $\v{r}_0$ are permitted to move freely outside these bounds to minimize the energy.
+
+\section{Numerical Stabilization}
+A common numerical instability in variational methods occurs when the optimizer pushes particles infinitely far apart to artificially achieve a ground state energy of zero. To prevent this unbounded growth and ensure stable convergence during the initial stages of basis building, a weak harmonic oscillator potential, $V_{\text{trap}} = h_0 r^2$, is added to the diagonal Hamiltonian. 
+
+The overlap matrix elements involving this confining potential are computed analytically using Equation (\ref{eq:wr}). The trap acts as a temporary physical boundary, forcing the particles to interact. As the basis grows and the nuclear bounds stabilize, the trap strength $h_0$ is systematically weakened. This ensures that the final, converged physical observables are independent of the artificial confining potential.
+
+\section{Competitive Search and Optimization}
+The Gaussian basis is built iteratively. To add the $K$-th basis state, a large pool of random candidate states is generated. Each candidate is temporarily appended to the existing basis of size $K-1$, the Hamiltonian and overlap matrices are constructed, and the ground state energy is evaluated. The candidate that yields the lowest overall energy wins the competitive selection and is permanently added to the basis \cite{SVM}.
+
+Once a candidate is selected, it undergoes local refinement using the Nelder-Mead algorithm \cite{NM}. The algorithm operates on a simplex in either 4- or 6-dimensional parameter space, depending on the system, optimizing the distance parameters $b_{ij}$ and the shift vector components $\v{r_0}$. At each iteration, the vertex with the highest energy is reflected, expanded, or contracted to walk the simplex down the energy gradient. 
+
+\section{Solving the Generalized Eigenvalue Problem} \label{ch:comp_eigenvalue}
+During both competitive search and Nelder-Mead optimization, the simulation must repeatedly solve the generalized eigenvalue problem:
+\begin{align}
+    \mathcal{H}c = E \mathcal{N} c,
+\end{align}
+where $\mathcal{H}$ is the block-structured Hamiltonian matrix, $\mathcal{N}$ is the overlap matrix, $c$ is the vector of linear coefficients, and $E$ is the energy. Because the overlap matrix $\mathcal{N}$ is symmetric and strictly positive-definite, the problem is converted into a standard symmetric eigenvalue problem via Cholesky decomposition ($\mathcal{N} = L L\tr$):
+\begin{align}
+    \br{L^{-1} \mathcal{H} L^{-}\tr} (L\tr c) = E (L\tr c).
+\end{align}
+
+The presence of the overlap matrix $\mathcal{N}$ in the eigenvalue equation is a direct consequence of using a non-orthogonal basis. Because the correlated Gaussians are generated stochastically and independently, they overlap with one another in spatial representation. The matrix $\mathcal{N}$ accounts for this linear dependence to ensure the physical state remains properly normalized. The Cholesky decomposition effectively orthogonalizes this basis computationally, allowing the standard Jacobi algorithm to find the correct energy eigenstates.
+
+The standard symmetric matrix is then diagonalized using the Jacobi eigenvalue algorithm, which iteratively eliminates off-diagonal elements via orthogonal transformations. 
+
+The standard Jacobi algorithm operates with $\mathcal{O}(n^3)$ complexity, which represents a significant computational bottleneck when executed hundreds of times per Nelder-Mead step. To accelerate this process, a truncated variant is employed during optimization that restricts the Jacobi sweeps to only the first $k=5$ rows of the matrix. This retains sufficient accuracy for guiding the energy minimization while achieving a substantial speedup. After the Nelder-Mead optimization a final, un-truncated diagonalization is performed to obtain the precise ground state energy. 
+
+\section{Execution and Convergence}
+The basis is constructed in stages. First, the simulation is seeded with 5 geometrically varied Gaussian functions for the bare state. Then, two Gaussian states are competitively selected for each pion channel, and the parameters for each state are optimized to achieve partial convergence. 
+
+To explore the parameter space while maintaining numerical stability, this competitive search is performed across 7 different harmonic oscillator trap strengths. 
+
+Subsequently, the entire basis is optimized together. The full Hamiltonian matrix is iteratively evaluated and expanded until the ground state energy converges to within a strict $10^{-4}$ MeV precision.
+
+\newpage
+\chapter{Results} \label{ch:results}
+Before extracting physical observables, it is necessary to verify the numerical stability of the Stochastic Variational Method. Figure \ref{fig:convergence} illustrates the convergence of the ground state energy and the charge radius as the size of the Gaussian basis increases. 
+
+The stabilization of both observables to within $0.1\%$ of their final values confirms that the basis successfully captures the physical structure of the system. To satisfy the $10^{-4}$ MeV convergence criterion established in Section \ref{ch:comp}, the algorithm ultimately required $N=14$ Gaussian states for each of the 9 pion channels and $N=5$ for the bare state, resulting in a total optimal basis size of 131 Gaussians.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\linewidth]{basis_convergence-cla.png}
+    \caption{\textcolor{darkgray}{Convergence of the ground state energy and charge radius as a function of the total basis size. Both observables stabilize, demonstrating that the final basis size of 131 Gaussians is sufficient to achieve numerical precision. The total runtime, in seconds, for each of the runs can be seen in the last plot }}
+    \label{fig:convergence}
+\end{figure}
+
+\section{Model Calibration}
+With the numerical convergence verified, the parameters $S$, $b_π$, and $b_N$ in the form factor (\ref{eq:fr}) must be determined by fitting to experimental data. The model targets the experimental ground state energy of the deuteron, $E_0 = -2.224$ MeV (corresponding to a binding energy of $2.224$ MeV), and its charge radius, $r_d = 2.128$ fm \cite{deu}. Since there are three fitting parameters but only two target observables, one parameter is fixed: $b_π = 1.4$ fm, which corresponds to the Compton wavelength of the pion ($\hbar/m_π c \approx 1.43$ fm).
+
+The remaining parameters, $S$ and $b_N$, are optimized simultaneously. Figure \ref{fig:contour} displays the parameter space, highlighting the specific curves where the calculated energy and radius match experimental values. 
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1.0\linewidth]{contour_plot.png}
+    \caption{\textcolor{darkgray}{Contour plot of the parameter space for the form factor strength $S$ and the nucleon interaction range $b_N$. The solid curves indicate the parameter combinations that independently reproduce the experimental deuteron ground state energy ($E_0 = -2.224$ MeV) and charge radius ($r_d = 2.128$ fm). The intersection of these curves yields the optimal parameter set used for subsequent calculations.}}
+    \label{fig:contour}
+\end{figure}
+
+The intersection of these two target curves defines the unique solution for the system. Based on this calibration, the chosen parameters for the classical calculations are set to $S = 31.29$ MeV and $b_N = 2.24$ fm.
+
+
+\section{Relativistic Kinematics}
+To see how relativity affects the system, we tested four different configurations of the Hamiltonian. Since the kinetic energy is calculated separately for the nucleon pair ($K_{pn}$) and the pion ($K_{pnπ}$), we can independently choose to use the classic operator ($p^2/2m$) (\ref{eq:cla}) or the relativistic operator ($\sqrt{p^2+m^2}-m$) (\ref{eq:rel}) for each part. 
+The results of switching these operators using the initially calibrated parameters are shown in Table \ref{tab:kinematics}. 
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.2}
+    % --- Table 7.1: Physical Properties ---
+    \begin{tabular}{ll cccc}
+        \hline
+        \textbf{Nucleons} & \textbf{Pion} & \textbf{$E_0$ (MeV)} & \textbf{$r_d$ (fm)} & \textbf{$\langle K \rangle$ (MeV)} & \textbf{$P_\pi$ (\%)} \\
+        \hline
+        Classic & Classic & -2.221 & 2.127 & 16.77 & 2.612 \\
+        Relat.  & Classic & -2.631 & 1.992 & 18.58 & 2.928 \\
+        Classic & Relat.  & -6.690 & 1.550 & 27.38 & 5.702 \\
+        Relat.  & Relat.  & -7.581 & 1.483 & 29.49 & 6.225 \\
+        \hline
+    \end{tabular}
+    \caption{\textcolor{darkgray}{Ground state properties using different combinations of classic and relativistic kinetic energy operators. $\br[5]{K}$ is the expectation value of the kinetic energy and $P_π$ is the probability of finding the system in the pion-dressed state.}}
+    \label{tab:kinematics}
+\end{table}
+
+
+Because the pion mass ($m_π \approx 140$ MeV) is much smaller than the nucleon mass ($m_N \approx 938$ MeV), the pion-dressed intermediate states involve a dynamical scale separation, pions reach a much higher momentum than the nucleons inside the nucleus. This momentum scale difference makes relativistic effects significant for the pion while remaining negligible for the heavy nucleons. 
+
+Beyond the total binding energy, the transition to relativistic kinematics significantly alters the internal structure of the nucleus. As shown in Table \ref{tab:kinematics}, applying the relativistic operator to the pion more than doubles the probability of finding the system in the pion-dressed state ($P_\pi$), increasing it from approximately 2.6\% to 6.2\%. Because the relativistic kinetic operator imposes a much smaller energy penalty at high momenta than the classical quadratic operator, it becomes energetically favorable for the system to populate the high-momentum meson-dressed configuration. This demonstrates that relativistic mechanics does not just shift the final energy value, but changes the quantum mechanical composition of the ground state.
+
+Because evaluating the relativistic kinetic energy requires numerical integration over the momentum range from zero to infinity, it is computationally more expensive than evaluating the analytical classical operator. Table \ref{tab:runtime_deviation} details the absolute energy shift and the percentage deviation relative to the purely classical baseline, alongside the total computational runtime for each kinematic configuration. 
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.2}
+    % --- Table 7.2: Runtime and Deviation (Baseline: Classic-Classic) ---
+    \begin{tabular}{ll cc}
+        \hline
+        \textbf{Nucleons} & \textbf{Pion} & \textbf{$\Delta E$ (MeV)} & \textbf{Runtime (min)} \\
+        \hline
+        Classic & Classic &    0.000 &   12.5 \\
+        Relat.  & Classic &   -0.410 &   18.0 \\
+        Classic & Relat.  &   -4.469 &   18.7 \\
+        Relat.  & Relat.  &   -5.360 &   31.0 \\
+        \hline
+    \end{tabular}
+    \caption{\textcolor{darkgray}{Absolute energy shift ($\Delta E = E_0 - E_{\text{classic}}$) and computational runtime for the different combinations of kinetic energy operators. The purely classical configuration serves as the baseline.}}
+    \label{tab:runtime_deviation}
+\end{table}
+
+To address the overbinding caused by the relativistic pion kinematics, the form factor parameters were re-calibrated specifically for the mixed Hamiltonian (Classical Nucleons, Relativistic Pion). By holding the interaction range fixed at $b_N = 2.24$ fm and targeting the experimental binding energy ($E_d = -2.224$ MeV), a new optimal coupling strength was found. With this we find that the optimal parameter that fits the experimental value is $S=27.19$, which gives us a change of 
+\begin{align}
+    \Delta S = S_{\text{mixed}} - S_{\text{classic}} = 27.19 \text{ MeV} - 31.29 \text{ MeV} = -4.10 \text{ MeV}.
+\end{align}
+This reduction in coupling strength compensates for the diminished kinetic energy of the high-momentum relativistic pion, preventing artificial overbinding.
+
+Comparing the internal properties of the calibrated models clarifies this reduction in coupling strength. While both models now yield the same binding energy, the recalibrated mixed model has a lower expected kinetic energy ($\langle K \rangle = 15.81$ MeV vs. $16.77$ MeV). With less kinetic energy pushing the system apart, less potential attraction is needed to bind it, explaining the smaller $S$. 
+
+Additionally, the pion probability, for the recalibrated mixed state, settles at $P_\pi = 3.11\%$, which is noticeably higher than the classical probability of 2.61\%. This increase is a consequence of the kinetic energy operators. In the classical framework, the kinetic energy penalty grows quadratically ($p^2/2m$), strongly suppressing fast-moving light particles. Relativistically, this penalty scales linearly at high momentum. With a lower kinetic energy barrier, it becomes easier for the system to access high-momentum states, naturally resulting in a higher pion probability.
+
+
+To demonstrate the full macroscopic impact of this new parameter set across the entire model space, all four kinematic configurations were re-evaluated utilizing $S = 27.19$ MeV and $b_N = 2.24$ fm. The resulting ground state energies and their respective deviations from the newly calibrated mixed-model baseline are presented in Table \ref{tab:recal_kinematics}.
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.2}
+    % --- Table 7.4: Re-calibrated Deviations (Baseline: Classic-Relativistic) ---
+    \begin{tabular}{ll cc}
+        \hline
+        \textbf{Nucleons} & \textbf{Pion} & \textbf{$E_0$ (MeV)} & \textbf{$\Delta E$ (MeV)} \\
+        \hline
+        Classic & Classic & -0.219 &    2.001 \\
+        Relat.  & Classic & -0.325 &    1.895 \\
+        Classic & Relat.  & -2.220 &    0.000 \\
+        Relat.  & Relat.  & -2.653 &   -0.433 \\
+        \hline
+    \end{tabular}
+    \caption{\textcolor{darkgray}{Ground state properties for all kinematic configurations calculated using the re-calibrated parameter set ($S = 27.19$ MeV, $b_N = 2.24$ fm). The Classic-Relativistic configuration now serves as the $-2.224$ MeV baseline. As expected, applying these weaker parameters back to the classical Hamiltonian results in underbinding.}}
+    \label{tab:recal_kinematics}
+\end{table}
+
+\newpage
+\chapter{Discussion}
+The results highlight a clear trade-off between computational cost and physical accuracy. Calculating the relativistic kinetic energy for the pion is essential, as it shifts the binding energy by roughly 4.5 MeV. Applying the relativistic operator to the heavy nucleons contributes an additional 0.4 MeV correction. In the context of nuclear binding, a 0.4 MeV shift is physically significant and must be included for precision modeling. However, moving from the mixed model to the full relativistic treatment increases the computational runtime from 18.7 to 31.0 minutes. Therefore, while the mixed kinematic model (classical nucleons, relativistic pion) provides an efficient baseline for rapid parameter optimization, the pure relativistic model is required for exact physical results.
+
+The model relies on a few simplifications that should be noted. First, the Coulomb interaction is ignored. While this has minimal effects on the deuteron core, it would become an issue in heavier nuclei where proton repulsion plays a larger role. Furthermore, adding the Coulomb force breaks the isospin symmetry of the system, meaning the charged ($\pi^\pm$) and neutral ($\pi^0$) pion channels would no longer be symmetric, complicating the Hamiltonian matrix. 
+
+Second, an artificial harmonic trap is used during the basis generation to prevent the particles from spreading too far apart. Although this trap is gradually weakened so the final states do not depend on it, it remains a numerical tool rather than a physical one.
+
+Third, the nucleon interaction range $b_N$ is used as a free parameter. In a more realistic model, the nucleons would emit and absorb pions regardless of the distance between each other. The binding energy could then be calculated simply as the energy difference between the bound two-nucleon state and the isolated, pion-dressed nucleons. However, getting the numerical optimization to reliably find these separated states proved difficult, which is why the Gaussian form factor was used instead.
+
+Future improvements to the model could include two-pion intermediate states. This would allow nucleons to interact through multiple pion exchanges, which is necessary to capture the tensor force. Since adding more pions will increase the computation time, the numerical methods would need to be further optimized to handle the extra load.
+
+We could also include explicit calculations of the deuteron's quadrupole moment. Since the deuteron is not spherical, the tensor component of the pion exchange interaction mixes the S-wave state with a D-wave state. Because our basis utilizes shifted Gaussians, where the stochastic shift vector $\v{s}$ inherently breaks spherical symmetry, the trial wavefunction has the capacity to describe this angular momentum mixing. The quadratic quadrupole moment would gives us another experimental value to fit for, removing the need to fix $b_π$. 
+
+Future work could also investigate heavier mesons to find the exact breakpoint where particles transition from requiring relativistic kinematics to being accurately described by classical mechanics.
+
+
+\newpage
+\chapter{Conclusion}
+This project quantified the relativistic corrections to the ground state of the deuteron, using a nuclear model that includes explicit mesons. By applying the Stochastic Variational Method with Correlated Shifted Gaussians, the system was evaluated using both classical and relativistic kinetic energy operators for the bare and pion-dressed states.
+
+The main finding is that relativistic kinematics are essential for the pion, but negligible for the nucleons. Because the pion is very light ($m_π \approx 140$ MeV), it reaches relativistic speeds inside the nucleus. Accounting for this changes the binding energy by approximately 4.5 MeV. In contrast, the much heavier nucleons ($m_N \approx 938$ MeV) experience a smaller relativistic shift of roughly 0.4 MeV.
+
+These results point to a limitation in standard low-energy nuclear models, which typically apply classical kinetic energy operators to all particles. While this classical approach works well for heavy nucleons, it fails to capture the correct dynamics of light mesons. If a computational model includes explicit mesons, it must use relativistic operators for those light particles to get accurate physical results.
+
+Ultimately, while a fully relativistic model provides the most accurate physical description, a mixed kinematic approach, using classical operators for the heavy nucleons and relativistic operators for the pions, captures the majority of the relativistic energy shift while reducing computation time. This established framework provides a solid and efficient starting point for future research into multi-pion systems and heavier nuclei. 
+
+
+
+\begin{thebibliography}{9}
+
+    \bibitem{SVM}
+    Suzuki, Y., \& Varga, K. (1998). \textit{Stochastic variational approach to quantum-mechanical few-body problems}. Springer.
+
+    \bibitem{ana}
+    Fedorov, D. V. (2017). Analytic matrix elements and gradients with shifted correlated Gaussians. \textit{Few-Body Systems}, \textit{58}(1), 21.
+
+    \bibitem{NM}
+    Nelder, J. A., \& Mead, R. (1965). A simplex method for function minimization. \textit{The Computer Journal}, \textit{7}(4), 308--313.
+
+    \bibitem{deu}
+    Ericson, T. E. O. (1984). The deuteron properties. \textit{Nuclear Physics A}, \textit{416}, 281--298.
+
+    \bibitem{sigma}
+    Fedorov, D. V. (2020). A nuclear model with explicit mesons. \textit{Few-Body Systems}, \textit{61}(4), 43.
+
+    \bibitem{Griff}
+    Griffiths, D. J., \& Schroeter, D. F. (2018). \textit{Introduction to quantum mechanics} (3rd ed.). Cambridge University Press.
+
+
+    \bibitem{part}
+    Navas, S., et al. (Particle Data Group). (2024). Review of particle physics. \textit{Physical Review D}, \textit{110}(3), 030001. \url{https://pdg.lbl.gov/2024/listings/particle_properties.html}
+
+\end{thebibliography}
+
+\appendix
+% 3. Appendices come last
+\chapter{Derivation of the Coupling Operator} \label{app:W}
+Applying the full coupling operator to the bare state wavefunction, and eliminating terms that would have no overlap, reveals all 9 possible pion states used in the project. 
+The spin and isospin parts determine the states and their relative coefficients, so we apply the operator to these parts first and leave the spatial form factor evaluation for last. 
+
+\begin{align}
+    W \ket{\chi} \ket{\xi} &= \br[2]{W_1+W_2} \ket{\uparrow\uparrow} \frac{1}{\sqrt{2}}\br{\ket{pn}-\ket{np}} \n
+    &= \br[2]{(\v{\tau}_1 \cdot \v{\pi})(\v{\sigma}_1 \cdot w_1\tr \v{r})f(w_1\tr \v{r}) + (\v{\tau}_2 \cdot \v{\pi})(\v{\sigma}_2 \cdot w_2\tr \v{r})f(w_2\tr \v{r})} \n & \quad \frac{1}{\sqrt{2}}\br{\ket{pn}-\ket{np}} \ket{\uparrow\uparrow}
+\end{align}
+
+First, we evaluate the isospin operator $\br{\v{\tau} \cdot \v{\pi}} = \tau^0\pi^0 + \sqrt{2}\tau^-\pi^+ + \sqrt{2}\tau^+\pi^-$ on the antisymmetric isospin singlet $\ket{\xi}$. 
+For the first nucleon, this yields:
+\begin{align}
+    (\v{\tau}_1 \cdot \v{\pi}) \frac{1}{\sqrt{2}}\br{\ket{pn}-\ket{np}} 
+    &= \pi^0 \frac{1}{\sqrt{2}}\br{\ket{pn}+\ket{np}} + \pi^+ \br{-\ket{nn}} + \pi^- \br{\ket{pp}} \n
+    &\equiv \pi^0 \ket{\xi_{sym}} - \pi^+ \ket{nn} + \pi^- \ket{pp}.
+\end{align}
+
+For the second nucleon, applying the operator yields a relative minus sign across all channels due to the antisymmetry of the initial state:
+\begin{align}
+    (\v{\tau}_2 \cdot \v{\pi}) \frac{1}{\sqrt{2}}\br{\ket{pn}-\ket{np}} 
+    &= \pi^0 \frac{1}{\sqrt{2}}\br{-\ket{pn}-\ket{np}} + \pi^+ \br{\ket{nn}} + \pi^- \br{-\ket{pp}} \n
+    &= -\pi^0 \ket{\xi_{sym}} + \pi^+ \ket{nn} - \pi^- \ket{pp}.
+\end{align}
+
+Next, we evaluate the spin operator $\br{\v{\sigma} \cdot w\tr\v{r}} = \sigma^0 w\tr r^0 + \sqrt{2}\sigma^- w\tr r^+ + \sqrt{2}\sigma^+ w\tr r^-$ on the initial spin triplet $\ket{\uparrow\uparrow}$. 
+Because both nucleons are already in the spin-up state, the $\sigma^+$ raising operator annihilates the state entirely. For the first and second nucleon respectively, the non-zero terms are:
+\begin{align}
+    (\v{\sigma}_1 \cdot w_1\tr \v{r}) \ket{\uparrow\uparrow} &= w_1\tr r^0 \ket{\uparrow\uparrow} + \sqrt{2}w_1\tr r^+ \ket{\downarrow\uparrow}, \\
+    (\v{\sigma}_2 \cdot w_2\tr \v{r}) \ket{\uparrow\uparrow} &= w_2\tr r^0 \ket{\uparrow\uparrow} + \sqrt{2}w_2\tr r^+ \ket{\uparrow\downarrow}.
+\end{align}
+
+Now we assemble the isospin, spin, and spatial form factors back into the total expression. Let $f_1 = f(w_1\tr \v{r})$ and $f_2 = f(w_2\tr \v{r})$ for brevity. By grouping the terms by the emitted pion type, we obtain the final 9 intermediate dressed states:
+
+\begin{align}
+    W \ket{\chi} \ket{\xi} &= 
+    \pi^0 \ket{\xi_{sym}} \otimes \br[2]{ 
+        \br{f_1 w_1\tr r^0 - f_2 w_2\tr r^0} \ket{\uparrow\uparrow} 
+        + \sqrt{2} f_1 w_1\tr r^+ \ket{\downarrow\uparrow} 
+        - \sqrt{2} f_2 w_2\tr r^+ \ket{\uparrow\downarrow} 
+    } \n
+    &\quad + \pi^+ \ket{nn} \otimes \br[2]{ 
+        \br{-f_1 w_1\tr r^0 + f_2 w_2\tr r^0} \ket{\uparrow\uparrow} 
+        - \sqrt{2} f_1 w_1\tr r^+ \ket{\downarrow\uparrow} 
+        + \sqrt{2} f_2 w_2\tr r^+ \ket{\uparrow\downarrow} 
+    } \n
+    &\quad + \pi^- \ket{pp} \otimes \br[2]{ 
+        \br{f_1 w_1\tr r^0 - f_2 w_2\tr r^0} \ket{\uparrow\uparrow} 
+        + \sqrt{2} f_1 w_1\tr r^+ \ket{\downarrow\uparrow} 
+        - \sqrt{2} f_2 w_2\tr r^+ \ket{\uparrow\downarrow} 
+    }.
+\end{align}
+
+This explicit expansion clearly demonstrates how the 3 pion channels ($\pi^0, \pi^+, \pi^-$) couple to the 3 spin configurations ($\ket{\uparrow\uparrow}, \ket{\downarrow\uparrow}, \ket{\uparrow\downarrow}$), generating the $3 \times 3 = 9$ unique spatial matrix elements required to construct the transition blocks of the Hamiltonian.
+
+\chapter{Source Code} \label{ap:code}
+The complete C++ source code for the Stochastic Variational Method simulation, alongside scripts for data analysis and visualization, is publicly available in a GitHub repository: \url{https://github.com/Moth-0/}.
+
+\end{document} % ----------The document is now complete! ------------
+This explicit expansion clearly demonstrates how the 3 pion channels ($\pi^0, \pi^+, \pi^-$) couple to the 3 spin configurations ($\ket{\uparrow\uparrow}, \ket{\downarrow\uparrow}, \ket{\uparrow\downarrow}$), generating the $3 \times 3 = 9$ unique spatial matrix elements required to construct the transition blocks of the Hamiltonian.
+
+\chapter{Source Code} \label{ap:code}
+The complete C++ source code for the Stochastic Variational Method simulation, alongside scripts for data analysis and visualization, is publicly available in a GitHub repository: \url{https://github.com/Moth-0/}.
+
+\end{document} % ----------The document is now complete! ------------

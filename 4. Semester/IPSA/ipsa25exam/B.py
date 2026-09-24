@@ -25,5 +25,7 @@ n = int(input())
 
 names = [input() for _ in range(n)]
 
-for n in sorted(names):
+out = sorted(names)
+
+for n in out:
     print(n)

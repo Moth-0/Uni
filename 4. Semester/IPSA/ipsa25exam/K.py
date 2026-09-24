@@ -26,7 +26,7 @@
     Example:
 
       Input:  5
-              Brittany Pineberry Mohsina MonsteraDeliciosa
+              {Brittany:Pineberry Mohsina MonsteraDeliciosa}
               Liam Guava Loganberry Melon StarApple Pineberry
               Adam Cherimoya Pineberry Lychee Melon Plum Guava
               Joshua MonsteraDeliciosa Plum
@@ -44,26 +44,32 @@ n = int(input())
 dic = {}
 subset = {}
 
+# Every name is a key in dict with prefs as values
 for _ in range(n): 
     i = input().split()
+    # i = [Brittany, Pineberry, Mohsina, MonsteraDeliciosa]
     dic[i[0]] = set(i[1:])
     
+# check every person against eachother 
+# n1 and n2 are keys 
 for n1 in dic:
     for n2 in dic:
         if n1 != n2: 
+            # dic[n1] & dic[n2] get all common values of two keys 
             subset[" ".join(sorted([n1, n2]))] = dic[n1] & dic[n2]
 
+# Sort the values in the dict 
 subset = {i: sorted(j) for i, j in subset.items()}
 
-k = max([len(x) for x in subset.values()])
+k = max([len(x) for x in subset.values()]) # Find max common
+# Make a new dict that has only pairs with k common values 
+# and sort it based first on the values then by the keys 
 pref = {y:x for y,x in sorted(zip(subset.keys(), subset.values()), 
                               key=lambda x: (x[1], x[0])) # Sorting a dict was with help from 
                               if len(x)==k}               # https://stackoverflow.com/questions/613183/how-do-i-sort-a-dictionary-by-value 
-n = len(pref)
+n = len(pref) # number of pairs with k common
 print(f"{k} {n}")
 
 for p in pref: 
     print(" ".join(subset[p]))
     print(p)
-
-    

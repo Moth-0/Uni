@@ -15,12 +15,12 @@
     Example:
 
       Input:  5 X -
-
-      Output: X-X-X
-              -X-X-
-              X-X-X
-              -X-X-
-              X-X-X
+              01234
+      Output: X-X-X 0 
+              -X-X- 1
+              X-X-X 2
+              -X-X- 3
+              X-X-X 4
 '''
 
 
@@ -28,5 +28,6 @@
 n, a, b = input().split()
 n = int(n)
 
-for i in range(n):
-    print("".join([a if (i+j) % 2 == 0 else b for j in range(n)]))
+for i in range(n): # Rows
+    print("".join([a if (i+j) % 2 == 0 # a on even
+                   else b for j in range(n)])) 

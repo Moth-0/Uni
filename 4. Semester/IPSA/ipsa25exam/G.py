@@ -36,7 +36,7 @@ l = a + b + c
 # insert code
 def solve(a, b, c, s=""): 
     if all(x == 0 for x in [a,b,c]) and len(s) == l: 
-        print(s)
+        print(s)     
     if a > 0:
         solve(a-1, b, c, s + "A") 
     if b > 0: 
