@@ -1,0 +1,108 @@
+\documentclass[aspectratio=169]{beamer}
+
+% --- Preamble ---
+\usetheme{default}
+\usecolortheme{default}
+
+% Essential packages for physics and math
+\usepackage{amsmath}
+\usepackage{physics}
+\usepackage{graphicx}
+\usepackage{booktabs} % For professional tables
+\usepackage{hyperref}
+
+% Package for inserting Python code snippets
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.87,0.72}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+% --- Title Information ---
+\title[Computational Physics]{Metropolis Monte Carlo}
+\subtitle{Portfolio Presentation}
+\author{Mikkel}
+\institute[Aarhus University]{Department of Physics and Astronomy}
+\date{\today}
+
+\begin{document}
+
+% Title Slide
+\begin{frame}
+    \titlepage
+\end{frame}
+
+% % Outline Slide
+% \begin{frame}{Outline}
+%     \tableofcontents
+% \end{frame}
+
+\section{Introduction to Metropolis Monte Carlo}
+\begin{frame}{Metropolis Monte Carlo}
+    
+\end{frame}
+\begin{frame}{Why Metropolis Monte Carlo?}
+    The Metropolis algorithm bypasses the need to evaluate the intractable partition function $Q$ by relying solely on the ratio of target distributions.
+    
+    \vspace{0.5cm}
+    \textbf{Key Advantages:}
+    \begin{itemize}
+        \item Evaluates only the energy change $\Delta V = V(x') - V(x)$ between states.
+        \item Satisfies detailed balance, ensuring the Markov chain converges to the true canonical Boltzmann distribution.
+        \item Automatically captures entropy by allowing thermal fluctuations to explore wide basins.
+    \end{itemize}
+\end{frame}
+
+\section{Algorithm Implementation}
+\begin{frame}[fragile]{The Acceptance Criterion}
+    The core logic dictates whether a proposed move is accepted or rejected based on the change in energy and the system temperature.
+    
+    \vspace{0.3cm}
+    \begin{lstlisting}[language=Python]
+# Metropolis acceptance criterion
+if de <= 0 or np.random.rand() < np.exp(-de / kT):
+    P = P_new # Accept the move
+    accepted_moves += 1
+else:
+    # Reject the move, stay at current P
+    pass 
+    \end{lstlisting}
+\end{frame}
+
+\section{Simulation Results}
+\begin{frame}{Energy Fluctuations and Thermal Average}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            After an initial equilibration period, the system's energy fluctuates stably around the thermal average. 
+            
+            \vspace{0.3cm}
+            These fluctuations can be used directly to calculate macroscopic properties like heat capacity:
+            $$C_{V,pot} = \frac{\langle V(x)^2 \rangle - \langle V(x) \rangle^2}{k_B T^2}$$
+        \end{column}
+        
+    \end{columns}
+\end{frame}
+
+\end{document}

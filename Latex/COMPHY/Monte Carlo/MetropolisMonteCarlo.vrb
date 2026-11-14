@@ -1,0 +1,13 @@
+\frametitle{The Acceptance Criterion}
+The core logic dictates whether a proposed move is accepted or rejected based on the change in energy and the system temperature.
+
+    \vspace{0.3cm}
+    \begin{lstlisting}[language=Python]
+# Metropolis acceptance criterion
+if de <= 0 or np.random.rand() < np.exp(-de / kT):
+    P = P_new # Accept the move
+    accepted_moves += 1
+else:
+    # Reject the move, stay at current P
+    pass
+    \end{lstlisting}
